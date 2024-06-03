@@ -20,6 +20,7 @@ if(APPLE)
     set (SFML_LOCATION "/opt/homebrew/Cellar/sfml/2.6.1")
     set (SFML_DIR "${SFML_LOCATION}/lib/cmake/SFML")
     target_link_libraries (${CMAKE_PROJECT_NAME} sfml-graphics sfml-audio)
+    find_package (SFML 2.6 COMPONENTS graphics REQUIRED)
 
 elseif(WIN32)
     set (SFML_LOCATION "C:/SFML/SFML-2.6.0")
@@ -31,7 +32,7 @@ elseif(WIN32)
     target_link_libraries (${CMAKE_PROJECT_NAME} sfml-graphics sfml-main)
 endif()
 
-find_package (SFML 2.6 COMPONENTS graphics REQUIRED)
+
 
 
 
