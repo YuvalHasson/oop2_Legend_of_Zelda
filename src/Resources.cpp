@@ -6,7 +6,7 @@ Resources::Resources()
 	{
 		this->m_texture[i].loadFromFile(this->m_imgName[i]);
 	}
-	this->m_font.loadFromFile("C:/Windows/Fonts/Tahoma.ttf");
+	this->m_font.loadFromFile("ZeldaFont.ttf");
 }
 
 Resources::~Resources()
