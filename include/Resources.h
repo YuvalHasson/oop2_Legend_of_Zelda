@@ -7,7 +7,7 @@ class Resources
 {
 private:
 	std::string m_imgName[OBJ_AMOUNT] = { 
-		"Stick.png", "Menu.png", "Button.png",
+		"Stick.png", "Zelda Menu.png", "Button.png",
 		"Scoreboard.png", "Clock.png", "EndGameScreen.png", "HelpButton.png", "SaveButton.png",
 		"The Legend of Zelda.png"
 	};

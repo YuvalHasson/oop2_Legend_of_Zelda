@@ -4,6 +4,7 @@ Controller::Controller()
 	: m_window(sf::VideoMode(windowHeight, WindowWidth), "Zelda", sf::Style::Close | sf::Style::Titlebar)
 {
 	m_window.setFramerateLimit(60);
+    m_gameState = GAME_STATE::MAIN_MENU;
 }
 
 Controller::~Controller()
@@ -27,6 +28,10 @@ void Controller::run()
 
     while (m_window.isOpen())
     {
+        if (m_gameState == GAME_STATE::NEW_GAME)
+        {
+            m_gameState = GAME_STATE::GAME_RUNNING;
+        }
         for (auto event = sf::Event{}; m_window.pollEvent(event);)
         {
             switch (event.type)
@@ -52,6 +57,17 @@ void Controller::run()
                     player.move(sf::Vector2f(1, 0) * 250.f * deltaTime.asSeconds());
                 }
                 break;
+            case sf::Event::MouseButtonReleased:
+				if (m_gameState == GAME_STATE::MAIN_MENU)
+				{
+					m_gameState = m_mainMenu.buttonPressed(m_window, event.mouseButton);
+				    
+					if (m_gameState == GAME_STATE::EXIT)
+                    {
+						m_window.close();
+					}
+                }
+				break;
             default:
                 break;
             }
@@ -73,9 +89,30 @@ void Controller::run()
         view.setCenter(viewCenterX, viewCenterY);
 
         m_window.clear();
-        m_window.setView(view);
-        m_window.draw(background);
-        m_window.draw(player);
+
+
+        switch (m_gameState)
+        {
+		case::GAME_STATE::MAIN_MENU:
+			m_mainMenu.drawMainMenu(m_window);
+			break;
+		case::GAME_STATE::NEW_GAME:
+			break;
+		case::GAME_STATE::EXIT:
+			break;
+		case::GAME_STATE::LOAD_GAME:
+			break;
+		case::GAME_STATE::GAME_RUNNING:
+            m_window.setView(view);
+            m_window.draw(background);
+            m_window.draw(player);
+			break;
+        case::GAME_STATE::ENDGAME:
+			break;
+        default:
+            break;
+        }
+
         m_window.display();
     }
 }
