@@ -6,7 +6,6 @@ enum GAME_STATE { MAIN_MENU, NEW_GAME, EXIT, LOAD_GAME, GAME_RUNNING , ENDGAME};
 
 #define windowHeight 1000
 #define WindowWidth 800
-#define tileSize 16
 
 namespace TEXTURE
 {
