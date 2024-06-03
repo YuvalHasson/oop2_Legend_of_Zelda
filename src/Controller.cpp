@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include <iostream> //for debugging
 
 Controller::Controller()
 	: m_window(sf::VideoMode(windowHeight, WindowWidth), "Zelda", sf::Style::Close | sf::Style::Titlebar)
@@ -13,13 +14,13 @@ Controller::~Controller()
 
 void Controller::run()
 {
-    sf::RectangleShape player(sf::Vector2f(25, 25));
+    sf::RectangleShape player(sf::Vector2f(tileSize, tileSize));
     player.setTexture(Resources::getResource().getTexture(TEXTURE::Score));
     player.setPosition(100, 100);
-    player.setOrigin(25 / 2, 25 / 2);
+    player.setOrigin(tileSize / 2, tileSize / 2);
 
-    sf::RectangleShape background(sf::Vector2f(windowHeight, WindowWidth));
-    background.setTexture(Resources::getResource().getTexture(TEXTURE::Map));
+    sf::Sprite background;
+    background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
 
     sf::View view(sf::FloatRect(sf::Vector2f(80, 140), sf::Vector2f(250, 265)));
     view.setCenter(player.getPosition());
