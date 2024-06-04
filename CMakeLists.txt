@@ -32,7 +32,7 @@ elseif(WIN32)
 
     set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
     target_link_libraries (${CMAKE_PROJECT_NAME} sfml-graphics sfml-main)
+    include (cmake/SFML.cmake)
 endif()
 
-include (cmake/SFML.cmake)
 
