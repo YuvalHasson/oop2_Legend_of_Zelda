@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Utilities.h"
 
 //need to include every type of game objects for collision
 //or forward declare
@@ -12,6 +13,9 @@ public:
 
     virtual void draw(sf::RenderWindow&);
     bool checkCollision(const GameObject& other);
+
+	//temp get
+	sf::Sprite& getSprite() { return m_sprite; }
 
 private:
     sf::Sprite m_sprite;
