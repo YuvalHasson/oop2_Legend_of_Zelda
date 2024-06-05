@@ -2,7 +2,6 @@
 
 Board::Board()
 {
-	addGameObject(std::make_unique<GameObject>(*Resources::getResource().getTexture(TEXTURE::Score), sf::Vector2f(10.f, 10.f)));
 }
 
 void Board::draw(sf::RenderWindow& window)
@@ -13,7 +12,28 @@ void Board::draw(sf::RenderWindow& window)
 	}
 }
 
-void Board::addGameObject(std::unique_ptr<GameObject> gameObject)
+void Board::addGameObject(std::unique_ptr<MovingObjects> gameObject)
 {
 	m_gameObjects.push_back(std::move(gameObject));
+}
+
+void Board::makeLink(b2World& world)
+{
+	addGameObject(std::make_unique<Link>(world, *Resources::getResource().getTexture(TEXTURE::Score), sf::Vector2f(10.f, 10.f)));
+}
+
+void Board::move()
+{
+	for (auto& gameObject : m_gameObjects)
+	{
+		gameObject->move();
+	}
+}
+
+void Board::update()
+{
+	for (auto& gameObject : m_gameObjects)
+	{
+		gameObject->update();
+	}
 }

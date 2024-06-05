@@ -1,11 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "GameObject.h"
+#include "MovingObjects.h"
 #include "Utilities.h"
 #include "Resources.h"
 #include <vector>
 #include <memory>
+
+#include "Link.h"
 
 class Board
 {
@@ -14,11 +16,14 @@ public:
 	~Board() = default;
 
 	void draw(sf::RenderWindow&);
-	void addGameObject(std::unique_ptr<GameObject> gameObject);
+	void addGameObject(std::unique_ptr<MovingObjects> gameObject);
+	void makeLink(b2World& world);
+	void move();
+	void update();
 
 	//temp get
 	sf::Sprite& getSprite(int index) { return m_gameObjects[index]->getSprite(); }
 
 private:
-	std::vector<std::unique_ptr<GameObject>> m_gameObjects; //change for moving objects
+	std::vector<std::unique_ptr<MovingObjects>> m_gameObjects; //change for moving objects
 };
