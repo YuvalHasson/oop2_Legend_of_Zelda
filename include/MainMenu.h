@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Utilities.h"
 #include "Resources.h"
-#include "Button.h"
+#include "StartButton.h"
 
 class MainMenu
 {
@@ -17,5 +17,5 @@ public:
 	
 private:
 	sf::RectangleShape m_menuBackground;
-	Button m_Button;
+	std::unique_ptr<Button> m_button;
 };
