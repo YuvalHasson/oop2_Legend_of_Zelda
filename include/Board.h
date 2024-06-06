@@ -18,7 +18,7 @@ public:
 	void draw(sf::RenderWindow&);
 	void addGameObject(std::unique_ptr<MovingObjects> gameObject);
 	void makeLink(b2World& world);
-	void move();
+	void move(const sf::Time& deltaTime);
 	void update();
 
 	//temp get

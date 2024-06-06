@@ -61,3 +61,7 @@ void Animation::setStartPoisition(sf::Vector2u startPosition){
 sf::IntRect Animation::getuvRect()const{
     return m_uvRect;
 }
+
+void Animation::setImageCount(int count){
+    m_imageCount = count;
+}

@@ -41,8 +41,12 @@ void Controller::run()
 
     auto worldStepCounter = 60;
     
+    sf::Clock clock;
+    sf::Time deltaTime;
+    
     while (m_window.isOpen())
     {
+        deltaTime = clock.restart();
         if (m_gameState == GAME_STATE::NEW_GAME)
         {
 			m_board.makeLink(*world);
@@ -68,7 +72,7 @@ void Controller::run()
             view.setCenter(viewCenterX, viewCenterY);
 
 			// Move the player
-			m_board.move();
+			m_board.move(deltaTime);
 		}
 
         if (worldStepCounter--)
