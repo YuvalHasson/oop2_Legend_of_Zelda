@@ -1,6 +1,6 @@
 #pragma once
 
-const int OBJ_AMOUNT = 9;
+const int OBJ_AMOUNT = 10;
 
 enum GAME_STATE { MAIN_MENU, NEW_GAME, EXIT, LOAD_GAME, GAME_RUNNING , ENDGAME};
 
@@ -19,4 +19,5 @@ namespace TEXTURE
 	constexpr int HelpButton = 6;
 	constexpr int SaveButton = 7;
 	constexpr int Map = 8;
+	constexpr int Link = 9;
 }

@@ -19,7 +19,7 @@ void Board::addGameObject(std::unique_ptr<MovingObjects> gameObject)
 
 void Board::makeLink(b2World& world)
 {
-	addGameObject(std::make_unique<Link>(world, *Resources::getResource().getTexture(TEXTURE::Score), sf::Vector2f(10.f, 10.f)));
+	addGameObject(std::make_unique<Link>(world, *Resources::getResource().getTexture(TEXTURE::Link), sf::Vector2f(10.f, 10.f)));
 }
 
 void Board::move()

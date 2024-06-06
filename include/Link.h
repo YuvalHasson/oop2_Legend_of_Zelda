@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MovingObjects.h"
+#include "Animation.h"
 
 class Link : public MovingObjects
 {
@@ -11,5 +12,5 @@ public:
 	virtual void handleCollision(GameObject&) override;
 
 private:
-
+	Animation m_animation;
 };
