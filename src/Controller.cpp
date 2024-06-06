@@ -50,6 +50,7 @@ void Controller::run()
         if (m_gameState == GAME_STATE::NEW_GAME)
         {
 			m_board.makeLink(*world);
+			m_board.addStaticObject(*world);
             view.setCenter(m_board.getSprite(0).getPosition()); // not suppose to be here
             m_gameState = GAME_STATE::GAME_RUNNING;
         }

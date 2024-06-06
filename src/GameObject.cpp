@@ -51,6 +51,6 @@ void GameObject::update()
     float angle = m_body->GetAngle();
 
     m_sprite.setPosition(position.x * 50.0f, position.y * 50.0f);
-    m_sprite.setRotation(angle * 180.0f / b2_pi);
+    m_sprite.setRotation(angle * 180.0f / b2_pi);//mabye cause him to spin?
 }
 

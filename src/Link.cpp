@@ -1,5 +1,7 @@
 #include "Link.h"
 
+#include <iostream> //debugging
+
 Link::Link(b2World& world, const sf::Texture& texture, const sf::Vector2f& position)
 	: MovingObjects(world, texture, position), m_animation({ 1, 42 }, 2, 0.15f, tileSize, tileSize), m_direction(0,0)
 {
