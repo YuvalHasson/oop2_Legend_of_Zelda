@@ -30,7 +30,6 @@ void Link::move(const sf::Time& deltaTime)
         {
             m_animation.setAnimation(ANIMATIONS_POSITIONS::LinkRight, 2);
             m_direction = sf::Vector2i(1, -1);
-            std::cout<<"direction change to 1,-1\n";
         }
         isMoving = true;
     }
@@ -40,7 +39,6 @@ void Link::move(const sf::Time& deltaTime)
         {
             m_animation.setAnimation(ANIMATIONS_POSITIONS::LinkLeft, 2);
             m_direction = sf::Vector2i(-1, -1);
-            std::cout<<"direction change to -1,-1\n";
         }
         isMoving = true;
     }
@@ -70,7 +68,6 @@ void Link::move(const sf::Time& deltaTime)
         {
             if (m_direction != sf::Vector2i(0, -1))
             {
-                std::cout<<"setting to 0,-1\n";
                 m_animation.setAnimation(ANIMATIONS_POSITIONS::LinkUp, 2);
                 m_direction = sf::Vector2i(0, -1);
             }
