@@ -9,6 +9,7 @@
 
 #include "Link.h"
 #include "Wall.h"
+#include "Pot.h"
 
 
 struct UnknownCollision : public std::runtime_error

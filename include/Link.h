@@ -8,8 +8,8 @@ class Link : public MovingObjects
 public:
 	Link(b2World&, const sf::Texture&, const sf::Vector2f&);
 
-	virtual void move(const sf::Time& deltaTime) override;
-	virtual void attack(const sf::Time& deltaTime)override;
+	virtual void move(const sf::Time&) override;
+	virtual void attack(const sf::Time&)override;
 	virtual void handleCollision() override;
 
 private:

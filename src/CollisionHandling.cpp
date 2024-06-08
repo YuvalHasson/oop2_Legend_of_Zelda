@@ -12,6 +12,18 @@ namespace
 		//std::cout << "LinkWall" << std::endl;
 	}
 
+	void LinkPot(GameObject& link, GameObject& pot)
+	{
+		link.handleCollision();
+		//std::cout << "LinkWall" << std::endl;
+	}
+	
+	void PotLink(GameObject& pot, GameObject& link)
+	{
+		LinkPot(link, pot);
+		pot.handleCollision();
+	}
+
 	void WallLink(GameObject& wall, GameObject& link)
 	{
 		LinkWall(link, wall);
@@ -27,7 +39,9 @@ namespace
 	{
 		HitMap phm;
 		phm[Key(typeid(Link), typeid(Wall))] = &LinkWall;
-		// phm[Key(typeid(Link), typeid(Wall))] = &WallLink; // ==> wall to link collision
+		phm[Key(typeid(Link), typeid(Pot))] = &LinkPot;
+		phm[Key(typeid(Wall), typeid(Link))] = &WallLink; // ==> wall to link collision
+		phm[Key(typeid(Pot), typeid(Link))] = &PotLink; // ==> Pot to link collision
 
 		//...
 		return phm;

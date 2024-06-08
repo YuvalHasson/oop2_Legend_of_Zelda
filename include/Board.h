@@ -18,6 +18,7 @@
 
 #include "Link.h"
 #include "Wall.h"
+#include "Pot.h"
 
 class Board
 {

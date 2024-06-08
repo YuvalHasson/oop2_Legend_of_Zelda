@@ -24,12 +24,17 @@ public:
 
     b2Body* getBody() const;
 
+    void destroy();
+    bool isDestroyed() const;
+
 	//temp get?
 	sf::Sprite& getSprite() { return m_sprite; }
 
 private:
     sf::Sprite m_sprite;
     sf::Vector2f m_position;
+
+    bool m_destroyed = false;
 
 protected:
     b2Body* m_body;

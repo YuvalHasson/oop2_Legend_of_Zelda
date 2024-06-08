@@ -52,3 +52,13 @@ b2Body* GameObject::getBody() const
 {
     return m_body;
 }
+
+void GameObject::destroy()
+{
+	m_destroyed = true;
+}
+
+bool GameObject::isDestroyed() const
+{
+    return m_destroyed;
+}

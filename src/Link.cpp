@@ -1,5 +1,4 @@
 #include "Link.h"
-#include "Link.h"
 
 #include <iostream> //debugging
 
@@ -163,5 +162,5 @@ void Link::attack(const sf::Time& deltaTime){
 
 void Link::handleCollision()
 {
-    std::cout << "geet\n";
+    //std::cout << "geet\n";
 }

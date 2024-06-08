@@ -9,7 +9,7 @@ private:
 	std::string m_imgName[OBJ_AMOUNT] = { 
 		"Stick.png", "Zelda Menu.png", "Button.png",
 		"Scoreboard.png", "Clock.png", "EndGameScreen.png", "HelpButton.png", "SaveButton.png",
-		"The Legend of Zelda.png", "LinkandSword.png"
+		"The Legend of Zelda.png", "LinkandSword.png", "Mapobject.png"
 	};
 	sf::Texture m_texture[OBJ_AMOUNT];
 	sf::Font m_font;

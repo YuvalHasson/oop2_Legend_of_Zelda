@@ -22,11 +22,12 @@ void Board::draw(sf::RenderWindow& window)
 void Board::addStaticObject(b2World& world, const sf::Vector2f position)
 {
 	m_staticObjects.emplace_back(std::make_unique<Wall>(world, *Resources::getResource().getResource().getTexture(TEXTURE::Score), position));
+	m_staticObjects.emplace_back(std::make_unique<Pot>(world, *Resources::getResource().getResource().getTexture(TEXTURE::MapObjects), sf::Vector2f(position.x + 25.f, position.y)));
 }
 
 void Board::makeLink(b2World& world)
 {
-	m_gameObjects.emplace_back(std::make_unique<Link>(world, *Resources::getResource().getTexture(TEXTURE::Link), sf::Vector2f(40.f, 40.f)));
+	m_gameObjects.emplace_back(std::make_unique<Link>(world, *Resources::getResource().getTexture(TEXTURE::Link), sf::Vector2f(20.f, 20.f)));
 }
 
 void Board::move(const sf::Time& deltaTime)
@@ -44,6 +45,8 @@ void Board::update()
 	{
 		gameObject->update();
 	}
+
+	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
 }
 
 void Board::handleCollision()
@@ -55,6 +58,10 @@ void Board::handleCollision()
 			if (colide(*gameObject, *staticObj))
 			{
 				processCollision(*gameObject, *staticObj);
+			}
+			if (colide(*staticObj, *gameObject))
+			{
+				processCollision(*staticObj, *gameObject);
 			}
 		}
 	}
