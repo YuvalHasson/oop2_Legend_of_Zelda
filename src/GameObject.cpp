@@ -6,7 +6,7 @@ GameObject::GameObject(b2World& world, const sf::Texture& texture, const sf::Vec
     // Define the dynamic body. We set its position and call the body
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(0.f, 0.f);
+    bodyDef.position.Set(position.x/tileSize, position.y/tileSize);
     m_body = world.CreateBody(&bodyDef);
 
     // Define another box shape for our dynamic body
@@ -51,6 +51,5 @@ void GameObject::update()
     float angle = m_body->GetAngle();
 
     m_sprite.setPosition(position.x * 50.0f, position.y * 50.0f);
-    m_sprite.setRotation(angle * 180.0f / b2_pi);//mabye cause him to spin?
 }
 
