@@ -19,11 +19,12 @@ public:
 
     virtual void draw(sf::RenderWindow&);
 	virtual void update();
-    bool checkCollision(const GameObject&) const;
-	virtual void handleCollision(GameObject&) = 0;
+    
+	virtual void handleCollision() = 0;
 
+    b2Body* getBody() const;
 
-	//temp get
+	//temp get?
 	sf::Sprite& getSprite() { return m_sprite; }
 
 private:

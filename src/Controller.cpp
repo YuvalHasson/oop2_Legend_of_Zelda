@@ -30,8 +30,6 @@ void Controller::run()
     // stack causes compiler warning on function stack usage
     auto world = std::make_unique<b2World>(gravity);
 
- 
-
     // Prepare for simulation. Typically we use a time step of 1/60 of a
     // second (60Hz) and 10 iterations. This provides a high quality simulation
     // in most game scenarios
@@ -50,7 +48,10 @@ void Controller::run()
         if (m_gameState == GAME_STATE::NEW_GAME)
         {
 			m_board.makeLink(*world);
-			m_board.addStaticObject(*world);
+			m_board.addStaticObject(*world, sf::Vector2f(90.f, 90.f));
+            m_board.addStaticObject(*world, sf::Vector2f(90.f, 110.f));
+            m_board.addStaticObject(*world, sf::Vector2f(90.f, 130.f));
+
             view.setCenter(m_board.getSprite(0).getPosition()); // not suppose to be here
             m_gameState = GAME_STATE::GAME_RUNNING;
         }
@@ -74,13 +75,14 @@ void Controller::run()
 
 			// Move the player
 			m_board.move(deltaTime);
-		}
+			m_board.handleCollision();
 
-        if (worldStepCounter--)
-        {
-            world->Step(timeStep, velocityIterations, positionIterations);
-			m_board.update();
-        }
+            if (worldStepCounter--)
+            {
+                world->Step(timeStep, velocityIterations, positionIterations);
+			    m_board.update();
+            }
+		}
 
         for (auto event = sf::Event{}; m_window.pollEvent(event);)
         {

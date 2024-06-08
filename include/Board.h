@@ -1,5 +1,11 @@
 #pragma once
 
+// Disable MSVC analysis warnings for the box2d include
+#pragma warning(push)
+#pragma warning(disable: 26495 26813)
+#include "box2d/box2d.h"
+#pragma warning(pop)
+
 #include <SFML/Graphics.hpp>
 #include "MovingObjects.h"
 #include "StaticObjects.h"
@@ -7,6 +13,8 @@
 #include "Resources.h"
 #include <vector>
 #include <memory>
+
+#include "CollisionHandling.h"
 
 #include "Link.h"
 #include "Wall.h"
@@ -18,11 +26,12 @@ public:
 	~Board() = default;
 
 	void draw(sf::RenderWindow&);
-	void addGameObject(std::unique_ptr<MovingObjects> gameObject);
-	void addStaticObject(b2World&);
+	void addStaticObject(b2World& , const sf::Vector2f);
 	void makeLink(b2World&);
 	void move(const sf::Time&);
 	void update();
+	void handleCollision();
+
 
 	//temp get
 	const sf::Sprite& getSprite(int index) { return m_gameObjects[index]->getSprite(); }
@@ -30,4 +39,20 @@ public:
 private:
 	std::vector<std::unique_ptr<MovingObjects>> m_gameObjects; //change for moving objects
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
+
+
+	// STL-like algorithm to run over all pairs
+	template <typename FwdIt, typename Fn>
+	void for_each_pair(FwdIt begin, FwdIt end, Fn fn)
+	{
+		for (; begin != end; ++begin)
+			for (auto second = begin + 1; second != end; ++second)
+				fn(*begin, *second);
+	}
+
+	template <typename Object1, typename Object2>
+	bool colide(Object1& a, Object2& b)
+	{
+		return a.getSprite().getGlobalBounds().intersects(b.getSprite().getGlobalBounds());
+	}
 };

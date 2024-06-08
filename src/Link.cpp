@@ -1,4 +1,5 @@
 #include "Link.h"
+#include "Link.h"
 
 #include <iostream> //debugging
 
@@ -13,7 +14,6 @@ void Link::move(const sf::Time& deltaTime)
 	
     if (sf::Event::KeyPressed)
     {
-        
         b2Vec2 velocity(0.f, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
@@ -61,8 +61,10 @@ void Link::move(const sf::Time& deltaTime)
     
 	getSprite().setTextureRect(m_animation.getuvRect());
     getSprite().setScale(1, 1);
+
 }
 
-void Link::handleCollision(GameObject&)
+void Link::handleCollision()
 {
+    std::cout << "geet\n";
 }
