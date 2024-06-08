@@ -51,9 +51,10 @@ void Animation::update(const sf::Time& deltaTime, bool flip) {
     m_uvRect.top = m_animationStartPosition.y;
 }
 
-void Animation::setStartPoisition(sf::Vector2u startPosition){
+void Animation::setAnimation(sf::Vector2u startPosition, int imgCount){
     m_animationStartPosition = startPosition;
     m_currentImage = 0;
+    m_imageCount = imgCount;
     m_uvRect.left = startPosition.x;
     m_uvRect.top = startPosition.y;
 }
@@ -62,6 +63,3 @@ sf::IntRect Animation::getuvRect()const{
     return m_uvRect;
 }
 
-void Animation::setImageCount(int count){
-    m_imageCount = count;
-}

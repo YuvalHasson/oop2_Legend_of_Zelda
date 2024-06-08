@@ -15,8 +15,7 @@ public:
 
     //for when changing animation for an object
     //i.e if link has a shield or not
-    void setStartPoisition(sf::Vector2u);
-    void setImageCount(int);
+    void setAnimation(sf::Vector2u, int);
 
     //returns the correct rect to use with the sprite
     sf::IntRect getuvRect()const;
