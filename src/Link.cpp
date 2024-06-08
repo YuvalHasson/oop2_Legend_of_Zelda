@@ -28,8 +28,6 @@ void Link::move(const sf::Time& deltaTime)
             m_animation.setAnimation(sf::Vector2u{69, 42}, 2);
             m_direction = sf::Vector2i(1, -1);
         }
-        velocity.x += 1.f;
-        velocity.y -= 1.f;
         isMoving = true;
     }
     else if (up && left)
@@ -39,8 +37,6 @@ void Link::move(const sf::Time& deltaTime)
             m_animation.setAnimation(sf::Vector2u{35, 11}, 2);
             m_direction = sf::Vector2i(-1, -1);
         }
-        velocity.x -= 1.f;
-        velocity.y -= 1.f;
         isMoving = true;
     }
     else if (down && right)
@@ -50,8 +46,6 @@ void Link::move(const sf::Time& deltaTime)
             m_animation.setAnimation(sf::Vector2u{69, 42}, 2);
             m_direction = sf::Vector2i(1, 1);
         }
-        velocity.x += 1.f;
-        velocity.y += 1.f;
         isMoving = true;
     }
     else if (down && left)
@@ -61,8 +55,6 @@ void Link::move(const sf::Time& deltaTime)
             m_animation.setAnimation(sf::Vector2u{35, 11}, 2);
             m_direction = sf::Vector2i(-1, 1);
         }
-        velocity.x -= 1.f;
-        velocity.y += 1.f;
         isMoving = true;
     }
 
@@ -76,7 +68,6 @@ void Link::move(const sf::Time& deltaTime)
                 m_animation.setAnimation(sf::Vector2u{35, 42}, 2);
                 m_direction = sf::Vector2i(0, -1);
             }
-            velocity.y -= 1.f;
             isMoving = true;
         }
         if (down)
@@ -86,7 +77,6 @@ void Link::move(const sf::Time& deltaTime)
                 m_animation.setAnimation(sf::Vector2u{1, 42}, 2);
                 m_direction = sf::Vector2i(0, 1);
             }
-            velocity.y += 1.f;
             isMoving = true;
         }
         if (left)
@@ -96,7 +86,6 @@ void Link::move(const sf::Time& deltaTime)
                 m_animation.setAnimation(sf::Vector2u{35, 11}, 2);
                 m_direction = sf::Vector2i(-1, 0);
             }
-            velocity.x -= 1.f;
             isMoving = true;
         }
         if (right)
@@ -106,12 +95,13 @@ void Link::move(const sf::Time& deltaTime)
                 m_animation.setAnimation(sf::Vector2u{69, 42}, 2);
                 m_direction = sf::Vector2i(1, 0);
             }
-            velocity.x += 1.f;
             isMoving = true;
         }
     }
     if(isMoving){
         m_animation.update(deltaTime);
+        velocity.x = m_direction.x;
+        velocity.y = m_direction.y;
     }
     m_body->SetLinearVelocity(velocity);
 
