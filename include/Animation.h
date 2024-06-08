@@ -11,12 +11,14 @@ class Animation{
 public:
     Animation(sf::Vector2u startPosition, int imageCount, float switchTime, int spriteWidth = tileSize, int spriteHeight = tileSize);
 
-    void update(const sf::Time& deltaTime, bool flip = false);
+    void update(const sf::Time& deltaTime);
 
     //for when changing animation for an object
     //i.e if link has a shield or not
-    void setStartPoisition(sf::Vector2u);
-    void setImageCount(int);
+    void setAnimation(sf::Vector2u, int, bool flip = false, bool singleTime = false);
+
+    //for single time animation(attacks)
+    bool isDone()const;
 
     //returns the correct rect to use with the sprite
     sf::IntRect getuvRect()const;
@@ -29,8 +31,11 @@ private:
 
     sf::IntRect m_uvRect;
     bool m_singleImgFlip;
+    bool m_flip;
 
     float m_timePassed;//time passed from last image change
     float m_switchTime; //switch interval between each picture
+
+    bool m_singleTime;
 
 };
