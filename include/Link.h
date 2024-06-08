@@ -9,6 +9,7 @@ public:
 	Link(b2World&, const sf::Texture&, const sf::Vector2f&);
 
 	virtual void move(const sf::Time& deltaTime) override;
+	virtual void attack(const sf::Time& deltaTime)override;
 	virtual void handleCollision(GameObject&) override;
 
 private:
