@@ -37,6 +37,7 @@ void Board::move(const sf::Time& deltaTime)
 	for (auto& gameObject : m_gameObjects)
 	{
 		gameObject->move(deltaTime);
+		gameObject->attack(deltaTime); //might need to be somewhere else
 	}
 }
 
