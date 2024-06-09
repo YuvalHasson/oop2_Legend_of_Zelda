@@ -16,7 +16,6 @@ public:
 	void drawMainMenu(sf::RenderWindow&);
 	void buttonPressed(sf::RenderWindow&, const sf::Event::MouseButtonEvent&);
 	void startGame();
-	void setGameState(int);
 
 	int getGameState() const;
 
