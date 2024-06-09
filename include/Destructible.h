@@ -5,7 +5,7 @@
 class Destructible : public StaticObjects
 {
 public:
-	Destructible(b2World&, const sf::Texture&, const sf::Vector2f&);
+	Destructible(const sf::Texture&, const sf::Vector2f&);
 
 private:
 };

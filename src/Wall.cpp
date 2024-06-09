@@ -2,8 +2,8 @@
 
 #include <iostream> //debugging
 
-Wall::Wall(b2World& world, const sf::Texture& texture, const sf::Vector2f& position)
-	: InDestructible(world, texture, position)
+Wall::Wall(const sf::Texture& texture, const sf::Vector2f& position)
+	: InDestructible(texture, position)
 {
 }
 

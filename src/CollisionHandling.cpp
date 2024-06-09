@@ -9,7 +9,7 @@ namespace
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
 		link.handleCollision();
-		//std::cout << "LinkWall" << std::endl;
+
 	}
 
 	void LinkPot(GameObject& link, GameObject& pot)

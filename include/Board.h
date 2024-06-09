@@ -1,11 +1,5 @@
 #pragma once
 
-// Disable MSVC analysis warnings for the box2d include
-#pragma warning(push)
-#pragma warning(disable: 26495 26813)
-#include "box2d/box2d.h"
-#pragma warning(pop)
-
 #include <SFML/Graphics.hpp>
 #include "MovingObjects.h"
 #include "StaticObjects.h"
@@ -27,8 +21,8 @@ public:
 	~Board() = default;
 
 	void draw(sf::RenderWindow&);
-	void addStaticObject(b2World& , const sf::Vector2f);
-	void makeLink(b2World&);
+	void addStaticObject(const sf::Vector2f);
+	void makeLink();
 	void move(const sf::Time&);
 	void update();
 	void handleCollision();

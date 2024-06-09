@@ -20,24 +20,6 @@ void Controller::run()
 
     sf::View view(sf::FloatRect(sf::Vector2f(80, 140), sf::Vector2f(250, 265)));
 
-	//start of box2d testing
-
-    // Define the gravity vector
-    b2Vec2 gravity(0.0f, 0.0f);
-
-    // Construct a world object, which will hold and simulate the rigid bodies.
-    // Use dynamic allocation as this is a big object, and allocating it on the
-    // stack causes compiler warning on function stack usage
-    auto world = std::make_unique<b2World>(gravity);
-
-    // Prepare for simulation. Typically we use a time step of 1/60 of a
-    // second (60Hz) and 10 iterations. This provides a high quality simulation
-    // in most game scenarios
-    float timeStep = 1.0f / 60.0f;
-    int32 velocityIterations = 6;
-    int32 positionIterations = 2;
-
-    auto worldStepCounter = 60;
     
     sf::Clock clock;
     sf::Time deltaTime;
@@ -47,10 +29,10 @@ void Controller::run()
         deltaTime = clock.restart();
         if (m_gameState == GAME_STATE::NEW_GAME)
         {
-			m_board.makeLink(*world);
-			m_board.addStaticObject(*world, sf::Vector2f(90.f, 90.f));
-            m_board.addStaticObject(*world, sf::Vector2f(90.f, 110.f));
-            m_board.addStaticObject(*world, sf::Vector2f(90.f, 130.f));
+			m_board.makeLink();
+			m_board.addStaticObject(sf::Vector2f(90.f, 90.f));
+            m_board.addStaticObject(sf::Vector2f(90.f, 110.f));
+            m_board.addStaticObject(sf::Vector2f(90.f, 130.f));
 
             view.setCenter(m_board.getSprite(0).getPosition()); // not suppose to be here
             m_gameState = GAME_STATE::GAME_RUNNING;
@@ -76,12 +58,7 @@ void Controller::run()
 			// Move the player
 			m_board.move(deltaTime);
 			m_board.handleCollision();
-
-            if (worldStepCounter--)
-            {
-                world->Step(timeStep, velocityIterations, positionIterations);
-			    m_board.update();
-            }
+			m_board.update();
 		}
 
         for (auto event = sf::Event{}; m_window.pollEvent(event);)
@@ -135,5 +112,3 @@ void Controller::run()
         m_window.display();
     }
 }
-
-

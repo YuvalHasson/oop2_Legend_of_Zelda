@@ -5,7 +5,7 @@
 class MovingObjects : public GameObject
 {
 public:
-	MovingObjects(b2World&, const sf::Texture&, const sf::Vector2f&);
+	MovingObjects(const sf::Texture&, const sf::Vector2f&);
 
 	virtual void move(const sf::Time& deltaTime) = 0;
 	virtual void attack(const sf::Time& deltaTime) = 0;

@@ -2,8 +2,8 @@
 
 #include <iostream> //debugging
 
-Link::Link(b2World& world, const sf::Texture& texture, const sf::Vector2f& position)
-	: MovingObjects(world, texture, position), m_animation({ 1, 42 }, 2, 0.15f, tileSize, tileSize), m_direction(0,0)
+Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
+	: MovingObjects(texture, position), m_animation({ 1, 42 }, 2, 0.15f, tileSize, tileSize), m_direction(0,0)
 {
     
 }
@@ -19,8 +19,8 @@ void Link::move(const sf::Time& deltaTime)
     bool down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-
-    b2Vec2 velocity(0.f, 0.f);
+    
+	sf::Vector2f direction;
 
     bool isMoving = false;
     // Check for diagonal movement first
@@ -103,12 +103,9 @@ void Link::move(const sf::Time& deltaTime)
     }
     if(isMoving){
         m_animation.update(deltaTime);
-        velocity.x = m_direction.x;
-        velocity.y = m_direction.y;
 
+        getSprite().setPosition(getSprite().getPosition() + sf::Vector2f(m_direction));
     }
-    m_body->SetLinearVelocity(velocity);
-
     
 	updateSprite(m_animation.getuvRect());
 }
@@ -162,5 +159,6 @@ void Link::attack(const sf::Time& deltaTime){
 
 void Link::handleCollision()
 {
+
     //std::cout << "geet\n";
 }
