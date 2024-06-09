@@ -160,5 +160,9 @@ void Link::attack(const sf::Time& deltaTime){
 void Link::handleCollision()
 {
 
-    //std::cout << "geet\n";
+}
+
+void Link::undoMove()
+{
+	getSprite().setPosition(getSprite().getPosition() - sf::Vector2f(m_direction));
 }

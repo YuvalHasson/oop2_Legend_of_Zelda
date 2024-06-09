@@ -29,10 +29,10 @@ public:
 
 
 	//temp get
-	const sf::Sprite& getSprite(int index) { return m_gameObjects[index]->getSprite(); }
+	const sf::Sprite& getSprite(int index) { return m_movingObjects[index]->getSprite(); }
 
 private:
-	std::vector<std::unique_ptr<MovingObjects>> m_gameObjects; //change for moving objects
+	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 
 

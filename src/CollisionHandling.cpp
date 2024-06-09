@@ -10,18 +10,22 @@ namespace
 	{
 		link.handleCollision();
 
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->undoMove();
+		}
+
 	}
 
 	void LinkPot(GameObject& link, GameObject& pot)
 	{
-		link.handleCollision();
-		//std::cout << "LinkWall" << std::endl;
+		pot.handleCollision();
 	}
 	
 	void PotLink(GameObject& pot, GameObject& link)
 	{
 		LinkPot(link, pot);
-		pot.handleCollision();
 	}
 
 	void WallLink(GameObject& wall, GameObject& link)

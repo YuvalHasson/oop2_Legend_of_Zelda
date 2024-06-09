@@ -12,6 +12,8 @@ public:
 	virtual void attack(const sf::Time&)override;
 	virtual void handleCollision() override;
 
+	void undoMove();
+
 private:
 	Animation m_animation;
 	sf::Vector2i m_direction;
