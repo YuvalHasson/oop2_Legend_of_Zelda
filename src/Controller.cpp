@@ -82,7 +82,6 @@ void Controller::run()
                 break;
             }
         }
-
         m_window.clear();
 
 
@@ -90,6 +89,7 @@ void Controller::run()
         {
 		case::GAME_STATE::MAIN_MENU:
 			m_mainMenu.drawMainMenu(m_window);
+            m_mainMenu.overButton(m_window);
 			break;
 		case::GAME_STATE::NEW_GAME:
 			break;

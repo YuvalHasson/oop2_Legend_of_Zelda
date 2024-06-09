@@ -17,8 +17,10 @@ public:
 	void setMainMenu(MainMenu*);
 	
 	void setText(std::string, sf::Vector2f);
+	void overButton(sf::RenderWindow&);
 
 	bool isButtonPressed(sf::RenderWindow&, const sf::Event::MouseButtonEvent&);
+
 	MainMenu* getMainMenu() const;
 
 private:

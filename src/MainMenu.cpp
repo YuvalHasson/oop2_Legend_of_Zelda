@@ -9,6 +9,10 @@ MainMenu::MainMenu()
 	m_menuBackground.setTexture(Resources::getResource().getTexture(TEXTURE::Menu));
 
 	add("Start", std::make_unique<StartButton>(this));
+	add("Exit", std::make_unique<ExitButton>(this));
+	add("Settings", std::make_unique<SettingsButton>(this));
+	add("Help", std::make_unique<HelpButton>(this));
+	add("Load", std::make_unique<LoadButton>(this));
 }
 
 void MainMenu::drawMainMenu(sf::RenderWindow& window)
@@ -32,9 +36,22 @@ void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event::MouseBut
 	}
 }
 
+void MainMenu::overButton(sf::RenderWindow& window)
+{
+	for (auto& option : m_options)
+	{
+		option.second->overButton(window);
+	}
+}
+
 void MainMenu::startGame()
 {
 	m_gameState = GAME_STATE::NEW_GAME;
+}
+
+void MainMenu::exitGame()
+{
+	m_gameState = GAME_STATE::EXIT;
 }
 
 int MainMenu::getGameState() const
