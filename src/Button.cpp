@@ -24,6 +24,21 @@ void Button::setText(std::string text, sf::Vector2f position)
 	m_text.setPosition(position);
 }
 
+void Button::overButton(sf::RenderWindow& window)
+{
+	sf::Vector2i mouseLoc = sf::Mouse::getPosition(window);
+	if (m_text.getGlobalBounds().contains(mouseLoc.x, mouseLoc.y))
+	{
+		m_text.setOutlineColor(sf::Color::White);
+		m_text.setOutlineThickness(2);
+	}
+	else
+	{
+		m_text.setOutlineColor(sf::Color::Black);
+		m_text.setOutlineThickness(0);
+	}
+}
+
 bool Button::isButtonPressed(sf::RenderWindow& window, const sf::Event::MouseButtonEvent& event)
 {
 	return m_text.getGlobalBounds().contains(window.mapPixelToCoords({ event.x, event.y }));
