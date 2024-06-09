@@ -1,21 +1,19 @@
 #include "Button.h"
 
 Button::Button()
+	: m_mainMenu(nullptr)
 {
 }
 
 void Button::draw(sf::RenderWindow& window) const
 {
-	window.draw(m_button);
 	window.draw(m_text);
 }
 
-//void Button::createButton(sf::Vector2f position, sf::Vector2f size)
-//{
-//	m_button.setSize(size);
-//	m_button.setPosition(position);
-//	m_button.setTexture(Resources::getResource().getTexture(TEXTURE::Button));
-//}
+void Button::setMainMenu(MainMenu* mainMenu)
+{
+	m_mainMenu = mainMenu;
+}
 
 void Button::setText(std::string text, sf::Vector2f position)
 {
@@ -29,4 +27,9 @@ void Button::setText(std::string text, sf::Vector2f position)
 bool Button::isButtonPressed(sf::RenderWindow& window, const sf::Event::MouseButtonEvent& event)
 {
 	return m_text.getGlobalBounds().contains(window.mapPixelToCoords({ event.x, event.y }));
+}
+
+MainMenu* Button::getMainMenu() const
+{
+	return m_mainMenu;
 }

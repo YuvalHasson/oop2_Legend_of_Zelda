@@ -29,9 +29,7 @@ void Controller::run()
         {
             m_board.setMap();
 			m_board.makeLink();
-			//m_board.addStaticObject(sf::Vector2f(90.f, 90.f));
-   //         m_board.addStaticObject(sf::Vector2f(90.f, 110.f));
-   //         m_board.addStaticObject(sf::Vector2f(90.f, 130.f));
+
 
             view.setCenter(m_board.getSprite(0).getPosition()); // not suppose to be here
             m_gameState = GAME_STATE::GAME_RUNNING;
@@ -71,7 +69,8 @@ void Controller::run()
             case sf::Event::MouseButtonReleased:
 				if (m_gameState == GAME_STATE::MAIN_MENU)
 				{
-					m_gameState = m_mainMenu.buttonPressed(m_window, event.mouseButton);
+					m_mainMenu.buttonPressed(m_window, event.mouseButton);
+					m_gameState = m_mainMenu.getGameState();
 				    
 					if (m_gameState == GAME_STATE::EXIT)
                     {

@@ -5,6 +5,8 @@
 #include "Resources.h"
 #include "StartButton.h"
 
+using Option = std::pair<std::string, std::unique_ptr<Button>>;
+
 class MainMenu
 {
 public:
@@ -12,10 +14,17 @@ public:
 	~MainMenu() = default;
 
 	void drawMainMenu(sf::RenderWindow&);
+	void buttonPressed(sf::RenderWindow&, const sf::Event::MouseButtonEvent&);
+	void startGame();
+	void setGameState(int);
 
-	int buttonPressed(sf::RenderWindow&, const sf::Event::MouseButtonEvent&);
-	
+	int getGameState() const;
+
 private:
+	void add(const std::string&, std::unique_ptr<Button>);
+
 	sf::RectangleShape m_menuBackground;
-	std::unique_ptr<Button> m_button;
+	std::vector<Option> m_options;
+
+	int m_gameState;
 };

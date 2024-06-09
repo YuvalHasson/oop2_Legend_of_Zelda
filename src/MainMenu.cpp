@@ -1,26 +1,48 @@
 #include "MainMenu.h"
 
+#include <iostream> // std::cout
+
 MainMenu::MainMenu()
+	: m_gameState(GAME_STATE::MAIN_MENU)
 {
 	m_menuBackground.setSize(sf::Vector2f(windowHeight, WindowWidth));
 	m_menuBackground.setTexture(Resources::getResource().getTexture(TEXTURE::Menu));
 
-	//m_Button.createButton(sf::Vector2f(60, 450), sf::Vector2f(200, 50));
-	m_button = std::make_unique<StartButton>();
-	m_button->setText("Start", sf::Vector2f(70, 485));
+	add("Start", std::make_unique<StartButton>(this));
 }
 
 void MainMenu::drawMainMenu(sf::RenderWindow& window)
 {
 	window.draw(m_menuBackground);
-	m_button->draw(window);
+	
+	for (auto& option : m_options)
+	{
+		option.second->draw(window);
+	}
 }
 
-int MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event::MouseButtonEvent& event)
+void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event::MouseButtonEvent& event)
 {
-	if (m_button->isButtonPressed(window, event))
+	for (auto& option : m_options)
 	{
-		return GAME_STATE::NEW_GAME;
+		if (option.second->isButtonPressed(window, event))
+		{
+			option.second->execute();
+		}
 	}
-	return GAME_STATE::MAIN_MENU;
+}
+
+void MainMenu::startGame()
+{
+	m_gameState = GAME_STATE::NEW_GAME;
+}
+
+int MainMenu::getGameState() const
+{
+	return m_gameState;
+}
+
+void MainMenu::add(const std::string& name, std::unique_ptr<Button> c)
+{
+	m_options.emplace_back(Option(name, std::move(c)));
 }
