@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 const int OBJ_AMOUNT = 11;
 
@@ -53,3 +54,52 @@ struct Cell {
 	int row;
 	int col;
 };
+
+namespace TEXTURE_DICTIONARY {
+	std::vector<std::string> textureDict[1000];
+	void initialize() {
+		textureDict[264] = { "wall" };
+		textureDict[265] = { "wall" };
+		textureDict[267] = { "wall" };
+		textureDict[268] = { "wall" };
+		textureDict[269] = { "wall" };
+		textureDict[270] = { "wall" };
+		textureDict[274] = { "wall" };
+		textureDict[275] = { "wall" };
+		textureDict[288] = { "wall" };
+		textureDict[290] = { "wall" };
+		textureDict[291] = { "wall" };
+		textureDict[292] = { "wall" };
+		textureDict[293] = { "wall" };
+		textureDict[312] = { "wall" };
+		textureDict[313] = { "wall" };
+		textureDict[339] = { "wall" };
+		textureDict[340] = { "wall" };
+		textureDict[253] = { "flowers" };
+		textureDict[229] = { "flowers" };
+		textureDict[152] = { "tree" };
+		textureDict[153] = { "tree" };
+		textureDict[154] = { "tree" };
+		textureDict[176] = { "tree" };
+		textureDict[177] = { "tree" };
+		textureDict[200] = { "tree" };
+		textureDict[201] = { "tree" };
+		textureDict[130] = { "tree" };
+		textureDict[131] = { "tree" };
+		textureDict[154] = { "tree" };
+		textureDict[155] = { "tree" };
+		textureDict[225] = { "tree" };
+		textureDict[249] = { "tree" };
+		textureDict[49] = { "house" };
+		textureDict[60] = { "house" };
+		textureDict[61] = { "house" };
+		textureDict[62] = { "house" };
+		textureDict[9] = { "house" };
+		textureDict[10] = { "house" };
+		textureDict[11] = { "house" };
+		textureDict[33] = { "house" };
+		textureDict[34] = { "house" };
+		textureDict[35] = { "house" };
+		textureDict[48] = { "house" };
+	};
+}

@@ -27,7 +27,7 @@ void Board::addStaticObject(const sf::Vector2f position)
 
 void Board::makeLink()
 {
-	m_movingObjects.emplace_back(std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), sf::Vector2f(10.f, 50.f)));
+	m_movingObjects.emplace_back(std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), sf::Vector2f(32.f, 50.f)));
 }
 
 void Board::move(const sf::Time& deltaTime)
@@ -115,12 +115,13 @@ bool Board::setMap()
 
 void Board::initVector(Cell number)
 {
-	if (119 < number.value && number.value < 126)
+	
+	/*if (TEXTURE_DICTIONARY::textureDict[number.value] == "wall")
 	{
 		m_staticObjects.emplace_back(std::make_unique<Wall>(*Resources::getResource().getResource().getTexture(TEXTURE::MapObjects), sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
 	}
 	else if (number.value == 476)
 	{
 		m_staticObjects.emplace_back(std::make_unique<WaterTile>(*Resources::getResource().getTexture(TEXTURE::MapObjects), sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
-	}
+	}*/
 }
