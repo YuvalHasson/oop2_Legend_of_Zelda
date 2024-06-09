@@ -7,6 +7,8 @@
 #include "Resources.h"
 #include <vector>
 #include <memory>
+#include <fstream>
+#include <sstream>
 
 #include "CollisionHandling.h"
 
@@ -26,6 +28,8 @@ public:
 	void move(const sf::Time&);
 	void update();
 	void handleCollision();
+	bool setMap();
+	void initVector(Cell number);
 
 
 	//temp get
