@@ -6,7 +6,7 @@ Pot::Pot(const sf::Texture& texture, const sf::Vector2f& position)
 	:Destructible(texture, position)
 {
 	getSprite().setTextureRect(sf::IntRect(156, 207, tileSize, tileSize));
-	getSprite().scale(tileSize, tileSize);
+	getSprite().setScale(1, 1);
 }
 
 void Pot::handleCollision()

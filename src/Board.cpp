@@ -71,3 +71,54 @@ void Board::handleCollision()
 		}
 		});
 }
+
+bool Board::setMap()
+{
+	std::cout << "gameMap\n";
+	std::string gameMap = "Map.csv";
+
+	auto map = std::ifstream(gameMap);
+	if (!map)
+	{
+		std::cerr << "Error opening file: " << gameMap << std::endl;
+		return 1; // can be changed to exeptions
+	}
+	this->m_gameObjects.clear();
+	this->m_staticObjects.clear();
+
+	std::string line;
+	// Read the file line by line
+	int currentRow = 0;
+	while (std::getline(map, line)) {
+		std::istringstream lineStream(line);
+		std::string cell;
+		int currentCol = 0;
+
+		// Parse each line into comma-separated values
+		while (std::getline(lineStream, cell, ',')) {
+			// Convert the cell to an integer
+			int value = std::stoi(cell);
+			Cell c = { value, currentRow, currentCol };
+			if (c.value != -1)
+			{
+				initVector(c);
+				//std::cout << value << " ";
+			}
+			currentCol++;
+		}
+		currentRow++;
+	}
+	// Close the file
+	map.close();
+	//std::cout << "true\n";
+	return true;
+}
+
+void Board::initVector(Cell number)
+{
+	if (119 < number.value && number.value < 126)
+	{
+		std::cout << number.value << " " << number.row << " " << number.col << "\n";
+		this->m_staticObjects.push_back(std::make_unique<Wall>(*Resources::getResource().getResource().getTexture(TEXTURE::Score), sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
+	}
+}

@@ -20,10 +20,9 @@ void Controller::run()
 
     sf::View view(sf::FloatRect(sf::Vector2f(80, 140), sf::Vector2f(250, 265)));
 
-    
     sf::Clock clock;
     sf::Time deltaTime;
-    
+    m_board.setMap();
     while (m_window.isOpen())
     {
         deltaTime = clock.restart();

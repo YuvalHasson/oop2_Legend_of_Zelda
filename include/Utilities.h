@@ -47,3 +47,9 @@ namespace DIRECTIONS{
 	const sf::Vector2i DownLeft(-1,1);
 	const sf::Vector2i DownRight(1,1);
 }
+
+struct Cell {
+	int value;
+	int row;
+	int col;
+};
