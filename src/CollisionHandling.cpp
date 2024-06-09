@@ -18,6 +18,20 @@ namespace
 
 	}
 
+	void LinkWater(GameObject& link, GameObject& water)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->undoMove();
+		}
+	}
+
+	void WaterLink(GameObject& water, GameObject& link)
+	{
+		LinkWater(link, water);
+	}
+
 	void LinkPot(GameObject& link, GameObject& pot)
 	{
 		pot.handleCollision();
@@ -33,6 +47,14 @@ namespace
 		LinkWall(link, wall);
 	}
 
+
+	void WallWall(GameObject&, GameObject&) {}
+	void WaterWater(GameObject&, GameObject&) {}
+	void WallWater(GameObject&, GameObject&) {}
+	void WaterWall(GameObject&, GameObject&) {}
+
+	
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -46,7 +68,12 @@ namespace
 		phm[Key(typeid(Link), typeid(Pot))] = &LinkPot;
 		phm[Key(typeid(Wall), typeid(Link))] = &WallLink; // ==> wall to link collision
 		phm[Key(typeid(Pot), typeid(Link))] = &PotLink; // ==> Pot to link collision
-
+		phm[Key(typeid(Wall), typeid(Wall))] = &WallWall; // ==> Wall to wall collision
+		phm[Key(typeid(Wall), typeid(WaterTile))] = &WallWater; // ==> Wall to wall collision
+		phm[Key(typeid(WaterTile), typeid(WaterTile))] = &WaterWater; // ==> Wall to wall collision
+		phm[Key(typeid(WaterTile), typeid(Wall))] = &WaterWall;
+		phm[Key(typeid(Link), typeid(WaterTile))] = &LinkWater;
+		phm[Key(typeid(WaterTile), typeid(Link))] = &WaterLink;
 		//...
 		return phm;
 	}
@@ -71,4 +98,6 @@ void processCollision(GameObject& object1, GameObject& object2)
 		throw UnknownCollision(object1, object2);
 	}
 	phf(object1, object2);
+	
+
 }

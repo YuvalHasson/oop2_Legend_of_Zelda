@@ -27,7 +27,7 @@ void Board::addStaticObject(const sf::Vector2f position)
 
 void Board::makeLink()
 {
-	m_movingObjects.emplace_back(std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), sf::Vector2f(20.f, 20.f)));
+	m_movingObjects.emplace_back(std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), sf::Vector2f(10.f, 50.f)));
 }
 
 void Board::move(const sf::Time& deltaTime)
@@ -65,8 +65,9 @@ void Board::handleCollision()
 	for (auto& obj : m_staticObjects) {
 		collision.push_back(obj.get());
 	}
+	
 	for_each_pair(collision.begin(), collision.end(), [this](GameObject* obj1, GameObject* obj2) {
-		if (colide(*obj1, *obj2)) {
+		if (colide(*obj1, *obj2)) { 
 			processCollision(*obj1, *obj2);
 		}
 		});
@@ -74,17 +75,16 @@ void Board::handleCollision()
 
 bool Board::setMap()
 {
-	std::cout << "gameMap\n";
 	std::string gameMap = "Map.csv";
 
 	auto map = std::ifstream(gameMap);
 	if (!map)
 	{
 		std::cerr << "Error opening file: " << gameMap << std::endl;
-		return 1; // can be changed to exeptions
+		return true; // can be changed to exeptions
 	}
-	this->m_gameObjects.clear();
-	this->m_staticObjects.clear();
+	m_movingObjects.clear();
+	m_staticObjects.clear();
 
 	std::string line;
 	// Read the file line by line
@@ -110,7 +110,6 @@ bool Board::setMap()
 	}
 	// Close the file
 	map.close();
-	//std::cout << "true\n";
 	return true;
 }
 
@@ -118,7 +117,10 @@ void Board::initVector(Cell number)
 {
 	if (119 < number.value && number.value < 126)
 	{
-		std::cout << number.value << " " << number.row << " " << number.col << "\n";
-		this->m_staticObjects.push_back(std::make_unique<Wall>(*Resources::getResource().getResource().getTexture(TEXTURE::Score), sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
+		m_staticObjects.emplace_back(std::make_unique<Wall>(*Resources::getResource().getResource().getTexture(TEXTURE::MapObjects), sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
+	}
+	else if (number.value == 476)
+	{
+		m_staticObjects.emplace_back(std::make_unique<WaterTile>(*Resources::getResource().getTexture(TEXTURE::MapObjects), sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
 	}
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream> // debug
+
 
 #include <SFML/Graphics.hpp>
 #include "MovingObjects.h"
@@ -15,6 +17,7 @@
 #include "Link.h"
 #include "Wall.h"
 #include "Pot.h"
+#include "WaterTile.h"
 
 class Board
 {
@@ -49,8 +52,7 @@ private:
 				fn(*begin, *second);
 	}
 
-	template <typename Object1, typename Object2>
-	bool colide(Object1& a, Object2& b)
+	bool colide(GameObject& a, GameObject& b)
 	{
 		return a.getSprite().getGlobalBounds().intersects(b.getSprite().getGlobalBounds());
 	}

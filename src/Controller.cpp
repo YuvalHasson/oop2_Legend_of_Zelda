@@ -22,16 +22,16 @@ void Controller::run()
 
     sf::Clock clock;
     sf::Time deltaTime;
-    m_board.setMap();
     while (m_window.isOpen())
     {
         deltaTime = clock.restart();
         if (m_gameState == GAME_STATE::NEW_GAME)
         {
+            m_board.setMap();
 			m_board.makeLink();
-			m_board.addStaticObject(sf::Vector2f(90.f, 90.f));
-            m_board.addStaticObject(sf::Vector2f(90.f, 110.f));
-            m_board.addStaticObject(sf::Vector2f(90.f, 130.f));
+			//m_board.addStaticObject(sf::Vector2f(90.f, 90.f));
+   //         m_board.addStaticObject(sf::Vector2f(90.f, 110.f));
+   //         m_board.addStaticObject(sf::Vector2f(90.f, 130.f));
 
             view.setCenter(m_board.getSprite(0).getPosition()); // not suppose to be here
             m_gameState = GAME_STATE::GAME_RUNNING;
@@ -56,6 +56,7 @@ void Controller::run()
 
 			// Move the player
 			m_board.move(deltaTime);
+			// Handle collisions
 			m_board.handleCollision();
 			m_board.update();
 		}
