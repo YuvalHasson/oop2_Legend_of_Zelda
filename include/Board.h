@@ -14,10 +14,7 @@
 
 #include "CollisionHandling.h"
 
-#include "Link.h"
-#include "Wall.h"
-#include "Pot.h"
-#include "WaterTile.h"
+#include "Factory.h"
 
 class Board
 {

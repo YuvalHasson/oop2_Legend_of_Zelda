@@ -117,10 +117,10 @@ void Board::initVector(Cell number)
 {
 	if (119 < number.value && number.value < 126)
 	{
-		m_staticObjects.emplace_back(std::make_unique<Wall>(*Resources::getResource().getResource().getTexture(TEXTURE::MapObjects), sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
+		m_staticObjects.emplace_back(Factory::createObject(number, TEXTURE::MapObjects, sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
 	}
 	else if (number.value == 476)
 	{
-		m_staticObjects.emplace_back(std::make_unique<WaterTile>(*Resources::getResource().getTexture(TEXTURE::MapObjects), sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
+		m_staticObjects.emplace_back(Factory::createObject(number, TEXTURE::MapObjects, sf::Vector2f(float(tileSize * number.col), float(tileSize * (number.row)))));
 	}
 }
