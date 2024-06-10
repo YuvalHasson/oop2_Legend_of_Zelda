@@ -19,6 +19,7 @@ sf::Vector2i MovingObjects::getDirection()const{
 void MovingObjects::setDirection(const sf::Vector2i& direction){
 	m_direction = direction;
 }
+
 void MovingObjects::move(){
 	sf::Vector2f newPos;
 	newPos.x = getSprite().getPosition().x + m_direction.x * m_speed;
