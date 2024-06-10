@@ -21,6 +21,17 @@ void Controller::run()
 
     sf::View view(sf::FloatRect(sf::Vector2f(80, 140), sf::Vector2f(250, 265)));
 
+    //tmp
+    sf::Text fpsText;
+    fpsText.setFont(*Resources::getResource().getFont());
+    fpsText.setCharacterSize(20);
+	fpsText.setString("FPS     0");
+    fpsText.setFillColor(sf::Color::Black);
+    fpsText.setPosition(10.f, 10.f);
+
+    int frameCount = 0;
+    float elapsedTime = 0.f;
+
     sf::Clock clock;
     sf::Time deltaTime;
     while (m_window.isOpen())
@@ -59,6 +70,8 @@ void Controller::run()
 			// Handle collisions
 			m_board.handleCollision();
 			m_board.update();
+
+            fpsText.setPosition(view.getCenter().x - viewWidth / 2 + 10.f, view.getCenter().y - viewHeight / 2 + 10.f);
 		}
 
         for (auto event = sf::Event{}; m_window.pollEvent(event);)
@@ -84,6 +97,18 @@ void Controller::run()
                 break;
             }
         }
+
+        float deltaTime = clock.getElapsedTime().asSeconds();
+        elapsedTime += deltaTime;
+        frameCount++;
+        if (elapsedTime >= 1.0f) {
+            int fps = (int)frameCount / elapsedTime;
+            fpsText.setString("FPS    " + std::to_string(fps));
+
+            frameCount = 0;
+            elapsedTime = 0.f;
+        }
+
         m_window.clear();
 
 
@@ -111,6 +136,7 @@ void Controller::run()
         default:
             break;
         }
+        m_window.draw(fpsText);
 
         m_window.display();
     }

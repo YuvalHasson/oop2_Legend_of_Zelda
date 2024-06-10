@@ -41,13 +41,22 @@ private:
 	Map m_map;
 
 
-	// STL-like algorithm to run over all pairs
+	// STL-like algorithm to run over all pairs within the same range
 	template <typename FwdIt, typename Fn>
 	void for_each_pair(FwdIt begin, FwdIt end, Fn fn)
 	{
 		for (; begin != end; ++begin)
 			for (auto second = begin + 1; second != end; ++second)
 				fn(*begin, *second);
+	}
+
+	// STL-like algorithm to run over all pairs between two different ranges
+	template <typename FwdIt1, typename FwdIt2, typename Fn>
+	void for_each_pair(FwdIt1 begin1, FwdIt1 end1, FwdIt2 begin2, FwdIt2 end2, Fn fn)
+	{
+		for (; begin1 != end1; ++begin1)
+			for (auto second = begin2; second != end2; ++second)
+				fn(*begin1, *second);
 	}
 
 	bool colide(GameObject& a, GameObject& b)

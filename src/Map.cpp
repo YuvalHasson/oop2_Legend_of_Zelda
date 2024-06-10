@@ -59,7 +59,9 @@ void Map::setDict(std::vector<std::string>& dict)
 	dict[48] = { "house" };
 	dict[476] = { "sea" };
 	dict[477] = { "sea" };
+	dict[478] = { "sea" };
 	dict[479] = { "sea" };
+
 }
 
 bool Map::setMap()

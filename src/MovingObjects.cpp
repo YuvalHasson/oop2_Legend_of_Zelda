@@ -7,5 +7,5 @@ MovingObjects::MovingObjects(const sf::Texture& texture, const sf::Vector2f& pos
 
 void MovingObjects::updateSprite(const sf::IntRect& uvRect){
 	getSprite().setTextureRect(uvRect);
-	getSprite().setScale(1,1);
+	getSprite().setScale(0.8f,0.8f);
 }

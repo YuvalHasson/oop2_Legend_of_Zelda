@@ -29,7 +29,7 @@ void Board::addStaticObject(const sf::Vector2f position)
 void Board::makeLink()
 {
 	m_movingObjects.emplace_back(Factory::createLink(sf::Vector2f(32.f, 50.f)));
-	m_movingObjects.emplace_back(Factory::createOctorok(sf::Vector2f(50.f, 160.f)));
+	m_movingObjects.emplace_back(Factory::createOctorok(sf::Vector2f(150.f, 150.f)));
 }
 
 void Board::move(const sf::Time& deltaTime)
@@ -53,24 +53,18 @@ void Board::update()
 
 void Board::handleCollision()
 {
-	std::vector<GameObject*> collision;
-
-	// Reserve space in the collision vector to improve efficiency
-	collision.reserve(m_movingObjects.size() + m_staticObjects.size());
-
-	// Populate collision vector with raw pointers from m_gameObjects
-	for (auto& obj : m_movingObjects) {
-		collision.push_back(obj.get());
-	}
-
-	// Populate collision vector with raw pointers from m_staticObjects
-	for (auto& obj : m_staticObjects) {
-		collision.push_back(obj.get());
-	}
 	try
 	{
-		for_each_pair(collision.begin(), collision.end(), [this](GameObject* obj1, GameObject* obj2) {
-			if (colide(*obj1, *obj2)) { 
+		// Handle collisions among moving objects
+		for_each_pair(m_movingObjects.begin(), m_movingObjects.end(), [this](auto& obj1, auto& obj2) {
+			if (colide(*obj1, *obj2)) {
+				processCollision(*obj1, *obj2);
+			}
+			});
+
+		// Handle collisions between moving and static objects
+		for_each_pair(m_movingObjects.begin(), m_movingObjects.end(), m_staticObjects.begin(), m_staticObjects.end(), [this](auto& obj1, auto& obj2) {
+			if (colide(*obj1, *obj2)) {
 				processCollision(*obj1, *obj2);
 			}
 			});
