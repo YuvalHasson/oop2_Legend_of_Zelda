@@ -78,10 +78,25 @@ void Link::update(const sf::Time& deltaTime){
     bool down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+    bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     
     Input input;
-
-    if(up){
+    if(space){
+        input = PRESS_SPACE;
+    }
+    else if(down && right){
+        input = PRESS_DOWN_RIGHT;
+    }
+    else if(down && left){
+        input = PRESS_DOWN_LEFT;
+    }
+    else if(up && right){
+        input = PRESS_UP_RIGHT;
+    }
+    else if(up && left){
+        input = PRESS_UP_LEFT;
+    }
+    else if(up){
         input = PRESS_UP;
     }
     else if(down){
@@ -103,10 +118,10 @@ void Link::update(const sf::Time& deltaTime){
         m_state = std::move(state);
         m_state->enter(*this);
 
-        if(!dynamic_cast<LinkStandingState*>(m_state.get())){
-            updateGraphics(deltaTime);
-        }
     }   
+    if(!dynamic_cast<LinkStandingState*>(m_state.get())){
+        updateGraphics(deltaTime);
+    }
     updateSprite();
 
 };

@@ -23,7 +23,7 @@ void Animation::update(const sf::Time& deltaTime) {
     
     m_timePassed += deltaTime.asSeconds();
 
-    if(m_singleTime && m_currentImage >= m_imageCount){
+    if(m_singleTime && m_currentImage >= m_imageCount - 1){
         return;
     }
     //if only a single image is to be drawn it will be flipped with each time interval
@@ -41,6 +41,7 @@ void Animation::update(const sf::Time& deltaTime) {
 
         if (m_timePassed >= m_switchTime) {
             m_timePassed -= m_switchTime;
+            
             m_currentImage++;
 
             if (m_currentImage >= m_imageCount && !m_singleTime) {
@@ -61,6 +62,9 @@ void Animation::update(const sf::Time& deltaTime) {
 }
 
 void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool flip, bool singleTime, float switchTime){
+    if(m_animationStartPosition == startPosition){
+        return;
+    }
     m_animationStartPosition = startPosition;
     m_currentImage = 0;
     m_imageCount = imgCount;

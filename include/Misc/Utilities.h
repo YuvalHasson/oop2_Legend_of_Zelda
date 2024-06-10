@@ -8,6 +8,7 @@ const int OBJ_AMOUNT = 5;
 enum GAME_STATE { MAIN_MENU, NEW_GAME, EXIT, LOAD_GAME, GAME_RUNNING , ENDGAME};
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
+//might need to be held in links class since only link uses those specific states
 enum Input{
     PRESS_UP,
     PRESS_DOWN,
