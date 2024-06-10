@@ -29,10 +29,8 @@ public:
 	void move(const sf::Time&);
 	void update();
 	void handleCollision();
-	bool setMap();
+	void setMap();
 	void initVector(Cell number);
-
-	std::vector<GameObject*>& getGameObject() const;
 
 	//temp get
 	const sf::Sprite& getSprite(int index) { return m_movingObjects[index]->getSprite(); }

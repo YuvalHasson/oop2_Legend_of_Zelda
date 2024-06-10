@@ -29,7 +29,7 @@ void Board::addStaticObject(const sf::Vector2f position)
 void Board::makeLink()
 {
 	m_movingObjects.emplace_back(Factory::createLink(sf::Vector2f(32.f, 50.f)));
-	m_movingObjects.emplace_back(Factory::createOctorok(sf::Vector2f(150.f, 100.f)));
+	m_movingObjects.emplace_back(Factory::createOctorok(sf::Vector2f(50.f, 160.f)));
 }
 
 void Board::move(const sf::Time& deltaTime)
@@ -81,68 +81,8 @@ void Board::handleCollision()
 	}
 }
 
-bool Board::setMap()
+void Board::setMap()
 {
-	std::string gameMap = "Map.csv";
-
-	auto map = std::ifstream(gameMap);
-	if (!map)
-	{
-		std::cerr << "Error opening file: " << gameMap << std::endl;
-		return true; // can be changed to exeptions
-	}
-	m_movingObjects.clear();
-	m_staticObjects.clear();
-
-	std::string line;
-	// Read the file line by line
-	int currentRow = 0;
-	while (std::getline(map, line)) {
-		std::istringstream lineStream(line);
-		std::string cell;
-		int currentCol = 0;
-
-		// Parse each line into comma-separated values
-		while (std::getline(lineStream, cell, ',')) {
-			// Convert the cell to an integer
-			int value = std::stoi(cell);
-			Cell c = { value, currentRow, currentCol };
-			if (c.value != -1)
-			{
-				initVector(c);
-				//std::cout << value << " ";
-			}
-			currentCol++;
-		}
-		currentRow++;
-	}
-	// Close the file
-	map.close();
-	return true;
-}
-
-void Board::initVector(Cell cell)
-{
-	// texture of daungeon path
-	if (cell.value <= -1610612618 && cell.value >= -1610612666 || cell.value == 1610613065)
-	{
-		return;
-
-	}
-	//texture of border
-	if (cell.value > 100000 || cell.value < -100000)
-	{
-		m_staticObjects.emplace_back(Factory::createWall(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
-		return;
-	}
-	std::string value = m_map.getDict()[cell.value];
-	if (value == "wall" || value == "tree" ||
-		value == "flowers" || value == "house")
-	{
-		m_staticObjects.emplace_back(Factory::createWall(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
-	}
-	else if (value == "sea")
-	{
-		m_staticObjects.emplace_back(Factory::createWaterTile(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
-	}
+	m_movingObjects = std::move(m_map.getMovingObjects());
+	m_staticObjects = std::move(m_map.getStaticObjects());
 }
