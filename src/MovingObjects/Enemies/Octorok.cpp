@@ -5,7 +5,7 @@
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 	: Enemy(texture, position), m_state(std::make_unique<OctorokStandingState>())
 {
-	setGraphics({194,142}, 2);
+	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();
 }
 
@@ -79,14 +79,4 @@ void Octorok::handleCollision()
 void Octorok::move()
 {
     getSprite().move(sf::Vector2f(getDirection()));
-}
-
-void Octorok::undoMove()
-{
-    getSprite().move(-sf::Vector2f(getDirection()));
-}
-
-bool Octorok::isAttacking() const
-{
-    return m_attacking;
 }

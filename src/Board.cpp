@@ -49,6 +49,7 @@ void Board::update(const sf::Time& deltaTime)
 	}
 
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
+	std::erase_if(m_movingObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
 }
 
 void Board::handleCollision()

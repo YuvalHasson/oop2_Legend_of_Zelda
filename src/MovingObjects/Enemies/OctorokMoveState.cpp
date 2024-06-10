@@ -20,25 +20,25 @@ void OctorokMoveState::enter(Octorok& Octorok)
 
     if (m_direction == PRESS_RIGHT) {
         if (currentDirection != DIRECTIONS::Right) {
-            //Octorok.setGraphics(ANIMATIONS_POSITIONS::LinkRight, 2);
+            Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokLeft, 2, true);
             Octorok.setDirection(DIRECTIONS::Right);
         }
     }
     else if (m_direction == PRESS_LEFT) {
         if (currentDirection != DIRECTIONS::Left) {
-            //Octorok.setGraphics(ANIMATIONS_POSITIONS::LinkLeft, 2);
+            Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokLeft, 2);
             Octorok.setDirection(DIRECTIONS::Left);
         }
     }
     else if (m_direction == PRESS_UP) {
         if (currentDirection != DIRECTIONS::Up) {
-            //Octorok.setGraphics(ANIMATIONS_POSITIONS::LinkUp, 2);
+            Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2, true);
             Octorok.setDirection(DIRECTIONS::Up);
         }
     }
     else if (m_direction == PRESS_DOWN) {
         if (currentDirection != DIRECTIONS::Down) {
-            //Octorok.setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
+            Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
             Octorok.setDirection(DIRECTIONS::Down);
         }
     }

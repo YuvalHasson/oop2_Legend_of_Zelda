@@ -1,4 +1,5 @@
 #include "MovingObjects.h"
+#include "MovingObjects.h"
 #include <iostream> //debugging
 
 MovingObjects::MovingObjects(const sf::Texture& texture, const sf::Vector2f& position)
@@ -37,4 +38,19 @@ void MovingObjects::updateGraphics(const sf::Time& deltaTime){
 
 bool MovingObjects::isAnimationDone()const{
 	return m_animation.isDone();
+}
+
+void MovingObjects::setAttacking(bool attack)
+{
+	m_attacking = attack;
+}
+
+void MovingObjects::undoMove()
+{
+	getSprite().move(-sf::Vector2f(getDirection()));
+}
+
+bool MovingObjects::isAttacking() const
+{
+	return m_attacking;
 }

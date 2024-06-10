@@ -62,16 +62,6 @@ void Link::handleCollision()
 
 }
 
-void Link::undoMove()
-{
-    getSprite().move(-sf::Vector2f(getDirection()));
-}
-
-bool Link::isAttacking() const
-{
-    return m_attacking;
-}
-
 void Link::update(const sf::Time& deltaTime){
 
     bool up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W);
@@ -111,7 +101,7 @@ void Link::update(const sf::Time& deltaTime){
     else{
         input = NONE;
     }
-
+    
     std::unique_ptr<LinkState> state = m_state->handleInput(input);
 
     if(state){
@@ -123,5 +113,4 @@ void Link::update(const sf::Time& deltaTime){
         updateGraphics(deltaTime);
     }
     updateSprite();
-
 };

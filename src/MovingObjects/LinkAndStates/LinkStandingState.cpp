@@ -17,5 +17,8 @@ std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input){
     return std::make_unique<LinkStandingState>();
 }
 
-void LinkStandingState::enter(Link& link){}
+void LinkStandingState::enter(Link& link)
+{
+    link.setAttacking();
+}
 

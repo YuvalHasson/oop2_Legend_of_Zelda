@@ -15,9 +15,6 @@ public:
 
 	virtual void move() override;
 
-	void undoMove();
-	bool isAttacking() const;
-
 private:
 	sf::Clock m_directionChangeClock;
 	std::unique_ptr<OctorokState> m_state;

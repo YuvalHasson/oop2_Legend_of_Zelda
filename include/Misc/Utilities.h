@@ -45,6 +45,9 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u LinkAttackDown(1,86);
 	const sf::Vector2u LinkAttackLeft(103,86);
 	const sf::Vector2u LinkAttackRight(137,86);
+	
+	const sf::Vector2u OctorokDown(197,143);
+	const sf::Vector2u OctorokLeft(231,143);
 }
 
 //might be useless

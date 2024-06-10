@@ -40,7 +40,7 @@ namespace
 			linkPtr->undoMove();
 			if (linkPtr->isAttacking())
 			{
-				pot.handleCollision();
+				pot.destroy();
 			}
 		}
 

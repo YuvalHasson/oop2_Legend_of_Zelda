@@ -14,9 +14,6 @@ public:
 	// virtual void attack(const sf::Time&)override;
 	virtual void handleCollision() override;
 
-	void undoMove();
-	bool isAttacking() const;
-
 private:
 	std::unique_ptr<LinkState> m_state;
 };
