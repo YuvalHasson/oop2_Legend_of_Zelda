@@ -7,6 +7,19 @@ const int OBJ_AMOUNT = 5;
 
 enum GAME_STATE { MAIN_MENU, NEW_GAME, EXIT, LOAD_GAME, GAME_RUNNING , ENDGAME};
 
+//might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
+enum Input{
+    PRESS_UP,
+    PRESS_DOWN,
+    PRESS_LEFT,
+    PRESS_RIGHT,
+    PRESS_UP_RIGHT,
+    PRESS_UP_LEFT,
+    PRESS_DOWN_RIGHT,
+    PRESS_DOWN_LEFT,
+    PRESS_SPACE
+};
+
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16

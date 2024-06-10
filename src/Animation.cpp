@@ -1,9 +1,15 @@
 #include "Animation.h"
 #include <iostream>
 
+Animation::Animation(): m_singleImgFlip(false), m_flip(false), m_timePassed(0),
+     m_switchTime(0.17f), m_singleTime(false){
+    m_uvRect.width = tileSize;
+    m_uvRect.height = tileSize;
+}
+
 Animation::Animation(sf::Vector2u startPosition ,int imageCount, float switchTime, int spriteWidth, int spriteHeight)
     : m_animationStartPosition(startPosition), m_imageCount(imageCount), m_currentImage(0),
-     m_timePassed(0), m_switchTime(switchTime), m_singleImgFlip(true), m_singleTime(false){
+     m_singleImgFlip(true),m_timePassed(0),m_switchTime(switchTime), m_singleTime(false){
     
     m_uvRect.top = startPosition.y;
     m_uvRect.left = startPosition.x;
@@ -54,7 +60,7 @@ void Animation::update(const sf::Time& deltaTime) {
     m_uvRect.top = m_animationStartPosition.y;
 }
 
-void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool flip, bool singleTime){
+void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool flip, bool singleTime, float switchTime){
     m_animationStartPosition = startPosition;
     m_currentImage = 0;
     m_imageCount = imgCount;
@@ -62,6 +68,7 @@ void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool flip
     m_uvRect.top = startPosition.y;
     m_flip = flip;
     m_singleTime = singleTime;
+    m_switchTime = switchTime;
 }
 
 sf::IntRect Animation::getuvRect()const{

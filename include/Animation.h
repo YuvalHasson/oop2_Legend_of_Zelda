@@ -9,13 +9,14 @@
 //image count is unsigned for how many images are in the animation
 class Animation{
 public:
+    Animation();
     Animation(sf::Vector2u startPosition, int imageCount, float switchTime, int spriteWidth = tileSize, int spriteHeight = tileSize);
 
     void update(const sf::Time& deltaTime);
 
     //for when changing animation for an object
     //i.e if link has a shield or not
-    void setAnimation(sf::Vector2u, int, bool flip = false, bool singleTime = false);
+    void setAnimation(sf::Vector2u, int, bool flip = false, bool singleTime = false, float switchTime = 0.17f);
 
     //for single time animation(attacks)
     bool isDone()const;
