@@ -34,7 +34,16 @@ namespace
 
 	void LinkPot(GameObject& link, GameObject& pot)
 	{
-		pot.handleCollision();
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->undoMove();
+			if (linkPtr->isAttacking())
+			{
+				pot.handleCollision();
+			}
+		}
+
 	}
 	
 	void PotLink(GameObject& pot, GameObject& link)

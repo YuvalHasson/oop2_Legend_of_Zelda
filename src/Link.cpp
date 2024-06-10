@@ -11,7 +11,8 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 void Link::move(const sf::Time& deltaTime)
 {
     
-    if(m_attacking){
+    if(m_attacking)
+    {
         return;
     }
 
@@ -101,7 +102,8 @@ void Link::move(const sf::Time& deltaTime)
             isMoving = true;
         }
     }
-    if(isMoving){
+    if(isMoving)
+    {
         m_animation.update(deltaTime);
 
         getSprite().setPosition(getSprite().getPosition() + sf::Vector2f(m_direction));
@@ -112,7 +114,7 @@ void Link::move(const sf::Time& deltaTime)
 
 void Link::attack(const sf::Time& deltaTime){
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         if (!m_attacking) {
             m_attacking = true;
             //attack to left
@@ -165,4 +167,9 @@ void Link::handleCollision()
 void Link::undoMove()
 {
 	getSprite().setPosition(getSprite().getPosition() - sf::Vector2f(m_direction));
+}
+
+bool Link::isAttacking() const
+{
+    return m_attacking;
 }

@@ -5,6 +5,7 @@ Controller::Controller()
 	: m_window(sf::VideoMode(windowHeight, WindowWidth), "Zelda", sf::Style::Close | sf::Style::Titlebar)
 {
 	m_window.setFramerateLimit(60);
+	m_window.setIcon(Resources::getResource().getIcon()->getSize().x, Resources::getResource().getIcon()->getSize().y, Resources::getResource().getIcon()->getPixelsPtr());
     m_gameState = GAME_STATE::MAIN_MENU;
 }
 
@@ -29,6 +30,7 @@ void Controller::run()
         {
             m_board.setMap();
 			m_board.makeLink();
+            m_board.addStaticObject(sf::Vector2f(50.f,50.f));
 
 
             view.setCenter(m_board.getSprite(0).getPosition()); // not suppose to be here
@@ -85,6 +87,8 @@ void Controller::run()
         m_window.clear();
 
 
+        sf::FloatRect viewBounds(view.getCenter() - view.getSize() / 2.f, view.getSize());
+
         switch (m_gameState)
         {
 		case::GAME_STATE::MAIN_MENU:
@@ -100,7 +104,7 @@ void Controller::run()
 		case::GAME_STATE::GAME_RUNNING:
             m_window.setView(view);
             m_window.draw(background);
-			m_board.draw(m_window);
+			m_board.draw(m_window, viewBounds);
 			break;
         case::GAME_STATE::ENDGAME:
 			break;

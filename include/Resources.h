@@ -7,11 +7,11 @@ class Resources
 {
 private:
 	std::string m_imgName[OBJ_AMOUNT] = { 
-		"Stick.png", "Zelda Menu.png", "Button.png",
-		"Scoreboard.png", "Clock.png", "EndGameScreen.png", "HelpButton.png", "SaveButton.png",
-		"The Legend of Zelda.png", "LinkandSword.png", "Mapobject.png"
+		"Zelda Menu.png", "The Legend of Zelda.png",
+		"LinkandSword.png", "Mapobject.png", "Enemies.png"
 	};
 	sf::Texture m_texture[OBJ_AMOUNT];
+	sf::Image m_icon;
 	sf::Font m_font;
 
 public:
@@ -22,4 +22,5 @@ public:
 	//get
 	sf::Texture* getTexture(int);
 	sf::Font* getFont();
+	sf::Image* getIcon();
 };

@@ -13,6 +13,7 @@ public:
 	virtual void handleCollision() override;
 
 	void undoMove();
+	bool isAttacking() const;
 
 private:
 	Animation m_animation;

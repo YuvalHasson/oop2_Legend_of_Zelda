@@ -22,7 +22,7 @@ public:
 	Board();
 	~Board() = default;
 
-	void draw(sf::RenderWindow&);
+	void draw(sf::RenderWindow&, sf::FloatRect&);
 	void addStaticObject(const sf::Vector2f);
 	void makeLink();
 	void move(const sf::Time&);
@@ -31,6 +31,7 @@ public:
 	bool setMap();
 	void initVector(Cell number);
 
+	std::vector<GameObject*>& getGameObject() const;
 
 	//temp get
 	const sf::Sprite& getSprite(int index) { return m_movingObjects[index]->getSprite(); }

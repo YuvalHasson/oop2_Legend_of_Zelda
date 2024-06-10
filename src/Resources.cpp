@@ -9,9 +9,11 @@ Resources::Resources()
 		im.loadFromFile(this->m_imgName[i]);
 		im.createMaskFromColor(sf::Color(0,57,115));
     	im.createMaskFromColor(sf::Color(0,128,0));
-		this->m_texture[i].loadFromImage(im);
+		im.createMaskFromColor(sf::Color(64, 64, 192));
+		m_texture[i].loadFromImage(im);
 	}
-	this->m_font.loadFromFile("ZeldaFont.ttf");
+	m_icon.loadFromFile("zeldaIcon.png");
+	m_font.loadFromFile("ZeldaFont.ttf");
 }
 
 Resources::~Resources()
@@ -27,6 +29,11 @@ Resources& Resources::getResource()
 sf::Font* Resources::getFont()
 {
 	return &m_font;
+}
+
+sf::Image* Resources::getIcon()
+{
+	return &m_icon;
 }
 
 sf::Texture* Resources::getTexture(int obj)
