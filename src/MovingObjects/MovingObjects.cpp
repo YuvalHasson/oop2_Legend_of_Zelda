@@ -33,3 +33,7 @@ void MovingObjects::setGraphics(const sf::Vector2u& animationPos, int imgCount, 
 void MovingObjects::updateGraphics(const sf::Time& deltaTime){
 	m_animation.update(deltaTime);
 }
+
+bool MovingObjects::isAnimationDone()const{
+	return m_animation.isDone();
+}

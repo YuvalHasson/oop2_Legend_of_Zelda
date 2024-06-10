@@ -2,6 +2,8 @@
 #include "LinkStandingState.h"
 #include "LinkAttackState.h"
 #include "LinkMoveState.h"
+#include "Link.h"
+
 
 std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input){
     if(input == PRESS_SPACE){
@@ -15,6 +17,5 @@ std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input){
     return std::make_unique<LinkStandingState>();
 }
 
-void LinkStandingState::enter(Link& link){
-    //set graphics
-}
+void LinkStandingState::enter(Link& link){}
+

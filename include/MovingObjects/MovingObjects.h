@@ -17,6 +17,7 @@ public:
 	void updateGraphics(const sf::Time& deltaTime);
 	sf::Vector2i getDirection()const;
 	void setDirection(const sf::Vector2i&);
+	bool isAnimationDone()const;
 
 
 protected:
