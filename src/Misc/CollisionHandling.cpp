@@ -56,13 +56,23 @@ namespace
 		LinkWall(link, wall);
 	}
 
+	void LinkOctorok(GameObject& link, GameObject& octorok)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->undoMove();
+			if (linkPtr->isAttacking())
+			{
+				octorok.handleCollision();
+			}
+		}
+	}
 
-	void WallWall(GameObject&, GameObject&) {}
-	void WaterWater(GameObject&, GameObject&) {}
-	void WallWater(GameObject&, GameObject&) {}
-	void WaterWall(GameObject&, GameObject&) {}
-
-	
+	void OctorokLink(GameObject& octorok, GameObject& link)
+	{
+		LinkOctorok(link, octorok);
+	}
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
@@ -77,12 +87,11 @@ namespace
 		phm[Key(typeid(Link), typeid(Pot))] = &LinkPot;
 		phm[Key(typeid(Wall), typeid(Link))] = &WallLink; // ==> wall to link collision
 		phm[Key(typeid(Pot), typeid(Link))] = &PotLink; // ==> Pot to link collision
-		phm[Key(typeid(Wall), typeid(Wall))] = &WallWall; // ==> Wall to wall collision
-		phm[Key(typeid(Wall), typeid(WaterTile))] = &WallWater; // ==> Wall to wall collision
-		phm[Key(typeid(WaterTile), typeid(WaterTile))] = &WaterWater; // ==> Wall to wall collision
-		phm[Key(typeid(WaterTile), typeid(Wall))] = &WaterWall;
 		phm[Key(typeid(Link), typeid(WaterTile))] = &LinkWater;
 		phm[Key(typeid(WaterTile), typeid(Link))] = &WaterLink;
+		phm[Key(typeid(Link), typeid(Octorok))] = &LinkOctorok;
+		phm[Key(typeid(Octorok), typeid(Link))] = &OctorokLink;
+
 		//...
 		return phm;
 	}

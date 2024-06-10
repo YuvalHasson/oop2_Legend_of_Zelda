@@ -11,6 +11,7 @@
 #include "Wall.h"
 #include "Pot.h"
 #include "WaterTile.h"
+#include "Octorok.h"
 
 struct UnknownCollision : public std::runtime_error
 {
