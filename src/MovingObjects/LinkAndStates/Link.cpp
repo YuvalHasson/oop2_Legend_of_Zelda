@@ -64,7 +64,7 @@ void Link::handleCollision()
 
 void Link::undoMove()
 {
-	getSprite().setPosition(getSprite().getPosition() - sf::Vector2f(getDirection()));
+    getSprite().move(-sf::Vector2f(getDirection()));
 }
 
 bool Link::isAttacking() const

@@ -74,6 +74,20 @@ namespace
 		LinkOctorok(link, octorok);
 	}
 
+	void OctorokWall(GameObject& octorok, GameObject& wall)
+	{
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		if (octorokPtr)
+		{
+			octorokPtr->undoMove();
+		}
+	}
+
+	void WallOctorok(GameObject& wall, GameObject& octorok)
+	{
+		OctorokWall(octorok, wall);
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -91,6 +105,8 @@ namespace
 		phm[Key(typeid(WaterTile), typeid(Link))] = &WaterLink;
 		phm[Key(typeid(Link), typeid(Octorok))] = &LinkOctorok;
 		phm[Key(typeid(Octorok), typeid(Link))] = &OctorokLink;
+		phm[Key(typeid(Octorok), typeid(Wall))] = &OctorokWall;
+		phm[Key(typeid(Wall), typeid(Octorok))] = &WallOctorok;
 
 		//...
 		return phm;

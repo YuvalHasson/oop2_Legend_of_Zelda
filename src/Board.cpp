@@ -29,7 +29,7 @@ void Board::addStaticObject(const sf::Vector2f position)
 void Board::makeLink()
 {
 	m_movingObjects.emplace_back(Factory::createLink(sf::Vector2f(32.f, 50.f)));
-	m_movingObjects.emplace_back(Factory::createOctorok(sf::Vector2f(150.f, 150.f)));
+	m_movingObjects.emplace_back(Factory::createOctorok(sf::Vector2f(32.f, 160.f)));
 }
 
 void Board::move(const sf::Time& deltaTime)
