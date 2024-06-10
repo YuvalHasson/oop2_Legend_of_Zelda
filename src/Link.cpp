@@ -83,19 +83,15 @@ void Link::update(const sf::Time& deltaTime){
 
     if(up){
         input = PRESS_UP;
-        setDirection(DIRECTIONS::Up);
     }
     else if(down){
         input = PRESS_DOWN;
-        setDirection(DIRECTIONS::Down);
     }
     else if(right){
         input = PRESS_RIGHT;
-        setDirection(DIRECTIONS::Right);
     }
     else if(left){
         input = PRESS_LEFT;
-        setDirection(DIRECTIONS::Left);
     }
     else{
         input = NONE;
@@ -106,8 +102,11 @@ void Link::update(const sf::Time& deltaTime){
     if(state){
         m_state = std::move(state);
         m_state->enter(*this);
-        updateGraphics(deltaTime);
-    }
 
-    //need to happen depending on the state
+        if(!dynamic_cast<LinkStandingState*>(m_state.get())){
+            updateGraphics(deltaTime);
+        }
+    }   
+    updateSprite();
+
 };

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "LinkStandingState.h"
 #include "LinkAttackState.h"
 #include "LinkMoveState.h"
@@ -11,7 +12,7 @@ std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input){
         input == PRESS_UP){
         return std::make_unique<LinkMoveState>(input);
     }
-    return nullptr; //return make_unique<LinkStandingState>();
+    return std::make_unique<LinkStandingState>();
 }
 
 void LinkStandingState::enter(Link& link){

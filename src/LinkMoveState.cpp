@@ -1,4 +1,4 @@
-
+#include <iostream>
 #include "LinkMoveState.h"
 #include "LinkAttackState.h"
 #include "LinkStandingState.h"
@@ -19,25 +19,33 @@ std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input){
 }
 
 void LinkMoveState::enter(Link& link){
-    //change to switch case
-    //need to make it so when direction doesnt change animation doesnt reset
+
+    sf::Vector2i currentDirection = link.getDirection();
 
     if(m_direction == PRESS_RIGHT){
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkRight, 2);
+        if(currentDirection != DIRECTIONS::Right){
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkRight, 2);
+            link.setDirection(DIRECTIONS::Right);
+        }
     }
     else if(m_direction == PRESS_LEFT){
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkLeft, 2);
+        if(currentDirection != DIRECTIONS::Left){
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkLeft, 2);
+            link.setDirection(DIRECTIONS::Left);
+        }
     }
     else if(m_direction == PRESS_UP){
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkUp, 2);
+        if(currentDirection != DIRECTIONS::Up){
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkUp, 2);
+            link.setDirection(DIRECTIONS::Up);
+        }
     }
     else if(m_direction == PRESS_DOWN){
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
+        if(currentDirection != DIRECTIONS::Down){
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
+            link.setDirection(DIRECTIONS::Down);
+        }
     }
     
     link.move();
-    link.updateSprite();
-    
-    
-    //link.move(m_direction) check if needed to be made in the state or just set graphics 
 }
