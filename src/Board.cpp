@@ -36,16 +36,16 @@ void Board::move(const sf::Time& deltaTime)
 {
 	for (auto& gameObject : m_movingObjects)
 	{
-		gameObject->move(deltaTime);
-		gameObject->attack(deltaTime); //might need to be somewhere else
+		// gameObject->move(deltaTime);
+		// gameObject->attack(deltaTime); //might need to be somewhere else
 	}
 }
 
-void Board::update()
+void Board::update(const sf::Time& deltaTime)
 {
 	for (auto& gameObject : m_movingObjects)
 	{
-		gameObject->update();
+		gameObject->update(deltaTime);
 	}
 
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });

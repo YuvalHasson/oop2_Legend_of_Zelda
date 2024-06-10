@@ -17,7 +17,8 @@ enum Input{
     PRESS_UP_LEFT,
     PRESS_DOWN_RIGHT,
     PRESS_DOWN_LEFT,
-    PRESS_SPACE
+    PRESS_SPACE,
+	NONE
 };
 
 #define windowHeight 1000

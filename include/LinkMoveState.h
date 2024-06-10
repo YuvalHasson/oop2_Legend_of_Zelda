@@ -11,4 +11,5 @@ public:
 
 private:
     Input m_direction;
+    
 };

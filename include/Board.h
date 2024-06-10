@@ -27,7 +27,7 @@ public:
 	void addStaticObject(const sf::Vector2f);
 	void makeLink();
 	void move(const sf::Time&);
-	void update();
+	void update(const sf::Time& deltaTime);
 	void handleCollision();
 	void setMap();
 	void initVector(Cell number);

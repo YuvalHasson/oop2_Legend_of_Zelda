@@ -17,11 +17,6 @@ void GameObject::draw(sf::RenderWindow& window)
     window.draw(m_sprite);
 }
 
-void GameObject::update()
-{
-    //m_sprite.setPosition(position.x * 50.0f, position.y * 50.0f);
-}
-
 void GameObject::destroy()
 {
 	m_destroyed = true;

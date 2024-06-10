@@ -69,7 +69,7 @@ void Controller::run()
 			m_board.move(deltaTime);
 			// Handle collisions
 			m_board.handleCollision();
-			m_board.update();
+			m_board.update(deltaTime);
 
             fpsText.setPosition(view.getCenter().x - viewWidth / 2 + 10.f, view.getCenter().y - viewHeight / 2 + 10.f);
 		}

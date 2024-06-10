@@ -10,7 +10,6 @@ public:
     virtual ~GameObject();
 
     virtual void draw(sf::RenderWindow&);
-	virtual void update();
     
 	virtual void handleCollision() = 0;
 

@@ -7,7 +7,7 @@ class Octorok : public Enemy
 public:
 	Octorok(const sf::Texture& texture, const sf::Vector2f& position);
 
-	virtual void move(const sf::Time& deltaTime);
+	virtual void update(const sf::Time& deltaTime);
 	virtual void attack(const sf::Time& deltaTime);
 	virtual void handleCollision();
 
