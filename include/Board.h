@@ -1,21 +1,20 @@
 #pragma once
 #include <iostream> // debug
 
-
 #include <SFML/Graphics.hpp>
-#include "MovingObjects.h"
-#include "StaticObjects.h"
-#include "Utilities.h"
-#include "Resources.h"
+#include "MovingObjects/MovingObjects.h"
+#include "StaticObjects/StaticObjects.h"
+#include "Misc/Utilities.h"
+#include "ResourcesManager/Resources.h"
 #include <vector>
 #include <memory>
 #include <fstream>
 #include <sstream>
 
-#include "CollisionHandling.h"
-#include "Map.h"
+#include "Misc/CollisionHandling.h"
+#include "Misc/Map.h"
+#include "Misc/Factory.h"
 
-#include "Factory.h"
 
 class Board
 {

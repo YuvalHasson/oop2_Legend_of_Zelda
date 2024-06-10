@@ -10,12 +10,13 @@ public:
 	Octorok(const sf::Texture& texture, const sf::Vector2f& position);
 
 	virtual void update(const sf::Time& deltaTime) override;
-	virtual void attack(const sf::Time& deltaTime) override;
+	//virtual void attack(const sf::Time& deltaTime) override;
 	virtual void handleCollision() override;
 
 	virtual void move() override;
 
 	void undoMove();
+	bool isAttacking() const;
 
 private:
 	sf::Clock m_directionChangeClock;
