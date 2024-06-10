@@ -29,7 +29,7 @@ void Board::addStaticObject(const sf::Vector2f position)
 void Board::makeLink()
 {
 	m_movingObjects.emplace_back(Factory::createLink(sf::Vector2f(32.f, 50.f)));
-	m_movingObjects.emplace_back(Factory::createOctorok(sf::Vector2f(100.f, 100.f)));
+	m_movingObjects.emplace_back(Factory::createOctorok(sf::Vector2f(150.f, 100.f)));
 }
 
 void Board::move(const sf::Time& deltaTime)
@@ -121,30 +121,28 @@ bool Board::setMap()
 	return true;
 }
 
-void Board::initVector(Cell number)
+void Board::initVector(Cell cell)
 {
-	if (number.value == 476)
+	// texture of daungeon path
+	if (cell.value <= -1610612618 && cell.value >= -1610612666 || cell.value == 1610613065)
 	{
-		m_staticObjects.emplace_back(Factory::createWaterTile(sf::Vector2f(tileSize * number.col, tileSize * number.row)));
+		return;
+
 	}
-}
-
-std::vector<GameObject*>& Board::getGameObject() const
-{
-	std::vector<GameObject*> collision;
-
-	// Reserve space in the collision vector to improve efficiency
-	collision.reserve(m_movingObjects.size() + m_staticObjects.size());
-
-	// Populate collision vector with raw pointers from m_gameObjects
-	for (const auto& obj : m_movingObjects) {
-		collision.push_back(obj.get());
+	//texture of border
+	if (cell.value > 100000 || cell.value < -100000)
+	{
+		m_staticObjects.emplace_back(Factory::createWall(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
+		return;
 	}
-
-	// Populate collision vector with raw pointers from m_staticObjects
-	for (const auto& obj : m_staticObjects) {
-		collision.push_back(obj.get());
+	std::string value = m_map.getDict()[cell.value];
+	if (value == "wall" || value == "tree" ||
+		value == "flowers" || value == "house")
+	{
+		m_staticObjects.emplace_back(Factory::createWall(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
 	}
-
-	return collision;
+	else if (value == "sea")
+	{
+		m_staticObjects.emplace_back(Factory::createWaterTile(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
+	}
 }

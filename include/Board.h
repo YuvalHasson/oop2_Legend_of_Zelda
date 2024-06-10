@@ -13,6 +13,7 @@
 #include <sstream>
 
 #include "CollisionHandling.h"
+#include "Map.h"
 
 #include "Factory.h"
 
@@ -39,6 +40,7 @@ public:
 private:
 	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
+	Map m_map;
 
 
 	// STL-like algorithm to run over all pairs
