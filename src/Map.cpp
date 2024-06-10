@@ -107,7 +107,7 @@ bool Map::setMap()
 void Map::initVector(Cell cell)
 {
 	// texture of daungeon path
-	if (cell.value <= -1610612618 && cell.value >= -1610612666 || cell.value == 1610613065)
+	if (cell.value <= -1610612618 && cell.value >= -1610612666 || cell.value == 1610613065 || cell.value == 1610613107 || cell.value == -1073741688)
 	{
 		return;
 	}
