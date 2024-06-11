@@ -1,14 +1,12 @@
 #pragma once
 
 #include "Button.h"
-#include "MainMenu.h"
-
-class MainMenu;
+#include "State.h"
 
 class SettingsButton : public Button
 {
 public:
-	SettingsButton(MainMenu* menu);
+	SettingsButton(State*);
 
 	void execute() override;
 private:

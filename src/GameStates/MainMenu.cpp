@@ -1,5 +1,4 @@
 #include "MainMenu.h"
-#include "NewGameState.h"
 
 #include <iostream> // std::cout
 
@@ -44,17 +43,6 @@ void MainMenu::overButton(sf::RenderWindow& window)
 	}
 }
 
-void MainMenu::startGame()
-{
-	updateState(GAME_STATE::NEW_GAME);
-	std::cout << getGameState() << std::endl;
-}
-
-void MainMenu::exitGame()
-{
-	updateState(GAME_STATE::EXIT);
-}
-
 void MainMenu::update(const sf::Time&)
 {
 	overButton(*getWindow());
@@ -71,18 +59,24 @@ void MainMenu::render(sf::RenderTarget* target)
 
 std::unique_ptr<State> MainMenu::handleInput(GAME_STATE gameState)
 {
-	if (getGameState() == GAME_STATE::MAIN_MENU)
+	switch (gameState)
 	{
+	case  GAME_STATE::MAIN_MENU:
 		return std::make_unique<MainMenu>(getWindow());
-	}
-	else if (getGameState() == GAME_STATE::NEW_GAME)
-	{
+		break;
+	case  GAME_STATE::NEW_GAME:
 		return std::make_unique<NewGameState>(getWindow());
-	}
-	else if (getGameState() == GAME_STATE::EXIT)
-	{
+		break;
+	case  GAME_STATE::SETTINGS:
+		return std::make_unique<SettingState>(getWindow());
+		break;
+		//case  GAME_STATE::HELP:
+		//	break;
+		//case  GAME_STATE::LOAD:	
+		//	break;
+	case  GAME_STATE::EXIT:
 		getWindow()->close();
-		return nullptr;
+		break;
 	}
 	return std::make_unique<MainMenu>(getWindow());
 }

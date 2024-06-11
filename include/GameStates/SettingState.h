@@ -1,27 +1,15 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "Utilities.h"
-#include "Resources.h"
-#include "StartButton.h"
-#include "ExitButton.h"
-#include "SettingsButton.h"
-#include "HelpButton.h"
-#include "LoadButton.h"
-
 #include "State.h"
-#include "SettingState.h"
-#include "NewGameState.h"
+#include "MainMenu.h"
+#include "BackButton.h"
 
 using Option = std::pair<std::string, std::unique_ptr<Button>>;
 
-class MainMenu : public State
+class SettingState : public State
 {
 public:
-	MainMenu(sf::RenderWindow*);
-
-	void drawMainMenu(sf::RenderWindow&);
-	void overButton(sf::RenderWindow&);
+	SettingState(sf::RenderWindow* window);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;

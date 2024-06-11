@@ -6,7 +6,7 @@
 #include "MainMenu.h"
 #include "Board.h"
 
-#include "GameState.h"
+#include "State.h"
 
 class Controller
 {
@@ -17,9 +17,6 @@ public:
 	void run();
 private:
 	sf::RenderWindow m_window;
-
-	Board m_board;
-	//MainMenu m_mainMenu;
 
 	std::unique_ptr<State> m_state;
 };

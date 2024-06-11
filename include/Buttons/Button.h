@@ -4,7 +4,7 @@
 #include "Utilities.h"
 #include "Resources.h"
 
-class MainMenu;
+class State;
 
 class Button
 {
@@ -14,17 +14,17 @@ public:
 
 	virtual void execute() = 0;
 	void draw(sf::RenderWindow&) const;
-	void setMainMenu(MainMenu*);
-	
+	void setState(State*);
+
 	void setText(std::string, sf::Vector2f);
 	void overButton(sf::RenderWindow&);
 
 	bool isButtonPressed(sf::RenderWindow&, const sf::Event::MouseButtonEvent&);
 
-	MainMenu* getMainMenu() const;
+	State* getState() const;
 
 private:
-	MainMenu* m_mainMenu;
+	State* m_state;
 
 	sf::Text m_text;
 };

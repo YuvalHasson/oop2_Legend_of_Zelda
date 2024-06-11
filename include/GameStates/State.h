@@ -16,6 +16,11 @@ public:
 
 	void updateState(GAME_STATE gameState);
 
+	void startGame();
+	void exitGame();
+	void openSettings();
+	void backToMenu();
+
 	sf::RenderWindow* getWindow() const;
 	static GAME_STATE getGameState();
 
