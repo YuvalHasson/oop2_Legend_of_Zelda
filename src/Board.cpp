@@ -6,6 +6,21 @@ Board::Board()
 {
 }
 
+Board::Board(Board&& other) noexcept
+	: m_movingObjects(std::move(other.m_movingObjects)), m_staticObjects(std::move(other.m_staticObjects))
+{
+}
+
+Board& Board::operator=(Board&& other) noexcept
+{
+	if (this != &other)
+	{
+		m_movingObjects = std::move(other.m_movingObjects);
+		m_staticObjects = std::move(other.m_staticObjects);
+	}
+	return *this;
+}
+
 void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
 {
 	for (auto& gameObject : m_staticObjects)

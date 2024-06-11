@@ -1,9 +1,10 @@
 #include "MainMenu.h"
+#include "NewGameState.h"
 
 #include <iostream> // std::cout
 
-MainMenu::MainMenu()
-	: m_gameState(GAME_STATE::MAIN_MENU)
+MainMenu::MainMenu(sf::RenderWindow* window)
+	:State(window)
 {
 	m_menuBackground.setSize(sf::Vector2f(windowHeight, WindowWidth));
 	m_menuBackground.setTexture(Resources::getResource().getTexture(TEXTURE::Menu));
@@ -18,7 +19,6 @@ MainMenu::MainMenu()
 void MainMenu::drawMainMenu(sf::RenderWindow& window)
 {
 	window.draw(m_menuBackground);
-	
 	for (auto& option : m_options)
 	{
 		option.second->draw(window);
@@ -46,17 +46,45 @@ void MainMenu::overButton(sf::RenderWindow& window)
 
 void MainMenu::startGame()
 {
-	m_gameState = GAME_STATE::NEW_GAME;
+	updateState(GAME_STATE::NEW_GAME);
+	std::cout << getGameState() << std::endl;
 }
 
 void MainMenu::exitGame()
 {
-	m_gameState = GAME_STATE::EXIT;
+	updateState(GAME_STATE::EXIT);
 }
 
-int MainMenu::getGameState() const
+void MainMenu::update(const sf::Time&)
 {
-	return m_gameState;
+	overButton(*getWindow());
+}
+
+void MainMenu::render(sf::RenderTarget* target)
+{
+	if (!target)
+	{
+		target = getWindow();
+	}
+	drawMainMenu(*getWindow());
+}
+
+std::unique_ptr<State> MainMenu::handleInput(GAME_STATE gameState)
+{
+	if (getGameState() == GAME_STATE::MAIN_MENU)
+	{
+		return std::make_unique<MainMenu>(getWindow());
+	}
+	else if (getGameState() == GAME_STATE::NEW_GAME)
+	{
+		return std::make_unique<NewGameState>(getWindow());
+	}
+	else if (getGameState() == GAME_STATE::EXIT)
+	{
+		getWindow()->close();
+		return nullptr;
+	}
+	return std::make_unique<MainMenu>(getWindow());
 }
 
 void MainMenu::add(const std::string& name, std::unique_ptr<Button> c)

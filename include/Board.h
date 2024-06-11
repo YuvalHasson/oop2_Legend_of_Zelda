@@ -20,6 +20,9 @@ class Board
 {
 public:
 	Board();
+	Board(Board&& other) noexcept; // Move constructor
+	Board& operator=(Board&& other) noexcept; // Move assignment operator
+
 	~Board() = default;
 
 	void draw(sf::RenderWindow&, sf::FloatRect&);
