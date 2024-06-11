@@ -9,13 +9,16 @@
 #include "HelpButton.h"
 #include "LoadButton.h"
 
+#include "State.h"
+
+class NewGameState;
+
 using Option = std::pair<std::string, std::unique_ptr<Button>>;
 
-class MainMenu
+class MainMenu : public State
 {
 public:
-	MainMenu();
-	~MainMenu() = default;
+	MainMenu(sf::RenderWindow*);
 
 	void drawMainMenu(sf::RenderWindow&);
 	void buttonPressed(sf::RenderWindow&, const sf::Event::MouseButtonEvent&);
@@ -23,13 +26,14 @@ public:
 	void startGame();
 	void exitGame();
 
-	int getGameState() const;
+
+	virtual void update(const sf::Time&) override;
+	virtual void render(sf::RenderTarget* = nullptr) override;
+	virtual std::unique_ptr<State> handleInput(GAME_STATE) override;
 
 private:
 	void add(const std::string&, std::unique_ptr<Button>);
 
 	sf::RectangleShape m_menuBackground;
 	std::vector<Option> m_options;
-
-	int m_gameState;
 };

@@ -6,7 +6,7 @@
 #include "MainMenu.h"
 #include "Board.h"
 
-//#include "MyContactListener.h"
+#include "GameState.h"
 
 class Controller
 {
@@ -19,8 +19,7 @@ private:
 	sf::RenderWindow m_window;
 
 	Board m_board;
-	MainMenu m_mainMenu;
+	//MainMenu m_mainMenu;
 
-
-	int m_gameState;
+	std::unique_ptr<State> m_state;
 };
