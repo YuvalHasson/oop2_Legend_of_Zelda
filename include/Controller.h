@@ -3,6 +3,7 @@
 #include <SFML/GRAPHICS.hpp>
 #include "Utilities.h"
 #include "Resources.h"
+#include "SoundResource.h"
 #include "MainMenu.h"
 #include "Board.h"
 

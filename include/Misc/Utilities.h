@@ -5,7 +5,7 @@
 
 const int OBJ_AMOUNT = 5;
 const int SOUND_AMOUNT = 1;
-const int BACK_SOUND_AMNT = 1;
+const int BACK_SOUND_AMNT = 2;
 
 enum GAME_STATE {
 	MAIN_MENU,
@@ -43,6 +43,12 @@ namespace TEXTURE
 	constexpr int Link = 2;
 	constexpr int MapObjects = 3;
 	constexpr int Enemies = 4;
+}
+
+namespace BACKGROUND_SOUND
+{
+	constexpr int Menu = 0;
+	constexpr int StartGame = 1;
 }
 
 namespace ANIMATIONS_POSITIONS

@@ -24,11 +24,11 @@ void MainMenu::drawMainMenu(sf::RenderWindow& window)
 	}
 }
 
-void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event::MouseButtonEvent& event)
+void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
 	for (auto& option : m_options)
 	{
-		if (option.second->isButtonPressed(window, event))
+		if (option.second->isButtonPressed(window, event.mouseButton))
 		{
 			option.second->execute();
 		}
@@ -61,10 +61,8 @@ std::unique_ptr<State> MainMenu::handleInput(GAME_STATE gameState)
 {
 	switch (gameState)
 	{
-	case  GAME_STATE::MAIN_MENU:
-		return std::make_unique<MainMenu>(getWindow());
-		break;
 	case  GAME_STATE::NEW_GAME:
+		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::Menu);
 		return std::make_unique<NewGameState>(getWindow());
 		break;
 	case  GAME_STATE::SETTINGS:
@@ -80,7 +78,7 @@ std::unique_ptr<State> MainMenu::handleInput(GAME_STATE gameState)
 		getWindow()->close();
 		break;
 	}
-	return std::make_unique<MainMenu>(getWindow());
+	return nullptr;
 }
 
 void MainMenu::add(const std::string& name, std::unique_ptr<Button> c)

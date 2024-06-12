@@ -7,6 +7,7 @@ Controller::Controller()
 {
 	m_window.setFramerateLimit(60);
 	m_window.setIcon(Resources::getResource().getIcon()->getSize().x, Resources::getResource().getIcon()->getSize().y, Resources::getResource().getIcon()->getPixelsPtr());
+    SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 }
 
 Controller::~Controller()
@@ -17,6 +18,8 @@ void Controller::run()
 {
     sf::Clock clock;
     sf::Time deltaTime;
+    auto defaultView(m_window.getDefaultView());
+
     while (m_window.isOpen())
     {
         deltaTime = clock.restart();
@@ -28,19 +31,21 @@ void Controller::run()
                 m_window.close();
                 break;
             case sf::Event::MouseButtonReleased:
-				m_state->buttonPressed(*m_state->getWindow(), event.mouseButton);
+				m_state->buttonPressed(*m_state->getWindow(), event);
 				break;
             default:
                 break;
             }
         }
 
-        std::unique_ptr<State> state = m_state->handleInput(m_state->getGameState());
-        if (state)
+        auto newState = m_state->handleInput(m_state->getGameState());
+        if (newState && typeid(*newState) != typeid(*m_state))
         {
-            m_state = std::move(state);
-            m_state->update(deltaTime);
+            m_state = std::move(newState);
+            m_window.setView(defaultView);
         }
+        m_state->update(deltaTime);
+
         m_window.clear();
         m_state->render();
         m_window.display();
