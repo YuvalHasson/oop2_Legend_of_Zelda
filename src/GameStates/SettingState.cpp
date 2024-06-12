@@ -8,6 +8,7 @@ SettingState::SettingState(sf::RenderWindow* window)
 
 	add("Back", std::make_unique<BackButton>(this));
 	add("Volume Down", std::make_unique<VolumeDownButton>());
+	add("Volume Up", std::make_unique<VolumeUpButton>());
 }
 
 void SettingState::update(const sf::Time& deltaTime)

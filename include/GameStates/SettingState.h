@@ -5,6 +5,7 @@
 #include "MainMenu.h"
 #include "BackButton.h"
 #include "VolumeDownButton.h"
+#include "VolumeUpButton.h"
 
 using Option = std::pair<std::string, std::unique_ptr<Button>>;
 
