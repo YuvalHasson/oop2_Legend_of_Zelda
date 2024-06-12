@@ -15,6 +15,9 @@ public:
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) override;
 
 private:
+
+	void setCenterView();
+
 	Board m_board;
 	sf::View m_view;
 	sf::Sprite m_background;

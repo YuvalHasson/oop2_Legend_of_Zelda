@@ -38,7 +38,7 @@ std::unique_ptr<State> SettingState::handleInput(GAME_STATE gameState)
 	{
 		return std::make_unique<MainMenu>(getWindow());
 	}
-	return std::make_unique<SettingState>(getWindow());
+	return nullptr;
 }
 
 void SettingState::buttonPressed(sf::RenderWindow& window, const sf::Event& event)

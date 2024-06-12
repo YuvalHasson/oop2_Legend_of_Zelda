@@ -61,9 +61,6 @@ std::unique_ptr<State> MainMenu::handleInput(GAME_STATE gameState)
 {
 	switch (gameState)
 	{
-	case  GAME_STATE::MAIN_MENU:
-		return std::make_unique<MainMenu>(getWindow());
-		break;
 	case  GAME_STATE::NEW_GAME:
 		return std::make_unique<NewGameState>(getWindow());
 		break;
@@ -80,7 +77,7 @@ std::unique_ptr<State> MainMenu::handleInput(GAME_STATE gameState)
 		getWindow()->close();
 		break;
 	}
-	return std::make_unique<MainMenu>(getWindow());
+	return nullptr;
 }
 
 void MainMenu::add(const std::string& name, std::unique_ptr<Button> c)

@@ -39,19 +39,11 @@ std::unique_ptr<State> NewGameState::handleInput(GAME_STATE gameState)
 	{
 		getWindow()->close();
 	}
-	else if(gameState == GAME_STATE::NEW_GAME)
-	{
-		return std::make_unique<NewGameState>(getWindow());
-	}
-	else if(gameState == GAME_STATE::ENDGAME)
-	{
-		//return std::make_unique<NewGameState>(getWindow());s
-	}
 	else if (gameState == GAME_STATE::GAME_RUNNING)
 	{
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_board), std::move(m_view), m_background);
 	}
-	return std::make_unique<NewGameState>(getWindow());
+	return nullptr;
 }
 
 void NewGameState::buttonPressed(sf::RenderWindow&, const sf::Event&)
