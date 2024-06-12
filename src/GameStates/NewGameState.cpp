@@ -54,7 +54,7 @@ std::unique_ptr<State> NewGameState::handleInput(GAME_STATE gameState)
 	return std::make_unique<NewGameState>(getWindow());
 }
 
-void NewGameState::buttonPressed(sf::RenderWindow&, const sf::Event::MouseButtonEvent&)
+void NewGameState::buttonPressed(sf::RenderWindow&, const sf::Event&)
 {
 	//no button here..
 }

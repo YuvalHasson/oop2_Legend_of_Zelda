@@ -45,6 +45,11 @@ namespace TEXTURE
 	constexpr int Enemies = 4;
 }
 
+namespace BACKGROUND_SOUND
+{
+	constexpr int Menu = 0;
+}
+
 namespace ANIMATIONS_POSITIONS
 {
 	const sf::Vector2u LinkUp(35, 42);

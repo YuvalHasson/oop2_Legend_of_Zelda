@@ -7,6 +7,7 @@ SettingState::SettingState(sf::RenderWindow* window)
 	m_menuBackground.setTexture(Resources::getResource().getTexture(TEXTURE::Menu));
 
 	add("Back", std::make_unique<BackButton>(this));
+	add("Volume Down", std::make_unique<VolumeDownButton>());
 }
 
 void SettingState::update(const sf::Time& deltaTime)
@@ -39,11 +40,11 @@ std::unique_ptr<State> SettingState::handleInput(GAME_STATE gameState)
 	return std::make_unique<SettingState>(getWindow());
 }
 
-void SettingState::buttonPressed(sf::RenderWindow& window, const sf::Event::MouseButtonEvent& event)
+void SettingState::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
 	for (auto& option : m_options)
 	{
-		if (option.second->isButtonPressed(window, event))
+		if (option.second->isButtonPressed(window, event.mouseButton))
 		{
 			option.second->execute();
 		}

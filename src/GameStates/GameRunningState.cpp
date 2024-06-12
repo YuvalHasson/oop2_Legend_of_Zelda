@@ -50,7 +50,7 @@ std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE)
 	return std::make_unique<GameRunningState>(getWindow(), std::move(m_board), std::move(m_view), m_background);
 }
 
-void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event::MouseButtonEvent&)
+void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&)
 {
 
 }

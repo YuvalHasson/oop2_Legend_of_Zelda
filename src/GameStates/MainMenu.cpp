@@ -24,11 +24,11 @@ void MainMenu::drawMainMenu(sf::RenderWindow& window)
 	}
 }
 
-void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event::MouseButtonEvent& event)
+void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
 	for (auto& option : m_options)
 	{
-		if (option.second->isButtonPressed(window, event))
+		if (option.second->isButtonPressed(window, event.mouseButton))
 		{
 			option.second->execute();
 		}
