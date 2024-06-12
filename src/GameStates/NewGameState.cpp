@@ -9,6 +9,8 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	m_board.addStaticObject(sf::Vector2f(50.f, 50.f));
 
 	m_view.setCenter(m_board.getSprite(0).getPosition()); //think about a better way to get link position.
+
+	SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 }
 
 void NewGameState::update(const sf::Time& deltaTime)
@@ -35,13 +37,13 @@ std::unique_ptr<State> NewGameState::handleInput(GAME_STATE gameState)
 	{
 		return std::make_unique<MainMenu>(getWindow());
 	}
-	else if(gameState == GAME_STATE::EXIT)
-	{
-		getWindow()->close();
-	}
 	else if (gameState == GAME_STATE::GAME_RUNNING)
 	{
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_board), std::move(m_view), m_background);
+	}
+	else if(gameState == GAME_STATE::EXIT)
+	{
+		getWindow()->close();
 	}
 	return nullptr;
 }

@@ -11,7 +11,7 @@ private:
 	};
 
 	std::string m_backgroundNames[BACK_SOUND_AMNT] = {
-		"MainTheme.ogg"
+		"MainTheme.ogg", "LinkAwakens.ogg"
 	};
 
 	sf::Music m_backgroundMusic[BACK_SOUND_AMNT];

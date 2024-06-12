@@ -39,6 +39,7 @@ std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
 	switch (gameState)
 	{
 	case GAME_STATE::MAIN_MENU:
+		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::StartGame);
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 		return std::make_unique<MainMenu>(getWindow());
 	case GAME_STATE::EXIT:
