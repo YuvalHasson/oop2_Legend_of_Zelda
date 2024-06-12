@@ -21,21 +21,24 @@ void Octorok::update(const sf::Time& deltaTime)
     {
         int randomMovment = rand() % 4;
 
-        std::cout << randomMovment << std::endl;
 
         switch (randomMovment)
         {
         case 0:
             up = true;
+            std::cout << "up" << std::endl;
             break;
         case 1:
             down = true;
+            std::cout << "down" << std::endl;
             break;
         case 2:
             right = true;
+            std::cout << "right" << std::endl;
             break;
         case 3:
             left = true;
+            std::cout << "left" << std::endl;
             break;
         default:
             break;

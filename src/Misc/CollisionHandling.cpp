@@ -43,7 +43,6 @@ namespace
 				pot.destroy();
 			}
 		}
-
 	}
 	
 	void PotLink(GameObject& pot, GameObject& link)

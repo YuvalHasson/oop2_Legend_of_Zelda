@@ -22,6 +22,7 @@ void OctorokMoveState::enter(Octorok& Octorok)
         if (currentDirection != DIRECTIONS::Right) {
             Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokLeft, 2, true);
             Octorok.setDirection(DIRECTIONS::Right);
+
         }
     }
     else if (m_direction == PRESS_LEFT) {
@@ -32,7 +33,7 @@ void OctorokMoveState::enter(Octorok& Octorok)
     }
     else if (m_direction == PRESS_UP) {
         if (currentDirection != DIRECTIONS::Up) {
-            Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2, true);
+            Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokUp, 2);
             Octorok.setDirection(DIRECTIONS::Up);
         }
     }
