@@ -4,6 +4,7 @@
 #include "LinkStandingState.h"
 #include "Link.h"
 
+
 LinkMoveState::LinkMoveState(Input direction): m_direction(direction){}
 
 std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input){

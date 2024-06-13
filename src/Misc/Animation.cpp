@@ -63,10 +63,15 @@ void Animation::update(const sf::Time& deltaTime) {
 
 void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool flip, bool singleTime, float switchTime){
     if(m_animationStartPosition == startPosition){
+        if(singleTime){
+            m_currentImage = 0;
+            m_timePassed = 0;
+        }
         return;
     }
     m_animationStartPosition = startPosition;
     m_currentImage = 0;
+    m_timePassed = 0;
     m_imageCount = imgCount;
     m_uvRect.left = startPosition.x;
     m_uvRect.top = startPosition.y;

@@ -17,5 +17,22 @@ std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input){
     return std::make_unique<LinkStandingState>();
 }
 
-void LinkStandingState::enter(Link& link){}
+void LinkStandingState::enter(Link& link){
+
+    sf::Vector2i currentDirection = link.getDirection();
+
+    if(currentDirection.x == 1){
+        link.setGraphics(ANIMATIONS_POSITIONS::LinkRight, 2, false , true);
+    }
+    else if(currentDirection.x == -1){
+        link.setGraphics(ANIMATIONS_POSITIONS::LinkLeft, 2, false , true);
+    }
+    else if(currentDirection == DIRECTIONS::Down){
+        link.setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2, false , true);
+    }
+    else if(currentDirection == DIRECTIONS::Up){
+        link.setGraphics(ANIMATIONS_POSITIONS::LinkUp, 2, false , true);
+    }
+    link.stopSwordSwipe();
+}
 
