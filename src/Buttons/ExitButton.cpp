@@ -1,12 +1,12 @@
 #include "ExitButton.h"
 
-ExitButton::ExitButton(MainMenu* menu)
+ExitButton::ExitButton(State* state)
 {
 	setText("Exit", sf::Vector2f(70, 735));
-	setMainMenu(menu);
+	setState(state);
 }
 
 void ExitButton::execute()
 {
-	getMainMenu()->exitGame();
+	getState()->exitGame();
 }

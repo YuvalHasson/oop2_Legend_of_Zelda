@@ -1,12 +1,12 @@
 #include "LoadButton.h"
 
-LoadButton::LoadButton(MainMenu* menu)
+LoadButton::LoadButton(State* state)
 {
-	setMainMenu(menu);
+	setState(state);
 	setText("Load", sf::Vector2f(70, 535));
 }
 
 void LoadButton::execute()
 {
-	//getMainMenu()->setLoadMenu();
+	//getState()->setLoadMenu();
 }

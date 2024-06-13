@@ -28,6 +28,7 @@ void LinkAttackState::enter(Link& link){
         else if(currentDirection == DIRECTIONS::Up){
             link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackUp, 3, false , true);
         }
+        link.setAttacking(true);
     }
     link.swipeSword();
 }

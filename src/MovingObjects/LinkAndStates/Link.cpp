@@ -2,6 +2,11 @@
 
 #include <iostream> //debugging
 
+bool Link::m_registerit = Factory::registerit("Link",
+    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> {
+        return std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), position);
+    });
+
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: MovingObjects(texture, position), m_state(std::make_unique<LinkStandingState>())
 {
@@ -62,16 +67,6 @@ void Link::handleCollision()
 
 }
 
-void Link::undoMove()
-{
-	getSprite().setPosition(getSprite().getPosition() - sf::Vector2f(getDirection()));
-}
-
-bool Link::isAttacking() const
-{
-    return m_attacking;
-}
-
 void Link::update(const sf::Time& deltaTime){
 
     bool up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W);
@@ -111,7 +106,7 @@ void Link::update(const sf::Time& deltaTime){
     else{
         input = NONE;
     }
-
+    
     std::unique_ptr<LinkState> state = m_state->handleInput(input);
 
     if(state){
@@ -124,7 +119,7 @@ void Link::update(const sf::Time& deltaTime){
     }
     updateSprite();
 
-};
+}
 
 void Link::insertSword(Sword* sword){
     m_sword = sword;
@@ -136,3 +131,4 @@ void Link::swipeSword(){
 void Link::stopSwordSwipe(){
     m_sword->deActivate();
 }
+

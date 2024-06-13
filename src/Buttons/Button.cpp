@@ -1,7 +1,8 @@
 #include "Button.h"
+#include "State.h"
 
 Button::Button()
-	: m_mainMenu(nullptr)
+	: m_state(nullptr)
 {
 }
 
@@ -10,9 +11,9 @@ void Button::draw(sf::RenderWindow& window) const
 	window.draw(m_text);
 }
 
-void Button::setMainMenu(MainMenu* mainMenu)
+void Button::setState(State* state)
 {
-	m_mainMenu = mainMenu;
+	m_state = state;
 }
 
 void Button::setText(std::string text, sf::Vector2f position)
@@ -44,7 +45,7 @@ bool Button::isButtonPressed(sf::RenderWindow& window, const sf::Event::MouseBut
 	return m_text.getGlobalBounds().contains(window.mapPixelToCoords({ event.x, event.y }));
 }
 
-MainMenu* Button::getMainMenu() const
+State* Button::getState() const
 {
-	return m_mainMenu;
+	return m_state;
 }

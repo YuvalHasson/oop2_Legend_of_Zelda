@@ -1,22 +1,35 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+#include <map>
+#include <string>
 
-#include "GameObject.h"
+#include <SFML/Graphics.hpp>
+
 #include "Resources.h"
-#include "Link.h"
-#include "Wall.h"
-#include "Pot.h"
-#include "WaterTile.h"
-#include "Octorok.h"
+#include "Utilities.h"
 
+class GameObject;
+class StaticObjects;
+class Enemy;
+class Link;
+
+typedef std::map<std::string, std::unique_ptr<GameObject>(*)(const sf::Vector2f&)> mymap;
 
 class Factory
 {
 public:
-    static std::unique_ptr<MovingObjects> createLink(const sf::Vector2f& position);
-	static std::unique_ptr<MovingObjects> createOctorok(const sf::Vector2f& position);
-    static std::unique_ptr<StaticObjects> createWall(const sf::Vector2f& position);
-	static std::unique_ptr<StaticObjects> createPot(const sf::Vector2f& position);
-	static std::unique_ptr<StaticObjects> createWaterTile(const sf::Vector2f& position);
+	static std::vector<std::unique_ptr<StaticObjects>> createStaticObjects(const std::vector<std::pair<std::string, Cell>>&);
+	static std::unique_ptr<Link> createLink();
+	static std::vector<std::unique_ptr<Enemy>> createEnemies();
+
+	static std::unique_ptr<GameObject> create(const std::string& name, const sf::Vector2f& position);
+	static bool registerit(const std::string& name, std::unique_ptr<GameObject>(*)(const sf::Vector2f&));
+private:
+	static mymap& getMap()
+	{
+		static mymap m_map;
+		return m_map;
+	}
 };

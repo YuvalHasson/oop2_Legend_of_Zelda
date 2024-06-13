@@ -1,43 +1,45 @@
 #pragma once
 #include <iostream> // debug
 
-
 #include <SFML/Graphics.hpp>
-#include "MovingObjects.h"
-#include "StaticObjects.h"
-#include "Utilities.h"
-#include "Resources.h"
+#include "MovingObjects/MovingObjects.h"
+#include "StaticObjects/StaticObjects.h"
+#include "Misc/Utilities.h"
+#include "ResourcesManager/Resources.h"
 #include <vector>
 #include <memory>
 #include <fstream>
 #include <sstream>
 
-#include "CollisionHandling.h"
-#include "Map.h"
+#include "Misc/CollisionHandling.h"
+#include "Misc/Map.h"
+#include "Misc/Factory.h"
 
-#include "Factory.h"
 
 class Board
 {
 public:
 	Board();
+	Board(Board&& other) noexcept; // Move constructor
+	Board& operator=(Board&& other) noexcept; // Move assignment operator
+
 	~Board() = default;
 
 	void draw(sf::RenderWindow&, sf::FloatRect&);
-	void addStaticObject(const sf::Vector2f);
+	void addStaticObject();
 	void makeLink();
 	void move(const sf::Time&);
 	void update(const sf::Time& deltaTime);
 	void handleCollision();
 	void setMap();
-	void initVector(Cell number);
 
 	//temp get
-	const sf::Sprite& getSprite(int index) { return m_movingObjects[index]->getSprite(); }
+	const sf::Sprite& getSprite() { return m_link->getSprite(); }
 
 private:
-	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
+	//std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
+	std::unique_ptr<Link> m_link;
 	Map m_map;
 
 

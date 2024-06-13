@@ -9,5 +9,6 @@ public:
 
 	void handleCollision() override;
 private:
+	static bool m_registerit;
 
 };

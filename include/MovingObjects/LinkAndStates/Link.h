@@ -12,11 +12,12 @@ public:
 	Link(const sf::Texture&, const sf::Vector2f&);
 
 	virtual void update(const sf::Time& deltaTime) override;
-	// virtual void attack(const sf::Time&)override;
+	// virtual void attack(const sf::Time&) override;
 	virtual void handleCollision() override;
 	//void createSword();
 	//void killSword();
 	void insertSword(Sword*);
+
 
 	void undoMove();
 	bool isAttacking() const;
@@ -26,4 +27,6 @@ public:
 private:
 	std::unique_ptr<LinkState> m_state;
 	Sword* m_sword;
+  static bool m_registerit;
+
 };

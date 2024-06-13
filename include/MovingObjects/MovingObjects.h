@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-#include "Animation.h"
+#include "Misc/Animation.h"
 
 class MovingObjects : public GameObject
 {
@@ -12,13 +12,18 @@ public:
 	virtual void update(const sf::Time& deltaTime) = 0;
 	// virtual void attack(const sf::Time& deltaTime) = 0;
 	virtual void handleCollision() = 0;
+
 	void updateSprite();
 	void setGraphics(const sf::Vector2u&, int, bool = false, bool = false, float switchTime = 0.2f);
 	void updateGraphics(const sf::Time& deltaTime);
-	sf::Vector2i getDirection()const;
 	void setDirection(const sf::Vector2i&);
-	bool isAnimationDone()const;
+	void setAttacking(bool = false);
+	void undoMove();
 
+	sf::Vector2i getDirection() const;
+
+	bool isAnimationDone() const;
+	bool isAttacking() const;
 
 protected:
 	bool m_attacking;

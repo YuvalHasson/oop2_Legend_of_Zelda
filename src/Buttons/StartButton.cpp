@@ -1,12 +1,12 @@
 #include "StartButton.h"
 
-StartButton::StartButton(MainMenu* menu)
+StartButton::StartButton(State* menu)
 {
 	setText("Start", sf::Vector2f(70, 485));
-	setMainMenu(menu);
+	setState(menu);
 }
 
 void StartButton::execute()
 {
-	getMainMenu()->startGame();
+	getState()->startGame();
 }

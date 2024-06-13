@@ -4,21 +4,32 @@
 #include <vector>
 
 const int OBJ_AMOUNT = 5;
+const int SOUND_AMOUNT = 1;
+const int BACK_SOUND_AMNT = 2;
 
-enum GAME_STATE { MAIN_MENU, NEW_GAME, EXIT, LOAD_GAME, GAME_RUNNING , ENDGAME};
+enum GAME_STATE {
+	MAIN_MENU,
+	NEW_GAME,
+	EXIT,
+	LOAD_GAME,
+	GAME_RUNNING,
+	ENDGAME,
+	SETTINGS
+};
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
 //might need to be held in links class since only link uses those specific states
-enum Input{
-    PRESS_UP,
-    PRESS_DOWN,
-    PRESS_LEFT,
-    PRESS_RIGHT,
-    PRESS_UP_RIGHT,
-    PRESS_UP_LEFT,
-    PRESS_DOWN_RIGHT,
-    PRESS_DOWN_LEFT,
-    PRESS_SPACE,
+enum Input {
+	PRESS_UP,
+	PRESS_DOWN,
+	PRESS_LEFT,
+	PRESS_RIGHT,
+	PRESS_UP_RIGHT,
+	PRESS_UP_LEFT,
+	PRESS_DOWN_RIGHT,
+	PRESS_DOWN_LEFT,
+	PRESS_SPACE,
+	STANDING,
 	NONE
 };
 
@@ -35,8 +46,15 @@ namespace TEXTURE
 	constexpr int Enemies = 4;
 }
 
+namespace BACKGROUND_SOUND
+{
+	constexpr int Menu = 0;
+	constexpr int StartGame = 1;
+}
+
 namespace ANIMATIONS_POSITIONS
 {
+
 	const sf::Vector2u LinkUp(35,42);
 	const sf::Vector2u LinkDown(1,42);
 	const sf::Vector2u LinkLeft(35,11);
@@ -49,19 +67,23 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u SwordDown(1,103);
 	const sf::Vector2u SwordLeft(103,103);
 	const sf::Vector2u SwordRight(137,103);
+  const sf::Vector2u OctorokDown(197, 143);
+	const sf::Vector2u OctorokLeft(231, 143);
+	const sf::Vector2u OctorokUp(291, 143);
+
 }
 
 //might be useless
 namespace DIRECTIONS
 {
-	const sf::Vector2i Up(0,-1);
-	const sf::Vector2i Down(0,1);
-	const sf::Vector2i Left(-1,0);
-	const sf::Vector2i Right(1,0);
-	const sf::Vector2i UpLeft(-1,-1);
-	const sf::Vector2i UpRight(1,-1);
-	const sf::Vector2i DownLeft(-1,1);
-	const sf::Vector2i DownRight(1,1);
+	const sf::Vector2i Up(0, -1);
+	const sf::Vector2i Down(0, 1);
+	const sf::Vector2i Left(-1, 0);
+	const sf::Vector2i Right(1, 0);
+	const sf::Vector2i UpLeft(-1, -1);
+	const sf::Vector2i UpRight(1, -1);
+	const sf::Vector2i DownLeft(-1, 1);
+	const sf::Vector2i DownRight(1, 1);
 }
 
 struct Cell

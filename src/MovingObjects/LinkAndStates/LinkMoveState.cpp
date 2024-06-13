@@ -57,6 +57,5 @@ void LinkMoveState::enter(Link& link){
         default:
             break;
     }
-    
     link.move();
 }

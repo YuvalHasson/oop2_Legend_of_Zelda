@@ -2,9 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 #include "Utilities.h"
+#include "Factory.h"
 
-
-class GameObject{
+class GameObject
+{
 public:
     GameObject(const sf::Texture&, const sf::Vector2f&);
     virtual ~GameObject();

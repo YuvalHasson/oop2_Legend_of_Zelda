@@ -1,12 +1,12 @@
 #include "SettingsButton.h"
 
-SettingsButton::SettingsButton(MainMenu* menu)
+SettingsButton::SettingsButton(State* state)
 {
 	setText("Settings", sf::Vector2f(70, 635));
-	setMainMenu(menu);
+	setState(state);
 }
 
 void SettingsButton::execute()
 {
-	//getMainMenu()->openSettings();
+	getState()->openSettings();
 }

@@ -1,12 +1,12 @@
 #include "HelpButton.h"
 
-HelpButton::HelpButton(MainMenu* menu)
+HelpButton::HelpButton(State* state)
 {
 	setText("Help", sf::Vector2f(70, 585));
-	setMainMenu(menu);
+	setState(state);
 }
 
 void HelpButton::execute()
 {
-	//getMainMenu()->setHelpMenu();
+	//getState()->setHelpMenu();
 }
