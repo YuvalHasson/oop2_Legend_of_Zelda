@@ -131,4 +131,3 @@ void Link::swipeSword(){
 void Link::stopSwordSwipe(){
     m_sword->deActivate();
 }
-

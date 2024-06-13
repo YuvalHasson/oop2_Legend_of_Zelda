@@ -19,8 +19,7 @@ public:
 	void insertSword(Sword*);
 
 
-	void undoMove();
-	bool isAttacking() const;
+	// bool isAttacking() const;
 	void swipeSword();
 	void stopSwordSwipe();
 
