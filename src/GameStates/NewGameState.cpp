@@ -6,9 +6,9 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
 	m_board.setMap();
 	m_board.makeLink();
-	m_board.addStaticObject(sf::Vector2f(50.f, 50.f));
+	m_board.addStaticObject();
 
-	m_view.setCenter(m_board.getSprite(0).getPosition()); //think about a better way to get link position.
+	m_view.setCenter(m_board.getSprite().getPosition()); //think about a better way to get link position.
 
 	SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 }

@@ -2,6 +2,11 @@
 
 #include <iostream> //debugging
 
+bool Link::m_registerit = Factory::registerit("Link",
+    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> {
+        return std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), position);
+    });
+
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: MovingObjects(texture, position), m_state(std::make_unique<LinkStandingState>())
 {

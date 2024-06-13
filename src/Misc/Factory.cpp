@@ -1,26 +1,76 @@
 #include "Factory.h"
 
-std::unique_ptr<MovingObjects> Factory::createLink(const sf::Vector2f& position)
-{
-	return std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), position);
+#include "GameObject.h"
+#include "Link.h"
+#include "Wall.h"
+#include "Pot.h"
+#include "Enemy.h"
+#include "WaterTile.h"
+#include "Octorok.h"
+
+#include <iostream> // debug
+
+std::vector<std::unique_ptr<StaticObjects>> Factory::createStaticObjects(const std::vector<std::pair<std::string, Cell>>& map) {
+    std::vector<std::unique_ptr<StaticObjects>> staticObjects;
+   
+	for (const auto& objMap : map)
+	{
+		if (objMap.first == "wall")
+		{
+			auto obj = create("Wall", sf::Vector2f(tileSize * objMap.second.col, tileSize * objMap.second.row));
+			if (obj)
+			{
+				if (auto staticObj = dynamic_cast<StaticObjects*>(obj.get()))
+				{
+					staticObjects.emplace_back(std::unique_ptr<StaticObjects>(staticObj));
+					obj.release();
+				}
+			}
+		}
+	}
+    return staticObjects;
 }
 
-std::unique_ptr<MovingObjects> Factory::createOctorok(const sf::Vector2f& position)
+std::unique_ptr<Link> Factory::createLink()
 {
-	return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
+	std::unique_ptr<Link> linkPtr;
+    auto obj = create("Link", { 32.f, 50.f });
+    if (obj)
+    {
+        if (auto link = dynamic_cast<Link*>(obj.get())) {
+            linkPtr = std::unique_ptr<Link>(link);
+            obj.release();
+        }
+    }
+    return linkPtr;
 }
 
-std::unique_ptr<StaticObjects> Factory::createWall(const sf::Vector2f& position)
+std::vector<std::unique_ptr<Enemy>> Factory::createEnemies()
 {
-	return std::make_unique<Wall>(*Resources::getResource().getTexture(TEXTURE::MapObjects), position);
+	std::vector<std::unique_ptr<Enemy>> enemies;
+	auto obj = create("Octorok", { 32.f, 32.f });
+	if (obj)
+	{
+		if (auto enemy = dynamic_cast<Enemy*>(obj.get()))
+		{
+			enemies.emplace_back(std::unique_ptr<Enemy>(enemy));
+			obj.release();
+		}
+	}
+	return enemies;
 }
 
-std::unique_ptr<StaticObjects> Factory::createPot(const sf::Vector2f& position)
-{
-	return std::make_unique<Pot>(*Resources::getResource().getTexture(TEXTURE::MapObjects), position);
+std::unique_ptr<GameObject> Factory::create(const std::string& name, const sf::Vector2f& position) {
+	auto it = getMap().find(name);
+	if (it == getMap().end())
+	{
+		return nullptr;
+	}
+	return it->second(position);
 }
 
-std::unique_ptr<StaticObjects> Factory::createWaterTile(const sf::Vector2f& position)
+bool Factory::registerit(const std::string& name, std::unique_ptr<GameObject>(*f)(const sf::Vector2f&))
 {
-	return std::make_unique<WaterTile>(*Resources::getResource().getTexture(TEXTURE::MapObjects), position);
+	getMap().emplace(name, f);
+	return true;
 }

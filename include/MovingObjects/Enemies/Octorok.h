@@ -18,4 +18,7 @@ public:
 private:
 	sf::Clock m_directionChangeClock;
 	std::unique_ptr<OctorokState> m_state;
+
+
+	static bool m_registerit;
 };

@@ -61,7 +61,7 @@ void GameRunningState::setCenterView()
 	const float halfViewWidth = viewWidth / 2.f;
 	const float halfViewHeight = viewHeight / 2.f;
 
-	sf::Vector2f playerPos = m_board.getSprite(0).getPosition();
+	sf::Vector2f playerPos = m_board.getSprite().getPosition();
 
 	float viewCenterX = std::max(halfViewWidth, std::min(playerPos.x, Resources::getResource().getTexture(TEXTURE::Map)->getSize().x - halfViewWidth));
 	float viewCenterY = std::max(halfViewHeight, std::min(playerPos.y, Resources::getResource().getTexture(TEXTURE::Map)->getSize().y - halfViewHeight));

@@ -4,8 +4,7 @@
 
 std::unique_ptr<OctorokState> OctorokStandingState::handleInput(Input input)
 {
-    if (input == PRESS_DOWN_LEFT || input == PRESS_DOWN_RIGHT || input == PRESS_UP_LEFT ||
-        input == PRESS_UP_RIGHT || input == PRESS_LEFT || input == PRESS_RIGHT || input == PRESS_DOWN ||
+    if (input == PRESS_LEFT || input == PRESS_RIGHT || input == PRESS_DOWN ||
         input == PRESS_UP){
             return std::make_unique<OctorokMoveState>(input);
     }

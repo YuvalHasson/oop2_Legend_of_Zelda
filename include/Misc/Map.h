@@ -8,6 +8,10 @@
 #include <memory>
 #include <fstream>
 #include <sstream>
+#include <map>
+
+#include "Enemy.h"
+#include "StaticObjects.h"
 
 class Map
 {
@@ -15,18 +19,19 @@ public:
 	Map();
 	~Map() = default;
 
-	void setDict(std::vector<std::string>&);
+	void setDict(std::map<int, std::string>&);
 
 	bool setMap();
 	void initVector(Cell);
-	std::vector<std::unique_ptr<MovingObjects>>& getMovingObjects();
+	std::vector<std::unique_ptr<Enemy>>& getEnemyObjects();
 	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects();
 
-	std::vector<std::string> getDict() const;
+	std::map<int, std::string> getDict() const;
 
 private:
-	std::vector<std::string> m_dict;
-	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
+	std::map<int, std::string> m_dict;
+	std::vector<std::unique_ptr<Enemy>> m_enemyObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 
+	std::vector<std::pair<std::string,Cell>> m_map;
 };

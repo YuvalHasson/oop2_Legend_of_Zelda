@@ -2,6 +2,9 @@
 
 #include <iostream> //debug
 
+bool Octorok::m_registerit = Factory::registerit("Octorok",
+    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> { return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position); });
+
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 	: Enemy(texture, position), m_state(std::make_unique<OctorokStandingState>())
 {
@@ -16,10 +19,11 @@ void Octorok::update(const sf::Time& deltaTime)
     bool down = false;
     bool right = false;
     bool left = false;
-
-    if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f) // Change direction every 2 seconds
+    bool standing = false;
+    auto directionChange = m_directionChangeClock.getElapsedTime().asSeconds();
+    if (directionChange >= 1.0f) // Change direction every 1 seconds
     {
-        int randomMovment = rand() % 4;
+        int randomMovment = rand() % 5;
 
 
         switch (randomMovment)
@@ -41,6 +45,9 @@ void Octorok::update(const sf::Time& deltaTime)
             std::cout << "left" << std::endl;
             break;
         default:
+            std::cout << "Standing" << std::endl;
+            directionChange += 0.5f;
+            standing = true;
             break;
         }
         m_directionChangeClock.restart();
@@ -59,6 +66,10 @@ void Octorok::update(const sf::Time& deltaTime)
     }
     else if (left) {
         input = PRESS_LEFT;
+    }
+    else if (standing)
+    {
+        input = STANDING;
     }
     else {
         input = NONE;

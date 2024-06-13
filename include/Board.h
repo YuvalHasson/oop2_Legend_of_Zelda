@@ -26,20 +26,20 @@ public:
 	~Board() = default;
 
 	void draw(sf::RenderWindow&, sf::FloatRect&);
-	void addStaticObject(const sf::Vector2f);
+	void addStaticObject();
 	void makeLink();
 	void move(const sf::Time&);
 	void update(const sf::Time& deltaTime);
 	void handleCollision();
 	void setMap();
-	void initVector(Cell number);
 
 	//temp get
-	const sf::Sprite& getSprite(int index) { return m_movingObjects[index]->getSprite(); }
+	const sf::Sprite& getSprite() { return m_link->getSprite(); }
 
 private:
-	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
+	//std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
+	std::unique_ptr<Link> m_link;
 	Map m_map;
 
 
