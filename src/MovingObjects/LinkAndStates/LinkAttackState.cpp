@@ -1,3 +1,4 @@
+#include <iostream>
 #include "LinkAttackState.h"
 #include "Link.h"
 #include "Utilities.h"
@@ -29,4 +30,5 @@ void LinkAttackState::enter(Link& link){
         }
         link.setAttacking(true);
     }
+    link.swipeSword();
 }

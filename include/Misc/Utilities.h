@@ -54,18 +54,23 @@ namespace BACKGROUND_SOUND
 
 namespace ANIMATIONS_POSITIONS
 {
-	const sf::Vector2u LinkUp(35, 42);
-	const sf::Vector2u LinkDown(1, 42);
-	const sf::Vector2u LinkLeft(35, 11);
-	const sf::Vector2u LinkRight(69, 42);
-	const sf::Vector2u LinkAttackUp(52, 86);
-	const sf::Vector2u LinkAttackDown(1, 86);
-	const sf::Vector2u LinkAttackLeft(103, 86);
-	const sf::Vector2u LinkAttackRight(137, 86);
 
-	const sf::Vector2u OctorokDown(197, 143);
+	const sf::Vector2u LinkUp(35,42);
+	const sf::Vector2u LinkDown(1,42);
+	const sf::Vector2u LinkLeft(35,11);
+	const sf::Vector2u LinkRight(69,42);
+	const sf::Vector2u LinkAttackUp(52,86);
+	const sf::Vector2u LinkAttackDown(1,86);
+	const sf::Vector2u LinkAttackLeft(103,86);
+	const sf::Vector2u LinkAttackRight(137,86);
+	const sf::Vector2u SwordUp(52,103);
+	const sf::Vector2u SwordDown(1,103);
+	const sf::Vector2u SwordLeft(103,103);
+	const sf::Vector2u SwordRight(137,103);
+  const sf::Vector2u OctorokDown(197, 143);
 	const sf::Vector2u OctorokLeft(231, 143);
 	const sf::Vector2u OctorokUp(291, 143);
+
 }
 
 //might be useless

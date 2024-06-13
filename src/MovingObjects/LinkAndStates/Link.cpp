@@ -118,4 +118,17 @@ void Link::update(const sf::Time& deltaTime){
         updateGraphics(deltaTime);
     }
     updateSprite();
-};
+
+}
+
+void Link::insertSword(Sword* sword){
+    m_sword = sword;
+}
+
+void Link::swipeSword(){
+    m_sword->activate(getSprite().getPosition(), getDirection());
+}
+void Link::stopSwordSwipe(){
+    m_sword->deActivate();
+}
+
