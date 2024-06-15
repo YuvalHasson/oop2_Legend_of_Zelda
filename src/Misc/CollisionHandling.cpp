@@ -60,7 +60,11 @@ namespace
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
 		{
-			linkPtr->undoMove();
+			if(!linkPtr->getInvincible()){
+				std::cout<<linkPtr->getInvincible()<<std::endl;
+				linkPtr->pushBack();
+				linkPtr->initializeInvincible();
+			}
 			if (linkPtr->isAttacking())
 			{
 				octorok.handleCollision();
@@ -101,6 +105,14 @@ namespace
 		OctorokWater(octorok, water);
 	}
 
+	void SwordOctorok(GameObject& sword, GameObject& octorok){
+		
+	}
+
+	void OctorokSword(GameObject& octorok, GameObject& sword){
+
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -122,6 +134,8 @@ namespace
 		phm[Key(typeid(Wall), typeid(Octorok))] = &WallOctorok;
 		phm[Key(typeid(Octorok), typeid(WaterTile))] = &OctorokWater;
 		phm[Key(typeid(WaterTile), typeid(Octorok))] = &WaterOctorok;
+		phm[Key(typeid(Sword), typeid(Octorok))] = &SwordOctorok;
+		phm[Key(typeid(Octorok), typeid(Sword))] = &OctorokSword;
 
 		//...
 		return phm;

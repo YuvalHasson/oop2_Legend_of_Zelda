@@ -13,7 +13,7 @@ public:
 	//virtual void attack(const sf::Time& deltaTime) override;
 	virtual void handleCollision() override;
 
-	virtual void move() override;
+	// virtual void move() override;
 
 private:
 	sf::Clock m_directionChangeClock;

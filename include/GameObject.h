@@ -16,6 +16,8 @@ public:
 
     void destroy();
     bool isDestroyed() const;
+    void setPosition(const sf::Vector2f& );
+    sf::Vector2f getPreviousPosition()const;
 
 	//temp get?
 	sf::Sprite& getSprite() { return m_sprite; }
@@ -23,6 +25,7 @@ public:
 private:
     sf::Sprite m_sprite;
     sf::Vector2f m_position;
+    sf::Vector2f m_previousPosition;
 
     bool m_destroyed = false;
 };
