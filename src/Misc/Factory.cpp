@@ -15,9 +15,21 @@ std::vector<std::unique_ptr<StaticObjects>> Factory::createStaticObjects(const s
    
 	for (const auto& objMap : map)
 	{
-		if (objMap.first == "wall")
+		if (objMap.first == "wall" || objMap.first == "house" || objMap.first == "flowers" || objMap.first == "tree")
 		{
 			auto obj = create("Wall", sf::Vector2f(tileSize * objMap.second.col, tileSize * objMap.second.row));
+			if (obj)
+			{
+				if (auto staticObj = dynamic_cast<StaticObjects*>(obj.get()))
+				{
+					staticObjects.emplace_back(std::unique_ptr<StaticObjects>(staticObj));
+					obj.release();
+				}
+			}
+		}
+		else if (objMap.first == "sea")
+		{
+			auto obj = create("WaterTile", sf::Vector2f(tileSize * objMap.second.col, tileSize * objMap.second.row));
 			if (obj)
 			{
 				if (auto staticObj = dynamic_cast<StaticObjects*>(obj.get()))

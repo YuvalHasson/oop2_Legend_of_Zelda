@@ -38,6 +38,7 @@ public:
 
 private:
 	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
+	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 	std::unique_ptr<Link> m_link;
 	Map m_map;
