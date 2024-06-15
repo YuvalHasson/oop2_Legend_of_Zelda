@@ -135,3 +135,11 @@ void Link::stopSwordSwipe(){
         m_sword->deActivate();
     }
 }
+
+bool Link::getInvincible()const{
+    return m_invincibleTimer.getElapsedTime().asSeconds() - invincibilityTime.asSeconds() <= 0;
+}
+
+void Link::initializeInvincible(){
+    m_invincibleTimer.restart();
+}

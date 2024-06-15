@@ -19,6 +19,7 @@ public:
 	void setDirection(const sf::Vector2i&);
 	void setAttacking(bool = false);
 	void undoMove();
+	void pushBack();
 
 	sf::Vector2i getDirection() const;
 

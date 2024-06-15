@@ -90,7 +90,8 @@ void Octorok::handleCollision()
 {
 }
 
-void Octorok::move()
-{
-    getSprite().move(sf::Vector2f(getDirection()));
-}
+// void Octorok::move()
+// {
+    
+//     getSprite().move(sf::Vector2f(getDirection()));
+// }
