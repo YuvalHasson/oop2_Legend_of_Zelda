@@ -10,6 +10,7 @@ Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 {
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();
+    setHp(2);
 }
 
 
@@ -84,6 +85,10 @@ void Octorok::update(const sf::Time& deltaTime)
         updateGraphics(deltaTime);
     }
     updateSprite();
+
+    if(getHp() <= 0){
+        destroy();
+    }
 }
 
 void Octorok::handleCollision()

@@ -55,11 +55,19 @@ void MovingObjects::undoMove()
 void MovingObjects::pushBack()
 {	
 	setPosition(getSprite().getPosition());
-	getSprite().move(-getDirection().x * tileSize/2, -getDirection().y* tileSize/2);
+	getSprite().move(-getDirection().x * 3 * tileSize/4, -getDirection().y* 3 * tileSize/4);
 
 }
 
 bool MovingObjects::isAttacking() const
 {
 	return m_attacking;
+}
+
+void MovingObjects::setHp(int hp){
+	m_hp = hp;
+}
+
+int MovingObjects::getHp()const{
+	return m_hp;
 }

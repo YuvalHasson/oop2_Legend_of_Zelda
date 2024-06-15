@@ -26,8 +26,11 @@ public:
 	bool isAnimationDone() const;
 	bool isAttacking() const;
 
+	void setHp(int);
+	int getHp()const;
+
 protected:
-	bool m_attacking;
+	bool m_attacking; //might not be necessary
 
 private:
 	Animation m_animation;
