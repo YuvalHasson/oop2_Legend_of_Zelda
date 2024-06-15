@@ -3,7 +3,7 @@
 #include "State.h"
 #include "SoundResource.h"
 #include "MainMenu.h"
-#include "BackButton.h"
+#include "BackToMenuButton.h"
 
 #include "VolumeSlider.h"
 

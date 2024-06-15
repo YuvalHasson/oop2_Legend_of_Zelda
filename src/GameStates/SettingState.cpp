@@ -6,7 +6,7 @@ SettingState::SettingState(sf::RenderWindow* window)
 	m_menuBackground.setSize(sf::Vector2f(windowHeight, WindowWidth));
 	m_menuBackground.setTexture(Resources::getResource().getTexture(TEXTURE::Menu));
 
-	add("Back", std::make_unique<BackButton>(this));
+	add("Back", std::make_unique<BackToMenuButton>(this));
 }
 
 void SettingState::update(const sf::Time& deltaTime)

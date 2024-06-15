@@ -15,7 +15,8 @@ enum GAME_STATE {
 	LOAD_GAME,
 	GAME_RUNNING,
 	ENDGAME,
-	SETTINGS
+	SETTINGS,
+	PAUSE_MENU
 };
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
@@ -69,7 +70,7 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u SwordDown(1,103);
 	const sf::Vector2u SwordLeft(103,103);
 	const sf::Vector2u SwordRight(137,103);
-  const sf::Vector2u OctorokDown(197, 143);
+	const sf::Vector2u OctorokDown(197, 143);
 	const sf::Vector2u OctorokLeft(231, 143);
 	const sf::Vector2u OctorokUp(291, 143);
 

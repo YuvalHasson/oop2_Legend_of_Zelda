@@ -2,7 +2,7 @@
 
 ExitButton::ExitButton(State* state)
 {
-	setText("Exit", sf::Vector2f(70, 735));
+	setText("Exit", sf::Vector2f(900, 750));
 	setState(state);
 }
 

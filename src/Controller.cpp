@@ -8,7 +8,7 @@ Controller::Controller()
 	m_window.setFramerateLimit(60);
 	m_window.setIcon(Resources::getResource().getIcon()->getSize().x, Resources::getResource().getIcon()->getSize().y, Resources::getResource().getIcon()->getPixelsPtr());
     SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
-    SoundResource::getSound().setBackgroundVolume(VOLUME);
+    SoundResource::getSound().setBackgroundVolume(SoundResource::getSound().getVolume());
 }
 
 Controller::~Controller()

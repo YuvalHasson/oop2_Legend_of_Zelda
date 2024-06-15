@@ -3,7 +3,7 @@
 #include <iostream> //for debugging
 
 VolumeSlider::VolumeSlider()
-	: m_volume(VOLUME)
+	: m_volume(SoundResource::getSound().getVolume())
 {
     m_slider.setSize(sf::Vector2f(10.f, 20.f));
     m_slider.setFillColor(sf::Color::Green);

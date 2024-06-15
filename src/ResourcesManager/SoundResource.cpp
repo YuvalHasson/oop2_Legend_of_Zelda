@@ -1,6 +1,7 @@
 #include "SoundResource.h"
 
 SoundResource::SoundResource()
+	: m_backgroundVolume(VOLUME)
 {
 	for (size_t i = 0; i < BACK_SOUND_AMNT; i++)
 	{
@@ -45,4 +46,9 @@ void SoundResource::setBackgroundVolume(float amount)
 	{
 		backgroundMusic.setVolume(amount);
 	}
+}
+
+float SoundResource::getVolume() const
+{
+	return m_backgroundVolume;
 }
