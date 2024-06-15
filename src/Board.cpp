@@ -8,9 +8,8 @@ Board::Board()
 }
 
 Board::Board(Board&& other) noexcept
-	: m_movingObjects(std::move(other.m_movingObjects)), m_staticObjects(std::move(other.m_staticObjects))
-	,m_enemies(std::move(other.m_enemies)), m_staticObjects(std::move(other.m_staticObjects))
-	, m_link(std::move(other.m_link))
+	: m_movingObjects(std::move(other.m_movingObjects)), m_enemies(std::move(other.m_enemies))
+	,m_staticObjects(std::move(other.m_staticObjects)), m_link(std::move(other.m_link))
 {
 }
 
