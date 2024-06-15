@@ -105,7 +105,14 @@ void Board::handleCollision()
 			{
 				processCollision(*m_link, *enemy);
 			}
+			for(const auto& moving : m_movingObjects){
+				if (colide(*moving, *enemy))
+			{
+				processCollision(*moving, *enemy);
+			}
+			}
 		}
+
 
 		// Handle collisions among moving objects
 		for_each_pair(m_enemies.begin(), m_enemies.end(), [this](auto& obj1, auto& obj2) {

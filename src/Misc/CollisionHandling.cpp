@@ -106,11 +106,21 @@ namespace
 	}
 
 	void SwordOctorok(GameObject& sword, GameObject& octorok){
-		
+		std::cout<<"octorok sword collision!!!!!!!!\n";
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
+		if (octorokPtr && swordPtr)
+		{	
+			if(swordPtr->getActive()){
+				octorokPtr->pushBack();
+				octorokPtr->setHp(octorokPtr->getHp() - 1);
+				swordPtr->deActivate();
+
+			}
+		}
 	}
 
 	void OctorokSword(GameObject& octorok, GameObject& sword){
-
 	}
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
