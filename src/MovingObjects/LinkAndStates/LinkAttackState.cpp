@@ -30,5 +30,5 @@ void LinkAttackState::enter(Link& link){
         }
         link.setAttacking(true);
     }
-    // link.swipeSword();
+    link.swipeSword();
 }

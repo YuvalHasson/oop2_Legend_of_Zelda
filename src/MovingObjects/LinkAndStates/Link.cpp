@@ -8,7 +8,7 @@ bool Link::m_registerit = Factory::registerit("Link",
     });
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
-	: MovingObjects(texture, position), m_state(std::make_unique<LinkStandingState>())
+	: MovingObjects(texture, position), m_state(std::make_unique<LinkStandingState>()), m_sword(nullptr)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
@@ -126,8 +126,12 @@ void Link::insertSword(Sword* sword){
 }
 
 void Link::swipeSword(){
-    m_sword->activate(getSprite().getPosition(), getDirection());
+    if(m_sword){
+        m_sword->activate(getSprite().getPosition(), getDirection());
+    }
 }
 void Link::stopSwordSwipe(){
-    m_sword->deActivate();
+    if(m_sword){
+        m_sword->deActivate();
+    }
 }

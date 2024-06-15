@@ -26,6 +26,6 @@ public:
 private:
 	std::unique_ptr<LinkState> m_state;
 	Sword* m_sword;
-  static bool m_registerit;
+  	static bool m_registerit;
 
 };

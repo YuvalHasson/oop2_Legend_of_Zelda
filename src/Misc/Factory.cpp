@@ -81,6 +81,21 @@ std::unique_ptr<GameObject> Factory::create(const std::string& name, const sf::V
 	return it->second(position);
 }
 
+std::unique_ptr<Sword> Factory::createSword() {
+	std::unique_ptr<Sword> swordPtr;
+    auto obj = create("Sword", {0,0});
+    if (obj)
+    {
+        if (auto sword = dynamic_cast<Sword*>(obj.get())) {
+            swordPtr = std::unique_ptr<Sword>(sword);
+            obj.release();
+        }
+    }
+    return swordPtr;
+}
+
+
+
 bool Factory::registerit(const std::string& name, std::unique_ptr<GameObject>(*f)(const sf::Vector2f&))
 {
 	getMap().emplace(name, f);
