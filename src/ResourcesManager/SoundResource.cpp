@@ -39,22 +39,10 @@ void SoundResource::stopBackground(int sound)
 	this->m_backgroundMusic[sound].stop();
 }
 
-void SoundResource::decreaseBackgroundVolume(float amount)
+void SoundResource::setBackgroundVolume(float amount)
 {
 	for (auto& backgroundMusic : m_backgroundMusic)
 	{
-		float currentVolume = backgroundMusic.getVolume();
-		float newVolume = currentVolume - amount;
-		backgroundMusic.setVolume(std::max(newVolume, 0.0f));
-	}
-}
-
-void SoundResource::increaseBackgroundVolume(float amount)
-{
-	for (auto& backgroundMusic : m_backgroundMusic)
-	{
-		float currentVolume = backgroundMusic.getVolume();
-		float newVolume = currentVolume + amount;
-		backgroundMusic.setVolume(std::min(newVolume, 100.0f));
+		backgroundMusic.setVolume(amount);
 	}
 }

@@ -1,14 +1,12 @@
 #include "SettingState.h"
 
 SettingState::SettingState(sf::RenderWindow* window)
-	: State(window)
+	: State(window), m_volumeSlider()
 {
 	m_menuBackground.setSize(sf::Vector2f(windowHeight, WindowWidth));
 	m_menuBackground.setTexture(Resources::getResource().getTexture(TEXTURE::Menu));
 
 	add("Back", std::make_unique<BackButton>(this));
-	add("Volume Down", std::make_unique<VolumeDownButton>());
-	add("Volume Up", std::make_unique<VolumeUpButton>());
 }
 
 void SettingState::update(const sf::Time& deltaTime)
@@ -17,6 +15,7 @@ void SettingState::update(const sf::Time& deltaTime)
 	{
 		option.second->overButton(*getWindow());
 	}
+	m_volumeSlider.update(*getWindow());
 }
 
 void SettingState::render(sf::RenderTarget* target)
@@ -30,6 +29,7 @@ void SettingState::render(sf::RenderTarget* target)
 	{
 		option.second->draw(*getWindow());
 	}
+	m_volumeSlider.draw(*getWindow());
 }
 
 std::unique_ptr<State> SettingState::handleInput(GAME_STATE gameState)

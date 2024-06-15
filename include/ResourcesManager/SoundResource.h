@@ -28,6 +28,5 @@ public:
 	void playBackground(int);
 	void stopBackground(int);
 
-	void decreaseBackgroundVolume(float);
-	void increaseBackgroundVolume(float);
+	void setBackgroundVolume(float);
 };

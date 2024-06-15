@@ -7,6 +7,7 @@ const int OBJ_AMOUNT = 5;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
+
 enum GAME_STATE {
 	MAIN_MENU,
 	NEW_GAME,
@@ -36,6 +37,7 @@ enum Input {
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
+#define VOLUME 0.f
 
 namespace TEXTURE
 {
