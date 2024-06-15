@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 GameObject::GameObject(const sf::Texture& texture, const sf::Vector2f& position)
-    : m_position(position)
+    : m_position(position), m_previousPosition(position)
 {
     m_sprite.setTexture(texture);
     m_sprite.setPosition(position);
@@ -25,4 +25,13 @@ void GameObject::destroy()
 bool GameObject::isDestroyed() const
 {
     return m_destroyed;
+}
+
+void GameObject::setPosition(const sf::Vector2f& pos){
+    m_previousPosition = m_position;
+    m_position = pos;
+}
+
+sf::Vector2f GameObject::getPreviousPosition()const{
+    return m_previousPosition;
 }

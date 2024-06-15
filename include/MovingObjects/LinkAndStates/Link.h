@@ -5,6 +5,7 @@
 #include "LinkStandingState.h"
 #include "Sword.h"
 
+const sf::Time invincibilityTime(sf::seconds(2));
 
 class Link : public MovingObjects
 {
@@ -23,9 +24,13 @@ public:
 	void swipeSword();
 	void stopSwordSwipe();
 
+	bool getInvincible()const;
+	void initializeInvincible();
+
 private:
 	std::unique_ptr<LinkState> m_state;
 	Sword* m_sword;
+	sf::Clock m_invincibleTimer;
   	static bool m_registerit;
 
 };

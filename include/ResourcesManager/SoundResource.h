@@ -15,7 +15,7 @@ private:
 	};
 
 	sf::Music m_backgroundMusic[BACK_SOUND_AMNT];
-	sf::SoundBuffer m_buffers[SOUND_AMOUNT];;
+	sf::SoundBuffer m_buffers[SOUND_AMOUNT];
 	sf::Sound m_sounds[SOUND_AMOUNT];
 
 	float m_backgroundVolume;

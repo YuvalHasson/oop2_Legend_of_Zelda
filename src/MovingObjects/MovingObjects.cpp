@@ -25,6 +25,7 @@ void MovingObjects::move(){
 	sf::Vector2f newPos;
 	newPos.x = getSprite().getPosition().x + m_direction.x * m_speed;
 	newPos.y = getSprite().getPosition().y + m_direction.y * m_speed;
+	setPosition(newPos);
 	getSprite().setPosition(newPos);
 }
 
@@ -47,7 +48,15 @@ void MovingObjects::setAttacking(bool attack)
 
 void MovingObjects::undoMove()
 {
-	getSprite().move(-sf::Vector2f(getDirection()));
+	getSprite().setPosition(getPreviousPosition());
+	setPosition(getPreviousPosition());
+}
+
+void MovingObjects::pushBack()
+{	
+	setPosition(getSprite().getPosition());
+	getSprite().move(-getDirection().x * tileSize/2, -getDirection().y* tileSize/2);
+
 }
 
 bool MovingObjects::isAttacking() const
