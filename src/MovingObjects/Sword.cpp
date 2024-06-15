@@ -1,6 +1,13 @@
 #include "Sword.h"
 #include <iostream>//debugging
 
+bool Sword::m_registerit = Factory::registerit("Sword",
+    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> {
+        return std::make_unique<Sword>(*Resources::getResource().getTexture(TEXTURE::Link), position);
+    });
+
+
+
 Sword::Sword(const sf::Texture& texture, const sf::Vector2f& position)
     : MovingObjects(texture, position), m_active(false){}
     

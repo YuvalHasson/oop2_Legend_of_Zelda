@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "Sword.h"
 
 #include <iostream> // debug
 
@@ -7,7 +8,7 @@ Board::Board()
 }
 
 Board::Board(Board&& other) noexcept
-	: /*m_movingObjects(std::move(other.m_movingObjects)), */m_staticObjects(std::move(other.m_staticObjects))
+	: m_movingObjects(std::move(other.m_movingObjects)), m_staticObjects(std::move(other.m_staticObjects))
 	, m_link(std::move(other.m_link))
 {
 }
@@ -16,7 +17,7 @@ Board& Board::operator=(Board&& other) noexcept
 {
 	if (this != &other)
 	{
-		//m_movingObjects = std::move(other.m_movingObjects);
+		m_movingObjects = std::move(other.m_movingObjects);
 		m_staticObjects = std::move(other.m_staticObjects);
 		m_link = std::move(other.m_link);
 	}
@@ -32,11 +33,11 @@ void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
 
 	}
 	m_link->draw(window);
-	//for (auto& gameObject : m_movingObjects)
-	//{
-	//	if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
-	//		gameObject->draw(window);
-	//}
+	for (auto& gameObject : m_movingObjects)
+	{
+		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+			gameObject->draw(window);
+	}
 }
 
 void Board::addStaticObject()
@@ -45,8 +46,11 @@ void Board::addStaticObject()
 }
 
 void Board::makeLink()
-{
+{	
+	auto sword = Factory::createSword();
 	m_link = Factory::createLink();
+	m_link->insertSword(sword.get());
+	m_movingObjects.emplace_back(std::move(sword));
 }
 
 void Board::move(const sf::Time& deltaTime)
@@ -60,15 +64,15 @@ void Board::move(const sf::Time& deltaTime)
 
 void Board::update(const sf::Time& deltaTime)
 {
-	//for (auto& gameObject : m_movingObjects)
-	//{
-	//	gameObject->update(deltaTime);
-	//}
+	for (auto& gameObject : m_movingObjects)
+	{
+		gameObject->update(deltaTime);
+	}
 
 	m_link->update(deltaTime);
 
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
-	//std::erase_if(m_movingObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
+	std::erase_if(m_movingObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
 }
 
 void Board::handleCollision()

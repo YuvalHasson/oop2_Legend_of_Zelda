@@ -15,5 +15,5 @@ public:
 
 private:
     bool m_active;
-
+    static bool m_registerit;
 };
