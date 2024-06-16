@@ -25,6 +25,12 @@ void GameRunningState::update(const sf::Time& deltaTime)
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 		updateState(GAME_STATE::MAIN_MENU);
 	}
+
+	if (m_board.isAttacking())
+	{
+		m_board.addProjectileToMoving();
+		std::cout << "Atdded prigsijf" << std::endl;
+	}
 }
 
 void GameRunningState::render(sf::RenderTarget* target)

@@ -6,7 +6,7 @@ bool Octorok::m_registerit = Factory::registerit("Octorok",
     [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> { return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position); });
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
-	: Enemy(texture, position), m_state(std::make_unique<OctorokStandingState>())
+	: Enemy(texture, position), m_state(std::make_unique<OctorokStandingState>()), m_projectile(nullptr)
 {
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();
@@ -21,10 +21,11 @@ void Octorok::update(const sf::Time& deltaTime)
     bool right = false;
     bool left = false;
     bool standing = false;
+    bool attacking = false;
     auto directionChange = m_directionChangeClock.getElapsedTime().asSeconds();
     if (directionChange >= 1.0f) // Change direction every 1 seconds
     {
-        int randomMovment = rand() % 5;
+        int randomMovment = rand() % 6;
 
 
         switch (randomMovment)
@@ -45,6 +46,10 @@ void Octorok::update(const sf::Time& deltaTime)
             left = true;
             std::cout << "left" << std::endl;
             break;
+        case 4:
+			attacking = true;
+			std::cout << "attacking" << std::endl;
+			break;
         default:
             std::cout << "Standing" << std::endl;
             directionChange += 0.5f;
@@ -56,23 +61,32 @@ void Octorok::update(const sf::Time& deltaTime)
 
     Input input;
 
-    if (up) {
+    if (up)
+    {
         input = PRESS_UP;
     }
-    else if (down) {
+    else if (down)
+    {
         input = PRESS_DOWN;
     }
-    else if (right) {
+    else if (right)
+    {
         input = PRESS_RIGHT;
     }
-    else if (left) {
+    else if (left)
+    {
         input = PRESS_LEFT;
     }
     else if (standing)
     {
         input = STANDING;
     }
-    else {
+    else if (attacking)
+	{
+		input = PRESS_SPACE;
+	}
+    else
+    {
         input = NONE;
     }
 
@@ -86,13 +100,31 @@ void Octorok::update(const sf::Time& deltaTime)
     }
     updateSprite();
 
-    if(getHp() <= 0){
+    if(getHp() <= 0)
+    {
         destroy();
     }
 }
 
+void Octorok::attack()
+{
+    m_projectile = Factory::createOctorokProjectile();
+	m_projectile->setPosition(getSprite().getPosition());
+	m_projectile->setDirection(getDirection());
+    
+	setAttacking(true);
+
+	std::cout << "Octorok is attackinggggggggggggggggggggg" << std::endl;
+}
+
 void Octorok::handleCollision()
 {
+}
+
+std::unique_ptr<MovingObjects> Octorok::getAttack()
+{
+	std::cout << m_projectile->getPosition().x << " " << m_projectile->getPosition().y << std::endl;
+    return std::move(m_projectile);
 }
 
 // void Octorok::move()

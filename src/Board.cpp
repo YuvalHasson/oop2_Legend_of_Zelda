@@ -27,28 +27,33 @@ Board& Board::operator=(Board&& other) noexcept
 
 void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
 {
-	for (auto& gameObject : m_staticObjects)
+	for (const auto& gameObject : m_staticObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
 			gameObject->draw(window);
 
 	}
 	m_link->draw(window);
-	for (auto& gameObject : m_movingObjects)
+	for (const auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
 			gameObject->draw(window);
   }
-	for (auto& enemy : m_enemies)
+	for (const auto& enemy : m_enemies)
 	{
 		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
 			enemy->draw(window);
 	}
 }
 
-void Board::addStaticObject()
+void Board::addProjectileToMoving()
 {
-	//m_staticObjects = Factory::createStaticObjects();
+	for (const auto& enemy : m_enemies)
+	{
+		m_movingObjects.emplace_back(enemy->getAttack());
+		std::cout << "in the vec" << std::endl;
+		std::cout << m_enemies.size() << std::endl;
+	}
 }
 
 void Board::makeLink()
@@ -112,8 +117,7 @@ void Board::handleCollision()
 			}
 			}
 		}
-
-
+		
 		// Handle collisions among moving objects
 		for_each_pair(m_enemies.begin(), m_enemies.end(), [this](auto& obj1, auto& obj2) {
 			if (colide(*obj1, *obj2)) {
@@ -138,4 +142,17 @@ void Board::setMap()
 {
 	m_enemies = std::move(m_map.getEnemyObjects());
 	m_staticObjects = std::move(m_map.getStaticObjects());
+}
+
+bool Board::isAttacking() const
+{
+	for (const auto& enemy : m_enemies)
+	{
+		if (enemy->isAttacking())
+		{
+			enemy->setAttacking(false);
+			return true;
+		}
+	}
+	return false;
 }

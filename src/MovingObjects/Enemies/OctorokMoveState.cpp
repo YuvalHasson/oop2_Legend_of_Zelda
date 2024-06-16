@@ -1,5 +1,6 @@
 #include "OctorokMoveState.h"
 #include "OctorokStandingState.h"
+#include "OctorokAttackState.h"
 #include "Octorok.h"
 
 OctorokMoveState::OctorokMoveState(Input direction) : m_direction(direction) {}
@@ -9,6 +10,11 @@ std::unique_ptr<OctorokState> OctorokMoveState::handleInput(Input input)
 	if (input == STANDING){
 			return std::make_unique<OctorokStandingState>();
 	}
+    if (input == PRESS_SPACE)
+    {
+		return std::make_unique<OctorokAttackState>();
+
+    }
 	return std::make_unique<OctorokMoveState>(input);
 }
 
