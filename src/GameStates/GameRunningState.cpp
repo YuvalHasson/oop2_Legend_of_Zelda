@@ -1,7 +1,8 @@
 #include "GameRunningState.h"
 
 GameRunningState::GameRunningState(sf::RenderWindow* window, Board&& board, sf::View&& view, sf::Sprite background)
-	:State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background)
+	:State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background),
+	m_statusBar(board.getSprite().getHp())
 {
 	setCenterView();
 }
@@ -15,6 +16,14 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		updateState(GAME_STATE::PAUSE_MENU);
+	}
+	m_statusBar.update(m_board.getSprite().getHp());
+
+	if (m_board.getSprite().getHp() <= 0)
+	{
+		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::StartGame);
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
+		updateState(GAME_STATE::MAIN_MENU);
 	}
 }
 
@@ -31,6 +40,12 @@ void GameRunningState::render(sf::RenderTarget* target)
 	target->draw(m_background);
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() / 2.f, target->getView().getSize());
 	m_board.draw(*getWindow(), viewBound);
+
+	getWindow()->setView(getWindow()->getDefaultView());
+
+	m_statusBar.setBottomView(*getWindow());
+
+	m_statusBar.draw(*getWindow());
 }
 
 std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)

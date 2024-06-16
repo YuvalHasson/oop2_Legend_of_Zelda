@@ -64,6 +64,7 @@ namespace
 				std::cout<<linkPtr->getInvincible()<<std::endl;
 				linkPtr->pushBack();
 				linkPtr->initializeInvincible();
+				linkPtr->setHp(linkPtr->getHp() - 1);
 			}
 			if (linkPtr->isAttacking())
 			{

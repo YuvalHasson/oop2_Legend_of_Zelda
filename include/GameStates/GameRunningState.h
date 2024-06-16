@@ -4,6 +4,7 @@
 #include "MainMenu.h"
 #include "Board.h"
 #include "PauseMenu.h"
+#include "StatusBar.h"
 
 class GameRunningState : public State
 {
@@ -19,6 +20,7 @@ private:
 
 	void setCenterView();
 
+	StatusBar m_statusBar;
 	Board m_board;
 	sf::View m_view;
 	sf::Sprite m_background;

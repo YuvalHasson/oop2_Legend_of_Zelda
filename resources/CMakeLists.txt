@@ -10,6 +10,7 @@ configure_file ("Bosses.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("LinkandSword.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Map.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("zeldaIcon.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Zelda_status_bar.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("MainTheme.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("LinkAwakens.ogg" ${CMAKE_BINARY_DIR} COPYONLY)

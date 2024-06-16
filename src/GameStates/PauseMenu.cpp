@@ -1,10 +1,13 @@
 #include "PauseMenu.h"
 
 PauseMenu::PauseMenu(sf::RenderWindow* window, Board&& board, sf::View&& view, sf::Sprite background)
-	: State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background), m_volumeSlider()
+	: State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background), m_volumeSlider(),
+	m_pauseBackground(sf::Vector2f(WindowWidth * 1.2f, windowHeight / 1.3f))
 {
 	setCenterView();
 	getWindow()->setView(m_view);
+	m_pauseBackground.setFillColor(sf::Color(128, 128, 128, 200));
+	m_pauseBackground.setPosition(WindowWidth / 2.f - 750.f / 2.f , windowHeight / 2.f - 950.f / 2.f);
 
 	add("Exit", std::make_unique<ExitButton>(this));
 	add("Main Menu", std::make_unique<BackToMenuButton>(this));
@@ -34,6 +37,7 @@ void PauseMenu::render(sf::RenderTarget* target)
 	m_board.draw(*getWindow(), viewBound);
 
 	getWindow()->setView(getWindow()->getDefaultView());
+	target->draw(m_pauseBackground);
 	for (auto& option : m_options)
 	{
 		option.second->draw(*getWindow());

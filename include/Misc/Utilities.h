@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 5;
+const int OBJ_AMOUNT = 6;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
@@ -47,6 +47,7 @@ namespace TEXTURE
 	constexpr int Link = 2;
 	constexpr int MapObjects = 3;
 	constexpr int Enemies = 4;
+	constexpr int StatusBar = 5;
 }
 
 namespace BACKGROUND_SOUND
