@@ -6,7 +6,7 @@
 class MovingObjects : public GameObject
 {
 public:
-	MovingObjects(const sf::Texture&, const sf::Vector2f&);
+	MovingObjects(const sf::Texture&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&);
 
 	virtual void move();
 	virtual void update(const sf::Time& deltaTime) = 0;
@@ -37,5 +37,6 @@ private:
 	sf::Vector2i m_direction;
 	int m_speed;
 	int m_hp;
+	
 
 };

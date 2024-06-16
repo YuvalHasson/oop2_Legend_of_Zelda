@@ -61,7 +61,6 @@ namespace
 		if (linkPtr)
 		{
 			if(!linkPtr->getInvincible()){
-				std::cout<<linkPtr->getInvincible()<<std::endl;
 				linkPtr->pushBack();
 				linkPtr->initializeInvincible();
 			}
@@ -106,7 +105,6 @@ namespace
 	}
 
 	void SwordOctorok(GameObject& sword, GameObject& octorok){
-		std::cout<<"octorok sword collision!!!!!!!!\n";
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
 		if (octorokPtr && swordPtr)
@@ -114,8 +112,7 @@ namespace
 			if(swordPtr->getActive()){
 				octorokPtr->pushBack();
 				octorokPtr->setHp(octorokPtr->getHp() - 1);
-				swordPtr->deActivate();
-
+				swordPtr->setActive(false);
 			}
 		}
 	}

@@ -2,8 +2,8 @@
 #include "MovingObjects.h"
 #include <iostream> //debugging
 
-MovingObjects::MovingObjects(const sf::Texture& texture, const sf::Vector2f& position)
-	: GameObject(texture, position), m_attacking(false), m_animation(), m_direction(0,0), m_speed(1)
+MovingObjects::MovingObjects(const sf::Texture& texture, const sf::Vector2f& position, const sf::Vector2f& size, const sf::Vector2f& originOffset)
+	: GameObject(texture, position, size, originOffset), m_attacking(false), m_animation(), m_direction(0,0), m_speed(1)
 {
 		
 }

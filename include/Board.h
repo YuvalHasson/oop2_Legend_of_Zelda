@@ -64,6 +64,6 @@ private:
 
 	bool colide(GameObject& a, GameObject& b)
 	{
-		return a.getSprite().getGlobalBounds().intersects(b.getSprite().getGlobalBounds());
+		return a.getHitBox().checkCollision(b.getHitBox());
 	}
 };

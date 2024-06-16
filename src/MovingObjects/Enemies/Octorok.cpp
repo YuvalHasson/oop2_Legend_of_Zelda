@@ -6,7 +6,7 @@ bool Octorok::m_registerit = Factory::registerit("Octorok",
     [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> { return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position); });
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
-	: Enemy(texture, position), m_state(std::make_unique<OctorokStandingState>())
+	: Enemy(texture, position, sf::Vector2f(14,14),sf::Vector2f(tileSize/2, tileSize/2)), m_state(std::make_unique<OctorokStandingState>())
 {
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();

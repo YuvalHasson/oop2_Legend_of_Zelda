@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "WaterTile.h"
 #include "Octorok.h"
+#include "Sword.h"
 
 #include <iostream> // debug
 

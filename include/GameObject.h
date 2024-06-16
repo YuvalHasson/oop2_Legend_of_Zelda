@@ -3,11 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include "Utilities.h"
 #include "Factory.h"
+#include "HitBox.h"
 
 class GameObject
 {
 public:
-    GameObject(const sf::Texture&, const sf::Vector2f&);
+    GameObject(const sf::Texture&, const sf::Vector2f& ,const sf::Vector2f&, const sf::Vector2f&);
     virtual ~GameObject();
 
     virtual void draw(sf::RenderWindow&);
@@ -21,6 +22,7 @@ public:
 
 	//temp get?
 	sf::Sprite& getSprite() { return m_sprite; }
+    const HitBox& getHitBox()const;
 
 private:
     sf::Sprite m_sprite;
@@ -28,4 +30,5 @@ private:
     sf::Vector2f m_previousPosition;
 
     bool m_destroyed = false;
+    HitBox m_hitBox;
 };
