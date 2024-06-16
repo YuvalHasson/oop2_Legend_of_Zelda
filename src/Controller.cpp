@@ -19,7 +19,6 @@ void Controller::run()
 {
     sf::Clock clock;
     sf::Time deltaTime;
-    auto defaultView(m_window.getDefaultView());
 
     while (m_window.isOpen())
     {
@@ -43,7 +42,6 @@ void Controller::run()
         if (newState && typeid(*newState) != typeid(*m_state))
         {
             m_state = std::move(newState);
-            m_window.setView(defaultView);
         }
         m_state->update(deltaTime);
 
