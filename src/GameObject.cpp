@@ -35,3 +35,8 @@ void GameObject::setPosition(const sf::Vector2f& pos){
 sf::Vector2f GameObject::getPreviousPosition()const{
     return m_previousPosition;
 }
+
+sf::Vector2f GameObject::getPosition() const
+{
+    return m_position;
+}

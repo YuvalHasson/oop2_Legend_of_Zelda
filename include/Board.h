@@ -34,7 +34,7 @@ public:
 	void setMap();
 
 	//temp get
-	const sf::Sprite& getSprite() { return m_link->getSprite(); }
+	const Link& getSprite() const { return *m_link; }
 
 private:
 	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;

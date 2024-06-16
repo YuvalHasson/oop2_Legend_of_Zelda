@@ -8,7 +8,8 @@ class Resources
 private:
 	std::string m_imgName[OBJ_AMOUNT] = { 
 		"Zelda Menu.png", "The Legend of Zelda.png",
-		"LinkandSword.png", "Mapobject.png", "Enemies.png"
+		"LinkandSword.png", "Mapobject.png", "Enemies.png",
+		"Zelda_status_bar.png"
 	};
 	sf::Texture m_texture[OBJ_AMOUNT];
 	sf::Image m_icon;
