@@ -3,9 +3,9 @@
 #include "State.h"
 #include "SoundResource.h"
 #include "MainMenu.h"
-#include "BackButton.h"
-#include "VolumeDownButton.h"
-#include "VolumeUpButton.h"
+#include "BackToMenuButton.h"
+
+#include "VolumeSlider.h"
 
 using Option = std::pair<std::string, std::unique_ptr<Button>>;
 
@@ -24,4 +24,6 @@ private:
 
 	sf::RectangleShape m_menuBackground;
 	std::vector<Option> m_options;
+
+	VolumeSlider m_volumeSlider;
 };

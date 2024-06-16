@@ -7,6 +7,7 @@ const int OBJ_AMOUNT = 5;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
+
 enum GAME_STATE {
 	MAIN_MENU,
 	NEW_GAME,
@@ -14,7 +15,8 @@ enum GAME_STATE {
 	LOAD_GAME,
 	GAME_RUNNING,
 	ENDGAME,
-	SETTINGS
+	SETTINGS,
+	PAUSE_MENU
 };
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
@@ -36,6 +38,7 @@ enum Input {
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
+#define VOLUME 10.f
 
 namespace TEXTURE
 {
@@ -67,7 +70,7 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u SwordDown(1,103);
 	const sf::Vector2u SwordLeft(103,103);
 	const sf::Vector2u SwordRight(137,103);
-  const sf::Vector2u OctorokDown(197, 143);
+	const sf::Vector2u OctorokDown(197, 143);
 	const sf::Vector2u OctorokLeft(231, 143);
 	const sf::Vector2u OctorokUp(291, 143);
 

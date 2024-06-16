@@ -1,6 +1,7 @@
 #include "SoundResource.h"
 
 SoundResource::SoundResource()
+	: m_backgroundVolume(VOLUME)
 {
 	for (size_t i = 0; i < BACK_SOUND_AMNT; i++)
 	{
@@ -39,22 +40,16 @@ void SoundResource::stopBackground(int sound)
 	this->m_backgroundMusic[sound].stop();
 }
 
-void SoundResource::decreaseBackgroundVolume(float amount)
+void SoundResource::setBackgroundVolume(float amount)
 {
+	m_backgroundVolume = amount;
 	for (auto& backgroundMusic : m_backgroundMusic)
 	{
-		float currentVolume = backgroundMusic.getVolume();
-		float newVolume = currentVolume - amount;
-		backgroundMusic.setVolume(std::max(newVolume, 0.0f));
+		backgroundMusic.setVolume(amount);
 	}
 }
 
-void SoundResource::increaseBackgroundVolume(float amount)
+float SoundResource::getVolume() const
 {
-	for (auto& backgroundMusic : m_backgroundMusic)
-	{
-		float currentVolume = backgroundMusic.getVolume();
-		float newVolume = currentVolume + amount;
-		backgroundMusic.setVolume(std::min(newVolume, 100.0f));
-	}
+	return m_backgroundVolume;
 }

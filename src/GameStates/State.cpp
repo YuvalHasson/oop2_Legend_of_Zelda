@@ -32,6 +32,11 @@ void State::backToMenu()
 	updateState(GAME_STATE::MAIN_MENU);
 }
 
+void State::backToGame()
+{
+	updateState(GAME_STATE::GAME_RUNNING);
+}
+
 sf::RenderWindow* State::getWindow() const
 {
 	return m_window;

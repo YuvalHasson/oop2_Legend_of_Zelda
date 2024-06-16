@@ -12,10 +12,9 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	m_board.handleCollision();
 	m_board.update(deltaTime);
 
-	//tmp key press
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
-		updateState(GAME_STATE::MAIN_MENU);
+		updateState(GAME_STATE::PAUSE_MENU);
 	}
 }
 
@@ -45,6 +44,8 @@ std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
 	case GAME_STATE::EXIT:
 		getWindow()->close();
 		return nullptr;
+	case GAME_STATE::PAUSE_MENU:
+		return std::make_unique<PauseMenu>(getWindow(), std::move(m_board), std::move(m_view), m_background);
 	}
 	return nullptr;
 }

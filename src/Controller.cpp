@@ -8,6 +8,7 @@ Controller::Controller()
 	m_window.setFramerateLimit(60);
 	m_window.setIcon(Resources::getResource().getIcon()->getSize().x, Resources::getResource().getIcon()->getSize().y, Resources::getResource().getIcon()->getPixelsPtr());
     SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
+    SoundResource::getSound().setBackgroundVolume(SoundResource::getSound().getVolume());
 }
 
 Controller::~Controller()
@@ -18,7 +19,6 @@ void Controller::run()
 {
     sf::Clock clock;
     sf::Time deltaTime;
-    auto defaultView(m_window.getDefaultView());
 
     while (m_window.isOpen())
     {
@@ -42,7 +42,6 @@ void Controller::run()
         if (newState && typeid(*newState) != typeid(*m_state))
         {
             m_state = std::move(newState);
-            m_window.setView(defaultView);
         }
         m_state->update(deltaTime);
 

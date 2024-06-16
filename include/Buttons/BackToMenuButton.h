@@ -3,10 +3,10 @@
 #include "Button.h"
 #include "State.h"
 
-class BackButton : public Button
+class BackToMenuButton : public Button
 {
 public:
-	BackButton(State*);
+	BackToMenuButton(State*);
 
 	void execute() override;
 private:

@@ -18,6 +18,8 @@ private:
 	sf::SoundBuffer m_buffers[SOUND_AMOUNT];
 	sf::Sound m_sounds[SOUND_AMOUNT];
 
+	float m_backgroundVolume;
+
 public:
 	SoundResource();
 	~SoundResource() = default;
@@ -28,6 +30,7 @@ public:
 	void playBackground(int);
 	void stopBackground(int);
 
-	void decreaseBackgroundVolume(float);
-	void increaseBackgroundVolume(float);
+	void setBackgroundVolume(float);
+	
+	float getVolume() const;
 };

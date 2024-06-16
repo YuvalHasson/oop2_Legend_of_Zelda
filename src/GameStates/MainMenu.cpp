@@ -50,6 +50,7 @@ void MainMenu::update(const sf::Time&)
 
 void MainMenu::render(sf::RenderTarget* target)
 {
+	getWindow()->setView(getWindow()->getDefaultView());
 	if (!target)
 	{
 		target = getWindow();

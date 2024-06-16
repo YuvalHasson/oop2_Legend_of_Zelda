@@ -60,7 +60,7 @@ std::unique_ptr<Link> Factory::createLink()
 std::vector<std::unique_ptr<Enemy>> Factory::createEnemies()
 {
 	std::vector<std::unique_ptr<Enemy>> enemies;
-	auto obj = create("Octorok", { 32.f, 32.f });
+	auto obj = create("Octorok", { 32.f, 180.f });
 	if (obj)
 	{
 		if (auto enemy = dynamic_cast<Enemy*>(obj.get()))

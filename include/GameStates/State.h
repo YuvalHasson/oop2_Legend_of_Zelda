@@ -2,6 +2,7 @@
 
 #include <SFML/GRAPHICS.hpp>
 #include "Utilities.h"
+#include "SoundResource.h"
 
 class State
 {
@@ -20,6 +21,7 @@ public:
 	void exitGame();
 	void openSettings();
 	void backToMenu();
+	void backToGame();
 
 	sf::RenderWindow* getWindow() const;
 	static GAME_STATE getGameState();
