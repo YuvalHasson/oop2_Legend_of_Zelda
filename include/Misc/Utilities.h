@@ -38,7 +38,7 @@ enum Input {
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
-#define VOLUME 0.f
+#define VOLUME 10.f
 
 namespace TEXTURE
 {
