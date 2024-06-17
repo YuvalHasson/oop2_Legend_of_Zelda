@@ -185,6 +185,43 @@ namespace
 		LinkSword(link, sword);
 	}
 
+	void LinkBoulder(GameObject& link, GameObject& boulder)
+	{
+		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
+		if (boulderPtr)
+		{
+			Link* linkPtr = dynamic_cast<Link*>(&link);
+			if (linkPtr)
+			{
+				linkPtr->undoMove();
+				boulderPtr->setDirection(linkPtr->getDirection());
+				boulderPtr->move();
+				std::cout << "Boulder pushed back" << std::endl;
+			}
+		}
+
+
+	}
+
+	void BoulderLink(GameObject& boulder, GameObject& link)
+	{
+		LinkBoulder(link, boulder);
+	}
+
+	void BoulderWall(GameObject& boulder, GameObject& wall)
+	{
+		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
+		if (boulderPtr)
+		{
+			boulderPtr->undoMove();
+		}
+	}
+
+	void WallBoulder(GameObject& wall, GameObject& boulder)
+	{
+		BoulderWall(boulder, wall);
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -218,6 +255,10 @@ namespace
 		phm[Key(typeid(Octorok), typeid(OctorokProjectile))] = &OctorokOctorokProjectile;
 		phm[Key(typeid(Link), typeid(Sword))] = &LinkSword;
 		phm[Key(typeid(Sword), typeid(Link))] = &SwordLink;
+		phm[Key(typeid(Link), typeid(Boulder))] = &LinkBoulder;
+		phm[Key(typeid(Boulder), typeid(Link))] = &BoulderLink;
+		phm[Key(typeid(Boulder), typeid(Wall))] = &BoulderWall;
+		phm[Key(typeid(Wall), typeid(Boulder))] = &WallBoulder;
 
 		//...
 		return phm;
