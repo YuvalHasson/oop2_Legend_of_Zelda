@@ -7,7 +7,7 @@ class Projectile : public MovingObjects
 public:
 	Projectile(const sf::Texture&, const sf::Vector2f&);
 
-	virtual void update(const sf::Time& deltaTime) override;
-	virtual void handleCollision() override;
+	virtual void update(const sf::Time& deltaTime) = 0;
+	virtual void handleCollision() = 0;
 
 };

@@ -11,5 +11,17 @@ OctorokProjectile::OctorokProjectile(const sf::Texture& Texture, const sf::Vecto
     : Projectile(Texture, position)
 {
     setGraphics({ 265, 143 }, 1);
-	std::cout << "OctorokProjectile" << std::endl;
+	updateSprite();
+    setDirection(DIRECTIONS::Down);
+}
+
+void OctorokProjectile::update(const sf::Time& deltaTime)
+{
+    move();
+
+	std::cout << getSprite().getPosition().x << " " << getSprite().getPosition().y << std::endl;
+}
+
+void OctorokProjectile::handleCollision()
+{
 }

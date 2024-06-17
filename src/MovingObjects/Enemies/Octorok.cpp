@@ -8,6 +8,7 @@ bool Octorok::m_registerit = Factory::registerit("Octorok",
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 	: Enemy(texture, position), m_state(std::make_unique<OctorokStandingState>()), m_projectile(nullptr)
 {
+	setDirection(DIRECTIONS::Down);
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();
     setHp(2);
@@ -108,13 +109,7 @@ void Octorok::update(const sf::Time& deltaTime)
 
 void Octorok::attack()
 {
-    m_projectile = Factory::createOctorokProjectile();
-	m_projectile->setPosition(getSprite().getPosition());
-	m_projectile->setDirection(getDirection());
-    
 	setAttacking(true);
-
-	std::cout << "Octorok is attackinggggggggggggggggggggg" << std::endl;
 }
 
 void Octorok::handleCollision()
@@ -123,12 +118,11 @@ void Octorok::handleCollision()
 
 std::unique_ptr<MovingObjects> Octorok::getAttack()
 {
-	std::cout << m_projectile->getPosition().x << " " << m_projectile->getPosition().y << std::endl;
+
+    m_projectile = Factory::createOctorokProjectile();
+    m_projectile->setPosition(getPosition());
+	m_projectile->getSprite().setPosition(getPosition());
+    m_projectile->setDirection(getDirection());
+
     return std::move(m_projectile);
 }
-
-// void Octorok::move()
-// {
-    
-//     getSprite().move(sf::Vector2f(getDirection()));
-// }

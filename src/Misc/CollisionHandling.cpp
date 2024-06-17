@@ -107,7 +107,6 @@ namespace
 	}
 
 	void SwordOctorok(GameObject& sword, GameObject& octorok){
-		std::cout<<"octorok sword collision!!!!!!!!\n";
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
 		if (octorokPtr && swordPtr)
@@ -121,7 +120,31 @@ namespace
 		}
 	}
 
-	void OctorokSword(GameObject& octorok, GameObject& sword){
+	void OctorokSword(GameObject& octorok, GameObject& sword)
+	{
+	}
+
+	void SwordWall(GameObject& sword, GameObject& wall)
+	{
+	}
+
+	void WallSword(GameObject& wall, GameObject& sword)
+	{
+		SwordWall(sword, wall);
+	}
+
+	void OctoProjectileWall(GameObject& octorokProjectile, GameObject& wall)
+	{
+		OctorokProjectile* octorokProjectilePtr = dynamic_cast<OctorokProjectile*>(&octorokProjectile);
+		if (octorokProjectilePtr)
+		{
+			octorokProjectilePtr->destroy();
+		}
+	}
+
+	void WallOctoProjectile(GameObject& wall, GameObject& octorokProjectile)
+	{
+		OctoProjectileWall(octorokProjectile, wall);
 	}
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -147,6 +170,10 @@ namespace
 		phm[Key(typeid(WaterTile), typeid(Octorok))] = &WaterOctorok;
 		phm[Key(typeid(Sword), typeid(Octorok))] = &SwordOctorok;
 		phm[Key(typeid(Octorok), typeid(Sword))] = &OctorokSword;
+		phm[Key(typeid(OctorokProjectile), typeid(Wall))] = &OctoProjectileWall;
+		phm[Key(typeid(Wall), typeid(OctorokProjectile))] = &WallOctoProjectile;
+		phm[Key(typeid(Sword), typeid(Wall))] = &SwordWall;
+		phm[Key(typeid(Wall), typeid(Sword))] = &WallSword;
 
 		//...
 		return phm;

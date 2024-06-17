@@ -17,6 +17,4 @@ void OctorokAttackState::enter(Octorok& octorok)
 {
 	m_attackTimer.restart();
     octorok.attack();
-
-	std::cout << "Octorok is attacking" << std::endl;
 }
