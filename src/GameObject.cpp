@@ -21,8 +21,8 @@ void GameObject::draw(sf::RenderWindow& window)
     rect.setFillColor(sf::Color::Transparent);
     rect.setOutlineColor(sf::Color::Blue);
     rect.setOutlineThickness(1);
-    window.draw(rect);
     window.draw(m_sprite);
+    window.draw(rect);
 }
 
 void GameObject::destroy()
