@@ -45,6 +45,12 @@ sf::Vector2f GameObject::getPreviousPosition()const{
     return m_previousPosition;
 }
 
+
 const HitBox& GameObject::getHitBox()const{
     return m_hitBox;
+}
+
+sf::Vector2f GameObject::getPosition() const
+{
+    return m_position;
 }

@@ -63,6 +63,7 @@ namespace
 			if(!linkPtr->getInvincible()){
 				linkPtr->pushBack();
 				linkPtr->initializeInvincible();
+				linkPtr->setHp(linkPtr->getHp() - 1);
 			}
 			if (linkPtr->isAttacking())
 			{
@@ -117,7 +118,71 @@ namespace
 		}
 	}
 
-	void OctorokSword(GameObject& octorok, GameObject& sword){
+	void OctorokSword(GameObject& octorok, GameObject& sword)
+	{
+	}
+
+	void SwordWall(GameObject& sword, GameObject& wall)
+	{
+	}
+
+	void WallSword(GameObject& wall, GameObject& sword)
+	{
+		SwordWall(sword, wall);
+	}
+
+	void OctoProjectileWall(GameObject& octorokProjectile, GameObject& wall)
+	{
+		OctorokProjectile* octorokProjectilePtr = dynamic_cast<OctorokProjectile*>(&octorokProjectile);
+		if (octorokProjectilePtr)
+		{
+			octorokProjectilePtr->destroy();
+		}
+	}
+
+	void WallOctoProjectile(GameObject& wall, GameObject& octorokProjectile)
+	{
+		OctoProjectileWall(octorokProjectile, wall);
+	}
+
+	void OctoProjectileLink(GameObject& octorokProjectile, GameObject& link)
+	{
+		OctorokProjectile* octorokProjectilePtr = dynamic_cast<OctorokProjectile*>(&octorokProjectile);
+		if (octorokProjectilePtr)
+		{
+			octorokProjectilePtr->destroy();
+		}
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->pushBack();
+			linkPtr->initializeInvincible();
+			linkPtr->setHp(linkPtr->getHp() - 1);
+
+		}
+	}
+
+	void LinkOctoProjectile(GameObject& link, GameObject& octorokProjectile)
+	{
+		OctoProjectileLink(octorokProjectile, link);
+	}
+
+	void OctorokProjectileOctorok(GameObject& octorokProjectile, GameObject& octorok)
+	{
+	}
+
+	void OctorokOctorokProjectile(GameObject& octorok, GameObject& octorokProjectile)
+	{
+		OctorokProjectileOctorok(octorokProjectile, octorok);
+	}
+
+	void LinkSword(GameObject& link, GameObject& sword)
+	{
+	}
+
+	void SwordLink(GameObject& sword, GameObject& link)
+	{
+		LinkSword(link, sword);
 	}
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -143,6 +208,16 @@ namespace
 		phm[Key(typeid(WaterTile), typeid(Octorok))] = &WaterOctorok;
 		phm[Key(typeid(Sword), typeid(Octorok))] = &SwordOctorok;
 		phm[Key(typeid(Octorok), typeid(Sword))] = &OctorokSword;
+		phm[Key(typeid(OctorokProjectile), typeid(Wall))] = &OctoProjectileWall;
+		phm[Key(typeid(Wall), typeid(OctorokProjectile))] = &WallOctoProjectile;
+		phm[Key(typeid(Sword), typeid(Wall))] = &SwordWall;
+		phm[Key(typeid(Wall), typeid(Sword))] = &WallSword;
+		phm[Key(typeid(OctorokProjectile), typeid(Link))] = &OctoProjectileLink;
+		phm[Key(typeid(Link), typeid(OctorokProjectile))] = &LinkOctoProjectile;
+		phm[Key(typeid(OctorokProjectile), typeid(Octorok))] = &OctorokProjectileOctorok;
+		phm[Key(typeid(Octorok), typeid(OctorokProjectile))] = &OctorokOctorokProjectile;
+		phm[Key(typeid(Link), typeid(Sword))] = &LinkSword;
+		phm[Key(typeid(Sword), typeid(Link))] = &SwordLink;
 
 		//...
 		return phm;

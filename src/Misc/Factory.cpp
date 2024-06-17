@@ -8,6 +8,7 @@
 #include "WaterTile.h"
 #include "Octorok.h"
 #include "Sword.h"
+#include "OctorokProjectile.h"
 
 #include <iostream> // debug
 
@@ -73,16 +74,8 @@ std::vector<std::unique_ptr<Enemy>> Factory::createEnemies()
 	return enemies;
 }
 
-std::unique_ptr<GameObject> Factory::create(const std::string& name, const sf::Vector2f& position) {
-	auto it = getMap().find(name);
-	if (it == getMap().end())
-	{
-		return nullptr;
-	}
-	return it->second(position);
-}
-
-std::unique_ptr<Sword> Factory::createSword() {
+std::unique_ptr<Sword> Factory::createSword()
+{
 	std::unique_ptr<Sword> swordPtr;
     auto obj = create("Sword", {0,0});
     if (obj)
@@ -95,7 +88,29 @@ std::unique_ptr<Sword> Factory::createSword() {
     return swordPtr;
 }
 
+std::unique_ptr<OctorokProjectile> Factory::createOctorokProjectile()
+{
+	std::unique_ptr<OctorokProjectile> projectilePtr;
+	auto obj = create("OctorokProjectile", { 0,0 });
+	if (obj)
+	{
+		if (auto projectile = dynamic_cast<OctorokProjectile*>(obj.get()))
+		{
+			projectilePtr = std::unique_ptr<OctorokProjectile>(projectile);
+			obj.release();
+		}
+	}
+	return projectilePtr;
+}
 
+std::unique_ptr<GameObject> Factory::create(const std::string& name, const sf::Vector2f& position) {
+	auto it = getMap().find(name);
+	if (it == getMap().end())
+	{
+		return nullptr;
+	}
+	return it->second(position);
+}
 
 bool Factory::registerit(const std::string& name, std::unique_ptr<GameObject>(*f)(const sf::Vector2f&))
 {

@@ -32,5 +32,7 @@ private:
 	sf::View m_view;
 	sf::Sprite m_background;
 
+	sf::RectangleShape m_pauseBackground;
+
 	std::vector<Option> m_options;
 };
