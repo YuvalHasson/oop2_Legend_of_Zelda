@@ -1,4 +1,3 @@
-#include <iostream>
 #include "LinkAttackState.h"
 #include "Link.h"
 #include "Utilities.h"

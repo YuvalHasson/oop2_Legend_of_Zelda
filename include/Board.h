@@ -26,7 +26,7 @@ public:
 	~Board() = default;
 
 	void draw(sf::RenderWindow&, sf::FloatRect&);
-	void addStaticObject();
+	void addProjectileToMoving();
 	void makeLink();
 	void move(const sf::Time&);
 	void update(const sf::Time& deltaTime);
@@ -35,6 +35,8 @@ public:
 
 	//temp get
 	const Link& getSprite() const { return *m_link; }
+
+	bool isAttacking() const;
 
 private:
 	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;

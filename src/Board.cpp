@@ -27,28 +27,40 @@ Board& Board::operator=(Board&& other) noexcept
 
 void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
 {
-	for (auto& gameObject : m_staticObjects)
+	for (const auto& gameObject : m_staticObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		{
 			gameObject->draw(window);
-
+		}
 	}
 	m_link->draw(window);
-	for (auto& gameObject : m_movingObjects)
+	for (const auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		{
 			gameObject->draw(window);
-  }
-	for (auto& enemy : m_enemies)
+		}
+	}
+	for (const auto& enemy : m_enemies)
 	{
 		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
+		{
 			enemy->draw(window);
+		}
 	}
 }
 
-void Board::addStaticObject()
+void Board::addProjectileToMoving()
 {
-	//m_staticObjects = Factory::createStaticObjects();
+	for (const auto& enemy : m_enemies)
+	{
+		auto projectile = enemy->getAttack();
+		if (projectile)
+		{
+			m_movingObjects.emplace_back(std::move(projectile));
+		}
+	}
 }
 
 void Board::makeLink()
@@ -70,13 +82,13 @@ void Board::move(const sf::Time& deltaTime)
 
 void Board::update(const sf::Time& deltaTime)
 {
-	for (auto& gameObject : m_movingObjects)
-	{
-		gameObject->update(deltaTime);
-  }
 	for (auto& enemy : m_enemies)
 	{
 		enemy->update(deltaTime);
+	}
+	for (auto& gameObject : m_movingObjects)
+	{
+		gameObject->update(deltaTime);
 	}
 
 	m_link->update(deltaTime);
@@ -105,14 +117,23 @@ void Board::handleCollision()
 			{
 				processCollision(*m_link, *enemy);
 			}
-			for(const auto& moving : m_movingObjects){
-				if (colide(*moving, *enemy))
+			for(const auto& moving : m_movingObjects)
 			{
-				processCollision(*moving, *enemy);
-			}
+				if (colide(*moving, *enemy))
+				{
+					processCollision(*moving, *enemy);
+				}
 			}
 		}
-
+		
+		//link and moving objects
+		for (const auto& movingObjects : m_movingObjects)
+		{
+			if (colide(*m_link, *movingObjects))
+			{
+				processCollision(*m_link, *movingObjects);
+			}
+		}
 
 		// Handle collisions among moving objects
 		for_each_pair(m_enemies.begin(), m_enemies.end(), [this](auto& obj1, auto& obj2) {
@@ -123,6 +144,12 @@ void Board::handleCollision()
 
 		// Handle collisions between moving and static objects
 		for_each_pair(m_enemies.begin(), m_enemies.end(), m_staticObjects.begin(), m_staticObjects.end(), [this](auto& obj1, auto& obj2) {
+			if (colide(*obj1, *obj2)) {
+				processCollision(*obj1, *obj2);
+			}
+			});
+
+		for_each_pair(m_movingObjects.begin(), m_movingObjects.end(), m_staticObjects.begin(), m_staticObjects.end(), [this](auto& obj1, auto& obj2) {
 			if (colide(*obj1, *obj2)) {
 				processCollision(*obj1, *obj2);
 			}
@@ -138,4 +165,17 @@ void Board::setMap()
 {
 	m_enemies = std::move(m_map.getEnemyObjects());
 	m_staticObjects = std::move(m_map.getStaticObjects());
+}
+
+bool Board::isAttacking() const
+{
+	for (const auto& enemy : m_enemies)
+	{
+		if (enemy->isAttacking())
+		{
+			enemy->setAttacking(false);
+			return true;
+		}
+	}
+	return false;
 }

@@ -13,6 +13,7 @@
 #include "WaterTile.h"
 #include "Octorok.h"
 #include "Sword.h"
+#include "OctorokProjectile.h"
 
 struct UnknownCollision : public std::runtime_error
 {

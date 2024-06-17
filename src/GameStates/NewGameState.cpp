@@ -6,7 +6,6 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
 	m_board.setMap();
 	m_board.makeLink();
-	m_board.addStaticObject();
 
 	m_view.setCenter(m_board.getSprite().getPosition()); //think about a better way to get link position.
 
