@@ -18,8 +18,6 @@ OctorokProjectile::OctorokProjectile(const sf::Texture& Texture, const sf::Vecto
 void OctorokProjectile::update(const sf::Time& deltaTime)
 {
     move();
-
-	std::cout << getSprite().getPosition().x << " " << getSprite().getPosition().y << std::endl;
 }
 
 void OctorokProjectile::handleCollision()

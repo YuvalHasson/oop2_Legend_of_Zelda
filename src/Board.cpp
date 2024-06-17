@@ -126,6 +126,15 @@ void Board::handleCollision()
 			}
 		}
 		
+		//link and moving objects
+		for (const auto& movingObjects : m_movingObjects)
+		{
+			if (colide(*m_link, *movingObjects))
+			{
+				processCollision(*m_link, *movingObjects);
+			}
+		}
+
 		// Handle collisions among moving objects
 		for_each_pair(m_enemies.begin(), m_enemies.end(), [this](auto& obj1, auto& obj2) {
 			if (colide(*obj1, *obj2)) {

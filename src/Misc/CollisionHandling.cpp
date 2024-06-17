@@ -147,6 +147,46 @@ namespace
 		OctoProjectileWall(octorokProjectile, wall);
 	}
 
+	void OctoProjectileLink(GameObject& octorokProjectile, GameObject& link)
+	{
+		OctorokProjectile* octorokProjectilePtr = dynamic_cast<OctorokProjectile*>(&octorokProjectile);
+		if (octorokProjectilePtr)
+		{
+			octorokProjectilePtr->destroy();
+		}
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->pushBack();
+			linkPtr->initializeInvincible();
+			linkPtr->setHp(linkPtr->getHp() - 1);
+
+		}
+	}
+
+	void LinkOctoProjectile(GameObject& link, GameObject& octorokProjectile)
+	{
+		OctoProjectileLink(octorokProjectile, link);
+	}
+
+	void OctorokProjectileOctorok(GameObject& octorokProjectile, GameObject& octorok)
+	{
+	}
+
+	void OctorokOctorokProjectile(GameObject& octorok, GameObject& octorokProjectile)
+	{
+		OctorokProjectileOctorok(octorokProjectile, octorok);
+	}
+
+	void LinkSword(GameObject& link, GameObject& sword)
+	{
+	}
+
+	void SwordLink(GameObject& sword, GameObject& link)
+	{
+		LinkSword(link, sword);
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -174,6 +214,12 @@ namespace
 		phm[Key(typeid(Wall), typeid(OctorokProjectile))] = &WallOctoProjectile;
 		phm[Key(typeid(Sword), typeid(Wall))] = &SwordWall;
 		phm[Key(typeid(Wall), typeid(Sword))] = &WallSword;
+		phm[Key(typeid(OctorokProjectile), typeid(Link))] = &OctoProjectileLink;
+		phm[Key(typeid(Link), typeid(OctorokProjectile))] = &LinkOctoProjectile;
+		phm[Key(typeid(OctorokProjectile), typeid(Octorok))] = &OctorokProjectileOctorok;
+		phm[Key(typeid(Octorok), typeid(OctorokProjectile))] = &OctorokOctorokProjectile;
+		phm[Key(typeid(Link), typeid(Sword))] = &LinkSword;
+		phm[Key(typeid(Sword), typeid(Link))] = &SwordLink;
 
 		//...
 		return phm;

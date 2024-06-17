@@ -29,7 +29,6 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	if (m_board.isAttacking())
 	{
 		m_board.addProjectileToMoving();
-		std::cout << "Atdded prigsijf" << std::endl;
 	}
 }
 
