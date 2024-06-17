@@ -61,7 +61,6 @@ namespace
 		if (linkPtr)
 		{
 			if(!linkPtr->getInvincible()){
-				std::cout<<linkPtr->getInvincible()<<std::endl;
 				linkPtr->pushBack();
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
@@ -114,8 +113,7 @@ namespace
 			if(swordPtr->getActive()){
 				octorokPtr->pushBack();
 				octorokPtr->setHp(octorokPtr->getHp() - 1);
-				swordPtr->deActivate();
-
+				swordPtr->setActive(false);
 			}
 		}
 	}

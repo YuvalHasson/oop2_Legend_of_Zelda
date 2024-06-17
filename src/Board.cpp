@@ -34,21 +34,21 @@ void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
 			gameObject->draw(window);
 		}
 	}
-	m_link->draw(window);
-	for (const auto& gameObject : m_movingObjects)
-	{
-		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
-		{
-			gameObject->draw(window);
-		}
-	}
+
 	for (const auto& enemy : m_enemies)
+
 	{
 		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
 		{
 			enemy->draw(window);
 		}
 	}
+	for (auto& gameObject : m_movingObjects)
+	{
+		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+			gameObject->draw(window);
+  	}
+	m_link->draw(window);
 }
 
 void Board::addProjectileToMoving()

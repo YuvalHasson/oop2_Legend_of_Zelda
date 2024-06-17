@@ -12,6 +12,7 @@ public:
     void activate(const sf::Vector2f& position, const sf::Vector2i& direction);
     void deActivate();
     bool getActive()const;
+    void setActive(bool active);
 
 private:
     bool m_active;

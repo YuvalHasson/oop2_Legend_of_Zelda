@@ -9,7 +9,7 @@ bool Sword::m_registerit = Factory::registerit("Sword",
 
 
 Sword::Sword(const sf::Texture& texture, const sf::Vector2f& position)
-    : MovingObjects(texture, position), m_active(false){}
+    : MovingObjects(texture, position, sf::Vector2f(10,10), sf::Vector2f(tileSize/2, tileSize/2)), m_active(false){}
     
 void Sword::activate(const sf::Vector2f& position, const sf::Vector2i& direction){
     m_active = true;
@@ -26,29 +26,26 @@ void Sword::activate(const sf::Vector2f& position, const sf::Vector2i& direction
     //set sword position and animation according to direction and link position
     if(direction.x == 1){
         setGraphics(ANIMATIONS_POSITIONS::SwordRight, 2, false ,true, 0.10f);//true for singleTime
-        attackPos.x = position.x + tileSize * 0.6f;
+        attackPos.x = position.x + tileSize * 0.8f;
         attackPos.y = position.y;
-        getSprite().setPosition(attackPos);
     }
     else if(direction.x == -1){
         setGraphics(ANIMATIONS_POSITIONS::SwordLeft, 2, false ,true, 0.10f);//true for singleTime
-        attackPos.x = position.x - tileSize* 0.6f;
+        attackPos.x = position.x - tileSize * 0.8f;
         attackPos.y = position.y;
-        getSprite().setPosition(attackPos);
     }
     else if(direction == DIRECTIONS::Up){
         setGraphics(ANIMATIONS_POSITIONS::SwordUp, 3, false ,true, 0.10f);//true for singleTime
-        attackPos.x = position.x ;
-        attackPos.y = position.y - tileSize* 0.6f;
-        getSprite().setPosition(attackPos);
+        attackPos.x = position.x;
+        attackPos.y = position.y - tileSize * 0.8f;
     }
     else if(direction == DIRECTIONS::Down){
         setGraphics(ANIMATIONS_POSITIONS::SwordDown, 3, false ,true, 0.10f);//true for singleTime
         attackPos.x = position.x ;
-        attackPos.y = position.y + tileSize* 0.6f;
-        getSprite().setPosition(attackPos);
+        attackPos.y = position.y + tileSize * 0.8f;
     }
-
+    getSprite().setPosition(attackPos);
+    setPosition(attackPos);
 }
 
 void Sword::deActivate(){
@@ -63,12 +60,13 @@ void Sword::deActivate(){
 bool Sword::getActive()const{
     return m_active;
 }
+void Sword::setActive(bool active){
+    m_active = active; 
+}
 
 void Sword::update(const sf::Time& deltaTime){
-    if(m_active){
         updateGraphics(deltaTime);
         updateSprite();
-    }
 }
 void Sword::handleCollision(){
 
