@@ -8,7 +8,7 @@ GameObject::GameObject(const sf::Texture& texture, const sf::Vector2f& position,
 
 	m_sprite.setScale(0.5f / tileSize, 1.0f / tileSize); //tmp i think
 	m_sprite.setOrigin(tileSize / 2, tileSize / 2); //tmp i think
-
+    m_hitBox.setPosition(m_position);
 }
 
 GameObject::~GameObject(){};
@@ -45,12 +45,11 @@ sf::Vector2f GameObject::getPreviousPosition()const{
     return m_previousPosition;
 }
 
-
-const HitBox& GameObject::getHitBox()const{
-    return m_hitBox;
-}
-
 sf::Vector2f GameObject::getPosition() const
 {
     return m_position;
+}
+
+bool GameObject::checkCollision(const GameObject& other)const{
+    return m_hitBox.checkCollision(other.m_hitBox);
 }

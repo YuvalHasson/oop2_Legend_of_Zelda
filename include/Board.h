@@ -66,6 +66,6 @@ private:
 
 	bool colide(GameObject& a, GameObject& b)
 	{
-		return a.getHitBox().checkCollision(b.getHitBox());
+		return a.checkCollision(b);
 	}
 };
