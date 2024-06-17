@@ -8,7 +8,7 @@ bool Link::m_registerit = Factory::registerit("Link",
     });
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
-	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 6)), m_state(std::make_unique<LinkStandingState>()), m_sword(nullptr)
+	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 10)), m_state(std::make_unique<LinkStandingState>()), m_sword(nullptr)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();

@@ -9,7 +9,7 @@ bool Sword::m_registerit = Factory::registerit("Sword",
 
 
 Sword::Sword(const sf::Texture& texture, const sf::Vector2f& position)
-    : MovingObjects(texture, position, sf::Vector2f(10,10), sf::Vector2f(tileSize/2, tileSize/2)), m_active(false){}
+    : MovingObjects(texture, position, sf::Vector2f(12,12), sf::Vector2f(12/2, 12/2)), m_active(false){}
     
 void Sword::activate(const sf::Vector2f& position, const sf::Vector2i& direction){
     m_active = true;
