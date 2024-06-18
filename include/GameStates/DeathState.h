@@ -8,7 +8,7 @@
 class DeathState : public State
 {
 public:
-	DeathState(sf::RenderWindow*, sf::Vector2f);
+	DeathState(sf::RenderWindow*, sf::Vector2f, sf::View);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;

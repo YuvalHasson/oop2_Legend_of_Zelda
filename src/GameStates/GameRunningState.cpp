@@ -67,7 +67,7 @@ std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
 	case GAME_STATE::PAUSE_MENU:
 		return std::make_unique<PauseMenu>(getWindow(), std::move(m_board), std::move(m_view), m_background);
 	case GAME_STATE::DEATH:
-		return std::make_unique<DeathState>(getWindow(), m_board.getLink().getPosition());
+		return std::make_unique<DeathState>(getWindow(), m_board.getLink().getPosition(), std::move(m_view));
 	}
 	return nullptr;
 }
