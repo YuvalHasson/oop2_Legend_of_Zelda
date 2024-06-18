@@ -15,6 +15,7 @@ public:
 
 	void updateSprite();
 	void setGraphics(const sf::Vector2u&, int, bool = false, bool = false, float switchTime = 0.2f);
+	void setSpeed(int);
 	void updateGraphics(const sf::Time& deltaTime);
 	void setDirection(const sf::Vector2i&);
 	void setAttacking(bool = false);

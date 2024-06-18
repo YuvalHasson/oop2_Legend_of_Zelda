@@ -9,6 +9,7 @@
 #include "Octorok.h"
 #include "Sword.h"
 #include "OctorokProjectile.h"
+#include "Boulder.h"
 
 #include <iostream> // debug
 
@@ -101,6 +102,22 @@ std::unique_ptr<OctorokProjectile> Factory::createOctorokProjectile()
 		}
 	}
 	return projectilePtr;
+}
+
+std::vector<std::unique_ptr<MovingObjects>> Factory::createBoulder()
+{
+	std::vector<std::unique_ptr<MovingObjects>> boulderPtr;
+	auto obj = create("Boulder", { 30.f, 30.f });
+	if (obj)
+	{
+		if (auto boulder = dynamic_cast<Boulder*>(obj.get()))
+		{
+			boulderPtr.emplace_back(std::unique_ptr<Boulder>(boulder));
+			obj.release();
+		}
+	}
+	std::cout << "boulderPtr size: " << boulderPtr.size() << std::endl;
+	return boulderPtr;
 }
 
 std::unique_ptr<GameObject> Factory::create(const std::string& name, const sf::Vector2f& position) {

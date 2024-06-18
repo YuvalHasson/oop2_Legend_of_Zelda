@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Sword.h"
+#include "Boulder.h"
 
 #include <iostream> // debug
 
@@ -165,6 +166,13 @@ void Board::setMap()
 {
 	m_enemies = std::move(m_map.getEnemyObjects());
 	m_staticObjects = std::move(m_map.getStaticObjects());
+
+	auto boulders = Factory::createBoulder();
+	std::cout << "before size: " << m_movingObjects.size() << std::endl;
+
+	std::cout << "before size: " << m_movingObjects.size() << std::endl;
+	m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(boulders.begin()), std::make_move_iterator(boulders.end()));
+	std::cout << "After size: " << m_movingObjects.size() << std::endl;
 }
 
 bool Board::isAttacking() const
