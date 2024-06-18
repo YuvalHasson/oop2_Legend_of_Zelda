@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 6;
+const int OBJ_AMOUNT = 7;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
@@ -14,9 +14,10 @@ enum GAME_STATE {
 	EXIT,
 	LOAD_GAME,
 	GAME_RUNNING,
-	ENDGAME,
 	SETTINGS,
-	PAUSE_MENU
+	PAUSE_MENU,
+	DEATH,
+	GAME_OVER
 };
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
@@ -48,6 +49,7 @@ namespace TEXTURE
 	constexpr int MapObjects = 3;
 	constexpr int Enemies = 4;
 	constexpr int StatusBar = 5;
+	constexpr int GameOver = 6;
 }
 
 namespace BACKGROUND_SOUND

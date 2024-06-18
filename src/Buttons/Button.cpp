@@ -16,6 +16,11 @@ void Button::setState(State* state)
 	m_state = state;
 }
 
+void Button::setPosition(const sf::Vector2f& position)
+{
+	m_text.setPosition(position);
+}
+
 void Button::setText(std::string text, sf::Vector2f position)
 {
 	m_text.setFont(*Resources::getResource().getFont());

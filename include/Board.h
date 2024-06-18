@@ -34,7 +34,7 @@ public:
 	void setMap();
 
 	//temp get
-	const Link& getSprite() const { return *m_link; }
+	const Link& getLink() const { return *m_link; }
 
 	bool isAttacking() const;
 
