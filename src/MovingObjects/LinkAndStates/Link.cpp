@@ -103,9 +103,9 @@ Sword* Link::getSword(){
     return nullptr;
 }
 
-void Link::draw(sf::RenderWindow& window){
-    m_sword->draw(window);
-    window.draw(getSprite());
+void Link::draw(sf::RenderTarget& target){
+    m_sword->draw(target);
+    target.draw(getSprite());
 
     //draw hitbox for debugging
     sf::RectangleShape rect;
@@ -114,7 +114,7 @@ void Link::draw(sf::RenderWindow& window){
     rect.setFillColor(sf::Color::Transparent);
     rect.setOutlineColor(sf::Color::Blue);
     rect.setOutlineThickness(1);
-    window.draw(rect);
+    target.draw(rect);
 
 }
 void Link::setPush(bool isPushing)
