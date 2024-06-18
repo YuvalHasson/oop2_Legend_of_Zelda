@@ -27,22 +27,22 @@ void PauseMenu::render(sf::RenderTarget* target)
 {
 	setCenterView();
 
-	getWindow()->setView(m_view);
 	if (!target)
 	{
 		target = getWindow();
 	}
+	target->setView(m_view);
 	target->draw(m_background);
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() / 2.f, target->getView().getSize());
-	m_board.draw(*getWindow(), viewBound);
+	m_board.draw(*target, viewBound);
 
-	getWindow()->setView(getWindow()->getDefaultView());
+	target->setView(target->getDefaultView());
 	target->draw(m_pauseBackground);
 	for (auto& option : m_options)
 	{
-		option.second->draw(*getWindow());
+		option.second->draw(*target);
 	}
-	m_volumeSlider.draw(*getWindow());
+	m_volumeSlider.draw(*target);
 }
 
 std::unique_ptr<State> PauseMenu::handleInput(GAME_STATE gameState)
@@ -81,7 +81,7 @@ void PauseMenu::setCenterView()
 	const float halfViewWidth = viewWidth / 2.f;
 	const float halfViewHeight = viewHeight / 2.f;
 
-	sf::Vector2f playerPos = m_board.getSprite().getPosition();
+	sf::Vector2f playerPos = m_board.getLink().getPosition();
 
 	float viewCenterX = std::max(halfViewWidth, std::min(playerPos.x, Resources::getResource().getTexture(TEXTURE::Map)->getSize().x - halfViewWidth));
 	float viewCenterY = std::max(halfViewHeight, std::min(playerPos.y, Resources::getResource().getTexture(TEXTURE::Map)->getSize().y - halfViewHeight));

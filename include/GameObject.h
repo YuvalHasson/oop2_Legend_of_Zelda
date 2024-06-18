@@ -11,13 +11,13 @@ public:
     GameObject(const sf::Texture&, const sf::Vector2f& ,const sf::Vector2f&, const sf::Vector2f&);
     virtual ~GameObject();
 
-    virtual void draw(sf::RenderWindow&);
+    virtual void draw(sf::RenderTarget&);
     
 	virtual void handleCollision() = 0;
 
     void destroy();
     bool isDestroyed() const;
-    void setPosition(const sf::Vector2f& );
+    void setPosition(const sf::Vector2f&);
     sf::Vector2f getPreviousPosition() const;
 	sf::Vector2f getPosition() const;
 

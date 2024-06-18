@@ -6,14 +6,19 @@ Button::Button()
 {
 }
 
-void Button::draw(sf::RenderWindow& window) const
+void Button::draw(sf::RenderTarget& target) const
 {
-	window.draw(m_text);
+	target.draw(m_text);
 }
 
 void Button::setState(State* state)
 {
 	m_state = state;
+}
+
+void Button::setPosition(const sf::Vector2f& position)
+{
+	m_text.setPosition(position);
 }
 
 void Button::setText(std::string text, sf::Vector2f position)

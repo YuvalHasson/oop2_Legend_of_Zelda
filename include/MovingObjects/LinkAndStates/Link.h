@@ -18,16 +18,18 @@ public:
 	void insertSword(Sword*);
 
 
-	// bool isAttacking() const;
 	void swipeSword();
 	void stopSwordSwipe();
-
 	bool getInvincible()const;
 	void initializeInvincible();
 
 	Sword* getSword();
 
+
+	void setPush(bool);
+	bool isPush() const;
 private:
+	bool m_isPushing;
 	std::unique_ptr<LinkState> m_state;
 	std::unique_ptr<Sword> m_sword;
 	sf::Clock m_invincibleTimer;

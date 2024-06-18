@@ -9,13 +9,12 @@ bool Link::m_registerit = Factory::registerit("Link",
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 10)),
-      m_state(std::make_unique<LinkStandingState>()), m_sword(Factory::createSword())
+      m_state(std::make_unique<LinkStandingState>()), m_sword(Factory::createSword()), m_isPushing(false)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
     setHp(6);
 }
-
 
 void Link::handleCollision()
 {
@@ -74,7 +73,6 @@ void Link::update(const sf::Time& deltaTime){
     }
     m_sword->update(deltaTime);
     updateSprite();
-
 }
 
 
@@ -118,4 +116,13 @@ void Link::draw(sf::RenderWindow& window){
     rect.setOutlineThickness(1);
     window.draw(rect);
 
+}
+void Link::setPush(bool isPushing)
+{
+	m_isPushing = isPushing;
+}
+
+bool Link::isPush() const
+{
+    return m_isPushing;
 }

@@ -2,15 +2,14 @@
 
 #include "State.h"
 #include "MainMenu.h"
-#include "Board.h"
-#include "PauseMenu.h"
-#include "StatusBar.h"
-#include "DeathState.h"
+#include "LoadButton.h"
 
-class GameRunningState : public State
+using Option = std::pair<std::string, std::unique_ptr<Button>>;
+
+class GameOverState : public State
 {
 public:
-	GameRunningState(sf::RenderWindow*, Board&&, sf::View&&, sf::Sprite);
+	GameOverState(sf::RenderWindow*);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;
@@ -18,11 +17,9 @@ public:
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) override;
 
 private:
+	void add(const std::string&, std::unique_ptr<Button>);
 
-	void setCenterView();
+	sf::RectangleShape m_background;
 
-	StatusBar m_statusBar;
-	Board m_board;
-	sf::View m_view;
-	sf::Sprite m_background;
+	std::vector<Option> m_options;
 };

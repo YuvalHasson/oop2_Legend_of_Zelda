@@ -10,7 +10,7 @@ public:
 	VolumeSlider();
 	~VolumeSlider() = default;
 
-	void draw(sf::RenderWindow&) const;
+	void draw(sf::RenderTarget&) const;
 
 	void update(sf::RenderWindow&);
 

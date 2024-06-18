@@ -15,14 +15,6 @@ MainMenu::MainMenu(sf::RenderWindow* window)
 	add("Load", std::make_unique<LoadButton>(this));
 }
 
-void MainMenu::drawMainMenu(sf::RenderWindow& window)
-{
-	window.draw(m_menuBackground);
-	for (auto& option : m_options)
-	{
-		option.second->draw(window);
-	}
-}
 
 void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
@@ -55,7 +47,11 @@ void MainMenu::render(sf::RenderTarget* target)
 	{
 		target = getWindow();
 	}
-	drawMainMenu(*getWindow());
+	target->draw(m_menuBackground);
+	for (auto& option : m_options)
+	{
+		option.second->draw(*target);
+	}
 }
 
 std::unique_ptr<State> MainMenu::handleInput(GAME_STATE gameState)

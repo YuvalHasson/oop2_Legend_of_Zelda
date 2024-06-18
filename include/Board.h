@@ -25,7 +25,7 @@ public:
 
 	~Board() = default;
 
-	void draw(sf::RenderWindow&, sf::FloatRect&);
+	void draw(sf::RenderTarget&, sf::FloatRect&);
 	void addProjectileToMoving();
 	void makeLink();
 	void move(const sf::Time&);
@@ -34,7 +34,7 @@ public:
 	void setMap();
 
 	//temp get
-	const Link& getSprite() const { return *m_link; }
+	const Link& getLink() const { return *m_link; }
 
 	bool isAttacking() const;
 

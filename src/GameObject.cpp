@@ -13,7 +13,7 @@ GameObject::GameObject(const sf::Texture& texture, const sf::Vector2f& position,
 
 GameObject::~GameObject(){};
 
-void GameObject::draw(sf::RenderWindow& window)
+void GameObject::draw(sf::RenderTarget& target)
 {   
     sf::RectangleShape rect;
     rect.setPosition(m_hitBox.GetRect().left, m_hitBox.GetRect().top);
@@ -21,8 +21,8 @@ void GameObject::draw(sf::RenderWindow& window)
     rect.setFillColor(sf::Color::Transparent);
     rect.setOutlineColor(sf::Color::Blue);
     rect.setOutlineThickness(1);
-    window.draw(m_sprite);
-    window.draw(rect);
+    target.draw(m_sprite);
+    target.draw(rect);
 }
 
 void GameObject::destroy()
