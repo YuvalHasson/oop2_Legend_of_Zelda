@@ -101,7 +101,6 @@ bool Map::setMap()
 			if (c.value != -1)
 			{
 				initVector(c);
-				//std::cout << value << " ";
 			}
 			currentCol++;
 		}
@@ -128,22 +127,12 @@ void Map::initVector(Cell cell)
 	//	//m_staticObjects.emplace_back(Factory::createWall(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
 	//	return;
 	//}
-	//std::cout << m_dict[cell.value] << "\n";
+
 	auto it = m_dict.find(cell.value);
 	if (it != m_dict.end())
 	{
 		m_map.emplace_back(std::make_pair(it->second, cell));
 	}
-	//std::string value = m_dict[cell.value];
-	//if (value == "wall" || value == "tree" ||
-	//	value == "flowers" || value == "house")
-	//{
-	//	//m_staticObjects.emplace_back(Factory::createWall(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
-	//}
-	//else if (value == "sea")
-	//{
-	//	//m_staticObjects.emplace_back(Factory::createWaterTile(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
-	//}
 }
 
 std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects()

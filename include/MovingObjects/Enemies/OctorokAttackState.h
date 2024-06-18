@@ -1,5 +1,6 @@
 #include "Octorok.h"
 #include "OctorokState.h"
+#include "OctorokStandingState.h"
 
 class OctorokAttackState : public OctorokState
 {

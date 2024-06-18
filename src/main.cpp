@@ -1,4 +1,5 @@
 #include "Controller.h"
+
 int main() try
 {
 	Controller controller;

@@ -52,7 +52,7 @@ void GameRunningState::render(sf::RenderTarget* target)
 	m_statusBar.draw(*target);
 }
 
-std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState)
 {
 	switch (gameState)
 	{
@@ -71,10 +71,7 @@ std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
 	return nullptr;
 }
 
-void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&)
-{
-
-}
+void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 
 void GameRunningState::setCenterView()
 {

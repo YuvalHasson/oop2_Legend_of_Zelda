@@ -3,7 +3,10 @@
 #include <iostream> //debug
 
 bool Octorok::m_registerit = Factory::registerit("Octorok",
-    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> { return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position); });
+    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject>
+    {
+        return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
+    });
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 	: Enemy(texture, position, sf::Vector2f(12,12),sf::Vector2f(12/2, 12/2)), m_state(std::make_unique<OctorokStandingState>()), m_projectile(nullptr)
@@ -27,7 +30,6 @@ void Octorok::update(const sf::Time& deltaTime)
     if (directionChange >= 1.0f) // Change direction every 1 seconds
     {
         int randomMovment = rand() % 6;
-
 
         switch (randomMovment)
         {

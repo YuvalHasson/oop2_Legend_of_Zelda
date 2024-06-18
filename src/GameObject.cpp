@@ -35,13 +35,15 @@ bool GameObject::isDestroyed() const
     return m_destroyed;
 }
 
-void GameObject::setPosition(const sf::Vector2f& pos){
+void GameObject::setPosition(const sf::Vector2f& pos)
+{
     m_previousPosition = m_position;
     m_position = pos;
     m_hitBox.setPosition(pos);
 }
 
-sf::Vector2f GameObject::getPreviousPosition()const{
+sf::Vector2f GameObject::getPreviousPosition() const
+{
     return m_previousPosition;
 }
 

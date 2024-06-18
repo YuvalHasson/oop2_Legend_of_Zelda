@@ -11,10 +11,6 @@ Controller::Controller()
     SoundResource::getSound().setBackgroundVolume(SoundResource::getSound().getVolume());
 }
 
-Controller::~Controller()
-{
-}
-
 void Controller::run()
 {
     sf::Clock clock;

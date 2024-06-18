@@ -3,9 +3,7 @@
 GAME_STATE State::m_gameState = GAME_STATE::MAIN_MENU;
 
 State::State(sf::RenderWindow* window)
-	: m_window(window)
-{
-}
+	: m_window(window) {}
 
 void State::updateState(GAME_STATE gameState)
 {

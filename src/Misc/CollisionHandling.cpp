@@ -5,7 +5,6 @@
 
 namespace
 {
-
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
 		link.handleCollision();
@@ -110,13 +109,9 @@ namespace
 		}
 	}
 
-	void OctorokSword(GameObject& octorok, GameObject& sword)
-	{
-	}
+	void OctorokSword(GameObject& octorok, GameObject& sword) {}
 
-	void SwordWall(GameObject& sword, GameObject& wall)
-	{
-	}
+	void SwordWall(GameObject& sword, GameObject& wall) {}
 
 	void WallSword(GameObject& wall, GameObject& sword)
 	{
@@ -159,18 +154,14 @@ namespace
 		OctoProjectileLink(octorokProjectile, link);
 	}
 
-	void OctorokProjectileOctorok(GameObject& octorokProjectile, GameObject& octorok)
-	{
-	}
+	void OctorokProjectileOctorok(GameObject& octorokProjectile, GameObject& octorok) {}
 
 	void OctorokOctorokProjectile(GameObject& octorok, GameObject& octorokProjectile)
 	{
 		OctorokProjectileOctorok(octorokProjectile, octorok);
 	}
 
-	void LinkSword(GameObject& link, GameObject& sword)
-	{
-	}
+	void LinkSword(GameObject& link, GameObject& sword) {}
 
 	void SwordLink(GameObject& sword, GameObject& link)
 	{

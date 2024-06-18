@@ -13,10 +13,7 @@ public:
 	Link(const sf::Texture&, const sf::Vector2f&);
 
 	virtual void update(const sf::Time& deltaTime) override;
-	// virtual void attack(const sf::Time&) override;
 	virtual void handleCollision() override;
-	//void createSword();
-	//void killSword();
 	void insertSword(Sword*);
 
 

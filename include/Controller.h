@@ -13,7 +13,7 @@ class Controller
 {
 public:
 	Controller();
-	~Controller();
+	~Controller() = default;
 
 	void run();
 private:

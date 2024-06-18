@@ -14,9 +14,6 @@ Pot::Pot(const sf::Texture& texture, const sf::Vector2f& position)
 	setPosition(position);
 	getSprite().setTextureRect(sf::IntRect(156, 207, tileSize, tileSize));
 	getSprite().setScale(0.6, 0.6);
-	
 }
 
-void Pot::handleCollision()
-{
-}
+void Pot::handleCollision() {}
