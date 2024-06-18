@@ -23,14 +23,14 @@ public:
 
 	bool setMap();
 	void initVector(Cell);
-	std::vector<std::unique_ptr<Enemy>>& getEnemyObjects();
+	std::vector<std::unique_ptr<MovingObjects>>& getEnemyObjects();
 	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects();
 
 	std::map<int, std::string> getDict() const;
 
 private:
 	std::map<int, std::string> m_dict;
-	std::vector<std::unique_ptr<Enemy>> m_enemyObjects;
+	std::vector<std::unique_ptr<MovingObjects>> m_enemyObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 
 	std::vector<std::pair<std::string,Cell>> m_map;

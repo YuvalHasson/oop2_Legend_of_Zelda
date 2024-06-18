@@ -9,12 +9,12 @@ bool Link::m_registerit = Factory::registerit("Link",
     });
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
-	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 6)),
-      m_state(std::make_unique<LinkStandingState>()), m_sword(nullptr), m_isPushing(false)
+	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 10)),
+      m_state(std::make_unique<LinkStandingState>()), m_sword(Factory::createSword()), m_isPushing(false)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
-    setHp(6);
+    setHp(2);
 }
 
 void Link::handleCollision() {}
@@ -80,13 +80,10 @@ void Link::update(const sf::Time& deltaTime){
     {
         updateGraphics(deltaTime);
     }
+    m_sword->update(deltaTime);
     updateSprite();
 }
 
-void Link::insertSword(Sword* sword)
-{
-    m_sword = sword;
-}
 
 void Link::swipeSword()
 {
@@ -101,6 +98,7 @@ void Link::stopSwordSwipe()
     {
         m_sword->deActivate();
     }
+    setAttacking(false);
 }
 
 bool Link::getInvincible() const
@@ -113,6 +111,27 @@ void Link::initializeInvincible()
     m_invincibleTimer.restart();
 }
 
+Sword* Link::getSword(){
+    if(m_attacking){
+        return m_sword.get();
+    }
+    return nullptr;
+}
+
+void Link::draw(sf::RenderTarget& target){
+    m_sword->draw(target);
+    target.draw(getSprite());
+
+    //draw hitbox for debugging
+    sf::RectangleShape rect;
+    rect.setPosition(getHitBox().GetRect().left, getHitBox().GetRect().top);
+    rect.setSize(sf::Vector2f(getHitBox().GetRect().width, getHitBox().GetRect().height));
+    rect.setFillColor(sf::Color::Transparent);
+    rect.setOutlineColor(sf::Color::Blue);
+    rect.setOutlineThickness(1);
+    target.draw(rect);
+
+}
 void Link::setPush(bool isPushing)
 {
 	m_isPushing = isPushing;

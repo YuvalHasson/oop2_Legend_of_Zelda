@@ -3,7 +3,7 @@
 #include <iostream> //debugging
 
 DeathState::DeathState(sf::RenderWindow* window, sf::Vector2f position, sf::View view)
-	:State(window), m_linkDeathSprite(), m_whiteBackground(sf::Vector2f(window->getSize().x, window->getSize().y)),
+	:State(window),  m_whiteBackground(sf::Vector2f(window->getSize().x, window->getSize().y)), m_linkDeathSprite(),
 	m_amountOfSpins(0)
 {
 	getWindow()->setView(view);
@@ -46,9 +46,12 @@ std::unique_ptr<State> DeathState::handleInput(const GAME_STATE& gameState)
 {
 	switch (gameState)
 	{
-	case GAME_OVER:
-		return std::make_unique<GameOverState>(getWindow());
+		case GAME_OVER:
+			return std::make_unique<GameOverState>(getWindow());
+		default:
+			return nullptr;
 	}
+	
 	return nullptr;
 }
 

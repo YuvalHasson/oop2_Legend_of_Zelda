@@ -55,3 +55,7 @@ sf::Vector2f GameObject::getPosition() const
 bool GameObject::checkCollision(const GameObject& other)const{
     return m_hitBox.checkCollision(other.m_hitBox);
 }
+
+HitBox GameObject::getHitBox(){
+    return m_hitBox;
+}
