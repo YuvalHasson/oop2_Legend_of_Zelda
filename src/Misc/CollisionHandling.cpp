@@ -65,10 +65,6 @@ namespace
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
 			}
-			if (linkPtr->isAttacking())
-			{
-				octorok.handleCollision();
-			}
 		}
 	}
 
@@ -263,6 +259,24 @@ namespace
 		BoulderOctorokProjectile(boulder, octorokProjectile);
 	}
 
+	void SwordPot(GameObject& sword, GameObject& pot)
+	{
+		Pot* potPtr = dynamic_cast<Pot*>(&pot);
+		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
+		if (potPtr && swordPtr)
+		{
+			if (swordPtr->getActive()) {
+				potPtr->destroy();
+				swordPtr->setActive(false);
+			}
+		}
+	}
+
+	void PotSword(GameObject& pot, GameObject& sword)
+	{
+		SwordPot(sword, pot);
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -285,6 +299,7 @@ namespace
 		phm[Key(typeid(Wall), typeid(Sword))] = &WallSword;
 		phm[Key(typeid(Wall), typeid(Boulder))] = &WallBoulder;
 		phm[Key(typeid(Pot), typeid(Link))] = &PotLink; // ==> Pot to link collision
+		phm[Key(typeid(Pot), typeid(Sword))] = &PotSword;
 		phm[Key(typeid(WaterTile), typeid(Link))] = &WaterLink;
 		phm[Key(typeid(WaterTile), typeid(Octorok))] = &WaterOctorok;
 		phm[Key(typeid(Octorok), typeid(Link))] = &OctorokLink;
@@ -296,6 +311,7 @@ namespace
 		phm[Key(typeid(Sword), typeid(Octorok))] = &SwordOctorok;
 		phm[Key(typeid(Sword), typeid(Wall))] = &SwordWall;
 		phm[Key(typeid(Sword), typeid(Link))] = &SwordLink;
+		phm[Key(typeid(Sword), typeid(Pot))] = &SwordPot;
 		phm[Key(typeid(OctorokProjectile), typeid(Wall))] = &OctoProjectileWall;
 		phm[Key(typeid(OctorokProjectile), typeid(Link))] = &OctoProjectileLink;
 		phm[Key(typeid(OctorokProjectile), typeid(Octorok))] = &OctorokProjectileOctorok;
@@ -304,6 +320,7 @@ namespace
 		phm[Key(typeid(Boulder), typeid(Wall))] = &BoulderWall;
 		phm[Key(typeid(Boulder), typeid(Octorok))] = &BoulderOctorok;
 		phm[Key(typeid(Boulder), typeid(OctorokProjectile))] = &BoulderOctorokProjectile;
+
 
 		//...
 		return phm;

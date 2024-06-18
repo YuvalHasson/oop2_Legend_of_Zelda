@@ -43,6 +43,17 @@ std::vector<std::unique_ptr<StaticObjects>> Factory::createStaticObjects(const s
 			}
 		}
 	}
+
+	auto obj = create("Pot", { 110.f, 100.f });
+	if (obj)
+	{
+		if (auto pot = dynamic_cast<StaticObjects*>(obj.get()))
+		{
+			staticObjects.emplace_back(std::unique_ptr<StaticObjects>(pot));
+			obj.release();
+		}
+	}
+
     return staticObjects;
 }
 
