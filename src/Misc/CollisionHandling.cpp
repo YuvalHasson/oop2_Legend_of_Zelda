@@ -38,10 +38,6 @@ namespace
 		if (linkPtr)
 		{
 			linkPtr->undoMove();
-			if (linkPtr->isAttacking())
-			{
-				pot.destroy();
-			}
 		}
 	}
 	
@@ -277,6 +273,20 @@ namespace
 		SwordPot(sword, pot);
 	}
 
+	void OctorokPot(GameObject& octorok, GameObject& pot)
+	{
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		if (octorokPtr)
+		{
+			octorokPtr->undoMove();
+		}
+	}
+
+	void PotOctorok(GameObject& pot, GameObject& octorok)
+	{
+		OctorokPot(octorok, pot);
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -300,6 +310,7 @@ namespace
 		phm[Key(typeid(Wall), typeid(Boulder))] = &WallBoulder;
 		phm[Key(typeid(Pot), typeid(Link))] = &PotLink; // ==> Pot to link collision
 		phm[Key(typeid(Pot), typeid(Sword))] = &PotSword;
+		phm[Key(typeid(Pot), typeid(Octorok))] = &PotOctorok;
 		phm[Key(typeid(WaterTile), typeid(Link))] = &WaterLink;
 		phm[Key(typeid(WaterTile), typeid(Octorok))] = &WaterOctorok;
 		phm[Key(typeid(Octorok), typeid(Link))] = &OctorokLink;
@@ -308,6 +319,7 @@ namespace
 		phm[Key(typeid(Octorok), typeid(Sword))] = &OctorokSword;
 		phm[Key(typeid(Octorok), typeid(OctorokProjectile))] = &OctorokOctorokProjectile;
 		phm[Key(typeid(Octorok), typeid(Boulder))] = &OctorockBoulder;
+		phm[Key(typeid(Octorok), typeid(Pot))] = &OctorokPot;
 		phm[Key(typeid(Sword), typeid(Octorok))] = &SwordOctorok;
 		phm[Key(typeid(Sword), typeid(Wall))] = &SwordWall;
 		phm[Key(typeid(Sword), typeid(Link))] = &SwordLink;
@@ -320,7 +332,6 @@ namespace
 		phm[Key(typeid(Boulder), typeid(Wall))] = &BoulderWall;
 		phm[Key(typeid(Boulder), typeid(Octorok))] = &BoulderOctorok;
 		phm[Key(typeid(Boulder), typeid(OctorokProjectile))] = &BoulderOctorokProjectile;
-
 
 		//...
 		return phm;

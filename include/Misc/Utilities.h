@@ -38,7 +38,7 @@ enum Input {
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
-#define VOLUME 10.f
+#define VOLUME 0.f
 
 namespace TEXTURE
 {
@@ -78,7 +78,7 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u OctorokDown(197, 143);
 	const sf::Vector2u OctorokLeft(231, 143);
 	const sf::Vector2u OctorokUp(291, 143);
-
+	const sf::Vector2u OctorokRight(325, 143);
 }
 
 //might be useless

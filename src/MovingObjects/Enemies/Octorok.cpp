@@ -33,26 +33,20 @@ void Octorok::update(const sf::Time& deltaTime)
         {
         case 0:
             up = true;
-            std::cout << "up" << std::endl;
             break;
         case 1:
             down = true;
-            std::cout << "down" << std::endl;
             break;
         case 2:
             right = true;
-            std::cout << "right" << std::endl;
             break;
         case 3:
             left = true;
-            std::cout << "left" << std::endl;
             break;
         case 4:
 			attacking = true;
-			std::cout << "attacking" << std::endl;
 			break;
         default:
-            std::cout << "Standing" << std::endl;
             directionChange += 0.5f;
             standing = true;
             break;

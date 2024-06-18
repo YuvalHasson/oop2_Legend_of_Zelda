@@ -127,7 +127,6 @@ std::vector<std::unique_ptr<MovingObjects>> Factory::createBoulder()
 			obj.release();
 		}
 	}
-	std::cout << "boulderPtr size: " << boulderPtr.size() << std::endl;
 	return boulderPtr;
 }
 
