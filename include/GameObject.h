@@ -21,9 +21,11 @@ public:
     sf::Vector2f getPreviousPosition() const;
 	sf::Vector2f getPosition() const;
 
+    bool checkCollision(const GameObject& other)const;
+
 	//temp get?
 	sf::Sprite& getSprite() { return m_sprite; }
-    const HitBox& getHitBox()const;
+
 
 private:
     sf::Sprite m_sprite;
