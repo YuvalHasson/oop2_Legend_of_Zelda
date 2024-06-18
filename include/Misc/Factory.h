@@ -26,7 +26,7 @@ class Factory
 public:
 	static std::vector<std::unique_ptr<StaticObjects>> createStaticObjects(const std::vector<std::pair<std::string, Cell>>&);
 	static std::unique_ptr<Link> createLink();
-	static std::vector<std::unique_ptr<Enemy>> createEnemies();
+	static std::vector<std::unique_ptr<MovingObjects>> createEnemies();
 	static std::unique_ptr<Sword> createSword();
 	static std::unique_ptr<OctorokProjectile> createOctorokProjectile();
 	static std::vector<std::unique_ptr<MovingObjects>> createBoulder();
