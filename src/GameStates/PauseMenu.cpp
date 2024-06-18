@@ -27,22 +27,22 @@ void PauseMenu::render(sf::RenderTarget* target)
 {
 	setCenterView();
 
-	getWindow()->setView(m_view);
 	if (!target)
 	{
 		target = getWindow();
 	}
+	target->setView(m_view);
 	target->draw(m_background);
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() / 2.f, target->getView().getSize());
-	m_board.draw(*getWindow(), viewBound);
+	m_board.draw(*target, viewBound);
 
-	getWindow()->setView(getWindow()->getDefaultView());
+	target->setView(target->getDefaultView());
 	target->draw(m_pauseBackground);
 	for (auto& option : m_options)
 	{
-		option.second->draw(*getWindow());
+		option.second->draw(*target);
 	}
-	m_volumeSlider.draw(*getWindow());
+	m_volumeSlider.draw(*target);
 }
 
 std::unique_ptr<State> PauseMenu::handleInput(GAME_STATE gameState)

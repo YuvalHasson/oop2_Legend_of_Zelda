@@ -20,7 +20,6 @@ void DeathState::update(const sf::Time& deltaTime)
 	{
 		m_animation.setAnimation(sf::Vector2u(188, 42), 4, false, true, 1.f);
 		m_amountOfSpins++;
-		std::cout << m_amountOfSpins << std::endl;
 	}
 
 

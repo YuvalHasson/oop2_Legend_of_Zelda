@@ -19,15 +19,15 @@ void NewGameState::update(const sf::Time& deltaTime)
 
 void NewGameState::render(sf::RenderTarget* target)
 {
-	getWindow()->setView(m_view);
 	if (!target)
 	{
 		target = getWindow();
 	}
+	target->setView(m_view);
 	target->draw(m_background);
 
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() /2.f, target->getView().getSize());
-	m_board.draw(*getWindow(), viewBound);
+	m_board.draw(*target, viewBound);
 }
 
 std::unique_ptr<State> NewGameState::handleInput(GAME_STATE gameState)

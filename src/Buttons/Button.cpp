@@ -6,9 +6,9 @@ Button::Button()
 {
 }
 
-void Button::draw(sf::RenderWindow& window) const
+void Button::draw(sf::RenderTarget& target) const
 {
-	window.draw(m_text);
+	target.draw(m_text);
 }
 
 void Button::setState(State* state)

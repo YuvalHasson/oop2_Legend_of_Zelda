@@ -26,13 +26,13 @@ Board& Board::operator=(Board&& other) noexcept
 	return *this;
 }
 
-void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
+void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 {
 	for (const auto& gameObject : m_staticObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
 		{
-			gameObject->draw(window);
+			gameObject->draw(target);
 		}
 	}
 
@@ -41,15 +41,15 @@ void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
 	{
 		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
 		{
-			enemy->draw(window);
+			enemy->draw(target);
 		}
 	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
-			gameObject->draw(window);
+			gameObject->draw(target);
   	}
-	m_link->draw(window);
+	m_link->draw(target);
 }
 
 void Board::addProjectileToMoving()

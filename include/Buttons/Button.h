@@ -13,7 +13,7 @@ public:
 	virtual ~Button() = default;
 
 	virtual void execute() = 0;
-	void draw(sf::RenderWindow&) const;
+	void draw(sf::RenderTarget&) const;
 	void setState(State*);
 
 	void setPosition(const sf::Vector2f&);

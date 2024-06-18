@@ -32,7 +32,7 @@ void GameOverState::render(sf::RenderTarget* target)
 	target->draw(m_background);
 	for (auto& option : m_options)
 	{
-		option.second->draw(*getWindow());
+		option.second->draw(*target);
 	}
 }
 

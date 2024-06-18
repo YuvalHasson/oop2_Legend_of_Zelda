@@ -25,7 +25,7 @@ public:
 
 	~Board() = default;
 
-	void draw(sf::RenderWindow&, sf::FloatRect&);
+	void draw(sf::RenderTarget&, sf::FloatRect&);
 	void addProjectileToMoving();
 	void makeLink();
 	void move(const sf::Time&);

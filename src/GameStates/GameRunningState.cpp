@@ -35,22 +35,21 @@ void GameRunningState::update(const sf::Time& deltaTime)
 void GameRunningState::render(sf::RenderTarget* target)
 {
 	setCenterView();
-
-	getWindow()->setView(m_view);
 	
 	if (!target)
 	{
 		target = getWindow();
 	}
+	target->setView(m_view);
 	target->draw(m_background);
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() / 2.f, target->getView().getSize());
-	m_board.draw(*getWindow(), viewBound);
+	m_board.draw(*target, viewBound);
 
-	getWindow()->setView(getWindow()->getDefaultView());
+	target->setView(target->getDefaultView());
 
-	m_statusBar.setBottomView(*getWindow());
+	m_statusBar.setBottomView(*target);
 
-	m_statusBar.draw(*getWindow());
+	m_statusBar.draw(*target);
 }
 
 std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)

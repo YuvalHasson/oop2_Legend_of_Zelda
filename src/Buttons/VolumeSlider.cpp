@@ -20,11 +20,11 @@ VolumeSlider::VolumeSlider()
     m_text.setPosition(70, 400);
 }
 
-void VolumeSlider::draw(sf::RenderWindow& window) const
+void VolumeSlider::draw(sf::RenderTarget& target) const
 {
-    window.draw(m_text);
-	window.draw(m_sliderBar);
-	window.draw(m_slider);
+    target.draw(m_text);
+    target.draw(m_sliderBar);
+    target.draw(m_slider);
 }
 
 void VolumeSlider::update(sf::RenderWindow& window)

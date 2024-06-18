@@ -20,8 +20,6 @@ class MainMenu : public State
 public:
 	MainMenu(sf::RenderWindow*);
 
-	void drawMainMenu(sf::RenderWindow&);
-	void overButton(sf::RenderWindow&);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;
@@ -29,6 +27,7 @@ public:
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) override;
 
 private:
+	void overButton(sf::RenderWindow&);
 	void add(const std::string&, std::unique_ptr<Button>);
 
 	sf::RectangleShape m_menuBackground;
