@@ -14,9 +14,10 @@ enum GAME_STATE {
 	EXIT,
 	LOAD_GAME,
 	GAME_RUNNING,
-	ENDGAME,
 	SETTINGS,
-	PAUSE_MENU
+	PAUSE_MENU,
+	DEATH,
+	GAME_OVER
 };
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector

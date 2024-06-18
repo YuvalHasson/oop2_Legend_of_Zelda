@@ -16,7 +16,6 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     setHp(6);
 }
 
-
 void Link::handleCollision()
 {
 

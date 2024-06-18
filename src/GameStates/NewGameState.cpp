@@ -7,7 +7,7 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	m_board.setMap();
 	m_board.makeLink();
 
-	m_view.setCenter(m_board.getSprite().getPosition()); //think about a better way to get link position.
+	m_view.setCenter(m_board.getLink().getPosition()); //think about a better way to get link position.
 
 	SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 }

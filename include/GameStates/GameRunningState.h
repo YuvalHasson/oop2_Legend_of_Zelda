@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "PauseMenu.h"
 #include "StatusBar.h"
+#include "DeathState.h"
 
 class GameRunningState : public State
 {
