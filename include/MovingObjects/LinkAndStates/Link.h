@@ -29,10 +29,10 @@ public:
 	void setPush(bool);
 	bool isPush() const;
 private:
-	bool m_isPushing;
 	std::unique_ptr<LinkState> m_state;
 	std::unique_ptr<Sword> m_sword;
 	sf::Clock m_invincibleTimer;
+	bool m_isPushing;
   	static bool m_registerit;
 
 };

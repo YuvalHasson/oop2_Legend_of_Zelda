@@ -13,7 +13,7 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
-    setHp(6);
+    setHp(2);
 }
 
 void Link::handleCollision()
