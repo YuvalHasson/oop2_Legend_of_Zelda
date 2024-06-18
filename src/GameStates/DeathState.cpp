@@ -48,12 +48,8 @@ std::unique_ptr<State> DeathState::handleInput(const GAME_STATE& gameState)
 	{
 		case GAME_OVER:
 			return std::make_unique<GameOverState>(getWindow());
-		default:
-			return nullptr;
 	}
-	
 	return nullptr;
 }
 
 void DeathState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
-

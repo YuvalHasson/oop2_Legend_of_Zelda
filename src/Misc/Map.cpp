@@ -1,6 +1,5 @@
 #include "Map.h"
 
-
 Map::Map()
 {
 	setDict(m_dict);
@@ -72,46 +71,56 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(-1610612461, "wall" );
 }
 
-bool Map::setMap()
+void Map::setMap()
 {
 	std::string gameMap = "Map.csv";
 
-	auto map = std::ifstream(gameMap);
-	if (!map)
+	try
 	{
-		std::cerr << "Error opening file: " << gameMap << std::endl;
-		return true; // can be changed to exeptions
-	}
-	m_enemyObjects.clear();
-	m_staticObjects.clear();
-
-	std::string line;
-	// Read the file line by line
-	int currentRow = 0;
-	while (std::getline(map, line)) {
-		std::istringstream lineStream(line);
-		std::string cell;
-		int currentCol = 0;
-
-		// Parse each line into comma-separated values
-		while (std::getline(lineStream, cell, ',')) {
-			// Convert the cell to an integer
-			int value = std::stoi(cell);
-			Cell c = { value, currentRow, currentCol };
-			if (c.value != -1)
-			{
-				initVector(c);
-			}
-			currentCol++;
+		auto map = std::ifstream(gameMap);
+		if (!map)
+		{
+			throw BadFileName();
 		}
-		currentRow++;
-	}
-	m_staticObjects = Factory::createStaticObjects(m_map);
-	m_enemyObjects = Factory::createEnemies(); // probobly change
 
-	// Close the file
-	map.close();
-	return true;
+		m_enemyObjects.clear();
+		m_staticObjects.clear();
+
+		std::string line;
+		// Read the file line by line
+		int currentRow = 0;
+		while (std::getline(map, line)) {
+			std::istringstream lineStream(line);
+			std::string cell;
+			int currentCol = 0;
+
+			// Parse each line into comma-separated values
+			while (std::getline(lineStream, cell, ',')) {
+				// Convert the cell to an integer
+				int value = std::stoi(cell);
+				Cell c = { value, currentRow, currentCol };
+				if (c.value != -1)
+				{
+					initVector(c);
+				}
+				currentCol++;
+			}
+			currentRow++;
+		}
+		m_staticObjects = Factory::createStaticObjects(m_map);
+		m_enemyObjects = Factory::createEnemies(); // probobly change
+
+		// Close the file
+		map.close();
+	}
+	catch (const BadFileName& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "An error occurred: " << e.what() << std::endl;
+	}
 }
 
 void Map::initVector(Cell cell)

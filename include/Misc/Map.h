@@ -12,6 +12,7 @@
 
 #include "Enemy.h"
 #include "StaticObjects.h"
+#include "BadFileName.h"
 
 class Map
 {
@@ -21,7 +22,7 @@ public:
 
 	void setDict(std::map<int, std::string>&);
 
-	bool setMap();
+	void setMap();
 	void initVector(Cell);
 	std::vector<std::unique_ptr<MovingObjects>>& getEnemyObjects();
 	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects();

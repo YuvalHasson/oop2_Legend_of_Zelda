@@ -7,15 +7,14 @@
 Board::Board() {}
 
 Board::Board(Board&& other) noexcept
-	: m_movingObjects(std::move(other.m_movingObjects)), m_enemies(std::move(other.m_enemies))
-	,m_staticObjects(std::move(other.m_staticObjects)), m_link(std::move(other.m_link)) {}
+	: m_movingObjects(std::move(other.m_movingObjects)), m_staticObjects(std::move(other.m_staticObjects)),
+	  m_link(std::move(other.m_link)) {}
 
 Board& Board::operator=(Board&& other) noexcept
 {
 	if (this != &other)
 	{
 		m_movingObjects = std::move(other.m_movingObjects);
-		m_enemies = std::move(other.m_enemies);
 		m_staticObjects = std::move(other.m_staticObjects);
 		m_link = std::move(other.m_link);
 	}
@@ -31,15 +30,6 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 			gameObject->draw(target);
 		}
 	}
-
-	for (const auto& enemy : m_enemies)
-
-	{
-		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
-		{
-			enemy->draw(target);
-		}
-	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
@@ -50,13 +40,30 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 
 void Board::addProjectileToMoving()
 {
-	for (const auto& enemy : m_enemies)
+	//adding the projectiles of the enemies to the moving objects
+	//Not sure if this is the best way to do it
+
+	//might need to do like the sword --> getAttack() --> return a vector of projectiles
+	//and then check projectiles in the collision
+	std::vector<std::unique_ptr<MovingObjects>> newProjectiles;
+
+	for (const auto& enemy : m_movingObjects)
 	{
-		auto projectile = enemy->getAttack();
-		if (projectile)
+		Enemy* enemyPtr = dynamic_cast<Enemy*>(enemy.get());
+		if (enemyPtr)
 		{
-			m_movingObjects.emplace_back(std::move(projectile));
+			auto projectile = enemyPtr->getAttack();
+			if (projectile)
+			{
+				newProjectiles.emplace_back(std::move(projectile));
+			}
 		}
+	}
+
+	// Now add all collected projectiles to m_movingObjects
+	for (auto& projectile : newProjectiles)
+	{
+		m_movingObjects.emplace_back(std::move(projectile));
 	}
 }
 
@@ -65,17 +72,11 @@ void Board::makeLink()
 	m_link = Factory::createLink();
 }
 
-void Board::move(const sf::Time& deltaTime)
-{
-}
+void Board::move(const sf::Time&) {}
 
 void Board::update(const sf::Time& deltaTime)
 {
-	for (auto& enemy : m_enemies)
-	{
-		enemy->update(deltaTime);
-	}
-	for (auto& gameObject : m_movingObjects)
+	for (const auto& gameObject : m_movingObjects)
 	{
 		gameObject->update(deltaTime);
 	}
@@ -84,7 +85,6 @@ void Board::update(const sf::Time& deltaTime)
 
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
 	std::erase_if(m_movingObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
-	std::erase_if(m_enemies, [](const auto& enemy) { return enemy->isDestroyed(); });
 }
 
 void Board::handleCollision()
@@ -149,7 +149,7 @@ void Board::setMap()
 
 bool Board::isAttacking() const
 {
-	for (const auto& enemy : m_enemies)
+	for (const auto& enemy : m_movingObjects)
 	{
 		if (enemy->isAttacking())
 		{
