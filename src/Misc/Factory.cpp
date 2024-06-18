@@ -59,15 +59,15 @@ std::unique_ptr<Link> Factory::createLink()
     return linkPtr;
 }
 
-std::vector<std::unique_ptr<Enemy>> Factory::createEnemies()
+std::vector<std::unique_ptr<MovingObjects>> Factory::createEnemies()
 {
-	std::vector<std::unique_ptr<Enemy>> enemies;
+	std::vector<std::unique_ptr<MovingObjects>> enemies;
 	auto obj = create("Octorok", { 32.f, 180.f });
 	if (obj)
 	{
 		if (auto enemy = dynamic_cast<Enemy*>(obj.get()))
 		{
-			enemies.emplace_back(std::unique_ptr<Enemy>(enemy));
+			enemies.emplace_back(std::unique_ptr<MovingObjects>(enemy));
 			obj.release();
 		}
 	}

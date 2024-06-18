@@ -13,10 +13,8 @@ public:
 	Link(const sf::Texture&, const sf::Vector2f&);
 
 	virtual void update(const sf::Time& deltaTime) override;
-	// virtual void attack(const sf::Time&) override;
+	virtual void draw(sf::RenderWindow&) override;
 	virtual void handleCollision() override;
-	//void createSword();
-	//void killSword();
 	void insertSword(Sword*);
 
 
@@ -27,9 +25,11 @@ public:
 	bool getInvincible()const;
 	void initializeInvincible();
 
+	Sword* getSword();
+
 private:
 	std::unique_ptr<LinkState> m_state;
-	Sword* m_sword;
+	std::unique_ptr<Sword> m_sword;
 	sf::Clock m_invincibleTimer;
   	static bool m_registerit;
 

@@ -23,6 +23,8 @@ public:
 
     bool checkCollision(const GameObject& other)const;
 
+    HitBox getHitBox(); // for debugging
+
 	//temp get?
 	sf::Sprite& getSprite() { return m_sprite; }
 
