@@ -34,6 +34,6 @@ void LinkStandingState::enter(Link& link){
         link.setGraphics(ANIMATIONS_POSITIONS::LinkUp, 2, false , true);
     }
     link.stopSwordSwipe();
-
+    link.setPush(false);
 }
 

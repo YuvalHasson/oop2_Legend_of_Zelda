@@ -25,6 +25,8 @@ public:
 	bool getInvincible()const;
 	void initializeInvincible();
 
+	void setPush(bool);
+	bool isPush() const;
 private:
 	bool m_isPushing;
 	std::unique_ptr<LinkState> m_state;

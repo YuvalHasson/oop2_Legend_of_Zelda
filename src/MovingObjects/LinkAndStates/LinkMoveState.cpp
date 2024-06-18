@@ -39,19 +39,19 @@ void LinkMoveState::enter(Link& link){
             link.setDirection(DIRECTIONS::UpLeft);
             break;
         case PRESS_RIGHT:
-            link.setGraphics(ANIMATIONS_POSITIONS::LinkRight, 2);
+            link.setGraphics(link.isPush() ? ANIMATIONS_POSITIONS::LinkPushRight : ANIMATIONS_POSITIONS::LinkRight, 2);
             link.setDirection(DIRECTIONS::Right);
             break;
         case PRESS_LEFT:
-            link.setGraphics(ANIMATIONS_POSITIONS::LinkLeft, 2);
+            link.setGraphics(link.isPush() ? ANIMATIONS_POSITIONS::LinkPushLeft : ANIMATIONS_POSITIONS::LinkLeft, 2);
             link.setDirection(DIRECTIONS::Left);
             break;
         case PRESS_DOWN:
-            link.setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
+            link.setGraphics(link.isPush() ? ANIMATIONS_POSITIONS::LinkPushDown : ANIMATIONS_POSITIONS::LinkDown, 2);
             link.setDirection(DIRECTIONS::Down);
             break;
         case PRESS_UP:
-            link.setGraphics(ANIMATIONS_POSITIONS::LinkUp, 2);
+            link.setGraphics(link.isPush() ? ANIMATIONS_POSITIONS::LinkPushUp : ANIMATIONS_POSITIONS::LinkUp, 2);
             link.setDirection(DIRECTIONS::Up);
             break;
         default:

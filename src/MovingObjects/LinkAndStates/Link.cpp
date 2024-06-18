@@ -8,7 +8,8 @@ bool Link::m_registerit = Factory::registerit("Link",
     });
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
-	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 6)), m_state(std::make_unique<LinkStandingState>()), m_sword(nullptr)
+	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 6)), m_state(std::make_unique<LinkStandingState>()),
+      m_sword(nullptr), m_isPushing(false)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
@@ -72,7 +73,6 @@ void Link::update(const sf::Time& deltaTime){
         updateGraphics(deltaTime);
     }
     updateSprite();
-
 }
 
 void Link::insertSword(Sword* sword){
@@ -96,4 +96,14 @@ bool Link::getInvincible()const{
 
 void Link::initializeInvincible(){
     m_invincibleTimer.restart();
+}
+
+void Link::setPush(bool isPushing)
+{
+	m_isPushing = isPushing;
+}
+
+bool Link::isPush() const
+{
+    return m_isPushing;
 }

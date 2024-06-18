@@ -14,6 +14,7 @@ Boulder::Boulder(const sf::Texture& texture, const sf::Vector2f& pos)
 
 void Boulder::update(const sf::Time& deltaTime)
 {
+	setSpeed(1.f);
 }
 
 void Boulder::handleCollision()
