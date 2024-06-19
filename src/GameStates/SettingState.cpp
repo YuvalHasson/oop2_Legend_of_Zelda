@@ -32,7 +32,7 @@ void SettingState::render(sf::RenderTarget* target)
 	m_volumeSlider.draw(*target);
 }
 
-std::unique_ptr<State> SettingState::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> SettingState::handleInput(const GAME_STATE& gameState)
 {
 	if(gameState == GAME_STATE::MAIN_MENU)
 	{

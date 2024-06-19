@@ -26,10 +26,7 @@ void GameRunningState::update(const sf::Time& deltaTime)
 		updateState(GAME_STATE::DEATH);
 	}
 
-	if (m_board.isAttacking())
-	{
-		m_board.addProjectileToMoving();
-	}
+	m_board.addProjectileToMoving();
 }
 
 void GameRunningState::render(sf::RenderTarget* target)
@@ -52,7 +49,7 @@ void GameRunningState::render(sf::RenderTarget* target)
 	m_statusBar.draw(*target);
 }
 
-std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState)
 {
 	switch (gameState)
 	{
@@ -71,10 +68,7 @@ std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
 	return nullptr;
 }
 
-void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&)
-{
-
-}
+void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 
 void GameRunningState::setCenterView()
 {

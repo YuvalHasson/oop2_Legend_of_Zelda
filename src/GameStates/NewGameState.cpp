@@ -30,7 +30,7 @@ void NewGameState::render(sf::RenderTarget* target)
 	m_board.draw(*target, viewBound);
 }
 
-std::unique_ptr<State> NewGameState::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> NewGameState::handleInput(const GAME_STATE& gameState)
 {
 	if(gameState == GAME_STATE::MAIN_MENU)
 	{
@@ -47,7 +47,4 @@ std::unique_ptr<State> NewGameState::handleInput(GAME_STATE gameState)
 	return nullptr;
 }
 
-void NewGameState::buttonPressed(sf::RenderWindow&, const sf::Event&)
-{
-	//no button here..
-}
+void NewGameState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}

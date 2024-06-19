@@ -16,10 +16,6 @@ Resources::Resources()
 	m_font.loadFromFile("ZeldaFont.ttf");
 }
 
-Resources::~Resources()
-{
-}
-
 Resources& Resources::getResource()
 {
 	static Resources resource;

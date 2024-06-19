@@ -63,9 +63,10 @@ void Animation::update(const sf::Time& deltaTime) {
 
 void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool flip, bool singleTime, float switchTime){
     if(m_animationStartPosition == startPosition){
-        if(singleTime){
+        if(isDone()){
             m_currentImage = 0;
             m_timePassed = 0;
+            
         }
         return;
     }
@@ -85,5 +86,5 @@ sf::IntRect Animation::getuvRect()const{
 }
 
 bool Animation::isDone()const{
-    return m_singleTime && m_currentImage >= m_imageCount - 1;
+    return m_singleTime && (m_currentImage >= m_imageCount - 1) && (m_switchTime - m_timePassed <= 0);
 }

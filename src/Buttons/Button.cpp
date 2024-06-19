@@ -2,9 +2,7 @@
 #include "State.h"
 
 Button::Button()
-	: m_state(nullptr)
-{
-}
+	: m_state(nullptr) {}
 
 void Button::draw(sf::RenderTarget& target) const
 {

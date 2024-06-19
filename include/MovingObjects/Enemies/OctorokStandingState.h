@@ -1,6 +1,9 @@
 #pragma once
 
 #include "OctorokState.h"
+#include "OctorokMoveState.h"
+#include "OctorokAttackState.h"
+#include "Octorok.h"
 
 class OctorokStandingState: public OctorokState
 {

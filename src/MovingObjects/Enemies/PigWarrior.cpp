@@ -2,9 +2,11 @@
 
 #include <iostream> // Debug
 
-
-bool PigWarrior::m_registerit = Factory::registerit("PigWarrior",
-    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> { return std::make_unique<PigWarrior>(*Resources::getResource().getTexture(TEXTURE::Enemies), position); });
+bool PigWarrior::m_registerit = Factory<MovingObjects>::instance()->registerit("PigWarrior",
+    [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+    {
+        return std::make_unique<PigWarrior>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
+    });
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(tileSize / 2, tileSize / 2)), 

@@ -2,13 +2,16 @@
 
 #include <iostream> //debug
 
-bool Octorok::m_registerit = Factory::registerit("Octorok",
-    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> { return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position); });
+bool Octorok::m_registerit = Factory<MovingObjects>::instance()->registerit("Octorok",
+    [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+    {
+        return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
+    });
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 	: Enemy(texture, position, sf::Vector2f(12,12),sf::Vector2f(12/2, 12/2)), m_state(std::make_unique<OctorokStandingState>()), m_projectile(nullptr)
 {
-	setDirection(DIRECTIONS::Down);
+    setDirection(DIRECTIONS::Down);
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();
     setHp(2);
@@ -28,7 +31,6 @@ void Octorok::update(const sf::Time& deltaTime)
     {
         int randomMovment = rand() % 6;
 
-
         switch (randomMovment)
         {
         case 0:
@@ -45,6 +47,7 @@ void Octorok::update(const sf::Time& deltaTime)
             break;
         case 4:
 			attacking = true;
+			std::cout << "Octorok is attacking" << std::endl;
 			break;
         default:
             directionChange += 0.5f;
@@ -121,17 +124,21 @@ const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
     case PRESS_LEFT:
         return ANIMATIONS_POSITIONS::OctorokLeft;
     case PRESS_RIGHT:
-        return ANIMATIONS_POSITIONS::OctorokLeft;
+        return ANIMATIONS_POSITIONS::OctorokRight;
     }
 }
 
 std::unique_ptr<MovingObjects> Octorok::getAttack()
 {
+    if(m_attacking){
+        if (auto p = Factory<OctorokProjectile>::instance()->create("OctorokProjectile", getPosition()))
+        {
+            m_projectile = std::move(p);
 
-    m_projectile = Factory::createOctorokProjectile();
-    m_projectile->setPosition(getPosition());
-	m_projectile->getSprite().setPosition(getPosition());
-    m_projectile->setDirection(getDirection());
-
-    return std::move(m_projectile);
+            m_projectile->setDirection(getDirection());
+        }
+        setAttacking(false);
+        return std::move(m_projectile);
+    }
+    return nullptr;
 }

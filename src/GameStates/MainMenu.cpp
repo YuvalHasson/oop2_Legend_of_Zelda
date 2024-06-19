@@ -54,7 +54,7 @@ void MainMenu::render(sf::RenderTarget* target)
 	}
 }
 
-std::unique_ptr<State> MainMenu::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> MainMenu::handleInput(const GAME_STATE& gameState)
 {
 	switch (gameState)
 	{

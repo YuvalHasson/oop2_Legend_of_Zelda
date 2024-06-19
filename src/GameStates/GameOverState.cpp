@@ -8,7 +8,6 @@ GameOverState::GameOverState(sf::RenderWindow* window)
 	m_background.setSize(sf::Vector2f(windowHeight, WindowWidth));
 	m_background.setTexture(Resources::getResource().getTexture(TEXTURE::GameOver));
 
-
 	add("Back", std::make_unique<BackToMenuButton>(this));
 	m_options.back().second->setPosition(sf::Vector2f(450, 450));
 	add("Load", std::make_unique<LoadButton>(this));
@@ -17,7 +16,7 @@ GameOverState::GameOverState(sf::RenderWindow* window)
 
 void GameOverState::update(const sf::Time&)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->overButton(*getWindow());
 	}
@@ -30,13 +29,13 @@ void GameOverState::render(sf::RenderTarget* target)
 		target = getWindow();
 	}
 	target->draw(m_background);
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->draw(*target);
 	}
 }
 
-std::unique_ptr<State> GameOverState::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> GameOverState::handleInput(const GAME_STATE& gameState)
 {
 	switch (gameState)
 	{
@@ -50,7 +49,7 @@ std::unique_ptr<State> GameOverState::handleInput(GAME_STATE gameState)
 
 void GameOverState::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		if (option.second->isButtonPressed(window, event.mouseButton))
 		{

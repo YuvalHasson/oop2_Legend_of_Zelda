@@ -17,7 +17,7 @@ private:
 
 public:
 	Resources();
-	~Resources();
+	~Resources() = default;
 	static Resources& getResource();
 
 	//get

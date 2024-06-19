@@ -4,22 +4,17 @@
 
 #include <iostream> // debug
 
-Board::Board()
-{
-}
+Board::Board() {}
 
 Board::Board(Board&& other) noexcept
-	: m_movingObjects(std::move(other.m_movingObjects)), m_enemies(std::move(other.m_enemies))
-	,m_staticObjects(std::move(other.m_staticObjects)), m_link(std::move(other.m_link))
-{
-}
+	: m_movingObjects(std::move(other.m_movingObjects)), m_staticObjects(std::move(other.m_staticObjects)),
+	  m_link(std::move(other.m_link)) {}
 
 Board& Board::operator=(Board&& other) noexcept
 {
 	if (this != &other)
 	{
 		m_movingObjects = std::move(other.m_movingObjects);
-		m_enemies = std::move(other.m_enemies);
 		m_staticObjects = std::move(other.m_staticObjects);
 		m_link = std::move(other.m_link);
 	}
@@ -36,14 +31,6 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
 	}
 
-	for (const auto& enemy : m_enemies)
-
-	{
-		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
-		{
-			enemy->draw(target);
-		}
-	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
@@ -56,57 +43,44 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 
 void Board::addProjectileToMoving()
 {
-	for (const auto& enemy : m_enemies)
-	{
-		auto projectile = enemy->getAttack();
-		if (projectile)
-		{
-			m_movingObjects.emplace_back(std::move(projectile));
-		}
-	}
-}
+	std::vector<std::unique_ptr<MovingObjects>> newProjectiles;
 
-void Board::addSwordOfPig()
-{
+    for (const auto& moving : m_movingObjects)
+    {
+        auto projectile = moving->getAttack();
+        if (projectile)
+        {
+            newProjectiles.emplace_back(std::move(projectile));
+        }
+    }
+	auto linkArrow = m_link->getAttack();
+	if(linkArrow){
+		newProjectiles.emplace_back(std::move(linkArrow));
+	}
+    m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(newProjectiles.begin()), std::make_move_iterator(newProjectiles.end()));
 }
 
 void Board::makeLink()
 {	
-	m_link = Factory::createLink();
-
+	if (auto p = Factory<Link>::instance()->create("Link", { 32.f, 50.f }))
+	{
+		m_link = std::move(p);
+	}
 }
 
-void Board::move(const sf::Time& deltaTime)
-{
-}
+void Board::move(const sf::Time&) {}
 
 void Board::update(const sf::Time& deltaTime)
 {
-	for (auto& enemy : m_enemies)
-	{
-		enemy->update(deltaTime);
-	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		gameObject->update(deltaTime);
-		//if (dynamic_cast<Link*>(gameObject.get()))
-		//{
-		//	for (auto& otherGameObject : m_movingObjects)
-		//	{
-		//		if (dynamic_cast<PigWarrior*>(otherGameObject.get()))
-		//		{
-		//			PigWarrior* PigWarriorPtr = dynamic_cast<PigWarrior*>(otherGameObject.get());
-		//			PigWarriorPtr->UpdateLinkPos(gameObject.get()->getSprite().getPosition());
-		//		}
-		//	}
-		//}
 	}
 
 	m_link->update(deltaTime);
 
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
 	std::erase_if(m_movingObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
-	std::erase_if(m_enemies, [](const auto& enemy) { return enemy->isDestroyed(); });
 }
 
 void Board::handleCollision()
@@ -153,6 +127,13 @@ void Board::handleCollision()
 				processCollision(*obj1, *obj2);
 			}
 			});
+
+		for_each_pair(m_movingObjects.begin(), m_movingObjects.end(), [this](auto& obj1, auto& obj2) {
+			if (colide(*obj1, *obj2)) {
+				processCollision(*obj1, *obj2);
+			}
+			});
+
 	}
 	catch (const std::exception& e)
 	{
@@ -165,17 +146,17 @@ void Board::setMap()
 	m_movingObjects = std::move(m_map.getEnemyObjects());
 	m_staticObjects = std::move(m_map.getStaticObjects());
 
-	auto boulders = Factory::createBoulder();
-	m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(boulders.begin()), std::make_move_iterator(boulders.end()));
+	//auto boulders = Factory::createBoulder();
+	//m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(boulders.begin()), std::make_move_iterator(boulders.end()));
 }
 
 bool Board::isAttacking() const
 {
-	for (const auto& enemy : m_enemies)
+	for (const auto& moving : m_movingObjects)
 	{
-		if (enemy->isAttacking())
+		if (moving->isAttacking())
 		{
-			enemy->setAttacking(false);
+			moving->setAttacking(false);
 			return true;
 		}
 	}
