@@ -19,23 +19,53 @@ class Sword;
 class OctorokProjectile;
 class Boulder;
 
-typedef std::map<std::string, std::unique_ptr<GameObject>(*)(const sf::Vector2f&)> mymap;
 
+template <typename T>
 class Factory
 {
 public:
-	static std::vector<std::unique_ptr<StaticObjects>> createStaticObjects(const std::vector<std::pair<std::string, Cell>>&);
-	static std::unique_ptr<Link> createLink();
-	static std::vector<std::unique_ptr<MovingObjects>> createEnemies();
-	static std::unique_ptr<Sword> createSword();
-	static std::unique_ptr<OctorokProjectile> createOctorokProjectile();
-	static std::vector<std::unique_ptr<MovingObjects>> createBoulder();
-	static std::unique_ptr<GameObject> create(const std::string& name, const sf::Vector2f& position);
-	static bool registerit(const std::string& name, std::unique_ptr<GameObject>(*)(const sf::Vector2f&));
-private:
-	static mymap& getMap()
+	typedef std::map<std::string, std::unique_ptr<T>(*)(const sf::Vector2f&)> mymap;
+
+	//std::vector<std::unique_ptr<StaticObjects>> createStaticObjects(const std::vector<std::pair<std::string, Cell>>&);
+	//static std::unique_ptr<Link> createLink();
+	//static std::vector<std::unique_ptr<MovingObjects>> createEnemies();
+	//static std::unique_ptr<Sword> createSword();
+	//static std::unique_ptr<OctorokProjectile> createOctorokProjectile();
+	//static std::vector<std::unique_ptr<MovingObjects>> createBoulder();
+
+	std::unique_ptr<T> create(const std::string& name, const sf::Vector2f& position);
+	bool registerit(const std::string& name, std::unique_ptr<T>(*)(const sf::Vector2f&));
+
+	static Factory<T>* instance()
 	{
-		static mymap m_map;
-		return m_map;
+		static Factory<T> instance;
+		return &instance;
 	}
+
+private:
+	mymap m_map;
 };
+//Factor<StaticObject>::instance()->registerIt("Wall", [](const sf::Vector2f& position) -> std::unique_ptr<StaticObject>
+//	{
+//		return std::make_unique<Wall>(*Resources::getResource().getTexture(TEXTURE::Wall), position);
+//	});
+//
+//Factory<MovingObjects>::instance()->registerIt("Octorok", [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+//	{
+//		return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
+//	});
+//
+//{
+//	char c;
+//	if (auto p = Factory<StaticObjects>::instance()->create(c, { 0.f, 0.f }))
+//	{
+//		m_staticObjects.push_back(std::move(p));
+//		continue;
+//	}
+//	if (auto p = Factory<MovingObjects>::instance()->create(c, { 0.f, 0.f }))
+//	{
+//		m_movingObjects.push_back(std::move(p));
+//		continue;
+//	}
+//	throw std::runtime_error("Unknown character in map file");
+//}

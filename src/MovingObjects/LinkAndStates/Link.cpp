@@ -2,15 +2,15 @@
 
 #include <iostream> //debugging
 
-bool Link::m_registerit = Factory::registerit("Link",
-    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject>
-    {
-        return std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), position);
-    });
+bool m_registerit = Factory<MovingObjects>::instance()->registerit("Link",
+    [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+	{
+		return std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), position);
+	});
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 10)),
-      m_state(std::make_unique<LinkStandingState>()), m_sword(Factory::createSword()), m_isPushing(false)
+    m_state(std::make_unique<LinkStandingState>()), m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })), m_isPushing(false)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();

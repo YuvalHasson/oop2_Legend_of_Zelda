@@ -69,7 +69,7 @@ void Board::addProjectileToMoving()
 
 void Board::makeLink()
 {	
-	m_link = Factory::createLink();
+	//m_link = Factory::createLink();
 }
 
 void Board::move(const sf::Time&) {}
@@ -79,17 +79,6 @@ void Board::update(const sf::Time& deltaTime)
 	for (const auto& gameObject : m_movingObjects)
 	{
 		gameObject->update(deltaTime);
-		//if (dynamic_cast<Link*>(gameObject.get()))
-		//{
-		//	for (auto& otherGameObject : m_movingObjects)
-		//	{
-		//		if (dynamic_cast<PigWarrior*>(otherGameObject.get()))
-		//		{
-		//			PigWarrior* PigWarriorPtr = dynamic_cast<PigWarrior*>(otherGameObject.get());
-		//			PigWarriorPtr->UpdateLinkPos(gameObject.get()->getSprite().getPosition());
-		//		}
-		//	}
-		//}
 	}
 
 	m_link->update(deltaTime);
@@ -154,8 +143,8 @@ void Board::setMap()
 	m_movingObjects = std::move(m_map.getEnemyObjects());
 	m_staticObjects = std::move(m_map.getStaticObjects());
 
-	auto boulders = Factory::createBoulder();
-	m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(boulders.begin()), std::make_move_iterator(boulders.end()));
+	//auto boulders = Factory::createBoulder();
+	//m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(boulders.begin()), std::make_move_iterator(boulders.end()));
 }
 
 bool Board::isAttacking() const

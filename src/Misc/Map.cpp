@@ -107,8 +107,8 @@ void Map::setMap()
 			}
 			currentRow++;
 		}
-		m_staticObjects = Factory::createStaticObjects(m_map);
-		m_enemyObjects = Factory::createEnemies(); // probobly change
+		//m_staticObjects = Factory::createStaticObjects(m_map);
+		//m_enemyObjects = Factory::createEnemies(); // probobly change
 
 		// Close the file
 		map.close();
