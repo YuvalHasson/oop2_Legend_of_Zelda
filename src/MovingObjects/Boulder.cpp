@@ -1,9 +1,9 @@
 #include "Boulder.h"
 
-bool Boulder::m_registerit = Factory::registerit("Boulder",
-	[](const sf::Vector2f& position) -> std::unique_ptr<GameObject>
-	{ 
-		return std::make_unique<Boulder>(*Resources::getResource().getTexture(TEXTURE::MapObjects), position);
+bool Boulder::m_registerit = Factory<MovingObjects>::instance()->registerit("Boulder",
+	[](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+	{
+		return std::make_unique<Boulder>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
 	});
 
 Boulder::Boulder(const sf::Texture& texture, const sf::Vector2f& pos)
