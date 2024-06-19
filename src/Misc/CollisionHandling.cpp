@@ -343,6 +343,35 @@ namespace
 	{
 	}
 
+	void LinkArrowOctorok(GameObject& arrow, GameObject& octorok)
+	{
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		if (octorokPtr && arrowPtr)
+		{	
+			octorokPtr->pushBack();
+			octorokPtr->setHp(octorokPtr->getHp() - 1);
+			arrowPtr->destroy();
+		}
+	}
+
+	void OctorokLinkArrow(GameObject& octorok, GameObject& arrow){
+		LinkArrowOctorok(arrow, octorok);
+	}
+
+	void LinkLinkArrow(GameObject& link, GameObject& arrow){
+	}
+	void LinkArrowLink(GameObject& arrow, GameObject& link){
+	}
+
+	void LinkArrowWall(GameObject& arrow, GameObject& wall){
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		if (arrowPtr)
+		{
+			arrowPtr->destroy();
+		}
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -397,6 +426,12 @@ namespace
 		phm[Key(typeid(WaterTile), typeid(PigWarrior))] = &WaterPigWarrior;
 		phm[Key(typeid(Sword), typeid(PigWarrior))] = &SwordPigWarrior;
 		phm[Key(typeid(PigWarrior), typeid(Sword))] = &PigWarriorSword;
+		phm[Key(typeid(LinkArrow), typeid(Octorok))] = &LinkArrowOctorok;
+		phm[Key(typeid(Octorok), typeid(LinkArrow))] = &OctorokLinkArrow;
+		phm[Key(typeid(Link), typeid(LinkArrow))] = &LinkLinkArrow;
+		phm[Key(typeid(LinkArrow), typeid(Link))] = &LinkArrowLink;
+		phm[Key(typeid(LinkArrow), typeid(Wall))] = &LinkArrowWall;
+
 
 		//...
 		return phm;

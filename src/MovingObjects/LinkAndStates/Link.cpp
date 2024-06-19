@@ -26,6 +26,7 @@ void Link::update(const sf::Time& deltaTime){
     bool right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+    bool tab = sf::Keyboard::isKeyPressed(sf::Keyboard::Tab);
     
     Input input;
     if(space)
@@ -67,6 +68,9 @@ void Link::update(const sf::Time& deltaTime){
     else
     {
         input = NONE;
+    }
+    if(tab){
+        m_isShooting = !m_isShooting;
     }
     
     std::unique_ptr<LinkState> state = m_state->handleInput(input);
@@ -140,4 +144,28 @@ void Link::setPush(bool isPushing)
 bool Link::isPush() const
 {
     return m_isPushing;
+}
+
+bool Link::getShooting()const{
+    return m_isShooting;
+}
+
+void Link::stopShooting(){
+    setAttacking(false);
+}
+
+void Link::shoot(){
+    setAttacking(true);
+}
+
+std::unique_ptr<MovingObjects> Link::getAttack(){
+    if(m_attacking && m_isShooting){
+        m_arrow = Factory::createLinkArrow();
+        m_arrow->setPosition(getPosition());
+        m_arrow->getSprite().setPosition(getPosition());
+        m_arrow->initArrow(getDirection());
+        stopShooting();
+        return std::move(m_arrow);
+    }
+    return nullptr;
 }

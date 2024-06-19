@@ -4,6 +4,7 @@
 #include "LinkState.h"
 #include "LinkStandingState.h"
 #include "Sword.h"
+#include "LinkArrow.h"
 
 const sf::Time invincibilityTime(sf::seconds(2));
 
@@ -22,19 +23,25 @@ public:
 
 	void swipeSword();
 	void stopSwordSwipe();
+	void shoot();
+	void stopShooting();
+
 	bool getInvincible()const;
 	void initializeInvincible();
 
 	Sword* getSword();
-
+	virtual std::unique_ptr<MovingObjects> getAttack()override;
 
 	void setPush(bool);
 	bool isPush() const;
+	bool getShooting()const;
 private:
 	std::unique_ptr<LinkState> m_state;
 	std::unique_ptr<Sword> m_sword;
+	std::unique_ptr<LinkArrow> m_arrow;
 	sf::Clock m_invincibleTimer;
 	bool m_isPushing;
+	bool m_isShooting;
   	static bool m_registerit;
 
 };

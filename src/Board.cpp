@@ -30,6 +30,15 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 			gameObject->draw(target);
 		}
 	}
+
+	for (const auto& enemy : m_enemies)
+
+	{
+		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
+		{
+			enemy->draw(target);
+		}
+	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
@@ -40,31 +49,21 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 
 void Board::addProjectileToMoving()
 {
-	//adding the projectiles of the enemies to the moving objects
-	//Not sure if this is the best way to do it
-
-	//might need to do like the sword --> getAttack() --> return a vector of projectiles
-	//and then check projectiles in the collision
 	std::vector<std::unique_ptr<MovingObjects>> newProjectiles;
 
-	for (const auto& enemy : m_movingObjects)
-	{
-		Enemy* enemyPtr = dynamic_cast<Enemy*>(enemy.get());
-		if (enemyPtr)
-		{
-			auto projectile = enemyPtr->getAttack();
-			if (projectile)
-			{
-				newProjectiles.emplace_back(std::move(projectile));
-			}
-		}
+    for (const auto& moving : m_movingObjects)
+    {
+        auto projectile = moving->getAttack();
+        if (projectile)
+        {
+            newProjectiles.emplace_back(std::move(projectile));
+        }
+    }
+	auto linkArrow = m_link->getAttack();
+	if(linkArrow){
+		newProjectiles.emplace_back(std::move(linkArrow));
 	}
-
-	// Now add all collected projectiles to m_movingObjects
-	for (auto& projectile : newProjectiles)
-	{
-		m_movingObjects.emplace_back(std::move(projectile));
-	}
+    m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(newProjectiles.begin()), std::make_move_iterator(newProjectiles.end()));
 }
 
 void Board::makeLink()
@@ -79,7 +78,7 @@ void Board::move(const sf::Time&) {}
 
 void Board::update(const sf::Time& deltaTime)
 {
-	for (const auto& gameObject : m_movingObjects)
+	for (auto& gameObject : m_movingObjects)
 	{
 		gameObject->update(deltaTime);
 	}
@@ -134,6 +133,13 @@ void Board::handleCollision()
 				processCollision(*obj1, *obj2);
 			}
 			});
+
+		for_each_pair(m_movingObjects.begin(), m_movingObjects.end(), [this](auto& obj1, auto& obj2) {
+			if (colide(*obj1, *obj2)) {
+				processCollision(*obj1, *obj2);
+			}
+			});
+
 	}
 	catch (const std::exception& e)
 	{
@@ -152,11 +158,11 @@ void Board::setMap()
 
 bool Board::isAttacking() const
 {
-	for (const auto& enemy : m_movingObjects)
+	for (const auto& moving : m_movingObjects)
 	{
-		if (enemy->isAttacking())
+		if (moving->isAttacking())
 		{
-			enemy->setAttacking(false);
+			moving->setAttacking(false);
 			return true;
 		}
 	}

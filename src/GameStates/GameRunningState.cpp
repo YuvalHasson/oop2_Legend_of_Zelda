@@ -26,10 +26,7 @@ void GameRunningState::update(const sf::Time& deltaTime)
 		updateState(GAME_STATE::DEATH);
 	}
 
-	if (m_board.isAttacking())
-	{
-		m_board.addProjectileToMoving();
-	}
+	m_board.addProjectileToMoving();
 }
 
 void GameRunningState::render(sf::RenderTarget* target)

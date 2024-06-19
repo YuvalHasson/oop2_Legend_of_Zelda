@@ -86,6 +86,10 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u PigWarriorDown(1, 229);
 	const sf::Vector2u PigWarriorLeft(68, 229);
 	const sf::Vector2u PigWarriorRight(107, 229);
+	const sf::Vector2u ArrowUp(35, 126);
+	const sf::Vector2u ArrowDown(52, 126);
+	const sf::Vector2u ArrowLeft(1, 126);
+	const sf::Vector2u ArrowRight(18, 126);
 }
 
 //might be useless
