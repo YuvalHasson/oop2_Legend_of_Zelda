@@ -367,8 +367,6 @@ namespace
 		phm[Key(typeid(LinkArrow), typeid(Link))] = &LinkArrowLink;
 		phm[Key(typeid(LinkArrow), typeid(Wall))] = &LinkArrowWall;
 
-		// phm[Key(typeid(LinkArrow), typeid(Wall))] = &LinkArrowWall;
-		// phm[Key(typeid(LinkArrow), typeid(Boulder))] = &LinkArrowBoulder;
 
 		//...
 		return phm;
