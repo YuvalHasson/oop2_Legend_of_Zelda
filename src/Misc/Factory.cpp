@@ -7,7 +7,6 @@
 #include "Enemy.h"
 #include "WaterTile.h"
 #include "Octorok.h"
-#include "PigWarrior.h"
 #include "Sword.h"
 #include "OctorokProjectile.h"
 #include "Boulder.h"
@@ -15,8 +14,8 @@
 #include <iostream> // debug
 
 std::vector<std::unique_ptr<StaticObjects>> Factory::createStaticObjects(const std::vector<std::pair<std::string, Cell>>& map) {
-    std::vector<std::unique_ptr<StaticObjects>> staticObjects;
-   
+	std::vector<std::unique_ptr<StaticObjects>> staticObjects;
+
 	for (const auto& objMap : map)
 	{
 		if (objMap.first == "wall" || objMap.first == "house" || objMap.first == "flowers" || objMap.first == "tree")
@@ -55,21 +54,21 @@ std::vector<std::unique_ptr<StaticObjects>> Factory::createStaticObjects(const s
 		}
 	}
 
-    return staticObjects;
+	return staticObjects;
 }
 
 std::unique_ptr<Link> Factory::createLink()
 {
 	std::unique_ptr<Link> linkPtr;
-    auto obj = create("Link", { 32.f, 50.f });
-    if (obj)
-    {
-        if (auto link = dynamic_cast<Link*>(obj.get())) {
-            linkPtr = std::unique_ptr<Link>(link);
-            obj.release();
-        }
-    }
-    return linkPtr;
+	auto obj = create("Link", { 32.f, 50.f });
+	if (obj)
+	{
+		if (auto link = dynamic_cast<Link*>(obj.get())) {
+			linkPtr = std::unique_ptr<Link>(link);
+			obj.release();
+		}
+	}
+	return linkPtr;
 }
 
 std::vector<std::unique_ptr<MovingObjects>> Factory::createEnemies()
@@ -84,31 +83,21 @@ std::vector<std::unique_ptr<MovingObjects>> Factory::createEnemies()
 			obj.release();
 		}
 	}
-	auto obj2 = create("PigWarrior", { 80.f, 70.f });
-	if (obj2)
-	{
-		if (auto enemy2 = dynamic_cast<Enemy*>(obj2.get()))
-		{
-			enemies.emplace_back(std::unique_ptr<Enemy>(enemy2));
-			obj2.release();
-		}
-	}
-
 	return enemies;
 }
 
 std::unique_ptr<Sword> Factory::createSword()
 {
 	std::unique_ptr<Sword> swordPtr;
-    auto obj = create("Sword", {0,0});
-    if (obj)
-    {
-        if (auto sword = dynamic_cast<Sword*>(obj.get())) {
-            swordPtr = std::unique_ptr<Sword>(sword);
-            obj.release();
-        }
-    }
-    return swordPtr;
+	auto obj = create("Sword", { 0,0 });
+	if (obj)
+	{
+		if (auto sword = dynamic_cast<Sword*>(obj.get())) {
+			swordPtr = std::unique_ptr<Sword>(sword);
+			obj.release();
+		}
+	}
+	return swordPtr;
 }
 
 std::unique_ptr<OctorokProjectile> Factory::createOctorokProjectile()
