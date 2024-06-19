@@ -67,8 +67,6 @@ void Board::addProjectileToMoving()
 	}
 }
 
-}
-
 void Board::makeLink()
 {	
 	m_link = Factory::createLink();
