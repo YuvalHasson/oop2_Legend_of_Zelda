@@ -16,6 +16,8 @@ public:
 	virtual void draw(sf::RenderTarget& ) override;
 	virtual void handleCollision() override;
 	void insertSword(Sword*);
+	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
+
 
 
 	void swipeSword();

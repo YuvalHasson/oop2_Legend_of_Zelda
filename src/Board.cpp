@@ -67,6 +67,8 @@ void Board::addProjectileToMoving()
 	}
 }
 
+}
+
 void Board::makeLink()
 {	
 	m_link = Factory::createLink();
@@ -79,6 +81,17 @@ void Board::update(const sf::Time& deltaTime)
 	for (const auto& gameObject : m_movingObjects)
 	{
 		gameObject->update(deltaTime);
+		//if (dynamic_cast<Link*>(gameObject.get()))
+		//{
+		//	for (auto& otherGameObject : m_movingObjects)
+		//	{
+		//		if (dynamic_cast<PigWarrior*>(otherGameObject.get()))
+		//		{
+		//			PigWarrior* PigWarriorPtr = dynamic_cast<PigWarrior*>(otherGameObject.get());
+		//			PigWarriorPtr->UpdateLinkPos(gameObject.get()->getSprite().getPosition());
+		//		}
+		//	}
+		//}
 	}
 
 	m_link->update(deltaTime);

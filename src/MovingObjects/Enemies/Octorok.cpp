@@ -112,6 +112,21 @@ void Octorok::handleCollision()
 {
 }
 
+const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
+{
+    switch (side)
+    {
+    case PRESS_UP:
+        return ANIMATIONS_POSITIONS::OctorokDown;
+    case PRESS_DOWN:
+        return ANIMATIONS_POSITIONS::OctorokDown;
+    case PRESS_LEFT:
+        return ANIMATIONS_POSITIONS::OctorokLeft;
+    case PRESS_RIGHT:
+        return ANIMATIONS_POSITIONS::OctorokLeft;
+    }
+}
+
 std::unique_ptr<MovingObjects> Octorok::getAttack()
 {
 

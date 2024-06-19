@@ -10,6 +10,7 @@
 #include <memory>
 #include <fstream>
 #include <sstream>
+#include "PigWarrior.h"
 
 #include "Misc/CollisionHandling.h"
 #include "Misc/Map.h"
