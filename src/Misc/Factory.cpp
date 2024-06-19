@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "WaterTile.h"
 #include "Octorok.h"
+#include "PigWarrior.h"
 #include "Sword.h"
 #include "OctorokProjectile.h"
 
@@ -71,6 +72,17 @@ std::vector<std::unique_ptr<Enemy>> Factory::createEnemies()
 			obj.release();
 		}
 	}
+	auto obj2 = create("PigWarrior", { 80.f, 70.f });
+	if (obj2)
+	{
+		if (auto enemy2 = dynamic_cast<Enemy*>(obj2.get()))
+		{
+			enemies.emplace_back(std::unique_ptr<Enemy>(enemy2));
+			obj2.release();
+
+		}
+	}
+
 	return enemies;
 }
 

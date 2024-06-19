@@ -75,6 +75,14 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u OctorokLeft(231, 143);
 	const sf::Vector2u OctorokUp(291, 143);
 
+	const sf::Vector2u PigWarriorUp(35, 229);
+	const sf::Vector2u PigWarriorDown(1, 229);
+	const sf::Vector2u PigWarriorLeft(68, 229);
+	const sf::Vector2u PigWarriorRight(107, 229);
+	//const sf::Vector2u PigWarriorSwordUp(, 252);
+	//const sf::Vector2u PigWarriorSwordDown(1, 246);
+	//const sf::Vector2u PigWarriorSwordLeft(73, 246);
+	//const sf::Vector2u PigWarriorSwordRight(73, 246);//need a flip
 }
 
 //might be useless

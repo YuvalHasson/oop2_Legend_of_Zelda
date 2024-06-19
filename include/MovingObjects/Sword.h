@@ -13,6 +13,8 @@ public:
     void deActivate();
     bool getActive()const;
     void setActive(bool active);
+    const sf::Vector2u& getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
+
 
 private:
     bool m_active;

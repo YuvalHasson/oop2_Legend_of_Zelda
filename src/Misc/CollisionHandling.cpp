@@ -185,6 +185,71 @@ namespace
 		LinkSword(link, sword);
 	}
 
+	void LinkPigWarrior(GameObject& link, GameObject& pigWarrior)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->undoMove();
+			if (linkPtr->isAttacking())
+			{
+				pigWarrior.handleCollision();
+			}
+		}
+	}
+
+	void PigWarriorLink(GameObject& pigWarrior, GameObject& link)
+	{
+		LinkPigWarrior(link, pigWarrior);
+	}
+
+	void PigWarriorWall(GameObject& pigWarrior, GameObject& wall)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+		std::cout << "PigWarriorWall\n";
+	}
+
+	void WallPigWarrior(GameObject& wall, GameObject& pigWarrior)
+	{
+		PigWarriorWall(pigWarrior, wall);
+	}
+
+	void PigWarriorWater(GameObject& pigWarrior, GameObject& water)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+		std::cout << "PigWarriorWater\n";
+	}
+
+	void WaterPigWarrior(GameObject& water, GameObject& pigWarrior)
+	{
+		PigWarriorWater(pigWarrior, water);
+	}
+	
+	void SwordPigWarrior(GameObject& sword, GameObject& pigWarrior) {
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
+		if (pigWarriorPtr && swordPtr)
+		{
+			if (swordPtr->getActive()) {
+				pigWarriorPtr->pushBack();
+				pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
+				swordPtr->setActive(false);
+			}
+		}
+	}
+
+	void PigWarriorSword(GameObject& pigWarrior, GameObject& sword)
+	{
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -218,6 +283,15 @@ namespace
 		phm[Key(typeid(Octorok), typeid(OctorokProjectile))] = &OctorokOctorokProjectile;
 		phm[Key(typeid(Link), typeid(Sword))] = &LinkSword;
 		phm[Key(typeid(Sword), typeid(Link))] = &SwordLink;
+		///
+		phm[Key(typeid(Link), typeid(PigWarrior))] = &LinkPigWarrior;
+		phm[Key(typeid(PigWarrior), typeid(Link))] = &PigWarriorLink;
+		phm[Key(typeid(PigWarrior), typeid(Wall))] = &PigWarriorWall;
+		phm[Key(typeid(Wall), typeid(PigWarrior))] = &WallPigWarrior;
+		phm[Key(typeid(PigWarrior), typeid(WaterTile))] = &PigWarriorWater;
+		phm[Key(typeid(WaterTile), typeid(PigWarrior))] = &WaterPigWarrior;
+		phm[Key(typeid(Sword), typeid(PigWarrior))] = &SwordPigWarrior;
+		phm[Key(typeid(PigWarrior), typeid(Sword))] = &PigWarriorSword;
 
 		//...
 		return phm;

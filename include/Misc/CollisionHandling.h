@@ -12,6 +12,7 @@
 #include "Pot.h"
 #include "WaterTile.h"
 #include "Octorok.h"
+#include "PigWarrior.h"
 #include "Sword.h"
 #include "OctorokProjectile.h"
 

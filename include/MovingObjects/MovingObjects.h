@@ -12,6 +12,7 @@ public:
 	virtual void update(const sf::Time& deltaTime) = 0;
 	// virtual void attack(const sf::Time& deltaTime) = 0;
 	virtual void handleCollision() = 0;
+	virtual const sf::Vector2u& getAnimationTexturePosition(Input) = 0;
 
 	void updateSprite();
 	void setGraphics(const sf::Vector2u&, int, bool = false, bool = false, float switchTime = 0.2f);
