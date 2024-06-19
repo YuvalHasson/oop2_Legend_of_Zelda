@@ -70,6 +70,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(-1073741536, "Wall" );
 	dict.emplace(-1073741511, "Wall" );
 	dict.emplace(-1610612461, "Wall" );
+	dict.emplace(-1610612462, "Wall" );
 }
 
 void Map::setMap()
@@ -155,6 +156,10 @@ std::vector<std::unique_ptr<MovingObjects>>& Map::getEnemyObjects()
 	if (auto p = Factory<MovingObjects>::instance()->create("Octorok", { 70.f, 150.f }))
 	{
 		m_enemyObjects.emplace_back(std::move(p));
+	}
+	if (auto p1 = Factory<MovingObjects>::instance()->create("PigWarrior", { 32.f, 150.f }))
+	{
+		m_enemyObjects.emplace_back(std::move(p1));
 	}
 
 	return m_enemyObjects;

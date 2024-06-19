@@ -10,7 +10,7 @@ bool PigWarrior::m_registerit = Factory<MovingObjects>::instance()->registerit("
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(tileSize / 2, tileSize / 2)), 
-        m_moveStrategy(std::make_unique<StandingState>()), m_currInput(PRESS_UP), m_sword(Factory::createSword())
+        m_moveStrategy(std::make_unique<StandingState>()), m_currInput(PRESS_UP), m_sword()
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
@@ -42,7 +42,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
     }
 
     m_moveStrategy->enter(*this);
-    m_sword->update(deltaTime);
+    //m_sword->update(deltaTime);
 
     // Update graphics
     updateGraphics(deltaTime);
@@ -66,7 +66,7 @@ void PigWarrior::attack()
 
 void PigWarrior::draw(sf::RenderTarget& target)
 {
-    m_sword->draw(target);
+    //m_sword->draw(target);
     target.draw(getSprite());
 
     //draw hitbox for debugging
