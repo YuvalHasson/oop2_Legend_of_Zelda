@@ -14,7 +14,7 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
-    setHp(2);
+    setHp(6);
 }
 
 void Link::handleCollision() {}
@@ -160,10 +160,12 @@ void Link::shoot(){
 
 std::unique_ptr<MovingObjects> Link::getAttack(){
     if(m_attacking && m_isShooting){
-        m_arrow = Factory::createLinkArrow();
-        m_arrow->setPosition(getPosition());
-        m_arrow->getSprite().setPosition(getPosition());
-        m_arrow->initArrow(getDirection());
+        if(auto p = Factory<LinkArrow>::instance()->create("LinkArrow", getPosition())){
+            m_arrow = std::move(p);
+            m_arrow->setPosition(getPosition());
+            m_arrow->getSprite().setPosition(getPosition());
+            m_arrow->initArrow(getDirection());
+        }
         stopShooting();
         return std::move(m_arrow);
     }

@@ -2,8 +2,8 @@
 
 #include <iostream> //debugging
 
-bool LinkArrow::m_registerit = Factory::registerit("LinkArrow",
-    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> {
+bool LinkArrow::m_registerit = Factory<LinkArrow>::instance()->registerit("LinkArrow",
+    [](const sf::Vector2f& position) -> std::unique_ptr<LinkArrow> {
         return std::make_unique<LinkArrow>(*Resources::getResource().getTexture(TEXTURE::Link), position);
     });
 
