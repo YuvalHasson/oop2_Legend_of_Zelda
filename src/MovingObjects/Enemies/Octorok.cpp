@@ -124,18 +124,21 @@ const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
     case PRESS_LEFT:
         return ANIMATIONS_POSITIONS::OctorokLeft;
     case PRESS_RIGHT:
-        return ANIMATIONS_POSITIONS::OctorokLeft;
+        return ANIMATIONS_POSITIONS::OctorokRight;
     }
 }
 
 std::unique_ptr<MovingObjects> Octorok::getAttack()
 {
-    if (auto p = Factory<OctorokProjectile>::instance()->create("OctorokProjectile", getPosition()))
-    {
-		m_projectile = std::move(p);
+    if(m_attacking){
+        if (auto p = Factory<OctorokProjectile>::instance()->create("OctorokProjectile", getPosition()))
+        {
+            m_projectile = std::move(p);
 
-        m_projectile->setDirection(getDirection());
+            m_projectile->setDirection(getDirection());
+        }
+        setAttacking(false);
+        return std::move(m_projectile);
     }
-
-    return std::move(m_projectile);
+    return nullptr;
 }

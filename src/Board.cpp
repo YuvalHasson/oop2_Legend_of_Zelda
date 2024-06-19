@@ -31,14 +31,6 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
 	}
 
-	for (const auto& enemy : m_enemies)
-
-	{
-		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
-		{
-			enemy->draw(target);
-		}
-	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
