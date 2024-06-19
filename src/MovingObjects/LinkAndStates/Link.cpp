@@ -10,11 +10,11 @@ bool m_registerit = Factory<Link>::instance()->registerit("Link",
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 10)),
-    m_state(std::make_unique<LinkStandingState>()), m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })), m_isPushing(false)
+    m_state(std::make_unique<LinkStandingState>()), m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })), m_isPushing(false), m_wasTabPressed(false)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
-    setHp(6);
+    setHp(4);
 }
 
 void Link::handleCollision() {}
@@ -69,10 +69,11 @@ void Link::update(const sf::Time& deltaTime){
     {
         input = NONE;
     }
-    if(tab){
+    if(tab && !m_wasTabPressed){
+        std::cout<<"tab!!!!!\n";
         m_isShooting = !m_isShooting;
     }
-    
+    m_wasTabPressed = tab;
     std::unique_ptr<LinkState> state = m_state->handleInput(input);
 
     if(state)

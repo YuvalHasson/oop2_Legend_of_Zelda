@@ -24,20 +24,25 @@ void LinkArrow::handleCollision()
 }
 
 void LinkArrow::initArrow(const sf::Vector2i& direction){
-    setDirection(direction);
     setSpeed(2);
+    sf::Vector2i arrowDirection;
     if(direction == DIRECTIONS::Down){
         setGraphics(ANIMATIONS_POSITIONS::ArrowDown, 1);
+        arrowDirection = direction;
     }
     else if( direction == DIRECTIONS::Up){
         setGraphics(ANIMATIONS_POSITIONS::ArrowUp, 1);
+        arrowDirection = direction;
     }
     else if(direction.x == 1){
         setGraphics(ANIMATIONS_POSITIONS::ArrowRight, 1);
+        arrowDirection = DIRECTIONS::Right;
     }
     else if(direction.x == -1){
         setGraphics(ANIMATIONS_POSITIONS::ArrowLeft, 1);
+        arrowDirection = DIRECTIONS::Left;
     }
+    setDirection(arrowDirection);
     updateSprite();
 }
 

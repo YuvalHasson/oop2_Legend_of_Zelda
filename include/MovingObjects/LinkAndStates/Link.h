@@ -42,6 +42,7 @@ private:
 	sf::Clock m_invincibleTimer;
 	bool m_isPushing;
 	bool m_isShooting;
+	bool m_wasTabPressed;
   	static bool m_registerit;
 
 };
