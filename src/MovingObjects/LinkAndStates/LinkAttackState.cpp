@@ -29,5 +29,10 @@ void LinkAttackState::enter(Link& link){
         }
         link.setAttacking(true);
     }
-    link.swipeSword();
+    if(!link.getShooting()){
+        link.swipeSword();
+    }
+    else{
+        link.shoot();
+    }
 }

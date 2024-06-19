@@ -19,6 +19,10 @@ std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input){
 
 void LinkStandingState::enter(Link& link){
 
+    if(link.isPushedBack()){
+        link.move();
+    }
+
     sf::Vector2i currentDirection = link.getDirection();
 
     if(currentDirection.x == 1){

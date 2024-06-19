@@ -81,6 +81,10 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u OctorokLeft(231, 143);
 	const sf::Vector2u OctorokUp(291, 143);
 	const sf::Vector2u OctorokRight(325, 143);
+	const sf::Vector2u ArrowUp(35, 126);
+	const sf::Vector2u ArrowDown(52, 126);
+	const sf::Vector2u ArrowLeft(1, 126);
+	const sf::Vector2u ArrowRight(18, 126);
 }
 
 //might be useless

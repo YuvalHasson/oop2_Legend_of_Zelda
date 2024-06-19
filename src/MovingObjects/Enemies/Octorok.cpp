@@ -112,11 +112,14 @@ void Octorok::handleCollision()
 
 std::unique_ptr<MovingObjects> Octorok::getAttack()
 {
+    if(m_attacking){
+        m_projectile = Factory::createOctorokProjectile();
+        m_projectile->setPosition(getPosition());
+        m_projectile->getSprite().setPosition(getPosition());
+        m_projectile->setDirection(getDirection());
+        setAttacking(false);
+        return std::move(m_projectile);
+    }
+    return nullptr;
 
-    m_projectile = Factory::createOctorokProjectile();
-    m_projectile->setPosition(getPosition());
-	m_projectile->getSprite().setPosition(getPosition());
-    m_projectile->setDirection(getDirection());
-
-    return std::move(m_projectile);
 }

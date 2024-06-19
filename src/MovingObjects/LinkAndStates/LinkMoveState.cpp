@@ -21,6 +21,10 @@ std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input){
 
 void LinkMoveState::enter(Link& link){
     //can make directions and enums into a map
+    if(link.isPushedBack()){
+        link.move();
+        return;
+    }
     switch(m_direction){
         case PRESS_DOWN_RIGHT:
             link.setGraphics(ANIMATIONS_POSITIONS::LinkRight, 2);

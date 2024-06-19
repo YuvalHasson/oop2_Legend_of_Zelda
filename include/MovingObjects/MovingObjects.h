@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "Misc/Animation.h"
 
+const sf::Time pushbackDuration(sf::seconds(0.2f));
+
 class MovingObjects : public GameObject
 {
 public:
@@ -12,6 +14,7 @@ public:
 	virtual void update(const sf::Time& deltaTime) = 0;
 	// virtual void attack(const sf::Time& deltaTime) = 0;
 	virtual void handleCollision() = 0;
+	virtual std::unique_ptr<MovingObjects> getAttack();
 
 	void updateSprite();
 	void setGraphics(const sf::Vector2u&, int, bool = false, bool = false, float switchTime = 0.2f);
@@ -26,6 +29,7 @@ public:
 
 	bool isAnimationDone() const;
 	bool isAttacking() const;
+	bool isPushedBack()const;
 
 	void setHp(int);
 	int getHp()const;
@@ -38,6 +42,8 @@ private:
 	sf::Vector2i m_direction;
 	int m_speed;
 	int m_hp;
+	sf::Clock m_pushbackTimer;
+	bool m_isPushedback;
 	
 
 };

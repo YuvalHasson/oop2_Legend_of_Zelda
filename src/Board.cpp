@@ -36,14 +36,6 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
 	}
 
-	for (const auto& enemy : m_enemies)
-
-	{
-		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
-		{
-			enemy->draw(target);
-		}
-	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
@@ -54,14 +46,21 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 
 void Board::addProjectileToMoving()
 {
-	for (const auto& enemy : m_enemies)
-	{
-		auto projectile = enemy->getAttack();
-		if (projectile)
-		{
-			m_movingObjects.emplace_back(std::move(projectile));
-		}
+	std::vector<std::unique_ptr<MovingObjects>> newProjectiles;
+
+    for (const auto& moving : m_movingObjects)
+    {
+        auto projectile = moving->getAttack();
+        if (projectile)
+        {
+            newProjectiles.emplace_back(std::move(projectile));
+        }
+    }
+	auto linkArrow = m_link->getAttack();
+	if(linkArrow){
+		newProjectiles.emplace_back(std::move(linkArrow));
 	}
+    m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(newProjectiles.begin()), std::make_move_iterator(newProjectiles.end()));
 }
 
 void Board::makeLink()
@@ -75,10 +74,6 @@ void Board::move(const sf::Time& deltaTime)
 
 void Board::update(const sf::Time& deltaTime)
 {
-	for (auto& enemy : m_enemies)
-	{
-		enemy->update(deltaTime);
-	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		gameObject->update(deltaTime);
@@ -88,7 +83,6 @@ void Board::update(const sf::Time& deltaTime)
 
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
 	std::erase_if(m_movingObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
-	std::erase_if(m_enemies, [](const auto& enemy) { return enemy->isDestroyed(); });
 }
 
 void Board::handleCollision()
@@ -135,6 +129,7 @@ void Board::handleCollision()
 				processCollision(*obj1, *obj2);
 			}
 			});
+
 	}
 	catch (const std::exception& e)
 	{
@@ -153,11 +148,11 @@ void Board::setMap()
 
 bool Board::isAttacking() const
 {
-	for (const auto& enemy : m_enemies)
+	for (const auto& moving : m_movingObjects)
 	{
-		if (enemy->isAttacking())
+		if (moving->isAttacking())
 		{
-			enemy->setAttacking(false);
+			moving->setAttacking(false);
 			return true;
 		}
 	}

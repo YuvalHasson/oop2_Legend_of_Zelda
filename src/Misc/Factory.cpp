@@ -115,6 +115,21 @@ std::unique_ptr<OctorokProjectile> Factory::createOctorokProjectile()
 	return projectilePtr;
 }
 
+std::unique_ptr<LinkArrow> Factory::createLinkArrow()
+{
+	std::unique_ptr<LinkArrow> arrowPtr;
+	auto obj = create("LinkArrow", { 0,0 });
+	if (obj)
+	{
+		if (auto arrow = dynamic_cast<LinkArrow*>(obj.get()))
+		{
+			arrowPtr = std::unique_ptr<LinkArrow>(arrow);
+			obj.release();
+		}
+	}
+	return arrowPtr;
+}
+
 std::vector<std::unique_ptr<MovingObjects>> Factory::createBoulder()
 {
 	std::vector<std::unique_ptr<MovingObjects>> boulderPtr;
