@@ -26,15 +26,15 @@ public:
 	void shoot();
 	void stopShooting();
 
-	bool getInvincible()const;
+	bool getInvincible() const;
 	void initializeInvincible();
 
 	Sword* getSword();
-	virtual std::unique_ptr<MovingObjects> getAttack()override;
+	virtual std::unique_ptr<MovingObjects> getAttack() override;
 
 	void setPush(bool);
 	bool isPush() const;
-	bool getShooting()const;
+	bool getShooting() const;
 private:
 	std::unique_ptr<LinkState> m_state;
 	std::unique_ptr<Sword> m_sword;
