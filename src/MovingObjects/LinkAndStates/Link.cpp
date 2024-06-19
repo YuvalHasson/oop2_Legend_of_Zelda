@@ -147,15 +147,18 @@ bool Link::isPush() const
     return m_isPushing;
 }
 
-bool Link::getShooting()const{
+bool Link::getShooting() const
+{
     return m_isShooting;
 }
 
-void Link::stopShooting(){
+void Link::stopShooting()
+{
     setAttacking(false);
 }
 
-void Link::shoot(){
+void Link::shoot()
+{
     setAttacking(true);
 }
 
