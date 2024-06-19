@@ -91,7 +91,6 @@ std::vector<std::unique_ptr<MovingObjects>> Factory::createEnemies()
 		{
 			enemies.emplace_back(std::unique_ptr<Enemy>(enemy2));
 			obj2.release();
-
 		}
 	}
 

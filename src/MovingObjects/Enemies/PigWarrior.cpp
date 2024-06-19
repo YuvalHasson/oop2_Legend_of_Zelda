@@ -7,7 +7,8 @@ bool PigWarrior::m_registerit = Factory::registerit("PigWarrior",
     [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> { return std::make_unique<PigWarrior>(*Resources::getResource().getTexture(TEXTURE::Enemies), position); });
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
-    : Enemy(texture, position, sf::Vector2f(14, 14), sf::Vector2f(tileSize / 2, tileSize / 2)), m_moveStrategy(std::make_unique<StandingState>()), m_currInput(PRESS_UP), m_sword(nullptr)
+    : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(tileSize / 2, tileSize / 2)), 
+        m_moveStrategy(std::make_unique<StandingState>()), m_currInput(PRESS_UP), m_sword(Factory::createSword())
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
@@ -23,14 +24,12 @@ void PigWarrior::update(const sf::Time& deltaTime)
         // If the distance to the Link is small enough, change strategy  to track Link
         std::unique_ptr<MovementStrategy> newMove = std::make_unique<SmartMovement>(PRESS_UP, *this, m_linkPos);
         setMoveStrategy(newMove);
-        //m_moveStrategy->enter(*this);
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 2.0f)
     {
         //std::cout << m_directionChangeClock.getElapsedTime().asSeconds() << "\n";
         std::unique_ptr <MovementStrategy> newMove = std::make_unique<PatrolMovement>(m_currInput, &m_directionChangeClock);
         setMoveStrategy(newMove);
-        //m_moveStrategy->enter(*this);
         m_directionChangeClock.restart();
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
@@ -41,6 +40,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
     }
 
     m_moveStrategy->enter(*this);
+    m_sword->update(deltaTime);
 
     // Update graphics
     updateGraphics(deltaTime);
@@ -60,6 +60,21 @@ void PigWarrior::handleCollision()
 void PigWarrior::attack()
 {
     setAttacking(true);
+}
+
+void PigWarrior::draw(sf::RenderTarget& target)
+{
+    m_sword->draw(target);
+    target.draw(getSprite());
+
+    //draw hitbox for debugging
+    sf::RectangleShape rect;
+    rect.setPosition(getHitBox().GetRect().left, getHitBox().GetRect().top);
+    rect.setSize(sf::Vector2f(getHitBox().GetRect().width, getHitBox().GetRect().height));
+    rect.setFillColor(sf::Color::Transparent);
+    rect.setOutlineColor(sf::Color::Blue);
+    rect.setOutlineThickness(1);
+    target.draw(rect);
 }
 
 const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
@@ -88,12 +103,19 @@ void PigWarrior::UpdateLinkPos(const sf::Vector2f& position)
 }
 void PigWarrior::insertSword(Sword* sword)
 {
-    m_sword = sword;
+}
+
+Sword* PigWarrior::getSword()
+{
+    if (m_attacking) {
+        return m_sword.get();
+    }
+    return nullptr;
 }
 
 void PigWarrior::swipeSword()
 {
-    std::cout << "in attack state\n";
+    //std::cout << "in attack state\n";
     if (m_sword) 
     {
         std::cout << "in m_sword\n";
@@ -103,10 +125,10 @@ void PigWarrior::swipeSword()
 
 void PigWarrior::stopSwordSwipe()
 {
-    if (m_sword) 
-    {
+    if (m_sword) {
         m_sword->deActivate();
     }
+    setAttacking(false);
 }
 
 bool PigWarrior::getInvincible() const

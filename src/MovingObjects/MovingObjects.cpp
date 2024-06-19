@@ -71,6 +71,7 @@ void MovingObjects::pushBack()
 
 bool MovingObjects::isAttacking() const
 {
+	std::cout << "isAttacking of pig\n";
 	return m_attacking;
 }
 

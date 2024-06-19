@@ -1,5 +1,6 @@
 #include "PatrolMovement.h"
 #include "StandingState.h"
+#include "PigWarrior.h"
 
 PatrolMovement::PatrolMovement(Input& direction, sf::Clock* directionChangeClock) : m_direction(direction), m_directionChangeClock(directionChangeClock)
 {
@@ -90,6 +91,11 @@ void PatrolMovement::enter(MovingObjects& object)
             object.setDirection(DIRECTIONS::Down);
         }
     }
-
+    if (dynamic_cast<PigWarrior*>(&object))
+    {
+        //std::cout << "before swipe sword\n";
+        dynamic_cast<PigWarrior*>(&object)->stopSwordSwipe();
+        //std::cout << "after swipe sword\n";
+    }
     object.move();
 }

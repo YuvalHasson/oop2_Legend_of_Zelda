@@ -8,7 +8,6 @@ AttackingState::AttackingState() : m_attackDuration(sf::seconds(0.3f)), m_isAnim
 
 std::unique_ptr<MovementStrategy> AttackingState::handleInput(Input input) 
 {
-    std::cout << "in attack state\n";
     if (m_attackDuration.asSeconds() - m_attackTimer.getElapsedTime().asSeconds() <= 0) {
         return std::make_unique<StandingState>();
     }
@@ -31,10 +30,13 @@ void AttackingState::enter(MovingObjects& obj) {
         else if (currentDirection == DIRECTIONS::Up) {
             obj.setGraphics(obj.getAnimationTexturePosition(PRESS_UP), 2);
         }
+        //std::cout << "in attacking\n";
         obj.setAttacking(true);
     }
     if (dynamic_cast<PigWarrior*>(&obj))
     {
+        //std::cout << "before swipe sword\n";
         dynamic_cast<PigWarrior*>(&obj)->swipeSword();
+        //std::cout << "after swipe sword\n";
     }
 }

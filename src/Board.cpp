@@ -47,7 +47,9 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 	for (auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		{
 			gameObject->draw(target);
+		}
   	}
 	m_link->draw(target);
 }
@@ -61,20 +63,17 @@ void Board::addProjectileToMoving()
 		{
 			m_movingObjects.emplace_back(std::move(projectile));
 		}
-		// not supposed to be here - maybe in a function
-		if (dynamic_cast<PigWarrior*>(enemy.get()))
-		{
-			auto sword = Factory::createSword();
-			dynamic_cast<PigWarrior*>(enemy.get())->insertSword(sword.get());
-			m_movingObjects.emplace_back(std::move(sword));
-		}
 	}
+}
 
+void Board::addSwordOfPig()
+{
 }
 
 void Board::makeLink()
 {	
 	m_link = Factory::createLink();
+
 }
 
 void Board::move(const sf::Time& deltaTime)

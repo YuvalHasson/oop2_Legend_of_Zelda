@@ -1,5 +1,6 @@
 #include "StandingState.h"
 #include "PatrolMovement.h"
+#include "PigWarrior.h"
 #include <iostream>
 
 std::unique_ptr<MovementStrategy> StandingState::handleInput(Input input)
@@ -16,5 +17,12 @@ std::unique_ptr<MovementStrategy> StandingState::handleInput(Input input)
 
 void StandingState::enter(MovingObjects& object)
 {
+    if (dynamic_cast<PigWarrior*>(&object))
+    {
+        //std::cout << "before swipe sword\n";
+        dynamic_cast<PigWarrior*>(&object)->stopSwordSwipe();
+        //std::cout << "after swipe sword\n";
+    }
     object.move();
+
 }

@@ -37,13 +37,13 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(153, "tree" );
 	dict.emplace(154, "tree" );
 	dict.emplace(176, "tree" );
-	dict.emplace(117, "tree" );
+	dict.emplace(177, "tree" );
 	dict.emplace(200, "tree" );
 	dict.emplace(201, "tree" );
 	dict.emplace(130, "tree" );
 	dict.emplace(131, "tree" );
 	dict.emplace(155, "tree" );
-	dict.emplace(255, "tree" );
+	dict.emplace(225, "tree" );
 	dict.emplace(249, "tree" );
 	dict.emplace(49, "house" );
 	dict.emplace(60, "house" );

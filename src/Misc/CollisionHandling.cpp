@@ -312,7 +312,6 @@ namespace
 		{
 			pigWarriorPtr->undoMove();
 		}
-		std::cout << "PigWarriorWall\n";
 	}
 
 	void WallPigWarrior(GameObject& wall, GameObject& pigWarrior)
@@ -327,7 +326,6 @@ namespace
 		{
 			pigWarriorPtr->undoMove();
 		}
-		std::cout << "PigWarriorWater\n";
 	}
 
 	void WaterPigWarrior(GameObject& water, GameObject& pigWarrior)

@@ -28,6 +28,7 @@ public:
 
 	void draw(sf::RenderTarget&, sf::FloatRect&);
 	void addProjectileToMoving();
+	void addSwordOfPig();
 	void makeLink();
 	void move(const sf::Time&);
 	void update(const sf::Time& deltaTime);
