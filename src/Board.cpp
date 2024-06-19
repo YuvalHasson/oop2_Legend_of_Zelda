@@ -130,6 +130,12 @@ void Board::handleCollision()
 			}
 			});
 
+		for_each_pair(m_movingObjects.begin(), m_movingObjects.end(), [this](auto& obj1, auto& obj2) {
+			if (colide(*obj1, *obj2)) {
+				processCollision(*obj1, *obj2);
+			}
+			});
+
 	}
 	catch (const std::exception& e)
 	{

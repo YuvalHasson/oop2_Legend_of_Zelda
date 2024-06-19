@@ -79,8 +79,6 @@ void MovingObjects::pushBack()
 {	
 	m_isPushedback = true;
 	m_pushbackTimer.restart();
-	// setPosition(getSprite().getPosition());
-	// getSprite().move(-getDirection().x * 3 * tileSize/4, -getDirection().y* 3 * tileSize/4);
 }
 
 bool MovingObjects::isAttacking() const

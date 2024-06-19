@@ -12,9 +12,6 @@ bool LinkArrow::m_registerit = Factory::registerit("LinkArrow",
 LinkArrow::LinkArrow(const sf::Texture& Texture, const sf::Vector2f& position)
     : Projectile(Texture, position, sf::Vector2f(8,8), sf::Vector2f(8/2,8/2))
 {
-    // setGraphics(ANIMATIONS_POSITIONS::ArrowDown, 1);
-	// updateSprite();
-    // setDirection(DIRECTIONS::Down);
 }
 
 void LinkArrow::update(const sf::Time& deltaTime)
@@ -28,6 +25,7 @@ void LinkArrow::handleCollision()
 
 void LinkArrow::initArrow(const sf::Vector2i& direction){
     setDirection(direction);
+    setSpeed(2);
     if(direction == DIRECTIONS::Down){
         setGraphics(ANIMATIONS_POSITIONS::ArrowDown, 1);
     }
