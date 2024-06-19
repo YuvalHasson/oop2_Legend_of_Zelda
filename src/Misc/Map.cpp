@@ -146,7 +146,7 @@ void Map::initVector(Cell cell)
 	//}
 }
 
-std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects()
+std::vector<std::unique_ptr<MovingObjects>>& Map::getEnemyObjects()
 {
 	return m_enemyObjects;
 }

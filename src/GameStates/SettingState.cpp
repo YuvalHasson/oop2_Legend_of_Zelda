@@ -27,9 +27,9 @@ void SettingState::render(sf::RenderTarget* target)
 	target->draw(m_menuBackground);
 	for (auto& option : m_options)
 	{
-		option.second->draw(*getWindow());
+		option.second->draw(*target);
 	}
-	m_volumeSlider.draw(*getWindow());
+	m_volumeSlider.draw(*target);
 }
 
 std::unique_ptr<State> SettingState::handleInput(GAME_STATE gameState)

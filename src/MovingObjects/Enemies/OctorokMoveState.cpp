@@ -24,7 +24,7 @@ void OctorokMoveState::enter(Octorok& Octorok)
 
     if (m_direction == PRESS_RIGHT) {
         if (currentDirection != DIRECTIONS::Right) {
-            Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokLeft, 2, true);
+            Octorok.setGraphics(ANIMATIONS_POSITIONS::OctorokRight, 2);
             Octorok.setDirection(DIRECTIONS::Right);
 
         }

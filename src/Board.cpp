@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Sword.h"
+#include "Boulder.h"
 
 #include <iostream> // debug
 
@@ -25,13 +26,13 @@ Board& Board::operator=(Board&& other) noexcept
 	return *this;
 }
 
-void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
+void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 {
 	for (const auto& gameObject : m_staticObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
 		{
-			gameObject->draw(window);
+			gameObject->draw(target);
 		}
 	}
 
@@ -40,15 +41,15 @@ void Board::draw(sf::RenderWindow& window, sf::FloatRect& viewBound)
 	{
 		if (enemy->getSprite().getGlobalBounds().intersects(viewBound))
 		{
-			enemy->draw(window);
+			enemy->draw(target);
 		}
 	}
 	for (auto& gameObject : m_movingObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
-			gameObject->draw(window);
+			gameObject->draw(target);
   	}
-	m_link->draw(window);
+	m_link->draw(target);
 }
 
 void Board::addProjectileToMoving()
@@ -73,19 +74,11 @@ void Board::addProjectileToMoving()
 
 void Board::makeLink()
 {	
-	auto sword = Factory::createSword();
 	m_link = Factory::createLink();
-	m_link->insertSword(sword.get());
-	m_movingObjects.emplace_back(std::move(sword));
 }
 
 void Board::move(const sf::Time& deltaTime)
 {
-	//for (auto& gameObject : m_movingObjects)
-	//{
-	//	// gameObject->move(deltaTime);
-	//	// gameObject->attack(deltaTime); //might need to be somewhere else
-	//}
 }
 
 void Board::update(const sf::Time& deltaTime)
@@ -121,53 +114,41 @@ void Board::handleCollision()
 {
 	try
 	{
+		//if link is attacking get the sword from link and check its collision with enemies
+		Sword* sword = m_link->getSword();
+
+
 		//link and static objects
-		for (const auto& staticObjects : m_staticObjects)
-		{
-			if (colide(*m_link, *staticObjects))
-			{
-				processCollision(*m_link, *staticObjects);
-			}
-		}
-		//link and enemies
-		for (const auto& enemy : m_enemies)
-		{
-			if (colide(*m_link, *enemy))
-			{
-				processCollision(*m_link, *enemy);
-			}
-			for(const auto& moving : m_movingObjects)
-			{
-				if (colide(*moving, *enemy))
+		for (const auto& staticObject : m_staticObjects)
+		{	
+			if(sword){
+				if (colide(*sword, *staticObject))
 				{
-					processCollision(*moving, *enemy);
+					processCollision(*sword, *staticObject);
 				}
 			}
-		}
-		
-		//link and moving objects
-		for (const auto& movingObjects : m_movingObjects)
-		{
-			if (colide(*m_link, *movingObjects))
+			if (colide(*m_link, *staticObject))
 			{
-				processCollision(*m_link, *movingObjects);
+				processCollision(*m_link, *staticObject);
 			}
 		}
 
-		// Handle collisions among moving objects
-		for_each_pair(m_enemies.begin(), m_enemies.end(), [this](auto& obj1, auto& obj2) {
-			if (colide(*obj1, *obj2)) {
-				processCollision(*obj1, *obj2);
+		//link, sword and moving objects
+		for (const auto& movingObject : m_movingObjects)
+		{
+			if(sword){
+				if (colide(*sword, *movingObject))
+				{
+					processCollision(*sword, *movingObject);
+				}
 			}
-			});
-
-		// Handle collisions between moving and static objects
-		for_each_pair(m_enemies.begin(), m_enemies.end(), m_staticObjects.begin(), m_staticObjects.end(), [this](auto& obj1, auto& obj2) {
-			if (colide(*obj1, *obj2)) {
-				processCollision(*obj1, *obj2);
+			if (colide(*m_link, *movingObject))
+			{
+				processCollision(*m_link, *movingObject);
 			}
-			});
+		}
 
+		//moving and static objects
 		for_each_pair(m_movingObjects.begin(), m_movingObjects.end(), m_staticObjects.begin(), m_staticObjects.end(), [this](auto& obj1, auto& obj2) {
 			if (colide(*obj1, *obj2)) {
 				processCollision(*obj1, *obj2);
@@ -182,8 +163,11 @@ void Board::handleCollision()
 
 void Board::setMap()
 {
-	m_enemies = std::move(m_map.getEnemyObjects());
+	m_movingObjects = std::move(m_map.getEnemyObjects());
 	m_staticObjects = std::move(m_map.getStaticObjects());
+
+	auto boulders = Factory::createBoulder();
+	m_movingObjects.insert(m_movingObjects.end(), std::make_move_iterator(boulders.begin()), std::make_move_iterator(boulders.end()));
 }
 
 bool Board::isAttacking() const

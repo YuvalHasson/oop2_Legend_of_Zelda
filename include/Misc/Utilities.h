@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 6;
+const int OBJ_AMOUNT = 7;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
@@ -14,9 +14,10 @@ enum GAME_STATE {
 	EXIT,
 	LOAD_GAME,
 	GAME_RUNNING,
-	ENDGAME,
 	SETTINGS,
-	PAUSE_MENU
+	PAUSE_MENU,
+	DEATH,
+	GAME_OVER
 };
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
@@ -38,7 +39,7 @@ enum Input {
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
-#define VOLUME 10.f
+#define VOLUME 0.f
 
 namespace TEXTURE
 {
@@ -48,6 +49,7 @@ namespace TEXTURE
 	constexpr int MapObjects = 3;
 	constexpr int Enemies = 4;
 	constexpr int StatusBar = 5;
+	constexpr int GameOver = 6;
 }
 
 namespace BACKGROUND_SOUND
@@ -67,6 +69,10 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u LinkAttackDown(1,86);
 	const sf::Vector2u LinkAttackLeft(103,86);
 	const sf::Vector2u LinkAttackRight(137,86);
+	const sf::Vector2u LinkPushDown(188, 11);
+	const sf::Vector2u LinkPushUp(222, 11);
+	const sf::Vector2u LinkPushLeft(256, 11);
+	const sf::Vector2u LinkPushRight(290, 11);
 	const sf::Vector2u SwordUp(52,103);
 	const sf::Vector2u SwordDown(1,103);
 	const sf::Vector2u SwordLeft(103,103);
@@ -74,15 +80,12 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u OctorokDown(197, 143);
 	const sf::Vector2u OctorokLeft(231, 143);
 	const sf::Vector2u OctorokUp(291, 143);
+	const sf::Vector2u OctorokRight(325, 143);
 
 	const sf::Vector2u PigWarriorUp(35, 229);
 	const sf::Vector2u PigWarriorDown(1, 229);
 	const sf::Vector2u PigWarriorLeft(68, 229);
 	const sf::Vector2u PigWarriorRight(107, 229);
-	//const sf::Vector2u PigWarriorSwordUp(, 252);
-	//const sf::Vector2u PigWarriorSwordDown(1, 246);
-	//const sf::Vector2u PigWarriorSwordLeft(73, 246);
-	//const sf::Vector2u PigWarriorSwordRight(73, 246);//need a flip
 }
 
 //might be useless

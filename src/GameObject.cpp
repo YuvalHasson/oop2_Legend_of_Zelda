@@ -8,12 +8,12 @@ GameObject::GameObject(const sf::Texture& texture, const sf::Vector2f& position,
 
 	m_sprite.setScale(0.5f / tileSize, 1.0f / tileSize); //tmp i think
 	m_sprite.setOrigin(tileSize / 2, tileSize / 2); //tmp i think
-
+    m_hitBox.setPosition(m_position);
 }
 
 GameObject::~GameObject(){};
 
-void GameObject::draw(sf::RenderWindow& window)
+void GameObject::draw(sf::RenderTarget& target)
 {   
     sf::RectangleShape rect;
     rect.setPosition(m_hitBox.GetRect().left, m_hitBox.GetRect().top);
@@ -21,8 +21,8 @@ void GameObject::draw(sf::RenderWindow& window)
     rect.setFillColor(sf::Color::Transparent);
     rect.setOutlineColor(sf::Color::Blue);
     rect.setOutlineThickness(1);
-    window.draw(m_sprite);
-    window.draw(rect);
+    target.draw(m_sprite);
+    target.draw(rect);
 }
 
 void GameObject::destroy()
@@ -45,12 +45,15 @@ sf::Vector2f GameObject::getPreviousPosition()const{
     return m_previousPosition;
 }
 
-
-const HitBox& GameObject::getHitBox()const{
-    return m_hitBox;
-}
-
 sf::Vector2f GameObject::getPosition() const
 {
     return m_position;
+}
+
+bool GameObject::checkCollision(const GameObject& other)const{
+    return m_hitBox.checkCollision(other.m_hitBox);
+}
+
+HitBox GameObject::getHitBox(){
+    return m_hitBox;
 }

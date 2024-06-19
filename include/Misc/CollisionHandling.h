@@ -15,6 +15,7 @@
 #include "PigWarrior.h"
 #include "Sword.h"
 #include "OctorokProjectile.h"
+#include "Boulder.h"
 
 struct UnknownCollision : public std::runtime_error
 {

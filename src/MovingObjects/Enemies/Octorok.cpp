@@ -6,7 +6,7 @@ bool Octorok::m_registerit = Factory::registerit("Octorok",
     [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> { return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position); });
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
-	: Enemy(texture, position, sf::Vector2f(14,14),sf::Vector2f(tileSize/2, tileSize/2)), m_state(std::make_unique<OctorokStandingState>()), m_projectile(nullptr)
+	: Enemy(texture, position, sf::Vector2f(12,12),sf::Vector2f(12/2, 12/2)), m_state(std::make_unique<OctorokStandingState>()), m_projectile(nullptr)
 {
 	setDirection(DIRECTIONS::Down);
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
@@ -33,26 +33,20 @@ void Octorok::update(const sf::Time& deltaTime)
         {
         case 0:
             up = true;
-            std::cout << "up" << std::endl;
             break;
         case 1:
             down = true;
-            std::cout << "down" << std::endl;
             break;
         case 2:
             right = true;
-            std::cout << "right" << std::endl;
             break;
         case 3:
             left = true;
-            std::cout << "left" << std::endl;
             break;
         case 4:
 			attacking = true;
-			std::cout << "attacking" << std::endl;
 			break;
         default:
-            std::cout << "Standing" << std::endl;
             directionChange += 0.5f;
             standing = true;
             break;

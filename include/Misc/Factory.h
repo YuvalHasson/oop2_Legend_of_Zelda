@@ -17,6 +17,7 @@ class Link;
 class MovingObjects;
 class Sword;
 class OctorokProjectile;
+class Boulder;
 
 typedef std::map<std::string, std::unique_ptr<GameObject>(*)(const sf::Vector2f&)> mymap;
 
@@ -25,9 +26,10 @@ class Factory
 public:
 	static std::vector<std::unique_ptr<StaticObjects>> createStaticObjects(const std::vector<std::pair<std::string, Cell>>&);
 	static std::unique_ptr<Link> createLink();
-	static std::vector<std::unique_ptr<Enemy>> createEnemies();
+	static std::vector<std::unique_ptr<MovingObjects>> createEnemies();
 	static std::unique_ptr<Sword> createSword();
 	static std::unique_ptr<OctorokProjectile> createOctorokProjectile();
+	static std::vector<std::unique_ptr<MovingObjects>> createBoulder();
 	static std::unique_ptr<GameObject> create(const std::string& name, const sf::Vector2f& position);
 	static bool registerit(const std::string& name, std::unique_ptr<GameObject>(*)(const sf::Vector2f&));
 private:

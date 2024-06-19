@@ -7,7 +7,7 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	m_board.setMap();
 	m_board.makeLink();
 
-	m_view.setCenter(m_board.getSprite().getPosition()); //think about a better way to get link position.
+	m_view.setCenter(m_board.getLink().getPosition()); //think about a better way to get link position.
 
 	SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 }
@@ -19,15 +19,15 @@ void NewGameState::update(const sf::Time& deltaTime)
 
 void NewGameState::render(sf::RenderTarget* target)
 {
-	getWindow()->setView(m_view);
 	if (!target)
 	{
 		target = getWindow();
 	}
+	target->setView(m_view);
 	target->draw(m_background);
 
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() /2.f, target->getView().getSize());
-	m_board.draw(*getWindow(), viewBound);
+	m_board.draw(*target, viewBound);
 }
 
 std::unique_ptr<State> NewGameState::handleInput(GAME_STATE gameState)

@@ -10,6 +10,7 @@
 #include "PigWarrior.h"
 #include "Sword.h"
 #include "OctorokProjectile.h"
+#include "Boulder.h"
 
 #include <iostream> // debug
 
@@ -43,6 +44,17 @@ std::vector<std::unique_ptr<StaticObjects>> Factory::createStaticObjects(const s
 			}
 		}
 	}
+
+	auto obj = create("Pot", { 110.f, 100.f });
+	if (obj)
+	{
+		if (auto pot = dynamic_cast<StaticObjects*>(obj.get()))
+		{
+			staticObjects.emplace_back(std::unique_ptr<StaticObjects>(pot));
+			obj.release();
+		}
+	}
+
     return staticObjects;
 }
 
@@ -60,15 +72,15 @@ std::unique_ptr<Link> Factory::createLink()
     return linkPtr;
 }
 
-std::vector<std::unique_ptr<Enemy>> Factory::createEnemies()
+std::vector<std::unique_ptr<MovingObjects>> Factory::createEnemies()
 {
-	std::vector<std::unique_ptr<Enemy>> enemies;
+	std::vector<std::unique_ptr<MovingObjects>> enemies;
 	auto obj = create("Octorok", { 32.f, 180.f });
 	if (obj)
 	{
 		if (auto enemy = dynamic_cast<Enemy*>(obj.get()))
 		{
-			enemies.emplace_back(std::unique_ptr<Enemy>(enemy));
+			enemies.emplace_back(std::unique_ptr<MovingObjects>(enemy));
 			obj.release();
 		}
 	}
@@ -113,6 +125,21 @@ std::unique_ptr<OctorokProjectile> Factory::createOctorokProjectile()
 		}
 	}
 	return projectilePtr;
+}
+
+std::vector<std::unique_ptr<MovingObjects>> Factory::createBoulder()
+{
+	std::vector<std::unique_ptr<MovingObjects>> boulderPtr;
+	auto obj = create("Boulder", { 30.f, 30.f });
+	if (obj)
+	{
+		if (auto boulder = dynamic_cast<Boulder*>(obj.get()))
+		{
+			boulderPtr.emplace_back(std::unique_ptr<Boulder>(boulder));
+			obj.release();
+		}
+	}
+	return boulderPtr;
 }
 
 std::unique_ptr<GameObject> Factory::create(const std::string& name, const sf::Vector2f& position) {
