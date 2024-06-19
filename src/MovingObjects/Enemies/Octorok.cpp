@@ -130,11 +130,12 @@ const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
 
 std::unique_ptr<MovingObjects> Octorok::getAttack()
 {
+    if (auto p = Factory<OctorokProjectile>::instance()->create("OctorokProjectile", getPosition()))
+    {
+		m_projectile = std::move(p);
 
- //   m_projectile = Factory::createOctorokProjectile();
- //   m_projectile->setPosition(getPosition());
-	//m_projectile->getSprite().setPosition(getPosition());
- //   m_projectile->setDirection(getDirection());
+        m_projectile->setDirection(getDirection());
+    }
 
     return std::move(m_projectile);
 }

@@ -45,16 +45,26 @@ public:
 private:
 	mymap m_map;
 };
-//Factor<StaticObject>::instance()->registerIt("Wall", [](const sf::Vector2f& position) -> std::unique_ptr<StaticObject>
-//	{
-//		return std::make_unique<Wall>(*Resources::getResource().getTexture(TEXTURE::Wall), position);
-//	});
-//
-//Factory<MovingObjects>::instance()->registerIt("Octorok", [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
-//	{
-//		return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
-//	});
-//
+
+template<typename T>
+std::unique_ptr<T> Factory<T>::create(const std::string& name, const sf::Vector2f& position)
+{
+	auto it = m_map.find(name);
+	if (it == m_map.end())
+	{
+		return nullptr;
+	}
+	return it->second(position);
+}
+
+template<typename T>
+bool Factory<T>::registerit(const std::string& name, std::unique_ptr<T>(*f)(const sf::Vector2f&))
+{
+	m_map.emplace(name, f);
+	return false;
+}
+
+
 //{
 //	char c;
 //	if (auto p = Factory<StaticObjects>::instance()->create(c, { 0.f, 0.f }))

@@ -2,8 +2,8 @@
 
 #include <iostream> //debugging
 
-bool m_registerit = Factory<MovingObjects>::instance()->registerit("Link",
-    [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+bool m_registerit = Factory<Link>::instance()->registerit("Link",
+    [](const sf::Vector2f& position) -> std::unique_ptr<Link>
 	{
 		return std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), position);
 	});

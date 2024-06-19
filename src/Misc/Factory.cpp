@@ -1,18 +1,18 @@
-#include "Factory.h"
-
-#include "GameObject.h"
-#include "Link.h"
-#include "Wall.h"
-#include "Pot.h"
-#include "Enemy.h"
-#include "WaterTile.h"
-#include "Octorok.h"
-#include "PigWarrior.h"
-#include "Sword.h"
-#include "OctorokProjectile.h"
-#include "Boulder.h"
-
-#include <iostream> // debug
+//#include "Factory.h"
+//
+//#include "GameObject.h"
+//#include "Link.h"
+//#include "Wall.h"
+//#include "Pot.h"
+//#include "Enemy.h"
+//#include "WaterTile.h"
+//#include "Octorok.h"
+//#include "PigWarrior.h"
+//#include "Sword.h"
+//#include "OctorokProjectile.h"
+//#include "Boulder.h"
+//
+//#include <iostream> // debug
 
 //std::vector<std::unique_ptr<StaticObjects>> Factory::createStaticObjects(const std::vector<std::pair<std::string, Cell>>& map) {
 //    std::vector<std::unique_ptr<StaticObjects>> staticObjects;
@@ -142,19 +142,22 @@
 //	return boulderPtr;
 //}
 
-template<typename T>
-std::unique_ptr<T> Factory<T>::create(const std::string& name, const sf::Vector2f& position) {
-	auto it = m_map.find(name);
-	if (it == m_map.end())
-	{
-		return nullptr;
-	}
-	return it->second(position);
-}
-
-template<typename T>
-bool Factory<T>::registerit(const std::string& name, std::unique_ptr<T>(*f)(const sf::Vector2f&))
-{
-	m_map.emplace(name, f);
-	return false;
-}
+//template <typename T>
+//typename Factory<T>::mymap Factory<T>::m_map;
+//
+//template<typename T>
+//std::unique_ptr<T> Factory<T>::create(const std::string& name, const sf::Vector2f& position) {
+//	auto it = m_map.find(name);
+//	if (it == m_map.end())
+//	{
+//		return nullptr;
+//	}
+//	return it->second(position);
+//}
+//
+//template<typename T>
+//bool Factory<T>::registerit(const std::string& name, std::unique_ptr<T>(*f)(const sf::Vector2f&))
+//{
+//	m_map.emplace(name, f);
+//	return false;
+//}

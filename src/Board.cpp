@@ -69,7 +69,10 @@ void Board::addProjectileToMoving()
 
 void Board::makeLink()
 {	
-	//m_link = Factory::createLink();
+	if (auto p = Factory<Link>::instance()->create("Link", { 32.f, 50.f }))
+	{
+		m_link = std::move(p);
+	}
 }
 
 void Board::move(const sf::Time&) {}

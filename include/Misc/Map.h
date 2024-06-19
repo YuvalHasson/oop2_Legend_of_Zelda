@@ -12,7 +12,7 @@
 
 #include "Enemy.h"
 #include "StaticObjects.h"
-#include "BadFileName.h"
+//#include "BadFileName.h"
 
 class Map
 {

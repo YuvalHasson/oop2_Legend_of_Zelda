@@ -1,8 +1,8 @@
 #include "Sword.h"
 #include <iostream>//debugging
 
-bool Sword::m_registerit = Factory<MovingObjects>::instance()->registerit("Sword",
-    [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+bool Sword::m_registerit = Factory<Sword>::instance()->registerit("Sword",
+    [](const sf::Vector2f& position) -> std::unique_ptr<Sword>
     {
         return std::make_unique<Sword>(*Resources::getResource().getTexture(TEXTURE::Link), position);
     });
