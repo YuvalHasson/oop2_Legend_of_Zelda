@@ -103,6 +103,10 @@ void PigWarrior::UpdateLinkPos(const sf::Vector2f& position)
 {
     m_linkPos = position;
 }
+void PigWarrior::setBoardPtr(Board* board)
+{
+    m_board = std::move(board);
+}
 void PigWarrior::insertSword(Sword* sword)
 {
 }

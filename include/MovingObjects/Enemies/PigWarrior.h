@@ -8,6 +8,7 @@
 #include "PatrolMovement.h"
 #include "AttackingState.h"
 #include "Sword.h"
+#include "Board.h"
 
 #include "Link.h"
 
@@ -29,6 +30,7 @@ public:
 	virtual std::unique_ptr<MovingObjects> getAttack() override;
 
 	void UpdateLinkPos(const sf::Vector2f& position);
+	//void setBoardPtr(Board*);
 
 	void insertSword(Sword*);
 	Sword* getSword();
@@ -50,6 +52,8 @@ private:
 	std::unique_ptr<Sword> m_sword;
 
 	sf::Clock m_invincibleTimer;
+
+	Board* m_board;
 	//for (const auto& enemy : m_movingObjects)
 	//{
 	//	if (dynamic_cast<PigWarrior*>(enemy.get()))
