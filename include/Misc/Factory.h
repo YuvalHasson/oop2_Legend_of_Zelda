@@ -45,6 +45,5 @@ template<typename T>
 bool Factory<T>::registerit(const std::string& name, std::unique_ptr<T>(*f)(const sf::Vector2f&))
 {
 	m_map.emplace(name, f);
-	std::cout << "Registering: " << name << std::endl;
 	return true;
 }

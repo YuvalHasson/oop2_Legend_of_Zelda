@@ -9,8 +9,12 @@ bool m_registerit = Factory<Link>::instance()->registerit("Link",
 	});
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
-	: Animate(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 10)),
-    m_state(std::make_unique<LinkStandingState>()), m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })), m_isPushing(false), m_wasTabPressed(false)
+	: Animate(texture, position, sf::Vector2f(7,7),
+    sf::Vector2f(tileSize/5, tileSize / 10)),
+    m_state(std::make_unique<LinkStandingState>()),
+    m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })),
+    m_isPushing(false), m_wasTabPressed(false),
+    m_isShooting(false), m_arrow(nullptr)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
@@ -19,12 +23,12 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 
 void Link::update(const sf::Time& deltaTime){
 
-    bool up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-    bool down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-    bool right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-    bool left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-    bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-    bool tab = sf::Keyboard::isKeyPressed(sf::Keyboard::Tab);
+    bool up     = sf::Keyboard::isKeyPressed(sf::Keyboard::Up)      || sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+    bool down   = sf::Keyboard::isKeyPressed(sf::Keyboard::Down)    || sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    bool right  = sf::Keyboard::isKeyPressed(sf::Keyboard::Right)   || sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    bool left   = sf::Keyboard::isKeyPressed(sf::Keyboard::Left)    || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+    bool space  = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+    bool tab    = sf::Keyboard::isKeyPressed(sf::Keyboard::Tab);
     
     Input input;
     if(space)

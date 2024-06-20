@@ -2,14 +2,16 @@
 
 #include <iostream> //debug
 
-bool Octorok::m_registerit = Factory<Octorok>::instance()->registerit("Octorok",
-    [](const sf::Vector2f& position) -> std::unique_ptr<Octorok>
+bool Octorok::m_registerit = Factory<Animate>::instance()->registerit("Octorok",
+    [](const sf::Vector2f& position) -> std::unique_ptr<Animate>
     {
         return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
     });
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
-	: Enemy(texture, position, sf::Vector2f(12,12),sf::Vector2f(12/2, 12/2)), m_state(std::make_unique<OctorokStandingState>()), m_projectile(nullptr)
+	: Enemy(texture, position, sf::Vector2f(12,12), sf::Vector2f(12/2, 12/2)),
+    m_state(std::make_unique<OctorokStandingState>()),
+    m_projectile(nullptr)
 {
     setDirection(DIRECTIONS::Down);
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
@@ -20,12 +22,12 @@ Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 
 void Octorok::update(const sf::Time& deltaTime)
 { 
-    bool up = false;
-    bool down = false;
-    bool right = false;
-    bool left = false;
-    bool standing = false;
-    bool attacking = false;
+    bool up         = false;
+    bool down       = false;
+    bool right      = false;
+    bool left       = false;
+    bool standing   = false;
+    bool attacking  = false;
     auto directionChange = m_directionChangeClock.getElapsedTime().asSeconds();
     if (directionChange >= 1.0f) // Change direction every 1 seconds
     {
@@ -47,7 +49,6 @@ void Octorok::update(const sf::Time& deltaTime)
             break;
         case 4:
 			attacking = true;
-			std::cout << "Octorok is attacking" << std::endl;
 			break;
         default:
             directionChange += 0.5f;
@@ -126,7 +127,8 @@ const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
 
 std::unique_ptr<Inanimate> Octorok::getAttack()
 {
-    if(m_attacking){
+    if(m_attacking)
+    {
         if (auto p = Factory<OctorokProjectile>::instance()->create("OctorokProjectile", getPosition()))
         {
             m_projectile = std::move(p);

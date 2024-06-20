@@ -10,9 +10,10 @@
 #include <sstream>
 #include <map>
 
-#include "Animate.h"
+#include "Animate/Animate.h"
 #include "StaticObjects.h"
-//#include "BadFileName.h"
+
+#include "BadFileName.h"
 
 class Map
 {

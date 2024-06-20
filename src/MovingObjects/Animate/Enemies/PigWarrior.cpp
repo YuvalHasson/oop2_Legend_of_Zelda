@@ -2,15 +2,16 @@
 
 #include <iostream> // Debug
 
-bool PigWarrior::m_registerit = Factory<MovingObjects>::instance()->registerit("PigWarrior",
-    [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+bool PigWarrior::m_registerit = Factory<Animate>::instance()->registerit("PigWarrior",
+    [](const sf::Vector2f& position) -> std::unique_ptr<Animate>
     {
         return std::make_unique<PigWarrior>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
     });
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(tileSize / 2, tileSize / 2)), 
-        m_moveStrategy(std::make_unique<StandingState>()), m_currInput(PRESS_UP), m_sword()
+    m_moveStrategy(std::make_unique<StandingState>()),
+    m_currInput(PRESS_UP), m_sword()
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
@@ -36,7 +37,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
     {
-        std::cout << "pig attack\n" << "\n";
+        std::cout << "pig attack" << "\n";
         std::unique_ptr <MovementStrategy> newMove = std::make_unique<AttackingState>();
         setMoveStrategy(newMove);
     }

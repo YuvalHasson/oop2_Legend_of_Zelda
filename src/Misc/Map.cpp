@@ -82,7 +82,7 @@ void Map::setMap()
 		auto map = std::ifstream(gameMap);
 		if (!map)
 		{
-			throw std::runtime_error("Unknown character in map file");  /*BadFileName();*/
+			throw BadFileName();
 		}
 
 		m_enemyObjects.clear();
@@ -109,12 +109,11 @@ void Map::setMap()
 			}
 			currentRow++;
 		}
-		//m_enemyObjects = Factory::createEnemies(); // probobly change
 
 		// Close the file
 		map.close();
 	}
-	catch (const std::runtime_error& e)
+	catch (const BadFileName& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}
@@ -155,22 +154,12 @@ std::vector<std::unique_ptr<Animate>>& Map::getEnemyObjects()
 	//tmp create
 	if (auto p = Factory<Animate>::instance()->create("Octorok", { 70.f, 150.f }))
 	{
-		std::cout << "pos: " << p->getPosition().x << std::endl;
 		m_enemyObjects.emplace_back(std::move(p));
 	}
 	if (auto p1 = Factory<Animate>::instance()->create("PigWarrior", { 32.f, 150.f }))
 	{
 		m_enemyObjects.emplace_back(std::move(p1));
 	}
-	std::cout << "From getEnemy : " << m_enemyObjects.size() << std::endl;
-
-	auto p = Factory<MovingObjects>::instance()->create("PigWarrior", { 70.f, 150.f });
-	std::cout << typeid(p).name() << " " << p << std::endl;
-	if (p)
-	{
-		std::cout << "pos: " << p->getPosition().x << std::endl;
-	}
-
 	return m_enemyObjects;
 }
 
