@@ -14,6 +14,7 @@ public:
 	virtual void update(const sf::Time& deltaTime) override;
 	virtual void attack();
 	virtual void handleCollision() override;
+	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override;
 
 	// virtual void move() override;
 	virtual std::unique_ptr<MovingObjects> getAttack() override;

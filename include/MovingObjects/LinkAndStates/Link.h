@@ -14,8 +14,11 @@ public:
 	Link(const sf::Texture&, const sf::Vector2f&);
 
 	virtual void update(const sf::Time& deltaTime) override;
-	virtual void draw(sf::RenderTarget&) override;
+	virtual void draw(sf::RenderTarget& ) override;
 	virtual void handleCollision() override;
+	void insertSword(Sword*);
+	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
+
 
 
 	void swipeSword();
@@ -23,22 +26,23 @@ public:
 	void shoot();
 	void stopShooting();
 
-	bool getInvincible()const;
+	bool getInvincible() const;
 	void initializeInvincible();
 
 	Sword* getSword();
-	virtual std::unique_ptr<MovingObjects> getAttack()override;
+	virtual std::unique_ptr<MovingObjects> getAttack() override;
 
 	void setPush(bool);
 	bool isPush() const;
-	bool getShooting()const;
+	bool getShooting() const;
 private:
-	bool m_isPushing;
 	std::unique_ptr<LinkState> m_state;
 	std::unique_ptr<Sword> m_sword;
 	std::unique_ptr<LinkArrow> m_arrow;
 	sf::Clock m_invincibleTimer;
+	bool m_isPushing;
 	bool m_isShooting;
+	bool m_wasTabPressed;
   	static bool m_registerit;
 
 };

@@ -45,7 +45,7 @@ void PauseMenu::render(sf::RenderTarget* target)
 	m_volumeSlider.draw(*target);
 }
 
-std::unique_ptr<State> PauseMenu::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 {
 	switch (gameState)
 	{

@@ -1,17 +1,30 @@
 #include "StatusBar.h"
 
-StatusBar::StatusBar(int hp)
-	:m_statusBar(sf::Vector2f(WindowWidth * 1.3f, 75.f)), m_hp(hp)
+StatusBar::StatusBar(int hp, bool type)
+	:m_statusBar(sf::Vector2f(WindowWidth * 1.3f, 75.f)), m_hp(hp), m_type(type)
 {
 	m_statusBar.setFillColor(sf::Color(248, 248, 168));
 	m_hpSprite.setTexture(*Resources::getResource().getTexture(TEXTURE::StatusBar));
 	m_hpSprite.setScale(3.f, 3.f);
 
+	m_equipped.setTexture(*Resources::getResource().getTexture(TEXTURE::StatusBar));
+	m_equipped.setScale(3.f, 3.f);
+	sf::IntRect rect(120.f, 210.f, 28.f, tileSize);
+	m_equipped.setTextureRect(rect);
+
+	m_weapon.setTexture(*Resources::getResource().getTexture(TEXTURE::StatusBar));
+	m_weapon.setScale(3.f, 3.f);
 }
 
 void StatusBar::draw(sf::RenderTarget& target)
 {
 	target.draw(m_statusBar);
+
+	for (size_t i = 0; i < 2; i++)
+	{
+		drawEquipped(target, i);
+	}
+
 	int fullHeart = 0, halfHeart = 0;
 	if (m_hp % 2 == 0)
 	{
@@ -33,13 +46,32 @@ void StatusBar::draw(sf::RenderTarget& target)
 	}
 }
 
-void StatusBar::drawHearts(sf::RenderTarget& target, const sf::Vector2f& textureRect, int offset)
+void StatusBar::drawHearts(sf::RenderTarget& target, const sf::Vector2f& textureRect, const int& offset)
 {
 	m_hpSprite.setPosition(WindowWidth / 4.f * 3.f, windowHeight / 9.f * 6.9f);
 	sf::IntRect rect(textureRect.x, textureRect.y, tileSize / 2.f, tileSize / 2.f);
 	m_hpSprite.setTextureRect(rect);
-	m_hpSprite.move(offset * 15.f, 0.f);
+	m_hpSprite.move(offset * 16.f, 0.f);
 	target.draw(m_hpSprite);
+}
+
+void StatusBar::drawEquipped(sf::RenderTarget& target, const int& offset)
+{
+	if (!m_type)
+	{
+		sf::IntRect rect(58, 41, tileSize / 2.f, tileSize);
+		m_weapon.setTextureRect(rect);
+	}
+	else
+	{
+		sf::IntRect rect(138, 41, tileSize / 2.f, tileSize);
+		m_weapon.setTextureRect(rect);
+	}
+	m_equipped.setPosition(WindowWidth / 4.f * 1.f, windowHeight / 9.f * 6.7f);
+	m_weapon.setPosition(WindowWidth / 4.f * 1.9f, windowHeight / 9.f * 6.7f);
+	m_equipped.move(offset * 30.f * 5.f, 0.f);
+	target.draw(m_equipped);
+	target.draw(m_weapon);
 }
 
 void StatusBar::setBottomView(const sf::RenderTarget& target)
@@ -48,7 +80,9 @@ void StatusBar::setBottomView(const sf::RenderTarget& target)
 	m_statusBar.setPosition(0.f, target.getSize().y - statusBarRect.height);
 }
 
-void StatusBar::update(int hp)
+void StatusBar::update(const int& hp, const bool& type)
 {
 	m_hp = hp;
+	m_type = type;
 }
+

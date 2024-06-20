@@ -3,7 +3,7 @@
 #include <iostream> //debugging
 
 DeathState::DeathState(sf::RenderWindow* window, sf::Vector2f position, sf::View view)
-	:State(window), m_linkDeathSprite(), m_whiteBackground(sf::Vector2f(window->getSize().x, window->getSize().y)),
+	:State(window),  m_whiteBackground(sf::Vector2f(window->getSize().x, window->getSize().y)), m_linkDeathSprite(),
 	m_amountOfSpins(0)
 {
 	getWindow()->setView(view);
@@ -22,7 +22,6 @@ void DeathState::update(const sf::Time& deltaTime)
 		m_animation.setAnimation(sf::Vector2u(188, 42), 4, false, true, 0.2f);
 		m_amountOfSpins++;
 	}
-
 
 	m_animation.update(deltaTime);
 	m_linkDeathSprite.setTextureRect(m_animation.getuvRect());
@@ -44,18 +43,14 @@ void DeathState::render(sf::RenderTarget* target)
 	target->draw(m_linkDeathSprite);
 }
 
-std::unique_ptr<State> DeathState::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> DeathState::handleInput(const GAME_STATE& gameState)
 {
 	switch (gameState)
 	{
-	case GAME_OVER:
-		return std::make_unique<GameOverState>(getWindow());
+		case GAME_OVER:
+			return std::make_unique<GameOverState>(getWindow());
 	}
 	return nullptr;
 }
 
-void DeathState::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
-{
-
-}
-
+void DeathState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}

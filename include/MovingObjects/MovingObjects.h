@@ -14,6 +14,7 @@ public:
 	virtual void update(const sf::Time& deltaTime) = 0;
 	// virtual void attack(const sf::Time& deltaTime) = 0;
 	virtual void handleCollision() = 0;
+	virtual const sf::Vector2u& getAnimationTexturePosition(Input) = 0;
 	virtual std::unique_ptr<MovingObjects> getAttack();
 
 	void updateSprite();

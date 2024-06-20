@@ -5,7 +5,6 @@
 
 namespace
 {
-
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
 		link.handleCollision();
@@ -110,13 +109,9 @@ namespace
 		}
 	}
 
-	void OctorokSword(GameObject& octorok, GameObject& sword)
-	{
-	}
+	void OctorokSword(GameObject& octorok, GameObject& sword) {}
 
-	void SwordWall(GameObject& sword, GameObject& wall)
-	{
-	}
+	void SwordWall(GameObject& sword, GameObject& wall) {}
 
 	void WallSword(GameObject& wall, GameObject& sword)
 	{
@@ -159,18 +154,14 @@ namespace
 		OctoProjectileLink(octorokProjectile, link);
 	}
 
-	void OctorokProjectileOctorok(GameObject& octorokProjectile, GameObject& octorok)
-	{
-	}
+	void OctorokProjectileOctorok(GameObject& octorokProjectile, GameObject& octorok) {}
 
 	void OctorokOctorokProjectile(GameObject& octorok, GameObject& octorokProjectile)
 	{
 		OctorokProjectileOctorok(octorokProjectile, octorok);
 	}
 
-	void LinkSword(GameObject& link, GameObject& sword)
-	{
-	}
+	void LinkSword(GameObject& link, GameObject& sword) {}
 
 	void SwordLink(GameObject& sword, GameObject& link)
 	{
@@ -287,6 +278,69 @@ namespace
 		OctorokPot(octorok, pot);
 	}
 
+	void LinkPigWarrior(GameObject& link, GameObject& pigWarrior)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->undoMove();
+			if (linkPtr->isAttacking())
+			{
+				pigWarrior.handleCollision();
+			}
+		}
+	}
+
+	void PigWarriorLink(GameObject& pigWarrior, GameObject& link)
+	{
+		LinkPigWarrior(link, pigWarrior);
+	}
+
+	void PigWarriorWall(GameObject& pigWarrior, GameObject& wall)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+	}
+
+	void WallPigWarrior(GameObject& wall, GameObject& pigWarrior)
+	{
+		PigWarriorWall(pigWarrior, wall);
+	}
+
+	void PigWarriorWater(GameObject& pigWarrior, GameObject& water)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+	}
+
+	void WaterPigWarrior(GameObject& water, GameObject& pigWarrior)
+	{
+		PigWarriorWater(pigWarrior, water);
+	}
+
+	void SwordPigWarrior(GameObject& sword, GameObject& pigWarrior) {
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
+		if (pigWarriorPtr && swordPtr)
+		{
+			if (swordPtr->getActive()) {
+				pigWarriorPtr->pushBack();
+				pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
+				swordPtr->setActive(false);
+			}
+		}
+	}
+
+	void PigWarriorSword(GameObject& pigWarrior, GameObject& sword)
+	{
+	}
+
 	void LinkArrowOctorok(GameObject& arrow, GameObject& octorok)
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
@@ -361,6 +415,15 @@ namespace
 		phm[Key(typeid(Boulder), typeid(Wall))] = &BoulderWall;
 		phm[Key(typeid(Boulder), typeid(Octorok))] = &BoulderOctorok;
 		phm[Key(typeid(Boulder), typeid(OctorokProjectile))] = &BoulderOctorokProjectile;
+		///
+		phm[Key(typeid(Link), typeid(PigWarrior))] = &LinkPigWarrior;
+		phm[Key(typeid(PigWarrior), typeid(Link))] = &PigWarriorLink;
+		phm[Key(typeid(PigWarrior), typeid(Wall))] = &PigWarriorWall;
+		phm[Key(typeid(Wall), typeid(PigWarrior))] = &WallPigWarrior;
+		phm[Key(typeid(PigWarrior), typeid(WaterTile))] = &PigWarriorWater;
+		phm[Key(typeid(WaterTile), typeid(PigWarrior))] = &WaterPigWarrior;
+		phm[Key(typeid(Sword), typeid(PigWarrior))] = &SwordPigWarrior;
+		phm[Key(typeid(PigWarrior), typeid(Sword))] = &PigWarriorSword;
 		phm[Key(typeid(LinkArrow), typeid(Octorok))] = &LinkArrowOctorok;
 		phm[Key(typeid(Octorok), typeid(LinkArrow))] = &OctorokLinkArrow;
 		phm[Key(typeid(Link), typeid(LinkArrow))] = &LinkLinkArrow;

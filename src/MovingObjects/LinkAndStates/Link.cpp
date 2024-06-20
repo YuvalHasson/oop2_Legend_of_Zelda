@@ -2,25 +2,22 @@
 
 #include <iostream> //debugging
 
-bool Link::m_registerit = Factory::registerit("Link",
-    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> {
-        return std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), position);
-    });
+bool m_registerit = Factory<Link>::instance()->registerit("Link",
+    [](const sf::Vector2f& position) -> std::unique_ptr<Link>
+	{
+		return std::make_unique<Link>(*Resources::getResource().getTexture(TEXTURE::Link), position);
+	});
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 10)),
-      m_state(std::make_unique<LinkStandingState>()), m_sword(Factory::createSword()), m_isPushing(false),
-      m_isShooting(true)//isShooting is true just for testing
+    m_state(std::make_unique<LinkStandingState>()), m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })), m_isPushing(false), m_wasTabPressed(false)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
-    setHp(6);
+    setHp(4);
 }
 
-void Link::handleCollision()
-{
-
-}
+void Link::handleCollision() {}
 
 void Link::update(const sf::Time& deltaTime){
 
@@ -32,48 +29,60 @@ void Link::update(const sf::Time& deltaTime){
     bool tab = sf::Keyboard::isKeyPressed(sf::Keyboard::Tab);
     
     Input input;
-    if(space){
+    if(space)
+    {
         input = PRESS_SPACE;
     }
-    else if(down && right){
+    else if(down && right)
+    {
         input = PRESS_DOWN_RIGHT;
     }
-    else if(down && left){
+    else if(down && left)
+    {
         input = PRESS_DOWN_LEFT;
     }
-    else if(up && right){
+    else if(up && right)
+    {
         input = PRESS_UP_RIGHT;
     }
-    else if(up && left){
+    else if(up && left)
+    {
         input = PRESS_UP_LEFT;
     }
-    else if(up){
+    else if(up)
+    {
         input = PRESS_UP;
     }
-    else if(down){
+    else if(down)
+    {
         input = PRESS_DOWN;
     }
-    else if(right){
+    else if(right)
+    {
         input = PRESS_RIGHT;
     }
-    else if(left){
+    else if(left)
+    {
         input = PRESS_LEFT;
     }
-    else{
+    else
+    {
         input = NONE;
     }
-    if(tab){
+    if(tab && !m_wasTabPressed){
+        std::cout<<"tab!!!!!\n";
         m_isShooting = !m_isShooting;
     }
-    
+    m_wasTabPressed = tab;
     std::unique_ptr<LinkState> state = m_state->handleInput(input);
 
-    if(state){
+    if(state)
+    {
         m_state = std::move(state);
         m_state->enter(*this);
-
     }   
-    if(!dynamic_cast<LinkStandingState*>(m_state.get())){
+    if(!dynamic_cast<LinkStandingState*>(m_state.get()))
+    {
         updateGraphics(deltaTime);
     }
     m_sword->update(deltaTime);
@@ -81,23 +90,29 @@ void Link::update(const sf::Time& deltaTime){
 }
 
 
-void Link::swipeSword(){
-    if(m_sword){
+void Link::swipeSword()
+{
+    if(m_sword)
+    {
         m_sword->activate(getSprite().getPosition(), getDirection());
     }
 }
-void Link::stopSwordSwipe(){
-    if(m_sword){
+void Link::stopSwordSwipe()
+{
+    if(m_sword)
+    {
         m_sword->deActivate();
     }
     setAttacking(false);
 }
 
-bool Link::getInvincible()const{
+bool Link::getInvincible() const
+{
     return m_invincibleTimer.getElapsedTime().asSeconds() - invincibilityTime.asSeconds() <= 0;
 }
 
-void Link::initializeInvincible(){
+void Link::initializeInvincible()
+{
     m_invincibleTimer.restart();
 }
 
@@ -132,24 +147,29 @@ bool Link::isPush() const
     return m_isPushing;
 }
 
-bool Link::getShooting()const{
+bool Link::getShooting() const
+{
     return m_isShooting;
 }
 
-void Link::stopShooting(){
+void Link::stopShooting()
+{
     setAttacking(false);
 }
 
-void Link::shoot(){
+void Link::shoot()
+{
     setAttacking(true);
 }
 
 std::unique_ptr<MovingObjects> Link::getAttack(){
     if(m_attacking && m_isShooting){
-        m_arrow = Factory::createLinkArrow();
-        m_arrow->setPosition(getPosition());
-        m_arrow->getSprite().setPosition(getPosition());
-        m_arrow->initArrow(getDirection());
+        if(auto p = Factory<LinkArrow>::instance()->create("LinkArrow", getPosition())){
+            m_arrow = std::move(p);
+            m_arrow->setPosition(getPosition());
+            m_arrow->getSprite().setPosition(getPosition());
+            m_arrow->initArrow(getDirection());
+        }
         stopShooting();
         return std::move(m_arrow);
     }

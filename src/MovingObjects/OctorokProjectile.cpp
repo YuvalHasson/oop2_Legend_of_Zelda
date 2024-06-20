@@ -2,8 +2,9 @@
 
 #include <iostream> //debugging
 
-bool OctorokProjectile::m_registerit = Factory::registerit("OctorokProjectile",
-    [](const sf::Vector2f& position) -> std::unique_ptr<GameObject> {
+bool OctorokProjectile::m_registerit = Factory<OctorokProjectile>::instance()->registerit("OctorokProjectile",
+    [](const sf::Vector2f& position) -> std::unique_ptr<OctorokProjectile>
+    {
         return std::make_unique<OctorokProjectile>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
     });
 

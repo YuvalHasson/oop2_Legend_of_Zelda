@@ -2,7 +2,7 @@
 
 GameRunningState::GameRunningState(sf::RenderWindow* window, Board&& board, sf::View&& view, sf::Sprite background)
 	:State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background),
-	m_statusBar(board.getLink().getHp())
+	m_statusBar(board.getLink().getHp(), board.getLink().getShooting())
 {
 	setCenterView();
 }
@@ -17,7 +17,7 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	{
 		updateState(GAME_STATE::PAUSE_MENU);
 	}
-	m_statusBar.update(m_board.getLink().getHp());
+	m_statusBar.update(m_board.getLink().getHp(), m_board.getLink().getShooting());
 
 	if (m_board.getLink().getHp() <= 0)
 	{
@@ -49,7 +49,7 @@ void GameRunningState::render(sf::RenderTarget* target)
 	m_statusBar.draw(*target);
 }
 
-std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
+std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState)
 {
 	switch (gameState)
 	{
@@ -68,10 +68,7 @@ std::unique_ptr<State> GameRunningState::handleInput(GAME_STATE gameState)
 	return nullptr;
 }
 
-void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&)
-{
-
-}
+void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 
 void GameRunningState::setCenterView()
 {

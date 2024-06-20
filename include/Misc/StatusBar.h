@@ -7,22 +7,24 @@
 class StatusBar
 {
 public:
-	StatusBar(int);
+	StatusBar(int, bool);
 	~StatusBar() = default;
 
 	void draw(sf::RenderTarget&);
 
 	void setBottomView(const sf::RenderTarget&);
-	sf::Vector2f getSize() const { return m_statusBar.getSize(); }
 
-	void update(int hp);
+	void update(const int&, const bool&);
 
 private:
-	void drawHearts(sf::RenderTarget&, const sf::Vector2f&, int);
+	void drawHearts(sf::RenderTarget&, const sf::Vector2f&, const int&);
+	void drawEquipped(sf::RenderTarget&, const int&);
+	int m_hp;
+	bool m_type; // false for sword, true for arrow // mabye change for enum
 
 	sf::RectangleShape m_statusBar;
 
-	int m_hp;
-
 	sf::Sprite m_hpSprite;
+	sf::Sprite m_equipped; //for what weapond is now on
+	sf::Sprite m_weapon; //for the sprite to draw
 };
