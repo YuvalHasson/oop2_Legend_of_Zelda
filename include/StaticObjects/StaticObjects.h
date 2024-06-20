@@ -7,7 +7,6 @@ class StaticObjects : public GameObject
 public:
 	StaticObjects(const sf::Texture&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&);
 
-	virtual void handleCollision() = 0;
 private:
 
 };

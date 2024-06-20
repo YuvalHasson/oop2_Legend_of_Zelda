@@ -7,8 +7,6 @@ namespace
 {
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
-		link.handleCollision();
-
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
 		{
@@ -286,7 +284,6 @@ namespace
 			linkPtr->undoMove();
 			if (linkPtr->isAttacking())
 			{
-				pigWarrior.handleCollision();
 			}
 		}
 	}

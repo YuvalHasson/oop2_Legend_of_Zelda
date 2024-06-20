@@ -13,8 +13,6 @@ public:
 
     virtual void draw(sf::RenderTarget&);
     
-	virtual void handleCollision() = 0;
-
     void destroy();
     bool isDestroyed() const;
     void setPosition(const sf::Vector2f&);
