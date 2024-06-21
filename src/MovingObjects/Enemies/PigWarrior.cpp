@@ -2,20 +2,24 @@
 
 #include <iostream> // Debug
 
-bool PigWarrior::m_registerit = Factory<MovingObjects>::instance()->registerit("PigWarrior",
-    [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+bool PigWarrior::m_registerit = Factory<PigWarrior>::instance()->registerit("PigWarrior",
+    [](const sf::Vector2f& position) -> std::unique_ptr<PigWarrior>
     {
         return std::make_unique<PigWarrior>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
     });
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
-    : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(tileSize / 2, tileSize / 2)), 
+    : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(10 / 2, 10 / 2)), 
         m_moveStrategy(std::make_unique<StandingState>()), m_currInput(PRESS_UP), m_sword()
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
     updateSprite();
     setHp(2);
+}
+
+PigWarrior::~PigWarrior(){
+    m_link->RemoveObserver(this);
 }
 
 void PigWarrior::update(const sf::Time& deltaTime)
@@ -36,7 +40,6 @@ void PigWarrior::update(const sf::Time& deltaTime)
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
     {
-        std::cout << "pig attack\n" << "\n";
         std::unique_ptr <MovementStrategy> newMove = std::make_unique<AttackingState>();
         setMoveStrategy(newMove);
     }
@@ -66,17 +69,9 @@ void PigWarrior::attack()
 
 void PigWarrior::draw(sf::RenderTarget& target)
 {
-    //m_sword->draw(target);
+    GameObject::draw(target);
+    // m_sword->draw(target);
     target.draw(getSprite());
-
-    //draw hitbox for debugging
-    sf::RectangleShape rect;
-    rect.setPosition(getHitBox().GetRect().left, getHitBox().GetRect().top);
-    rect.setSize(sf::Vector2f(getHitBox().GetRect().width, getHitBox().GetRect().height));
-    rect.setFillColor(sf::Color::Transparent);
-    rect.setOutlineColor(sf::Color::Blue);
-    rect.setOutlineThickness(1);
-    target.draw(rect);
 }
 
 const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
@@ -117,10 +112,8 @@ Sword* PigWarrior::getSword()
 
 void PigWarrior::swipeSword()
 {
-    //std::cout << "in attack state\n";
     if (m_sword) 
     {
-        std::cout << "in m_sword\n";
         m_sword->activate(getSprite().getPosition(), getDirection());
     }
 }
@@ -153,4 +146,14 @@ float PigWarrior::distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
 std::unique_ptr<MovingObjects> PigWarrior::getAttack()
 {
     return std::unique_ptr<MovingObjects>();
+}
+
+//--------------observer function--------------
+void PigWarrior::updateLinkPosition(const sf::Vector2f& position){
+    m_linkPos = position;
+}
+
+void PigWarrior::registerAsLinkObserver(Link* link){
+    m_link = link;
+    m_link->RegisterObserver(this);
 }

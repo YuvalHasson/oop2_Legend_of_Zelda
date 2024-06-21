@@ -14,6 +14,8 @@
 #include "StaticObjects.h"
 //#include "BadFileName.h"
 
+class Link;
+
 class Map
 {
 public:
@@ -24,7 +26,7 @@ public:
 
 	void setMap();
 	void initVector(Cell);
-	std::vector<std::unique_ptr<MovingObjects>>& getEnemyObjects();
+	std::vector<std::unique_ptr<MovingObjects>>& getEnemyObjects(Link* link);
 	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects();
 
 	std::map<int, std::string> getDict() const;

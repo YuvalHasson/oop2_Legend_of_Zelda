@@ -80,7 +80,7 @@ void Board::update(const sf::Time& deltaTime)
 	m_link->update(deltaTime);
 
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
-	std::erase_if(m_movingObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
+	std::erase_if(m_movingObjects, [](const auto& MovingObjects) { return MovingObjects->isDestroyed(); });
 }
 
 void Board::handleCollision()
@@ -143,7 +143,7 @@ void Board::handleCollision()
 
 void Board::setMap()
 {
-	m_movingObjects = std::move(m_map.getEnemyObjects());
+	m_movingObjects = std::move(m_map.getEnemyObjects(m_link.get()));
 	m_staticObjects = std::move(m_map.getStaticObjects());
 
 	//auto boulders = Factory::createBoulder();
