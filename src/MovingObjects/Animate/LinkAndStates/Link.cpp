@@ -91,8 +91,9 @@ void Link::update(const sf::Time& deltaTime){
     updateSprite();
 }
 
-void Link::move(){
-    MovingObjects::move();
+void Link::move()
+{
+    Animate::move();
     NotifyObservers();
 }
 
