@@ -3,10 +3,9 @@
 #include "Enemy.h"
 
 #include "MovementStrategy.h"
-#include "StandingState.h"
 #include "SmartMovement.h"
 #include "PatrolMovement.h"
-#include "AttackingState.h"
+//#include "AttackingState.h"
 #include "Sword.h"
 #include "Board.h"
 
@@ -24,7 +23,8 @@ public:
 	virtual void attack();
 	virtual void draw(sf::RenderTarget&) override;
 	const sf::Vector2u& getAnimationTexturePosition(Input);
-	void setMoveStrategy(std::unique_ptr<MovementStrategy>&);
+	void setMoveStrategy(std::unique_ptr<MovementStrategy>);
+	void PerformMove();
 	float distance(const sf::Vector2f& p1, const sf::Vector2f& p2);
 
 	virtual std::unique_ptr<MovingObjects> getAttack() override;
@@ -53,7 +53,8 @@ private:
 
 	sf::Clock m_invincibleTimer;
 
-	Board* m_board;
+	Link* m_link;
+
 	//for (const auto& enemy : m_movingObjects)
 	//{
 	//	if (dynamic_cast<PigWarrior*>(enemy.get()))

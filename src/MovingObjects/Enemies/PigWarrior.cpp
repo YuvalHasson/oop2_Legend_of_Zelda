@@ -10,7 +10,7 @@ bool PigWarrior::m_registerit = Factory<MovingObjects>::instance()->registerit("
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(tileSize / 2, tileSize / 2)), 
-        m_moveStrategy(std::make_unique<StandingState>()), m_currInput(PRESS_UP), m_sword()
+       m_currInput(PRESS_UP), m_sword(), m_moveStrategy(std::make_unique<PatrolMovement>())
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
@@ -24,24 +24,23 @@ void PigWarrior::update(const sf::Time& deltaTime)
     // If Link is close, change movement strategy
     if (distance(currentPosition, m_linkPos) < 100.0f) {
         // If the distance to the Link is small enough, change strategy  to track Link
-        std::unique_ptr<MovementStrategy> newMove = std::make_unique<SmartMovement>(PRESS_UP, *this, m_linkPos);
-        setMoveStrategy(newMove);
+        setMoveStrategy(std::make_unique<SmartMovement>());
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 2.0f)
     {
         //std::cout << m_directionChangeClock.getElapsedTime().asSeconds() << "\n";
-        std::unique_ptr <MovementStrategy> newMove = std::make_unique<PatrolMovement>(m_currInput, &m_directionChangeClock);
-        setMoveStrategy(newMove);
-        m_directionChangeClock.restart();
+        setMoveStrategy(std::make_unique<PatrolMovement>());
+        //m_directionChangeClock.restart();
     }
-    else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
+    PerformMove();
+  /*  else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
     {
         std::cout << "pig attack\n" << "\n";
         std::unique_ptr <MovementStrategy> newMove = std::make_unique<AttackingState>();
-        setMoveStrategy(newMove);
-    }
+        setMoveStrategy(newMove);*/
+    //}
 
-    m_moveStrategy->enter(*this);
+    //m_moveStrategy->enter(*this);
     //m_sword->update(deltaTime);
 
     // Update graphics
@@ -94,18 +93,19 @@ const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
     }
 }
 
-void PigWarrior::setMoveStrategy(std::unique_ptr<MovementStrategy>& move)
+void PigWarrior::setMoveStrategy(std::unique_ptr<MovementStrategy> move)
 {
     m_moveStrategy = std::move(move);
+}
+
+void PigWarrior::PerformMove()
+{
+    m_moveStrategy->move(m_currInput, *this, m_link, &m_directionChangeClock);
 }
 
 void PigWarrior::UpdateLinkPos(const sf::Vector2f& position)
 {
     m_linkPos = position;
-}
-void PigWarrior::setBoardPtr(Board* board)
-{
-    m_board = std::move(board);
 }
 void PigWarrior::insertSword(Sword* sword)
 {

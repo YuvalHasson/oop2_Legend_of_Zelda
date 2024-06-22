@@ -1,8 +1,7 @@
 #include "SmartMovement.h"
 #include <iostream>
 
-SmartMovement::SmartMovement(Input direction, Enemy& enemy, sf::Vector2f linkPos) 
-    : m_direction(direction)
+void SmartMovement::move(Input& direction, Enemy& enemy, Link* linkPtr, sf::Clock* directionChangeClock)
 {
     initializeBFS(enemy.getSprite().getPosition());
     if (!m_bfsQueue.empty())
@@ -12,7 +11,7 @@ SmartMovement::SmartMovement(Input direction, Enemy& enemy, sf::Vector2f linkPos
         m_bfsQueue.pop();
 
         // Check if the PigWarrior reached the Link
-        if (isLinkAtPosition(nextPosition, linkPos))
+        if (isLinkAtPosition(nextPosition, linkPtr->getPosition()))
         {
             //std::cout << "Link is reached at: " << m_linkPos.x << ", " << m_linkPos.y << "\n";
             // Handle reaching the Link
@@ -27,7 +26,7 @@ SmartMovement::SmartMovement(Input direction, Enemy& enemy, sf::Vector2f linkPos
         //}
         //else {
         // Otherwise, continue with the BFS algorithm
-        moveTowards(enemy, linkPos);
+        moveTowards(enemy, linkPtr->getPosition());
 
         // Explore neighbors of the current position
         addNeighborsToQueue(nextPosition);
@@ -38,47 +37,39 @@ SmartMovement::SmartMovement(Input direction, Enemy& enemy, sf::Vector2f linkPos
         // If BFS queue is empty, reinitialize it to find a new path to the Link
         initializeBFS(enemy.getSprite().getPosition());
     }
-}
 
-std::unique_ptr<MovementStrategy> SmartMovement::handleInput(Input input)
-{
-    return std::make_unique<SmartMovement>();
-}
-
-void SmartMovement::enter(MovingObjects& object)
-{
-    sf::Vector2i currentDirection = object.getDirection();
+    sf::Vector2i currentDirection = enemy.getDirection();
     //std::cout << "Current direction: " << currentDirection.x << ", " << currentDirection.y << "\n";
     std::cout << "Moving in direction: " << m_direction << "\n";
     if (m_direction == PRESS_RIGHT) {
         if (currentDirection != DIRECTIONS::Right) {
-            object.setGraphics(object.getAnimationTexturePosition(PRESS_RIGHT), 2);
-            object.setDirection(DIRECTIONS::Right);
-            m_direction = PRESS_RIGHT;
+            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_RIGHT), 2);
+            enemy.setDirection(DIRECTIONS::Right);
+            //m_direction = PRESS_RIGHT;
         }
     }
     else if (m_direction == PRESS_LEFT) {
         if (currentDirection != DIRECTIONS::Left) {
-            object.setGraphics(object.getAnimationTexturePosition(PRESS_LEFT), 2);
-            object.setDirection(DIRECTIONS::Left);
-            m_direction = PRESS_LEFT;
+            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_LEFT), 2);
+            enemy.setDirection(DIRECTIONS::Left);
+           //m_direction = PRESS_LEFT;
         }
     }
     else if (m_direction == PRESS_UP) {
         if (currentDirection != DIRECTIONS::Up) {
-            object.setGraphics(object.getAnimationTexturePosition(PRESS_UP), 2);
-            object.setDirection(DIRECTIONS::Up);
-            m_direction = PRESS_UP;
+            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_UP), 2);
+            enemy.setDirection(DIRECTIONS::Up);
+            //m_direction = PRESS_UP;
         }
     }
     else if (m_direction == PRESS_DOWN) {
         if (currentDirection != DIRECTIONS::Down) {
-            object.setGraphics(object.getAnimationTexturePosition(PRESS_DOWN), 2);
-            object.setDirection(DIRECTIONS::Down);
-            m_direction = PRESS_DOWN;
+            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_DOWN), 2);
+            enemy.setDirection(DIRECTIONS::Down);
+           // m_direction = PRESS_DOWN;
         }
     }
-    object.move();
+    enemy.move();
 }
 
 void SmartMovement::initializeBFS(sf::Vector2f enemyPos)
@@ -155,7 +146,7 @@ void SmartMovement::moveTowards(Enemy& enemy, const sf::Vector2f& targetPosition
         }
     }
     m_direction = input;
-    enter(enemy);
+    //enter(enemy);
 }
 
 float SmartMovement::distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
