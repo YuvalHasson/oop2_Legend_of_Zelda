@@ -76,7 +76,6 @@ void Shield::setActive(bool active){
     m_active = active;
 }
 
-void Shield::handleCollision() {}
 
 bool Shield::getCollided(){
     if(m_collided){

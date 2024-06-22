@@ -388,7 +388,7 @@ namespace
 		sf::Vector2i direction = getCollisionDirection(shield, octoProjectile);
 		if (octoProjectilePtr && shieldPtr)
 		{
-			octoProjectilePtr->pushBack(-direction);
+			octoProjectilePtr->setDirection(-direction);
 			// shieldPtr->pushBack(direction);
 		}
 	}

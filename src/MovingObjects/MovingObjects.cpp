@@ -30,18 +30,6 @@ void MovingObjects::setDirection(const sf::Vector2i& direction)
 void MovingObjects::move()
 {	
 	sf::Vector2f newPos;
-	if(m_isPushedback){
-		if(!(pushbackDuration - m_pushbackTimer.getElapsedTime() <= sf::Time(sf::seconds(0)))){
-			newPos.x = getSprite().getPosition().x + (-m_collisionDirection.x * m_speed );
-			newPos.y = getSprite().getPosition().y + (-m_collisionDirection.y * m_speed );
-			setPosition(newPos);
-			getSprite().setPosition(newPos);
-		}
-		else{
-			m_isPushedback = false;
-		}
-		return;
-	}
 	newPos.x = getSprite().getPosition().x + m_direction.x * m_speed;
 	newPos.y = getSprite().getPosition().y + m_direction.y * m_speed;
 	setPosition(newPos);
@@ -68,32 +56,4 @@ void MovingObjects::undoMove()
 {
 	getSprite().setPosition(getPreviousPosition());
 	setPosition(getPreviousPosition());
-}
-
-void MovingObjects::pushBack(const sf::Vector2i& direction)
-{	
-	m_collisionDirection = direction;
-	m_isPushedback = true;
-	m_pushbackTimer.restart();
-}
-
-bool MovingObjects::isAttacking() const
-{
-	return m_attacking;
-}
-
-void MovingObjects::setHp(int hp){
-	m_hp = hp;
-}
-
-int MovingObjects::getHp()const{
-	return m_hp;
-}
-
-bool MovingObjects::isPushedBack()const{
-	return m_isPushedback;
-}
-
-std::unique_ptr<MovingObjects> MovingObjects::getAttack(){
-	return nullptr;
 }

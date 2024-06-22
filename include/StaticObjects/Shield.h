@@ -6,7 +6,6 @@ class Shield: public InDestructible{
 public:
     Shield(const sf::Texture&, const sf::Vector2f&);
 
-    virtual void handleCollision() override;
     void activate(const sf::Vector2f&, const sf::Vector2i& direction);
     void deActivate();
     bool getActive()const;

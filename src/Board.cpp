@@ -131,22 +131,6 @@ void Board::handleCollision()
 					processCollision(*sword, *movingObject);
 				}
 			}
-			if (colide(*m_link, *movingObject))
-			{
-				processCollision(*m_link, *movingObject);
-			}
-		}
-
-		//link, sword and inanimate objects
-		for(const auto& movingObject : m_inanimateObjects)
-		{
-			if (sword)
-			{
-				if (colide(*sword, *movingObject))
-				{
-					processCollision(*sword, *movingObject);
-				}
-			}
 			if(shield){
 				if (colide(*shield, *movingObject))
 				{
@@ -156,6 +140,22 @@ void Board::handleCollision()
 			if (colide(*m_link, *movingObject))
 			{
 				processCollision(*m_link, *movingObject);
+			}
+		}
+
+		//link, sword and inanimate objects
+		for(const auto& object : m_inanimateObjects)
+		{
+			if (sword)
+			{
+				if (colide(*sword, *object))
+				{
+					processCollision(*sword, *object);
+				}
+			}
+			if (colide(*m_link, *object))
+			{
+				processCollision(*m_link, *object);
 			}
 		}
 

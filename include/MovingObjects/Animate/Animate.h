@@ -17,7 +17,7 @@ public:
 	void move() override;
 	void updateGraphics(const sf::Time& deltaTime);
 	void setAttacking(const bool& = false);
-	void pushBack();
+	void pushBack(const sf::Vector2i&);
 
 	bool isAttacking() const;
 	bool isPushedBack() const;
@@ -32,4 +32,6 @@ private:
 	int m_hp;
 	sf::Clock m_pushbackTimer;
 	bool m_isPushedback;
+	sf::Vector2i m_collisionDirection;
+
 };
