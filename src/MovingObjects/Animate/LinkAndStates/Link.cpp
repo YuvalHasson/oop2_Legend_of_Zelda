@@ -175,7 +175,7 @@ std::unique_ptr<Inanimate> Link::getAttack()
 
 //-------------observer list functions--------------
 void Link::RegisterObserver(LinkObserver* observer){
-    m_observers.push_back(observer);
+    m_observers.emplace_back(observer);
 }
 
 void Link::RemoveObserver(LinkObserver* observer){

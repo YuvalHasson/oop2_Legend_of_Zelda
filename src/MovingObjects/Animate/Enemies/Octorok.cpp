@@ -2,8 +2,8 @@
 
 #include <iostream> //debug
 
-bool Octorok::m_registerit = Factory<Animate>::instance()->registerit("Octorok",
-    [](const sf::Vector2f& position) -> std::unique_ptr<Animate>
+bool Octorok::m_registerit = Factory<Octorok>::instance()->registerit("Octorok",
+    [](const sf::Vector2f& position) -> std::unique_ptr<Octorok>
     {
         return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
     });

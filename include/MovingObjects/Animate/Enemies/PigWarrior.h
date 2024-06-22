@@ -31,6 +31,7 @@ public:
 
 	void registerAsLinkObserver(Link*);
 	void UpdateLinkPos(const sf::Vector2f& position);
+	void updateLinkPosition(const sf::Vector2f& position) override;
 
 	void insertSword(Sword*);
 	Sword* getSword();

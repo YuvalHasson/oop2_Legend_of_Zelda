@@ -10,8 +10,9 @@
 #include <sstream>
 #include <map>
 
-#include "Animate/Animate.h"
 #include "StaticObjects.h"
+#include "PigWarrior.h"
+#include "Octorok.h"
 
 #include "BadFileName.h"
 
