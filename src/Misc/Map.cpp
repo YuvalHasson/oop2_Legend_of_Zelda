@@ -151,7 +151,7 @@ void Map::initVector(Cell cell)
 
 }
 
-std::vector<std::unique_ptr<Animate>>& Map::getEnemyObjects()
+std::vector<std::unique_ptr<Animate>>& Map::getEnemyObjects(Link* link)
 {
 	//tmp create
 	if (auto p = Factory<Animate>::instance()->create("Octorok", { 70.f, 150.f }))

@@ -198,7 +198,7 @@ void Board::handleCollision()
 
 void Board::setMap()
 {
-	m_animateObjects	= std::move(m_map.getEnemyObjects());
+	m_animateObjects	= std::move(m_map.getEnemyObjects(m_link.get()));
 	m_staticObjects		= std::move(m_map.getStaticObjects());
 }
 

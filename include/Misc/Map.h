@@ -27,7 +27,7 @@ public:
 
 	void setMap();
 	void initVector(Cell);
-	std::vector<std::unique_ptr<Animate>>& getEnemyObjects();
+	std::vector<std::unique_ptr<Animate>>& getEnemyObjects(Link*);
 	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects();
 
 	std::map<int, std::string> getDict() const;
