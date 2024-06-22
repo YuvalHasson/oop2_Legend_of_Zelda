@@ -98,7 +98,7 @@ void Link::update(const sf::Time& deltaTime){
         m_state = std::move(state);
         m_state->enter(*this);
     }   
-    if(!dynamic_cast<LinkStandingState*>(m_state.get()))
+    if(!dynamic_cast<LinkStandingState*>(m_state.get()) && !dynamic_cast<LinkShieldStandingState*>(m_state.get()))
     {
         updateGraphics(deltaTime);
     }
