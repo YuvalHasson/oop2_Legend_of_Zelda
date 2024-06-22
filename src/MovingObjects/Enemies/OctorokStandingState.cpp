@@ -14,4 +14,8 @@ std::unique_ptr<OctorokState> OctorokStandingState::handleInput(Input input)
     return std::unique_ptr<OctorokStandingState>();
 }
 
-void OctorokStandingState::enter(Octorok&) {}
+void OctorokStandingState::enter(Octorok& oct) {
+    if(oct.isPushedBack()){
+        handleInput(PRESS_DOWN);
+    }
+}

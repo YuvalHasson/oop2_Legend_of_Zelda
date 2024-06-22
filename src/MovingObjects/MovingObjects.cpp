@@ -29,8 +29,8 @@ void MovingObjects::move()
 	sf::Vector2f newPos;
 	if(m_isPushedback){
 		if(!(pushbackDuration - m_pushbackTimer.getElapsedTime() <= sf::Time(sf::seconds(0)))){
-			newPos.x = getSprite().getPosition().x + (-m_direction.x * m_speed * 2);
-			newPos.y = getSprite().getPosition().y + (-m_direction.y * m_speed * 2);
+			newPos.x = getSprite().getPosition().x + (-m_collisionDirection.x * m_speed );
+			newPos.y = getSprite().getPosition().y + (-m_collisionDirection.y * m_speed );
 			setPosition(newPos);
 			getSprite().setPosition(newPos);
 		}
@@ -75,15 +75,15 @@ void MovingObjects::undoMove()
 	setPosition(getPreviousPosition());
 }
 
-void MovingObjects::pushBack()
+void MovingObjects::pushBack(const sf::Vector2i& direction)
 {	
+	m_collisionDirection = direction;
 	m_isPushedback = true;
 	m_pushbackTimer.restart();
 }
 
 bool MovingObjects::isAttacking() const
 {
-	std::cout << "isAttacking of pig\n";
 	return m_attacking;
 }
 

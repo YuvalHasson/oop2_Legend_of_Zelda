@@ -90,6 +90,11 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u ArrowDown(52, 126);
 	const sf::Vector2u ArrowLeft(1, 126);
 	const sf::Vector2u ArrowRight(18, 126);
+	const sf::Vector2u LinkShieldLeft(103, 59);
+	const sf::Vector2u LinkShieldRight(137, 59);
+	const sf::Vector2u LinkShieldUp(69, 59);
+	const sf::Vector2u LinkShieldDown(1, 59);
+
 }
 
 //might be useless

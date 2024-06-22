@@ -13,5 +13,5 @@ public:
 private:
 	sf::Clock m_attackTimer;
 	sf::Time m_attackDuration;
-	bool m_isAnimationSet;
+	bool m_cancelAttack;
 };

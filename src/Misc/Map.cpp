@@ -159,11 +159,11 @@ std::vector<std::unique_ptr<MovingObjects>>& Map::getEnemyObjects(Link* link)
 	{
 		m_enemyObjects.emplace_back(std::move(p));
 	}
-	if (auto p1 = Factory<PigWarrior>::instance()->create("PigWarrior", { 32.f, 150.f }))
-	{
-		p1->registerAsLinkObserver(link);
-		m_enemyObjects.emplace_back(std::move(p1));
-	}
+	// if (auto p1 = Factory<PigWarrior>::instance()->create("PigWarrior", { 32.f, 150.f }))
+	// {
+	// 	p1->registerAsLinkObserver(link);
+	// 	m_enemyObjects.emplace_back(std::move(p1));
+	// }
 
 	return m_enemyObjects;
 }

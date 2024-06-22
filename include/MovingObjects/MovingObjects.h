@@ -24,7 +24,7 @@ public:
 	void setDirection(const sf::Vector2i&);
 	void setAttacking(bool = false);
 	void undoMove();
-	void pushBack();
+	void pushBack(const sf::Vector2i&);
 
 	sf::Vector2i getDirection() const;
 
@@ -45,6 +45,7 @@ private:
 	int m_hp;
 	sf::Clock m_pushbackTimer;
 	bool m_isPushedback;
+	sf::Vector2i m_collisionDirection;
 	
 
 };

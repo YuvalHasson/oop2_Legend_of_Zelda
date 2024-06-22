@@ -9,7 +9,7 @@ class LinkAttackState: public LinkState
 public:
     LinkAttackState();
 
-    virtual std::unique_ptr<LinkState> handleInput(Input)override;
+    virtual std::unique_ptr<LinkState> handleInput(Input, bool)override;
     virtual void enter(Link&) override;
 
 private:

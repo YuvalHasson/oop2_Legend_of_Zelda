@@ -10,7 +10,9 @@ bool m_registerit = Factory<Link>::instance()->registerit("Link",
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: MovingObjects(texture, position, sf::Vector2f(7,7), sf::Vector2f(tileSize/5, tileSize / 10)),
-    m_state(std::make_unique<LinkStandingState>()), m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })), m_isPushing(false), m_wasTabPressed(false)
+    m_state(std::make_unique<LinkStandingState>()), m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })), m_shield(Factory<Shield>::instance()->create("Shield", {0,0})),
+     m_isPushing(false), m_wasTabPressed(false),
+    m_isShielding(false)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
@@ -21,14 +23,29 @@ void Link::handleCollision() {}
 
 void Link::update(const sf::Time& deltaTime){
 
+    Input input;
     bool up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W);
     bool down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+    bool b = sf::Keyboard::isKeyPressed(sf::Keyboard::B);
     bool tab = sf::Keyboard::isKeyPressed(sf::Keyboard::Tab);
     
-    Input input;
+    //check if shielding
+    if(b){
+        m_isShielding = true;
+        m_shield->activate(getPosition(), getDirection());
+    }
+    else{
+        m_isShielding = false;
+        m_shield->deActivate();
+    }
+    //check for shield collision
+    if(m_shield->getCollided()){
+        pushBack(m_shield->getCollisionDirection());
+    }
+
     if(space)
     {
         input = PRESS_SPACE;
@@ -69,19 +86,23 @@ void Link::update(const sf::Time& deltaTime){
     {
         input = NONE;
     }
+
+    //shooting or attacking with sword trigger
     if(tab && !m_wasTabPressed){
-        std::cout<<"tab!!!!!\n";
         m_isShooting = !m_isShooting;
     }
     m_wasTabPressed = tab;
-    std::unique_ptr<LinkState> state = m_state->handleInput(input);
+
+
+    //handle states and input
+    std::unique_ptr<LinkState> state = m_state->handleInput(input, m_isShielding);
 
     if(state)
     {
         m_state = std::move(state);
         m_state->enter(*this);
     }   
-    if(!dynamic_cast<LinkStandingState*>(m_state.get()))
+    if(!dynamic_cast<LinkStandingState*>(m_state.get()) && !dynamic_cast<LinkShieldStandingState*>(m_state.get()))
     {
         updateGraphics(deltaTime);
     }
@@ -127,9 +148,18 @@ Sword* Link::getSword(){
     return nullptr;
 }
 
+Shield* Link::getShield(){
+    if(m_isShielding){
+        return m_shield.get();
+    }
+    return nullptr;
+}
+
 void Link::draw(sf::RenderTarget& target){
     GameObject::draw(target);
     m_sword->draw(target);
+    if(m_shield)
+        m_shield->draw(target);
 }
 void Link::setPush(bool isPushing)
 {
@@ -168,6 +198,10 @@ std::unique_ptr<MovingObjects> Link::getAttack(){
         return std::move(m_arrow);
     }
     return nullptr;
+}
+
+bool Link::getShielding()const{
+    return m_isShielding;
 }
 
 //-------------observer list functions--------------

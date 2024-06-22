@@ -8,6 +8,6 @@ class LinkState{
 public:
     virtual ~LinkState() = default;
 
-    virtual std::unique_ptr<LinkState> handleInput(Input input) = 0;
+    virtual std::unique_ptr<LinkState> handleInput(Input input, bool shielding) = 0;
     virtual void enter(Link& link) = 0;
 };

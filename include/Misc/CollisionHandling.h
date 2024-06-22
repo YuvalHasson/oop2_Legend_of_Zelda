@@ -14,6 +14,7 @@
 #include "Octorok.h"
 #include "PigWarrior.h"
 #include "Sword.h"
+#include "Shield.h"
 #include "OctorokProjectile.h"
 #include "Boulder.h"
 #include "LinkArrow.h"
@@ -27,3 +28,5 @@ struct UnknownCollision : public std::runtime_error
 };
 
 void processCollision(GameObject&, GameObject&);
+
+sf::Vector2i getCollisionDirection(GameObject&, GameObject&);
