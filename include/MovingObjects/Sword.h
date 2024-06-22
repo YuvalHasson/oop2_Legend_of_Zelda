@@ -1,23 +1,17 @@
 #pragma once
 
-#include "MovingObjects.h"
+#include "Inanimate.h"
 
-
-class Sword : public MovingObjects{
+class Sword : public Inanimate
+{
 public:
     Sword(const sf::Texture&, const sf::Vector2f&);
 
-    //moving object part
-    virtual void update(const sf::Time& deltaTime)override;
-    const sf::Vector2u& getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
-
-    //weapon part
-    virtual void handleCollision() override;
-    void activate(const sf::Vector2f& position, const sf::Vector2i& direction);
+    virtual void update(const sf::Time&) override;
+    void activate(const sf::Vector2f&, const sf::Vector2i&);
     void deActivate();
-    bool getActive()const;
-    void setActive(bool active);
-
+    bool getActive() const;
+    void setActive(const bool&);
 
 private:
     bool m_active;

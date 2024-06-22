@@ -85,6 +85,6 @@ sf::IntRect Animation::getuvRect()const{
     return m_uvRect;
 }
 
-bool Animation::isDone()const{
+bool Animation::isDone() const{
     return m_singleTime && (m_currentImage >= m_imageCount - 1) && (m_switchTime - m_timePassed <= 0);
 }

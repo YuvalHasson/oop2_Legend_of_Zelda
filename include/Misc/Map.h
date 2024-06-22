@@ -10,9 +10,11 @@
 #include <sstream>
 #include <map>
 
-#include "Enemy.h"
 #include "StaticObjects.h"
-//#include "BadFileName.h"
+#include "PigWarrior.h"
+#include "Octorok.h"
+
+#include "BadFileName.h"
 
 class Link;
 
@@ -26,14 +28,14 @@ public:
 
 	void setMap();
 	void initVector(Cell);
-	std::vector<std::unique_ptr<MovingObjects>>& getEnemyObjects(Link* link);
+	std::vector<std::unique_ptr<Animate>>& getEnemyObjects(Link*);
 	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects();
 
 	std::map<int, std::string> getDict() const;
 
 private:
 	std::map<int, std::string> m_dict;
-	std::vector<std::unique_ptr<MovingObjects>> m_enemyObjects;
+	std::vector<std::unique_ptr<Animate>> m_enemyObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 
 	std::vector<std::pair<std::string,Cell>> m_map;
