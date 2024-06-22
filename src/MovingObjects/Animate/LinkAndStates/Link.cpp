@@ -91,6 +91,10 @@ void Link::update(const sf::Time& deltaTime){
     updateSprite();
 }
 
+void Link::move(){
+    MovingObjects::move();
+    NotifyObservers();
+}
 
 void Link::swipeSword()
 {
@@ -126,18 +130,8 @@ Sword* Link::getSword(){
 }
 
 void Link::draw(sf::RenderTarget& target){
+    GameObject::draw(target);
     m_sword->draw(target);
-    target.draw(getSprite());
-
-    //draw hitbox for debugging
-    sf::RectangleShape rect;
-    rect.setPosition(getHitBox().GetRect().left, getHitBox().GetRect().top);
-    rect.setSize(sf::Vector2f(getHitBox().GetRect().width, getHitBox().GetRect().height));
-    rect.setFillColor(sf::Color::Transparent);
-    rect.setOutlineColor(sf::Color::Blue);
-    rect.setOutlineThickness(1);
-    target.draw(rect);
-
 }
 void Link::setPush(bool isPushing)
 {
@@ -177,4 +171,19 @@ std::unique_ptr<Inanimate> Link::getAttack()
         return std::move(m_arrow);
     }
     return nullptr;
+}
+
+//-------------observer list functions--------------
+void Link::RegisterObserver(LinkObserver* observer){
+    m_observers.push_back(observer);
+}
+
+void Link::RemoveObserver(LinkObserver* observer){
+    m_observers.erase(remove(m_observers.begin(), m_observers.end(), observer), m_observers.end());
+}
+
+void Link::NotifyObservers(){
+        for(const auto& observer: m_observers){
+            observer->updateLinkPosition(getPosition());
+        }
 }

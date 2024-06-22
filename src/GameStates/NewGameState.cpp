@@ -4,8 +4,8 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	:State(window), m_background(), m_board(), m_view(sf::FloatRect(sf::Vector2f(80.f, 140.f), sf::Vector2f(250.f, 165.f)))
 {
 	m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
-	m_board.setMap();
 	m_board.makeLink();
+	m_board.setMap();
 
 	m_view.setCenter(m_board.getLink().getPosition()); //think about a better way to get link position.
 

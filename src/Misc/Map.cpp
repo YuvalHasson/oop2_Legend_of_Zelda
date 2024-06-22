@@ -1,4 +1,6 @@
 #include "Map.h"
+#include "Link.h"
+#include "PigWarrior.h"
 
 Map::Map()
 {
@@ -158,6 +160,7 @@ std::vector<std::unique_ptr<Animate>>& Map::getEnemyObjects()
 	}
 	if (auto p1 = Factory<Animate>::instance()->create("PigWarrior", { 32.f, 150.f }))
 	{
+		p1->registerAsLinkObserver(link);
 		m_enemyObjects.emplace_back(std::move(p1));
 	}
 	return m_enemyObjects;

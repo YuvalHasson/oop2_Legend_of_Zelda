@@ -5,18 +5,26 @@
 #include "LinkStandingState.h"
 #include "Sword.h"
 #include "LinkArrow.h"
+#include "LinkSubject.h"
 
 const sf::Time invincibilityTime(sf::seconds(2));
 
-class Link : public Animate
+class Link : public Animate, public LinkSubject
 {
 public:
 	Link(const sf::Texture&, const sf::Vector2f&);
 
 	virtual void update(const sf::Time& deltaTime) override;
 	virtual void draw(sf::RenderTarget& ) override;
-	void insertSword(Sword*);
+
 	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
+	virtual void move()override;
+
+	//observer list functions
+	virtual void RegisterObserver(LinkObserver* observer)override;
+	virtual void RemoveObserver(LinkObserver* observer)override;
+	virtual void NotifyObservers()override;
+
 
 	void swipeSword();
 	void stopSwordSwipe();
@@ -41,5 +49,6 @@ private:
 	bool m_isShooting;
 	bool m_wasTabPressed;
   	static bool m_registerit;
+	std::vector<LinkObserver*> m_observers;
 
 };

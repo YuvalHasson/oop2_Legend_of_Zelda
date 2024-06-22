@@ -15,6 +15,8 @@
 
 #include "BadFileName.h"
 
+class Link;
+
 class Map
 {
 public:
