@@ -13,8 +13,6 @@ public:
 
     virtual void draw(sf::RenderTarget&);
     
-	virtual void handleCollision() = 0;
-
     void destroy();
     bool isDestroyed() const;
     void setPosition(const sf::Vector2f&);
@@ -23,7 +21,7 @@ public:
 
     bool checkCollision(const GameObject& other)const;
 
-    HitBox getHitBox(); // for debugging
+    HitBox getHitBox() const; // for debugging
 
 	//temp get?
 	sf::Sprite& getSprite() { return m_sprite; }

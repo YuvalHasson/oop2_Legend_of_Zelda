@@ -10,7 +10,6 @@
 #include <memory>
 #include <fstream>
 #include <sstream>
-#include "PigWarrior.h"
 
 #include "Misc/CollisionHandling.h"
 #include "Misc/Map.h"
@@ -28,10 +27,8 @@ public:
 
 	void draw(sf::RenderTarget&, sf::FloatRect&);
 	void addProjectileToMoving();
-	void addSwordOfPig();
 	void makeLink();
-	void move(const sf::Time&);
-	void update(const sf::Time& deltaTime);
+	void update(const sf::Time&);
 	void handleCollision();
 	void setMap();
 
@@ -41,8 +38,8 @@ public:
 	bool isAttacking() const;
 
 private:
-	std::vector<std::unique_ptr<MovingObjects>> m_movingObjects;
-	std::vector<std::unique_ptr<Enemy>> m_enemies;
+	std::vector<std::unique_ptr<Animate>> m_animateObjects;
+	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 	std::unique_ptr<Link> m_link;
 	Map m_map;
