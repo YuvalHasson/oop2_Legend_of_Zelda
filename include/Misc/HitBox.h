@@ -11,6 +11,7 @@ public:
 
     bool checkCollision(const HitBox&)const;
     sf::FloatRect GetRect();
+    void setBox(const sf::Vector2f&, const sf::Vector2f&);
 
 private: 
     sf::FloatRect m_rect;

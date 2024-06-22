@@ -19,3 +19,9 @@ bool HitBox::checkCollision(const HitBox& other)const{
 sf::FloatRect HitBox::GetRect(){
     return m_rect;
 }
+
+void HitBox::setBox(const sf::Vector2f& size, const sf::Vector2f& offset){
+    m_rect.width = size.x;
+    m_rect.height = size.y;
+    m_originOffset = offset;
+}

@@ -2,7 +2,7 @@
 #include <iostream>
 
 Animation::Animation(): m_singleImgFlip(false), m_flip(false), m_timePassed(0),
-     m_switchTime(0.17f), m_singleTime(false){
+     m_switchTime(0.1f), m_singleTime(false){
     m_uvRect.width = tileSize;
     m_uvRect.height = tileSize;
 }

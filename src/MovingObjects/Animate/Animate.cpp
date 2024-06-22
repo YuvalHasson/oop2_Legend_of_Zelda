@@ -11,8 +11,8 @@ void Animate::move()
 	{
 		if (!(pushbackDuration - m_pushbackTimer.getElapsedTime() <= sf::Time(sf::seconds(0))))
 		{
-			newPos.x = getSprite().getPosition().x + (-getDirection().x * getSpeed() * 2);
-			newPos.y = getSprite().getPosition().y + (-getDirection().y * getSpeed() * 2);
+			newPos.x = getSprite().getPosition().x + (-m_collisionDirection.x * getSpeed());
+			newPos.y = getSprite().getPosition().y + (-m_collisionDirection.y * getSpeed());
 			setPosition(newPos);
 			getSprite().setPosition(newPos);
 		}
@@ -35,8 +35,9 @@ void Animate::setAttacking(const bool& attack)
 	m_attacking = attack;
 }
 
-void Animate::pushBack()
+void Animate::pushBack(const sf::Vector2i& direction)
 {
+	m_collisionDirection = direction;
 	m_isPushedback = true;
 	m_pushbackTimer.restart();
 }

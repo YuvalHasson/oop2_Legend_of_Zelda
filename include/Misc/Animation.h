@@ -16,7 +16,7 @@ public:
 
     //for when changing animation for an object
     //i.e if link has a shield or not
-    void setAnimation(sf::Vector2u, int, bool flip = false, bool singleTime = false, float switchTime = 0.17f);
+    void setAnimation(sf::Vector2u, int, bool flip = false, bool singleTime = false, float switchTime = 0.1f);
 
     //for single time animation(attacks)
     bool isDone()const;

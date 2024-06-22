@@ -16,6 +16,8 @@ public:
 	void setSpeed(int);
 	void setDirection(const sf::Vector2i&);
 	void undoMove();
+	void pushBack(const sf::Vector2i&);
+
 	sf::Vector2i getDirection() const;
 
 protected:
@@ -26,4 +28,6 @@ private:
 	Animation m_animation;
 	sf::Vector2i m_direction;
 	int m_speed;
+	
+
 };

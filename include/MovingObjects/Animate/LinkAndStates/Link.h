@@ -3,9 +3,11 @@
 #include "Animate.h"
 #include "LinkState.h"
 #include "LinkStandingState.h"
+#include "LinkShieldStandingState.h"
 #include "Sword.h"
 #include "LinkArrow.h"
 #include "LinkSubject.h"
+#include "Shield.h"
 
 const sf::Time invincibilityTime(sf::seconds(2));
 
@@ -35,19 +37,24 @@ public:
 	void initializeInvincible();
 
 	Sword* getSword();
+	Shield* getShield();
 	virtual std::unique_ptr<Inanimate> getAttack() override;
+
 
 	void setPush(bool);
 	bool isPush() const;
 	bool getShooting() const;
+	bool getShielding()const;
 private:
 	std::unique_ptr<LinkState> m_state;
 	std::unique_ptr<Sword> m_sword;
 	std::unique_ptr<LinkArrow> m_arrow;
+	std::unique_ptr<Shield> m_shield;
 	sf::Clock m_invincibleTimer;
 	bool m_isPushing;
 	bool m_isShooting;
 	bool m_wasTabPressed;
+	bool m_isShielding;
   	static bool m_registerit;
 	std::vector<LinkObserver*> m_observers;
 

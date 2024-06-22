@@ -54,7 +54,7 @@ namespace
 		if (linkPtr)
 		{
 			if(!linkPtr->getInvincible()){
-				linkPtr->pushBack();
+				linkPtr->pushBack(getCollisionDirection(link, octorok));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
 			}
@@ -70,7 +70,7 @@ namespace
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (octorokPtr)
-		{
+		{	
 			octorokPtr->undoMove();
 		}
 	}
@@ -100,7 +100,7 @@ namespace
 		if (octorokPtr && swordPtr)
 		{	
 			if(swordPtr->getActive()){
-				octorokPtr->pushBack();
+				octorokPtr->pushBack(-getCollisionDirection(sword, octorok));
 				octorokPtr->setHp(octorokPtr->getHp() - 1);
 				swordPtr->setActive(false);
 			}
@@ -140,7 +140,7 @@ namespace
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
 		{
-			linkPtr->pushBack();
+			linkPtr->pushBack(getCollisionDirection(octorokProjectile, link));
 			linkPtr->initializeInvincible();
 			linkPtr->setHp(linkPtr->getHp() - 1);
 
@@ -327,7 +327,7 @@ namespace
 		if (pigWarriorPtr && swordPtr)
 		{
 			if (swordPtr->getActive()) {
-				pigWarriorPtr->pushBack();
+				pigWarriorPtr->pushBack(-getCollisionDirection(sword, pigWarrior));
 				pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
 				swordPtr->setActive(false);
 			}
@@ -344,7 +344,7 @@ namespace
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
 		if (octorokPtr && arrowPtr)
 		{	
-			octorokPtr->pushBack();
+			octorokPtr->pushBack(-getCollisionDirection(arrow, octorok));
 			octorokPtr->setHp(octorokPtr->getHp() - 1);
 			arrowPtr->destroy();
 		}
@@ -366,6 +366,36 @@ namespace
 			arrowPtr->destroy();
 		}
 	}
+
+	void ShieldOctorok(GameObject& shield, GameObject& octorok){
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
+		sf::Vector2i direction = getCollisionDirection(shield, octorok);
+		if (octorokPtr && shieldPtr)
+		{
+			octorokPtr->pushBack(-direction);
+			shieldPtr->pushBack(direction);
+		}
+	}
+
+	void OctorokShield(GameObject& octorok, GameObject& shield){
+		ShieldOctorok(shield, octorok);
+	}
+
+	void ShieldOctorokProjectile(GameObject& shield, GameObject& octoProjectile){
+		OctorokProjectile* octoProjectilePtr = dynamic_cast<OctorokProjectile*>(&octoProjectile);
+		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
+		sf::Vector2i direction = getCollisionDirection(shield, octoProjectile);
+		if (octoProjectilePtr && shieldPtr)
+		{
+			octoProjectilePtr->setDirection(-direction);
+			// shieldPtr->pushBack(direction);
+		}
+	}
+	void OctorokProjectileShield(GameObject& octoProjectile, GameObject& shield){
+		ShieldOctorokProjectile(shield, octoProjectile);
+	}
+
 
 	void WallLinkArrow(GameObject& wall, GameObject& arrow) 
 	{
@@ -431,7 +461,10 @@ namespace
 		phm[Key(typeid(LinkArrow), typeid(Octorok))] =			&LinkArrowOctorok;
 		phm[Key(typeid(LinkArrow), typeid(Link))] =				&LinkArrowLink;
 		phm[Key(typeid(LinkArrow), typeid(Wall))] =				&LinkArrowWall;
-
+		phm[Key(typeid(Shield), typeid(Octorok))] = &ShieldOctorok;
+		phm[Key(typeid(Octorok), typeid(Shield))] = &OctorokShield;
+		phm[Key(typeid(Shield), typeid(OctorokProjectile))] = &ShieldOctorokProjectile;
+		phm[Key(typeid(OctorokProjectile), typeid(Shield))] = &OctorokProjectileShield;
 
 
 		//...
@@ -460,4 +493,24 @@ void processCollision(GameObject& object1, GameObject& object2)
 	phf(object1, object2);
 	
 
+}
+
+sf::Vector2i getCollisionDirection(GameObject& a, GameObject& b){
+    sf::Vector2f pos1 = a.getPosition();
+    sf::Vector2f pos2 = b.getPosition();
+
+    // Calculate the vector from object1 to object2
+    sf::Vector2f direction = pos2 - pos1;
+
+    // Normalize the direction vector
+    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+    if (length != 0) {
+        direction.x /= length;
+        direction.y /= length;
+    }
+
+    // Convert to sf::Vector2i with values -1, 0, or 1
+    sf::Vector2i intDirection(static_cast<int>(std::round(direction.x)), static_cast<int>(std::round(direction.y)));
+
+    return intDirection;
 }

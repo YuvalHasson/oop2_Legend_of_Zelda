@@ -60,3 +60,7 @@ HitBox GameObject::getHitBox() const
 {
     return m_hitBox;
 }
+
+void GameObject::setHitBox(const sf::Vector2f& size, const sf::Vector2f& offset){
+    m_hitBox.setBox(size,offset);
+}

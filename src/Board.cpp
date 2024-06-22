@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Sword.h"
+#include "Shield.h"
 #include "Boulder.h"
 
 #include <iostream> // debug
@@ -101,6 +102,7 @@ void Board::handleCollision()
 	{
 		//if link is attacking get the sword from link and check its collision with enemies
 		Sword* sword = m_link->getSword();
+		Shield* shield = m_link->getShield();
 
 
 		//link and static objects
@@ -129,6 +131,12 @@ void Board::handleCollision()
 					processCollision(*sword, *movingObject);
 				}
 			}
+			if(shield){
+				if (colide(*shield, *movingObject))
+				{
+					processCollision(*shield, *movingObject);
+				}
+			}
 			if (colide(*m_link, *movingObject))
 			{
 				processCollision(*m_link, *movingObject);
@@ -136,18 +144,18 @@ void Board::handleCollision()
 		}
 
 		//link, sword and inanimate objects
-		for(const auto& movingObject : m_inanimateObjects)
+		for(const auto& object : m_inanimateObjects)
 		{
 			if (sword)
 			{
-				if (colide(*sword, *movingObject))
+				if (colide(*sword, *object))
 				{
-					processCollision(*sword, *movingObject);
+					processCollision(*sword, *object);
 				}
 			}
-			if (colide(*m_link, *movingObject))
+			if (colide(*m_link, *object))
 			{
-				processCollision(*m_link, *movingObject);
+				processCollision(*m_link, *object);
 			}
 		}
 

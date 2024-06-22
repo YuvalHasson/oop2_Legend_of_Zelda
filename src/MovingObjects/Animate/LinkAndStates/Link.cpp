@@ -13,6 +13,7 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     sf::Vector2f(tileSize/5, tileSize / 10)),
     m_state(std::make_unique<LinkStandingState>()),
     m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })),
+    m_shield(Factory<Shield>::instance()->create("Shield", { 0,0 })),
     m_isPushing(false), m_wasTabPressed(false),
     m_isShooting(false), m_arrow(nullptr)
 {
@@ -23,14 +24,28 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 
 void Link::update(const sf::Time& deltaTime){
 
+    Input input;
     bool up     = sf::Keyboard::isKeyPressed(sf::Keyboard::Up)      || sf::Keyboard::isKeyPressed(sf::Keyboard::W);
     bool down   = sf::Keyboard::isKeyPressed(sf::Keyboard::Down)    || sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool right  = sf::Keyboard::isKeyPressed(sf::Keyboard::Right)   || sf::Keyboard::isKeyPressed(sf::Keyboard::D);
     bool left   = sf::Keyboard::isKeyPressed(sf::Keyboard::Left)    || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     bool space  = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     bool tab    = sf::Keyboard::isKeyPressed(sf::Keyboard::Tab);
+    bool b    = sf::Keyboard::isKeyPressed(sf::Keyboard::B);
     
-    Input input;
+    //check for shield
+    if(b){
+        m_isShielding = true;
+        m_shield->activate(getPosition(), getDirection());
+    }
+    else{
+        m_isShielding = false;
+        m_shield->deActivate();
+    }
+    if(m_shield->getCollided()){
+        pushBack(m_shield->getCollisionDirection());
+    }
+
     if(space)
     {
         input = PRESS_SPACE;
@@ -76,7 +91,7 @@ void Link::update(const sf::Time& deltaTime){
         m_isShooting = !m_isShooting;
     }
     m_wasTabPressed = tab;
-    std::unique_ptr<LinkState> state = m_state->handleInput(input);
+    std::unique_ptr<LinkState> state = m_state->handleInput(input, m_isShielding);
 
     if(state)
     {
@@ -130,9 +145,17 @@ Sword* Link::getSword(){
     return nullptr;
 }
 
+Shield* Link::getShield(){
+    if(m_isShielding){
+        return m_shield.get();
+    }
+    return nullptr;
+}
+
 void Link::draw(sf::RenderTarget& target){
     GameObject::draw(target);
     m_sword->draw(target);
+    m_shield->draw(target);
 }
 void Link::setPush(bool isPushing)
 {
