@@ -11,8 +11,6 @@
 #include <fstream>
 #include <sstream>
 
-#include "PigWarrior.h"
-
 #include "Misc/CollisionHandling.h"
 #include "Misc/Map.h"
 #include "Misc/Factory.h"
