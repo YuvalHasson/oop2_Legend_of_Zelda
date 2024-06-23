@@ -31,6 +31,7 @@ public:
 	void update(const sf::Time&);
 	void handleCollision();
 	void setMap();
+	void enterLevel(const Level&);
 
 	//temp get
 	const Link& getLink() const { return *m_link; }
@@ -42,6 +43,9 @@ private:
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 	std::unique_ptr<Link> m_link;
+
+	sf::Sprite m_background;
+
 	Map m_map;
 
 

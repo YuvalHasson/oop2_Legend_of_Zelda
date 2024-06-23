@@ -31,7 +31,7 @@ void Link::update(const sf::Time& deltaTime){
     bool left   = sf::Keyboard::isKeyPressed(sf::Keyboard::Left)    || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     bool space  = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     bool tab    = sf::Keyboard::isKeyPressed(sf::Keyboard::Tab);
-    bool b    = sf::Keyboard::isKeyPressed(sf::Keyboard::B);
+    bool b      = sf::Keyboard::isKeyPressed(sf::Keyboard::B);
     
     //check for shield
     if(b){

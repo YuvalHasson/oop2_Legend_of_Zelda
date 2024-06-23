@@ -1,7 +1,7 @@
 #include "GameRunningState.h"
 
-GameRunningState::GameRunningState(sf::RenderWindow* window, Board&& board, sf::View&& view, sf::Sprite background)
-	:State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background),
+GameRunningState::GameRunningState(sf::RenderWindow* window, Board&& board, sf::View&& view)
+	:State(window), m_board(std::move(board)), m_view(std::move(view)), m_level(Level::MAIN),
 	m_statusBar(board.getLink().getHp(), board.getLink().getShooting())
 {
 	setCenterView();
@@ -37,7 +37,6 @@ void GameRunningState::render(sf::RenderTarget* target)
 		target = getWindow();
 	}
 	target->setView(m_view);
-	target->draw(m_background);
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() / 2.f, target->getView().getSize());
 	m_board.draw(*target, viewBound);
 
@@ -60,9 +59,11 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 		getWindow()->close();
 		return nullptr;
 	case GAME_STATE::PAUSE_MENU:
-		return std::make_unique<PauseMenu>(getWindow(), std::move(m_board), std::move(m_view), m_background);
+		return std::make_unique<PauseMenu>(getWindow(), std::move(m_board), std::move(m_view));
 	case GAME_STATE::DEATH:
 		return std::make_unique<DeathState>(getWindow(), m_board.getLink().getPosition(), std::move(m_view));
+	case GAME_STATE::SWITCH_LEVEL:
+		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_board), std::move(m_view));
 	}
 	return nullptr;
 }

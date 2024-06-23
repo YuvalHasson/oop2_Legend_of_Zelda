@@ -1,7 +1,7 @@
 #include "PauseMenu.h"
 
-PauseMenu::PauseMenu(sf::RenderWindow* window, Board&& board, sf::View&& view, sf::Sprite background)
-	: State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background), m_volumeSlider(),
+PauseMenu::PauseMenu(sf::RenderWindow* window, Board&& board, sf::View&& view)
+	: State(window), m_board(std::move(board)), m_view(std::move(view)), m_volumeSlider(),
 	m_pauseBackground(sf::Vector2f(WindowWidth * 1.2f, windowHeight / 1.3f))
 {
 	setCenterView();
@@ -32,7 +32,6 @@ void PauseMenu::render(sf::RenderTarget* target)
 		target = getWindow();
 	}
 	target->setView(m_view);
-	target->draw(m_background);
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() / 2.f, target->getView().getSize());
 	m_board.draw(*target, viewBound);
 
@@ -58,7 +57,7 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 		return nullptr;
 	case GAME_STATE::GAME_RUNNING:
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
-		return std::make_unique<GameRunningState>(getWindow(), std::move(m_board), std::move(m_view), m_background);
+		return std::make_unique<GameRunningState>(getWindow(), std::move(m_board), std::move(m_view));
 	}
 	return nullptr;
 }

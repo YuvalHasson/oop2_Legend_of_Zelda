@@ -5,7 +5,6 @@
 Map::Map()
 {
 	setDict(m_dict);
-	setMap();
 }
 
 std::map<int, std::string> Map::getDict() const
@@ -75,9 +74,9 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(-1610612462, "Wall" );
 }
 
-void Map::setMap()
+void Map::setMap(const std::string& mapName)
 {
-	std::string gameMap = "Map.csv";
+	std::string gameMap = mapName;
 
 	try
 	{

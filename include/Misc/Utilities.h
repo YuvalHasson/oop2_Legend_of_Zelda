@@ -7,6 +7,11 @@ const int OBJ_AMOUNT = 7;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
+enum Level
+{
+	MAIN,
+	FIRST_DUNGEON,
+};
 
 enum GAME_STATE {
 	MAIN_MENU,
@@ -17,7 +22,8 @@ enum GAME_STATE {
 	SETTINGS,
 	PAUSE_MENU,
 	DEATH,
-	GAME_OVER
+	GAME_OVER,
+	SWITCH_LEVEL
 };
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector

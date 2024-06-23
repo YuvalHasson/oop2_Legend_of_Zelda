@@ -1,14 +1,13 @@
 #pragma once
 
 #include "State.h"
-#include "MainMenu.h"
-#include "GameRunningState.h"
 #include "Board.h"
+#include "GameRunningState.h"
 
-class NewGameState : public State
+class SwitchLevelState : public State
 {
 public:
-	NewGameState(sf::RenderWindow*);
+	SwitchLevelState(sf::RenderWindow*, Board&&, sf::View&&);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;
@@ -16,7 +15,6 @@ public:
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) override;
 
 private:
-
-	Board m_board;
 	sf::View m_view;
+	Board m_board;
 };

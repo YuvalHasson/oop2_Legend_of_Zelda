@@ -14,7 +14,7 @@ using Option = std::pair<std::string, std::unique_ptr<Button>>;
 class PauseMenu : public State
 {
 public:
-	PauseMenu(sf::RenderWindow*, Board&&, sf::View&&, sf::Sprite);
+	PauseMenu(sf::RenderWindow*, Board&&, sf::View&&);
 	
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;
@@ -30,7 +30,6 @@ private:
 
 	Board m_board;
 	sf::View m_view;
-	sf::Sprite m_background;
 
 	sf::RectangleShape m_pauseBackground;
 

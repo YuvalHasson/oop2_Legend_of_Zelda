@@ -6,11 +6,12 @@
 #include "PauseMenu.h"
 #include "StatusBar.h"
 #include "DeathState.h"
+#include "SwitchLevelState.h"
 
 class GameRunningState : public State
 {
 public:
-	GameRunningState(sf::RenderWindow*, Board&&, sf::View&&, sf::Sprite);
+	GameRunningState(sf::RenderWindow*, Board&&, sf::View&&);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;
@@ -21,8 +22,10 @@ private:
 
 	void setCenterView();
 
+	Level m_level;
+
 	StatusBar m_statusBar;
 	Board m_board;
+	//std::vector<Board> m_boardLevels;
 	sf::View m_view;
-	sf::Sprite m_background;
 };
