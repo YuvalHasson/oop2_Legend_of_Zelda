@@ -56,6 +56,7 @@ namespace TEXTURE
 	constexpr int Enemies = 4;
 	constexpr int StatusBar = 5;
 	constexpr int GameOver = 6;
+	constexpr int Dungeon1 = 7;
 }
 
 namespace BACKGROUND_SOUND

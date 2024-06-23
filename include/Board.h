@@ -35,6 +35,8 @@ public:
 
 	//temp get
 	const Link& getLink() const { return *m_link; }
+	void setLinkPosition(const sf::Vector2f& pos) { m_link->setPosition(pos); }
+	//tmp ??
 
 	bool isAttacking() const;
 

@@ -7,7 +7,7 @@
 class SwitchLevelState : public State
 {
 public:
-	SwitchLevelState(sf::RenderWindow*, Board&&, sf::View&&);
+	SwitchLevelState(sf::RenderWindow*, std::vector<Board>&&, sf::View&&, Level);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;
@@ -15,6 +15,7 @@ public:
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) override;
 
 private:
+	Level m_level;
 	sf::View m_view;
-	Board m_board;
+	std::vector<Board> m_boardLevels;
 };

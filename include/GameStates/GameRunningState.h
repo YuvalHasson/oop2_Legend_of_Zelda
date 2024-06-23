@@ -11,7 +11,7 @@
 class GameRunningState : public State
 {
 public:
-	GameRunningState(sf::RenderWindow*, Board&&, sf::View&&);
+	GameRunningState(sf::RenderWindow*, std::vector<Board>&&, sf::View&&);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;
@@ -25,7 +25,7 @@ private:
 	Level m_level;
 
 	StatusBar m_statusBar;
-	Board m_board;
-	//std::vector<Board> m_boardLevels;
+	//Board m_board;
+	std::vector<Board> m_boardLevels;
 	sf::View m_view;
 };

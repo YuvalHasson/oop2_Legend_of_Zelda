@@ -7,6 +7,7 @@
 class StatusBar
 {
 public:
+	StatusBar();
 	StatusBar(int, bool);
 	~StatusBar() = default;
 

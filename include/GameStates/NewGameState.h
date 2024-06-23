@@ -16,7 +16,7 @@ public:
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) override;
 
 private:
-
-	Board m_board;
+	void setMap();
+	std::vector<Board> m_boardLevels;
 	sf::View m_view;
 };

@@ -221,6 +221,10 @@ void Board::enterLevel(const Level& level)
 		m_map.setMap("Map.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
 		break;
+	case Level::FIRST_DUNGEON:
+		m_map.setMap("Dungeon1.csv");
+		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon1));
+		break;
 	}
 }
 

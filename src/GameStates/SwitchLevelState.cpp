@@ -1,7 +1,7 @@
 #include "SwitchLevelState.h"
 
-SwitchLevelState::SwitchLevelState(sf::RenderWindow* window, Board&& baord, sf::View&& view)
-	:State(window), m_board(std::move(baord)), m_view(std::move(view))
+SwitchLevelState::SwitchLevelState(sf::RenderWindow* window, std::vector<Board>&& baord, sf::View&& view, Level level)
+	:State(window), m_boardLevels(std::move(baord)), m_view(std::move(view)), m_level(level)
 {
 }
 
@@ -23,7 +23,7 @@ std::unique_ptr<State> SwitchLevelState::handleInput(const GAME_STATE& gameState
 {
 	if (gameState == GAME_STATE::GAME_RUNNING)
 	{
-		return std::make_unique<GameRunningState>(getWindow(), std::move(m_board), std::move(m_view));
+		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view));
 	}
 	else if (gameState == GAME_STATE::EXIT)
 	{
