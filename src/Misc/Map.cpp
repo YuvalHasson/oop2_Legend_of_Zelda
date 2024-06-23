@@ -72,6 +72,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(-1073741511, "Wall" );
 	dict.emplace(-1610612461, "Wall" );
 	dict.emplace(-1610612462, "Wall" );
+	dict.emplace(51, "Door");
 }
 
 void Map::setMap(const std::string& mapName)

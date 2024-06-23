@@ -7,8 +7,6 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	auto linkPos = m_boardLevels[Level::MAIN].getLink().getPosition();
 	m_view.setCenter(linkPos); //think about a better way to get link position.
 
-
-
 	SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 }
 

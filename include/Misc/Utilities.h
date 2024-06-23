@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 7;
+const int OBJ_AMOUNT = 8;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
