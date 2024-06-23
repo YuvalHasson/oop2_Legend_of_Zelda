@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <iostream> // debug
 
 #include <SFML/Graphics.hpp>
 
@@ -34,7 +35,7 @@ std::unique_ptr<T> Factory<T>::create(const std::string& name, const sf::Vector2
 {
 	auto it = m_map.find(name);
 	if (it == m_map.end())
-	{
+	{	
 		return nullptr;
 	}
 	return it->second(position);
@@ -44,5 +45,5 @@ template<typename T>
 bool Factory<T>::registerit(const std::string& name, std::unique_ptr<T>(*f)(const sf::Vector2f&))
 {
 	m_map.emplace(name, f);
-	return false;
+	return true;
 }

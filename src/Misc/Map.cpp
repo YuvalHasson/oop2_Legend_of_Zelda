@@ -1,6 +1,6 @@
 #include "Map.h"
 #include "Link.h"
-#include "PigWarrior.h"
+
 
 Map::Map()
 {
@@ -84,7 +84,7 @@ void Map::setMap()
 		auto map = std::ifstream(gameMap);
 		if (!map)
 		{
-			throw std::runtime_error("Unknown character in map file");  /*BadFileName();*/
+			throw BadFileName();
 		}
 
 		m_enemyObjects.clear();
@@ -111,12 +111,11 @@ void Map::setMap()
 			}
 			currentRow++;
 		}
-		//m_enemyObjects = Factory::createEnemies(); // probobly change
 
 		// Close the file
 		map.close();
 	}
-	catch (const std::runtime_error& e)
+	catch (const BadFileName& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}
@@ -152,19 +151,18 @@ void Map::initVector(Cell cell)
 
 }
 
-std::vector<std::unique_ptr<MovingObjects>>& Map::getEnemyObjects(Link* link)
-{	
+std::vector<std::unique_ptr<Animate>>& Map::getEnemyObjects(Link* link)
+{
 	//tmp create
-	if (auto p = Factory<MovingObjects>::instance()->create("Octorok", { 70.f, 150.f }))
+	if (auto p = Factory<Octorok>::instance()->create("Octorok", { 70.f, 150.f }))
 	{
 		m_enemyObjects.emplace_back(std::move(p));
 	}
-	if (auto p1 = Factory<PigWarrior>::instance()->create("PigWarrior", { 32.f, 150.f }))
-	{
-		p1->registerAsLinkObserver(link);
-		m_enemyObjects.emplace_back(std::move(p1));
-	}
-
+	// if (auto p1 = Factory<PigWarrior>::instance()->create("PigWarrior", { 32.f, 150.f }))
+	// {
+	// 	p1->registerAsLinkObserver(link);
+	// 	m_enemyObjects.emplace_back(std::move(p1));
+	// }
 	return m_enemyObjects;
 }
 

@@ -8,7 +8,7 @@ bool Sword::m_registerit = Factory<Sword>::instance()->registerit("Sword",
     });
 
 Sword::Sword(const sf::Texture& texture, const sf::Vector2f& position)
-    : MovingObjects(texture, position, sf::Vector2f(12,12), sf::Vector2f(12/2, 12/2)), m_active(false) {}
+    : Inanimate(texture, position, sf::Vector2f(12,12), sf::Vector2f(12/2, 12/2)), m_active(false) {}
     
 void Sword::activate(const sf::Vector2f& position, const sf::Vector2i& direction){
     m_active = true;
@@ -56,17 +56,19 @@ void Sword::deActivate(){
     getSprite().setColor(color);
 }
 
-bool Sword::getActive()const{
+bool Sword::getActive() const
+{
     return m_active;
 }
-void Sword::setActive(bool active){
+
+void Sword::setActive(const bool& active)
+{
     m_active = active; 
 }
 
-void Sword::update(const sf::Time& deltaTime){
-        updateGraphics(deltaTime);
-        updateSprite();
-}
-void Sword::handleCollision(){
-
+void Sword::update(const sf::Time& deltaTime)
+{
+    //updateGraphics(deltaTime);
+    getAnimation().update(deltaTime);
+    updateSprite();
 }

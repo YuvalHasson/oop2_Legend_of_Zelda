@@ -7,8 +7,6 @@ namespace
 {
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
-		link.handleCollision();
-
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
 		{
@@ -56,7 +54,7 @@ namespace
 		if (linkPtr)
 		{
 			if(!linkPtr->getInvincible()){
-				linkPtr->pushBack();
+				linkPtr->pushBack(getCollisionDirection(link, octorok));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
 			}
@@ -72,7 +70,7 @@ namespace
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (octorokPtr)
-		{
+		{	
 			octorokPtr->undoMove();
 		}
 	}
@@ -102,7 +100,7 @@ namespace
 		if (octorokPtr && swordPtr)
 		{	
 			if(swordPtr->getActive()){
-				octorokPtr->pushBack();
+				octorokPtr->pushBack(-getCollisionDirection(sword, octorok));
 				octorokPtr->setHp(octorokPtr->getHp() - 1);
 				swordPtr->setActive(false);
 			}
@@ -142,7 +140,7 @@ namespace
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
 		{
-			linkPtr->pushBack();
+			linkPtr->pushBack(getCollisionDirection(octorokProjectile, link));
 			linkPtr->initializeInvincible();
 			linkPtr->setHp(linkPtr->getHp() - 1);
 
@@ -286,7 +284,6 @@ namespace
 			linkPtr->undoMove();
 			if (linkPtr->isAttacking())
 			{
-				pigWarrior.handleCollision();
 			}
 		}
 	}
@@ -330,7 +327,7 @@ namespace
 		if (pigWarriorPtr && swordPtr)
 		{
 			if (swordPtr->getActive()) {
-				pigWarriorPtr->pushBack();
+				pigWarriorPtr->pushBack(-getCollisionDirection(sword, pigWarrior));
 				pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
 				swordPtr->setActive(false);
 			}
@@ -347,27 +344,62 @@ namespace
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
 		if (octorokPtr && arrowPtr)
 		{	
-			octorokPtr->pushBack();
+			octorokPtr->pushBack(-getCollisionDirection(arrow, octorok));
 			octorokPtr->setHp(octorokPtr->getHp() - 1);
 			arrowPtr->destroy();
 		}
 	}
 
-	void OctorokLinkArrow(GameObject& octorok, GameObject& arrow){
+	void OctorokLinkArrow(GameObject& octorok, GameObject& arrow)
+	{
 		LinkArrowOctorok(arrow, octorok);
 	}
 
-	void LinkLinkArrow(GameObject& link, GameObject& arrow){
-	}
-	void LinkArrowLink(GameObject& arrow, GameObject& link){
-	}
+	void LinkLinkArrow(GameObject& link, GameObject& arrow) {}
+	void LinkArrowLink(GameObject& arrow, GameObject& link) {}
 
-	void LinkArrowWall(GameObject& arrow, GameObject& wall){
+	void LinkArrowWall(GameObject& arrow, GameObject& wall)
+	{
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
 		if (arrowPtr)
 		{
 			arrowPtr->destroy();
 		}
+	}
+
+	void ShieldOctorok(GameObject& shield, GameObject& octorok){
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
+		sf::Vector2i direction = getCollisionDirection(shield, octorok);
+		if (octorokPtr && shieldPtr)
+		{
+			octorokPtr->pushBack(-direction);
+			shieldPtr->pushBack(direction);
+		}
+	}
+
+	void OctorokShield(GameObject& octorok, GameObject& shield){
+		ShieldOctorok(shield, octorok);
+	}
+
+	void ShieldOctorokProjectile(GameObject& shield, GameObject& octoProjectile){
+		OctorokProjectile* octoProjectilePtr = dynamic_cast<OctorokProjectile*>(&octoProjectile);
+		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
+		sf::Vector2i direction = getCollisionDirection(shield, octoProjectile);
+		if (octoProjectilePtr && shieldPtr)
+		{
+			octoProjectilePtr->setDirection(-direction);
+			// shieldPtr->pushBack(direction);
+		}
+	}
+	void OctorokProjectileShield(GameObject& octoProjectile, GameObject& shield){
+		ShieldOctorokProjectile(shield, octoProjectile);
+	}
+
+
+	void WallLinkArrow(GameObject& wall, GameObject& arrow) 
+	{
+		LinkArrowWall(arrow, wall);
 	}
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -379,56 +411,60 @@ namespace
 	HitMap initializeCollisionMap()
 	{
 		HitMap phm;
-		phm[Key(typeid(Link), typeid(Wall))] = &LinkWall;
-		phm[Key(typeid(Link), typeid(Pot))] = &LinkPot;
-		phm[Key(typeid(Link), typeid(WaterTile))] = &LinkWater;
-		phm[Key(typeid(Link), typeid(Octorok))] = &LinkOctorok;
-		phm[Key(typeid(Link), typeid(Projectile))] = &LinkOctoProjectile;
-		phm[Key(typeid(Link), typeid(Sword))] = &LinkSword;
-		phm[Key(typeid(Link), typeid(Boulder))] = &LinkBoulder;
-		phm[Key(typeid(Wall), typeid(Link))] = &WallLink; // ==> wall to link collision
-		phm[Key(typeid(Wall), typeid(Octorok))] = &WallOctorok;
-		phm[Key(typeid(Wall), typeid(Projectile))] = &WallOctoProjectile;
-		phm[Key(typeid(Wall), typeid(Sword))] = &WallSword;
-		phm[Key(typeid(Wall), typeid(Boulder))] = &WallBoulder;
-		phm[Key(typeid(Pot), typeid(Link))] = &PotLink; // ==> Pot to link collision
-		phm[Key(typeid(Pot), typeid(Sword))] = &PotSword;
-		phm[Key(typeid(Pot), typeid(Octorok))] = &PotOctorok;
-		phm[Key(typeid(WaterTile), typeid(Link))] = &WaterLink;
-		phm[Key(typeid(WaterTile), typeid(Octorok))] = &WaterOctorok;
-		phm[Key(typeid(Octorok), typeid(Link))] = &OctorokLink;
-		phm[Key(typeid(Octorok), typeid(Wall))] = &OctorokWall;
-		phm[Key(typeid(Octorok), typeid(WaterTile))] = &OctorokWater;
-		phm[Key(typeid(Octorok), typeid(Sword))] = &OctorokSword;
-		phm[Key(typeid(Octorok), typeid(Projectile))] = &OctorokProjectile;
-		phm[Key(typeid(Octorok), typeid(Boulder))] = &OctorockBoulder;
-		phm[Key(typeid(Octorok), typeid(Pot))] = &OctorokPot;
-		phm[Key(typeid(Sword), typeid(Octorok))] = &SwordOctorok;
-		phm[Key(typeid(Sword), typeid(Wall))] = &SwordWall;
-		phm[Key(typeid(Sword), typeid(Link))] = &SwordLink;
-		phm[Key(typeid(Sword), typeid(Pot))] = &SwordPot;
-		phm[Key(typeid(Projectile), typeid(Wall))] = &OctoProjectileWall;
-		phm[Key(typeid(Projectile), typeid(Link))] = &OctoProjectileLink;
-		phm[Key(typeid(Projectile), typeid(Octorok))] = &ProjectileOctorok;
-		phm[Key(typeid(Projectile), typeid(Boulder))] = &ProjectileBoulder;
-		phm[Key(typeid(Boulder), typeid(Link))] = &BoulderLink;
-		phm[Key(typeid(Boulder), typeid(Wall))] = &BoulderWall;
-		phm[Key(typeid(Boulder), typeid(Octorok))] = &BoulderOctorok;
-		phm[Key(typeid(Boulder), typeid(Projectile))] = &BoulderProjectile;
-		///
-		phm[Key(typeid(Link), typeid(PigWarrior))] = &LinkPigWarrior;
-		phm[Key(typeid(PigWarrior), typeid(Link))] = &PigWarriorLink;
-		phm[Key(typeid(PigWarrior), typeid(Wall))] = &PigWarriorWall;
-		phm[Key(typeid(Wall), typeid(PigWarrior))] = &WallPigWarrior;
-		phm[Key(typeid(PigWarrior), typeid(WaterTile))] = &PigWarriorWater;
-		phm[Key(typeid(WaterTile), typeid(PigWarrior))] = &WaterPigWarrior;
-		phm[Key(typeid(Sword), typeid(PigWarrior))] = &SwordPigWarrior;
-		phm[Key(typeid(PigWarrior), typeid(Sword))] = &PigWarriorSword;
-		phm[Key(typeid(LinkArrow), typeid(Octorok))] = &LinkArrowOctorok;
-		phm[Key(typeid(Octorok), typeid(LinkArrow))] = &OctorokLinkArrow;
-		phm[Key(typeid(Link), typeid(LinkArrow))] = &LinkLinkArrow;
-		phm[Key(typeid(LinkArrow), typeid(Link))] = &LinkArrowLink;
-		phm[Key(typeid(LinkArrow), typeid(Wall))] = &LinkArrowWall;
+		phm[Key(typeid(Link), typeid(Wall))] =					&LinkWall;
+		phm[Key(typeid(Link), typeid(Pot))] =					&LinkPot;
+		phm[Key(typeid(Link), typeid(WaterTile))] =				&LinkWater;
+		phm[Key(typeid(Link), typeid(Octorok))] =				&LinkOctorok;
+		phm[Key(typeid(Link), typeid(OctorokProjectile))] =		&LinkOctoProjectile;
+		phm[Key(typeid(Link), typeid(Sword))] =					&LinkSword;
+		phm[Key(typeid(Link), typeid(Boulder))] =				&LinkBoulder;
+		phm[Key(typeid(Link), typeid(PigWarrior))] =			&LinkPigWarrior;
+		phm[Key(typeid(Link), typeid(LinkArrow))] =				&LinkLinkArrow;
+		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
+		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
+		phm[Key(typeid(Wall), typeid(OctorokProjectile))] =		&WallOctoProjectile;
+		phm[Key(typeid(Wall), typeid(Sword))] =					&WallSword;
+		phm[Key(typeid(Wall), typeid(Boulder))] =				&WallBoulder;
+		phm[Key(typeid(Wall), typeid(PigWarrior))] =			&WallPigWarrior;
+		phm[Key(typeid(Wall), typeid(LinkArrow))] =				&WallLinkArrow;
+		phm[Key(typeid(Pot), typeid(Link))] =					&PotLink;
+		phm[Key(typeid(Pot), typeid(Sword))] =					&PotSword;
+		phm[Key(typeid(Pot), typeid(Octorok))] =				&PotOctorok;
+		phm[Key(typeid(WaterTile), typeid(Link))] =				&WaterLink;
+		phm[Key(typeid(WaterTile), typeid(Octorok))] =			&WaterOctorok;
+		phm[Key(typeid(WaterTile), typeid(PigWarrior))] =		&WaterPigWarrior;
+		phm[Key(typeid(Octorok), typeid(Link))] =				&OctorokLink;
+		phm[Key(typeid(Octorok), typeid(Wall))] =				&OctorokWall;
+		phm[Key(typeid(Octorok), typeid(WaterTile))] =			&OctorokWater;
+		phm[Key(typeid(Octorok), typeid(Sword))] =				&OctorokSword;
+		phm[Key(typeid(Octorok), typeid(OctorokProjectile))] =	&OctorokOctorokProjectile;
+		phm[Key(typeid(Octorok), typeid(Boulder))] =			&OctorockBoulder;
+		phm[Key(typeid(Octorok), typeid(Pot))] =				&OctorokPot;
+		phm[Key(typeid(Octorok), typeid(LinkArrow))] =			&OctorokLinkArrow;
+		phm[Key(typeid(Sword), typeid(Octorok))] =				&SwordOctorok;
+		phm[Key(typeid(Sword), typeid(Wall))] =					&SwordWall;
+		phm[Key(typeid(Sword), typeid(Link))] =					&SwordLink;
+		phm[Key(typeid(Sword), typeid(Pot))] =					&SwordPot;
+		phm[Key(typeid(Sword), typeid(PigWarrior))] =			&SwordPigWarrior;
+		phm[Key(typeid(OctorokProjectile), typeid(Wall))] =		&OctoProjectileWall;
+		phm[Key(typeid(OctorokProjectile), typeid(Link))] =		&OctoProjectileLink;
+		phm[Key(typeid(OctorokProjectile), typeid(Octorok))] =	&OctorokProjectileOctorok;
+		phm[Key(typeid(OctorokProjectile), typeid(Boulder))] =	&OctorokProjectileBoulder;
+		phm[Key(typeid(Boulder), typeid(Link))] =				&BoulderLink;
+		phm[Key(typeid(Boulder), typeid(Wall))] =				&BoulderWall;
+		phm[Key(typeid(Boulder), typeid(Octorok))] =			&BoulderOctorok;
+		phm[Key(typeid(Boulder), typeid(OctorokProjectile))] =	&BoulderOctorokProjectile;
+		phm[Key(typeid(PigWarrior), typeid(Link))] =			&PigWarriorLink;
+		phm[Key(typeid(PigWarrior), typeid(Wall))] =			&PigWarriorWall;
+		phm[Key(typeid(PigWarrior), typeid(WaterTile))] =		&PigWarriorWater;
+		phm[Key(typeid(PigWarrior), typeid(Sword))] =			&PigWarriorSword;
+		phm[Key(typeid(LinkArrow), typeid(Octorok))] =			&LinkArrowOctorok;
+		phm[Key(typeid(LinkArrow), typeid(Link))] =				&LinkArrowLink;
+		phm[Key(typeid(LinkArrow), typeid(Wall))] =				&LinkArrowWall;
+		phm[Key(typeid(Shield), typeid(Octorok))] = &ShieldOctorok;
+		phm[Key(typeid(Octorok), typeid(Shield))] = &OctorokShield;
+		phm[Key(typeid(Shield), typeid(OctorokProjectile))] = &ShieldOctorokProjectile;
+		phm[Key(typeid(OctorokProjectile), typeid(Shield))] = &OctorokProjectileShield;
 
 
 		//...
@@ -457,4 +493,24 @@ void processCollision(GameObject& object1, GameObject& object2)
 	phf(object1, object2);
 	
 
+}
+
+sf::Vector2i getCollisionDirection(GameObject& a, GameObject& b){
+    sf::Vector2f pos1 = a.getPosition();
+    sf::Vector2f pos2 = b.getPosition();
+
+    // Calculate the vector from object1 to object2
+    sf::Vector2f direction = pos2 - pos1;
+
+    // Normalize the direction vector
+    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+    if (length != 0) {
+        direction.x /= length;
+        direction.y /= length;
+    }
+
+    // Convert to sf::Vector2i with values -1, 0, or 1
+    sf::Vector2i intDirection(static_cast<int>(std::round(direction.x)), static_cast<int>(std::round(direction.y)));
+
+    return intDirection;
 }

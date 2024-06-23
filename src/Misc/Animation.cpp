@@ -2,7 +2,7 @@
 #include <iostream>
 
 Animation::Animation(): m_singleImgFlip(false), m_flip(false), m_timePassed(0),
-     m_switchTime(0.17f), m_singleTime(false){
+     m_switchTime(0.1f), m_singleTime(false){
     m_uvRect.width = tileSize;
     m_uvRect.height = tileSize;
 }
@@ -85,6 +85,6 @@ sf::IntRect Animation::getuvRect()const{
     return m_uvRect;
 }
 
-bool Animation::isDone()const{
+bool Animation::isDone() const{
     return m_singleTime && (m_currentImage >= m_imageCount - 1) && (m_switchTime - m_timePassed <= 0);
 }

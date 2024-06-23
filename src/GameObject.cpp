@@ -56,6 +56,11 @@ bool GameObject::checkCollision(const GameObject& other)const{
     return m_hitBox.checkCollision(other.m_hitBox);
 }
 
-HitBox GameObject::getHitBox(){
+HitBox GameObject::getHitBox() const
+{
     return m_hitBox;
+}
+
+void GameObject::setHitBox(const sf::Vector2f& size, const sf::Vector2f& offset){
+    m_hitBox.setBox(size,offset);
 }

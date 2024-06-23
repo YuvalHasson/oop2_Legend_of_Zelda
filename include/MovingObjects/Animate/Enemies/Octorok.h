@@ -18,7 +18,6 @@ public:
 
 	virtual void update(const sf::Time& deltaTime) override;
 	virtual void attack();
-	virtual void handleCollision() override;
 	virtual sf::Vector2f getLinkPos() override;
 	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override;
 	void setMoveStrategy(std::unique_ptr<MovementStrategy>);
@@ -26,8 +25,7 @@ public:
 	void setAttackStrategy(std::unique_ptr<AttackStrategy>);
 	void PerformAttack();
 
-	// virtual void move() override;
-	virtual std::unique_ptr<MovingObjects> getAttack() override;
+	virtual std::unique_ptr<Inanimate> getAttack() override;
 
 private:
 	sf::Clock m_directionChangeClock;

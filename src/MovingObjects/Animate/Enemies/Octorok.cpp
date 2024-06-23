@@ -2,8 +2,8 @@
 
 #include <iostream> //debug
 
-bool Octorok::m_registerit = Factory<MovingObjects>::instance()->registerit("Octorok",
-    [](const sf::Vector2f& position) -> std::unique_ptr<MovingObjects>
+bool Octorok::m_registerit = Factory<Octorok>::instance()->registerit("Octorok",
+    [](const sf::Vector2f& position) -> std::unique_ptr<Octorok>
     {
         return std::make_unique<Octorok>(*Resources::getResource().getTexture(TEXTURE::Enemies), position);
     });
@@ -102,7 +102,7 @@ void Octorok::PerformAttack()
     m_attackStrategy->attack(m_attackDuration, m_attackTimer, m_projectile, *this);
 }
 
-std::unique_ptr<MovingObjects> Octorok::getAttack()
+std::unique_ptr<Inanimate> Octorok::getAttack()
 {
     setAttacking(false);
     return std::move(m_projectile);

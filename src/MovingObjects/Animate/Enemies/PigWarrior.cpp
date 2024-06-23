@@ -54,11 +54,6 @@ void PigWarrior::update(const sf::Time& deltaTime)
     }
 }
 
-void PigWarrior::handleCollision()
-{
-    // Implement collision handling if necessary
-}
-
 sf::Vector2f PigWarrior::getLinkPos()
 {
     return m_link->getPosition();
@@ -149,7 +144,7 @@ float PigWarrior::distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
     return std::sqrt(dx * dx + dy * dy);
 }
 
-std::unique_ptr<MovingObjects> PigWarrior::getAttack()
+std::unique_ptr<Inanimate> PigWarrior::getAttack()
 {
     setAttacking(false);
     return std::move(m_projectile);

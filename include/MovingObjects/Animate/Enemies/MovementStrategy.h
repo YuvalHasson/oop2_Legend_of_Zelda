@@ -5,6 +5,7 @@
 #include "MovingObjects.h"
 #include "Enemy.h"
 #include "Link.h"
+#include "Animate.h"
 
 class MovementStrategy
 {

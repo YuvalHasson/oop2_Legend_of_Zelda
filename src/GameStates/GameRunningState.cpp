@@ -9,7 +9,6 @@ GameRunningState::GameRunningState(sf::RenderWindow* window, Board&& board, sf::
 
 void GameRunningState::update(const sf::Time& deltaTime)
 {
-	m_board.move(deltaTime);
 	m_board.handleCollision();
 	m_board.update(deltaTime);
 

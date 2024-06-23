@@ -19,10 +19,6 @@ void LinkArrow::update(const sf::Time& deltaTime)
     move();
 }
 
-void LinkArrow::handleCollision()
-{
-}
-
 void LinkArrow::initArrow(const sf::Vector2i& direction){
     setSpeed(2);
     sf::Vector2i arrowDirection;
@@ -43,6 +39,6 @@ void LinkArrow::initArrow(const sf::Vector2i& direction){
         arrowDirection = DIRECTIONS::Left;
     }
     setDirection(arrowDirection);
-    updateSprite();
+	updateSprite();
 }
 

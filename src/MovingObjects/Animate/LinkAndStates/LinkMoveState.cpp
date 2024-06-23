@@ -1,9 +1,10 @@
 #include <iostream>
 #include "LinkMoveState.h"
 
+
 LinkMoveState::LinkMoveState(Input direction): m_direction(direction){}
 
-std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input)
+std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input, bool shielding)
 {
     if(input == PRESS_SPACE)
     {
@@ -13,9 +14,19 @@ std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input)
             input == PRESS_UP_RIGHT  || input == PRESS_LEFT       || input == PRESS_RIGHT  ||
             input == PRESS_DOWN      || input == PRESS_UP )
     {
-        return std::make_unique<LinkMoveState>(input);
+        if(!shielding){
+            return std::make_unique<LinkMoveState>(input);
+        }
+        else{
+            return std::make_unique<LinkShieldMovingState>(input);
+        }
     }
-    return std::make_unique<LinkStandingState>();
+    if(!shielding){
+        return std::make_unique<LinkStandingState>();
+    }
+    else{
+        return std::make_unique<LinkShieldStandingState>();
+    }
 }
 
 void LinkMoveState::enter(Link& link){

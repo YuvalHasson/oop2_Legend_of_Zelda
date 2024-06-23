@@ -1,7 +1,7 @@
 #include <iostream>
 #include "LinkStandingState.h"
 
-std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input)
+std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input, bool shielding)
 {
     if(input == PRESS_SPACE)
     {
@@ -11,9 +11,19 @@ std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input)
             input == PRESS_UP_RIGHT  || input == PRESS_LEFT       || input == PRESS_RIGHT   ||
             input == PRESS_DOWN      || input == PRESS_UP )
     {
-        return std::make_unique<LinkMoveState>(input);
+        if(!shielding){
+            return std::make_unique<LinkMoveState>(input);
+        }
+        else {
+            return std::make_unique<LinkShieldMovingState>(input);
+        }
     }
-    return std::make_unique<LinkStandingState>();
+    if(!shielding){
+        return std::make_unique<LinkStandingState>();
+    }
+    else {
+        return std::make_unique<LinkShieldStandingState>();
+    }
 }
 
 void LinkStandingState::enter(Link& link){
