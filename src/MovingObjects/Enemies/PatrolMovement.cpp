@@ -1,13 +1,12 @@
 #include "PatrolMovement.h"
 #include "PigWarrior.h"
 
-void PatrolMovement::move(Input& direction, Enemy& enemy, Link* linkPtr, sf::Clock* directionChangeClock)
+void PatrolMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock)
 {
     bool up = false;
     bool down = false;
     bool right = false;
     bool left = false;
-    std::cout << "here" << std::endl;
     if (directionChangeClock->getElapsedTime().asSeconds() >= 1.0f) // Change direction every 2 seconds
     {
         int randomMovment = rand() % 4;
@@ -33,8 +32,8 @@ void PatrolMovement::move(Input& direction, Enemy& enemy, Link* linkPtr, sf::Clo
             m_direction = PRESS_LEFT;
             break;
         default:
-            break;
             m_direction = STANDING;
+            break;
         }
         directionChangeClock->restart();
         direction = m_direction;

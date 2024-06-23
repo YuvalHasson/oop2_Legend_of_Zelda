@@ -1,10 +1,15 @@
 #pragma once
 
 #include "Enemy.h"
-#include "OctorokState.h"
-#include "OctorokStandingState.h"
+#include "Link.h"
 
-#include "OctorokProjectile.h"
+#include "Projectile.h"
+
+#include "MovementStrategy.h"
+#include "AttackStrategy.h"
+#include "PatrolMovement.h"
+#include "Shoot.h"
+#include "Standing.h"
 
 class Octorok : public Enemy
 {
@@ -14,16 +19,25 @@ public:
 	virtual void update(const sf::Time& deltaTime) override;
 	virtual void attack();
 	virtual void handleCollision() override;
+	virtual sf::Vector2f getLinkPos() override;
 	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override;
+	void setMoveStrategy(std::unique_ptr<MovementStrategy>);
+	void PerformMove();
+	void setAttackStrategy(std::unique_ptr<AttackStrategy>);
+	void PerformAttack();
 
 	// virtual void move() override;
 	virtual std::unique_ptr<MovingObjects> getAttack() override;
 
 private:
 	sf::Clock m_directionChangeClock;
-	std::unique_ptr<OctorokState> m_state;
+	sf::Clock m_attackTimer;
+	sf::Time m_attackDuration;
+	Input m_currInput;
+	std::unique_ptr <MovementStrategy> m_moveStrategy;
+	std::unique_ptr <AttackStrategy> m_attackStrategy;
 
-	std::unique_ptr<OctorokProjectile> m_projectile;
+	std::unique_ptr<Projectile> m_projectile;
 
 	static bool m_registerit;
 };

@@ -13,6 +13,7 @@ class Link : public MovingObjects, public LinkSubject
 {
 public:
 	Link(const sf::Texture&, const sf::Vector2f&);
+	~Link();
 
 	virtual void update(const sf::Time& deltaTime) override;
 	virtual void draw(sf::RenderTarget& ) override;

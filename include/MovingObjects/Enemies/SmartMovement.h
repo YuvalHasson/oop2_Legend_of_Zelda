@@ -17,11 +17,7 @@ struct Vector2fComparator{
 class SmartMovement : public MovementStrategy
 {
 public:
-	//SmartMovement() = default;
-	//SmartMovement(Input, Enemy&, sf::Vector2f);
-	//virtual std::unique_ptr<MovementStrategy> handleInput(Input) override;
-	//virtual void enter(MovingObjects&) override;
-	void move(Input& direction, Enemy& enemy, Link* linkPtr, sf::Clock* directionChangeClock);
+	virtual void move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock) override;
 
 	void initializeBFS(sf::Vector2f);
 	bool isLinkAtPosition(const sf::Vector2f& position, const sf::Vector2f&);

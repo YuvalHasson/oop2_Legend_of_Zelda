@@ -11,6 +11,6 @@ class MovementStrategy
 public:
 
 	virtual ~MovementStrategy() = default;
-	virtual void move(Input& direction, Enemy& enemy, Link* linkPtr, sf::Clock* directionChangeClock) = 0;
+	virtual void move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock) = 0;
 	// ...
 };

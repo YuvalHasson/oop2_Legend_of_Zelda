@@ -14,7 +14,7 @@
 #include "Octorok.h"
 #include "PigWarrior.h"
 #include "Sword.h"
-#include "OctorokProjectile.h"
+#include "Projectile.h"
 #include "Boulder.h"
 #include "LinkArrow.h"
 

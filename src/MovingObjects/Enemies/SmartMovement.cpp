@@ -1,7 +1,7 @@
 #include "SmartMovement.h"
 #include <iostream>
 
-void SmartMovement::move(Input& direction, Enemy& enemy, Link* linkPtr, sf::Clock* directionChangeClock)
+void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock)
 {
     initializeBFS(enemy.getSprite().getPosition());
     if (!m_bfsQueue.empty())
@@ -11,26 +11,17 @@ void SmartMovement::move(Input& direction, Enemy& enemy, Link* linkPtr, sf::Cloc
         m_bfsQueue.pop();
 
         // Check if the PigWarrior reached the Link
-        if (isLinkAtPosition(nextPosition, linkPtr->getPosition()))
+        if (isLinkAtPosition(nextPosition, enemy.getLinkPos()))
         {
             //std::cout << "Link is reached at: " << m_linkPos.x << ", " << m_linkPos.y << "\n";
             // Handle reaching the Link
             std::cout << "link get caught\n";
             // You may want to stop the PigWarrior or trigger a specific action
         }
-
-        //// Move towards the next position
-        //if (distance(currentPosition, m_linkPos) < 100.0f) {
-        ////    // If the distance to the Link is small enough, move directly towards it
-        //    moveTowards(m_linkPos);
-        //}
-        //else {
-        // Otherwise, continue with the BFS algorithm
-        moveTowards(enemy, linkPtr->getPosition());
+        moveTowards(enemy, enemy.getLinkPos());
 
         // Explore neighbors of the current position
         addNeighborsToQueue(nextPosition);
-        //}
     }
     else
     {
@@ -39,34 +30,28 @@ void SmartMovement::move(Input& direction, Enemy& enemy, Link* linkPtr, sf::Cloc
     }
 
     sf::Vector2i currentDirection = enemy.getDirection();
-    //std::cout << "Current direction: " << currentDirection.x << ", " << currentDirection.y << "\n";
-    std::cout << "Moving in direction: " << m_direction << "\n";
     if (m_direction == PRESS_RIGHT) {
         if (currentDirection != DIRECTIONS::Right) {
             enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_RIGHT), 2);
             enemy.setDirection(DIRECTIONS::Right);
-            //m_direction = PRESS_RIGHT;
         }
     }
     else if (m_direction == PRESS_LEFT) {
         if (currentDirection != DIRECTIONS::Left) {
             enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_LEFT), 2);
             enemy.setDirection(DIRECTIONS::Left);
-           //m_direction = PRESS_LEFT;
         }
     }
     else if (m_direction == PRESS_UP) {
         if (currentDirection != DIRECTIONS::Up) {
             enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_UP), 2);
             enemy.setDirection(DIRECTIONS::Up);
-            //m_direction = PRESS_UP;
         }
     }
     else if (m_direction == PRESS_DOWN) {
         if (currentDirection != DIRECTIONS::Down) {
             enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_DOWN), 2);
             enemy.setDirection(DIRECTIONS::Down);
-           // m_direction = PRESS_DOWN;
         }
     }
     enemy.move();
@@ -146,7 +131,6 @@ void SmartMovement::moveTowards(Enemy& enemy, const sf::Vector2f& targetPosition
         }
     }
     m_direction = input;
-    //enter(enemy);
 }
 
 float SmartMovement::distance(const sf::Vector2f& p1, const sf::Vector2f& p2)

@@ -10,6 +10,7 @@ public:
 	virtual void handleCollision() = 0;
 
 	virtual std::unique_ptr<MovingObjects> getAttack() = 0;
+	virtual sf::Vector2f getLinkPos() = 0;
 private:
 
 };

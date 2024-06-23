@@ -17,6 +17,13 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     setHp(4);
 }
 
+Link::~Link()
+{
+    std::cout << m_observers.size() << "\n";
+    m_observers.clear();
+    std::cout << m_observers.size() << "\n";
+}
+
 void Link::handleCollision() {}
 
 void Link::update(const sf::Time& deltaTime){
