@@ -24,12 +24,8 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 
 Link::~Link()
 {
-    std::cout << m_observers.size() << "\n";
-    m_observers.clear();
-    std::cout << m_observers.size() << "\n";
+    NotifyObserversLinkOut();
 }
-
-void Link::handleCollision() {}
 
 void Link::update(const sf::Time& deltaTime){
 
@@ -40,7 +36,7 @@ void Link::update(const sf::Time& deltaTime){
     bool left   = sf::Keyboard::isKeyPressed(sf::Keyboard::Left)    || sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     bool space  = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     bool tab    = sf::Keyboard::isKeyPressed(sf::Keyboard::Tab);
-    bool b    = sf::Keyboard::isKeyPressed(sf::Keyboard::B);
+    bool b      = sf::Keyboard::isKeyPressed(sf::Keyboard::B);
     
     //check for shield
     if(b){
@@ -216,7 +212,15 @@ void Link::RemoveObserver(LinkObserver* observer){
 }
 
 void Link::NotifyObservers(){
-        for(const auto& observer: m_observers){
-            observer->updateLinkPosition(getPosition());
-        }
+    for(const auto& observer: m_observers){
+        observer->updateLinkPosition(getPosition());
+    }
 }
+
+void Link::NotifyObserversLinkOut()
+{
+    for (const auto& observer : m_observers) {
+        observer->removeLink();
+    }
+}
+

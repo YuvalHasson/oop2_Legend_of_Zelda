@@ -2,7 +2,7 @@
 
 #include "Inanimate.h"
 
-class Projectile : public Inanimate
+class Projectiles : public Inanimate
 {
 public:
 	Projectiles(const sf::Texture&, const sf::Vector2f&,const sf::Vector2f&, const sf::Vector2f&);

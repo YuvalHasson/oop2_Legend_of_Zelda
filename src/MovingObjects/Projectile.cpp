@@ -20,7 +20,3 @@ void Projectile::update(const sf::Time& deltaTime)
 {
     move();
 }
-
-void Projectile::handleCollision()
-{
-}

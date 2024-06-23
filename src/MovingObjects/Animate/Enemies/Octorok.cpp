@@ -58,10 +58,6 @@ void Octorok::attack()
 	setAttacking(true);
 }
 
-void Octorok::handleCollision()
-{
-}
-
 sf::Vector2f Octorok::getLinkPos()
 {
     return sf::Vector2f();

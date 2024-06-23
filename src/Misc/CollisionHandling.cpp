@@ -130,9 +130,9 @@ namespace
 		OctoProjectileWall(Projectile, wall);
 	}
 
-	void OctoProjectileLink(GameObject& Project, GameObject& link)
+	void OctoProjectileLink(GameObject& project, GameObject& link)
 	{
-		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&Project);
+		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&project);
 		if (ProjectilePtr)
 		{
 			ProjectilePtr->destroy();
@@ -140,7 +140,7 @@ namespace
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
 		{
-			linkPtr->pushBack(getCollisionDirection(octorokProjectile, link));
+			linkPtr->pushBack(getCollisionDirection(project, link));
 			linkPtr->initializeInvincible();
 			linkPtr->setHp(linkPtr->getHp() - 1);
 
@@ -226,9 +226,9 @@ namespace
 		OctorockBoulder(octorok, boulder);
 	}
 
-	void BoulderProjectile(GameObject& boulder, GameObject& Project)
+	void BoulderProjectile(GameObject& boulder, GameObject& project)
 	{
-		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&Project);
+		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&project);
 		if (ProjectilePtr)
 		{
 			Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
@@ -239,9 +239,9 @@ namespace
 		}
 	}
 
-	void ProjectileBoulder(GameObject& Projectile, GameObject& boulder)
+	void ProjectileBoulder(GameObject& projectile, GameObject& boulder)
 	{
-		BoulderProjectile(boulder, Projectile);
+		BoulderProjectile(boulder, projectile);
 	}
 
 	void SwordPot(GameObject& sword, GameObject& pot)
@@ -382,18 +382,18 @@ namespace
 		ShieldOctorok(shield, octorok);
 	}
 
-	void ShieldOctorokProjectile(GameObject& shield, GameObject& octoProjectile){
-		OctorokProjectile* octoProjectilePtr = dynamic_cast<OctorokProjectile*>(&octoProjectile);
+	void ShieldProjectile(GameObject& shield, GameObject& projectile){
+		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&projectile);
 		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
-		sf::Vector2i direction = getCollisionDirection(shield, octoProjectile);
-		if (octoProjectilePtr && shieldPtr)
+		sf::Vector2i direction = getCollisionDirection(shield, projectile);
+		if (ProjectilePtr && shieldPtr)
 		{
-			octoProjectilePtr->setDirection(-direction);
+			ProjectilePtr->setDirection(-direction);
 			// shieldPtr->pushBack(direction);
 		}
 	}
-	void OctorokProjectileShield(GameObject& octoProjectile, GameObject& shield){
-		ShieldOctorokProjectile(shield, octoProjectile);
+	void ProjectileShield(GameObject& projectile, GameObject& shield){
+		ShieldProjectile(shield, projectile);
 	}
 
 
@@ -437,7 +437,7 @@ namespace
 		phm[Key(typeid(Octorok), typeid(Wall))] =				&OctorokWall;
 		phm[Key(typeid(Octorok), typeid(WaterTile))] =			&OctorokWater;
 		phm[Key(typeid(Octorok), typeid(Sword))] =				&OctorokSword;
-		phm[Key(typeid(Octorok), typeid(OctorokProjectile))] =	&OctorokOctorokProjectile;
+		phm[Key(typeid(Octorok), typeid(Projectile))] =			&OctorokProjectile;
 		phm[Key(typeid(Octorok), typeid(Boulder))] =			&OctorockBoulder;
 		phm[Key(typeid(Octorok), typeid(Pot))] =				&OctorokPot;
 		phm[Key(typeid(Octorok), typeid(LinkArrow))] =			&OctorokLinkArrow;
@@ -446,14 +446,14 @@ namespace
 		phm[Key(typeid(Sword), typeid(Link))] =					&SwordLink;
 		phm[Key(typeid(Sword), typeid(Pot))] =					&SwordPot;
 		phm[Key(typeid(Sword), typeid(PigWarrior))] =			&SwordPigWarrior;
-		phm[Key(typeid(OctorokProjectile), typeid(Wall))] =		&OctoProjectileWall;
-		phm[Key(typeid(OctorokProjectile), typeid(Link))] =		&OctoProjectileLink;
-		phm[Key(typeid(OctorokProjectile), typeid(Octorok))] =	&OctorokProjectileOctorok;
-		phm[Key(typeid(OctorokProjectile), typeid(Boulder))] =	&OctorokProjectileBoulder;
+		phm[Key(typeid(Projectile), typeid(Wall))] =			&OctoProjectileWall;
+		phm[Key(typeid(Projectile), typeid(Link))] =			&OctoProjectileLink;
+		phm[Key(typeid(Projectile), typeid(Octorok))] =			&ProjectileOctorok;
+		phm[Key(typeid(Projectile), typeid(Boulder))] =			&ProjectileBoulder;
 		phm[Key(typeid(Boulder), typeid(Link))] =				&BoulderLink;
 		phm[Key(typeid(Boulder), typeid(Wall))] =				&BoulderWall;
 		phm[Key(typeid(Boulder), typeid(Octorok))] =			&BoulderOctorok;
-		phm[Key(typeid(Boulder), typeid(OctorokProjectile))] =	&BoulderOctorokProjectile;
+		phm[Key(typeid(Boulder), typeid(Projectile))] =			&BoulderProjectile;
 		phm[Key(typeid(PigWarrior), typeid(Link))] =			&PigWarriorLink;
 		phm[Key(typeid(PigWarrior), typeid(Wall))] =			&PigWarriorWall;
 		phm[Key(typeid(PigWarrior), typeid(WaterTile))] =		&PigWarriorWater;
@@ -461,10 +461,10 @@ namespace
 		phm[Key(typeid(LinkArrow), typeid(Octorok))] =			&LinkArrowOctorok;
 		phm[Key(typeid(LinkArrow), typeid(Link))] =				&LinkArrowLink;
 		phm[Key(typeid(LinkArrow), typeid(Wall))] =				&LinkArrowWall;
-		phm[Key(typeid(Shield), typeid(Octorok))] = &ShieldOctorok;
-		phm[Key(typeid(Octorok), typeid(Shield))] = &OctorokShield;
-		phm[Key(typeid(Shield), typeid(OctorokProjectile))] = &ShieldOctorokProjectile;
-		phm[Key(typeid(OctorokProjectile), typeid(Shield))] = &OctorokProjectileShield;
+		phm[Key(typeid(Shield), typeid(Octorok))] =				&ShieldOctorok;
+		phm[Key(typeid(Octorok), typeid(Shield))] =				&OctorokShield;
+		phm[Key(typeid(Shield), typeid(Projectile))] =			&ShieldProjectile;
+		phm[Key(typeid(Projectile), typeid(Shield))] =			&ProjectileShield;
 
 
 		//...

@@ -37,6 +37,8 @@ public:
 	virtual std::unique_ptr<Inanimate> getAttack() override;
 
 	virtual void updateLinkPosition(const sf::Vector2f& position)override;
+	virtual void removeLink() override;
+
 
 	void registerAsLinkObserver(Link*);
 	//void UpdateLinkPos(const sf::Vector2f& position);

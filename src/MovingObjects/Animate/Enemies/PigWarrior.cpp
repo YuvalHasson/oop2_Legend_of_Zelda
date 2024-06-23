@@ -21,10 +21,11 @@ PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
 
 PigWarrior::~PigWarrior()
 {
-    if (m_link == nullptr)
+    if (m_link)
     {
         m_link->RemoveObserver(this);
     }
+    std::cout << "~PigWarrior\n";
 }
 
 void PigWarrior::update(const sf::Time& deltaTime)
@@ -35,11 +36,11 @@ void PigWarrior::update(const sf::Time& deltaTime)
     if (distance(currentPosition, m_linkPos) < 60.0f) {
         // If the distance to the Link is small enough, change strategy  to track Link
         setMoveStrategy(std::make_unique<SmartMovement>());
-        //PerformAttack();
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
     {
         setMoveStrategy(std::make_unique<PatrolMovement>());
+        //PerformAttack();
         
     }
     PerformMove();
@@ -153,6 +154,11 @@ std::unique_ptr<Inanimate> PigWarrior::getAttack()
 //--------------observer function--------------
 void PigWarrior::updateLinkPosition(const sf::Vector2f& position){
     m_linkPos = position;
+}
+
+void PigWarrior::removeLink()
+{
+    m_link = nullptr;
 }
 
 void PigWarrior::registerAsLinkObserver(Link* link){
