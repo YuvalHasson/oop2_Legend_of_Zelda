@@ -96,7 +96,7 @@ void Link::update(const sf::Time& deltaTime){
         m_isShooting = !m_isShooting;
     }
     m_wasTabPressed = tab;
-    std::unique_ptr<LinkState> state = m_state->handleInput(input, m_isShielding);
+    std::unique_ptr<LinkState> state = m_state->handleInput(input, m_isShielding, isPush());
 
     if(state)
     {

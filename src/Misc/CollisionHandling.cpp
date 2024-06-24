@@ -11,6 +11,7 @@ namespace
 		if (linkPtr)
 		{
 			linkPtr->undoMove();
+			linkPtr->setPush(true);
 		}
 
 	}
@@ -35,6 +36,7 @@ namespace
 		if (linkPtr)
 		{
 			linkPtr->undoMove();
+			linkPtr->setPush(true);
 		}
 	}
 	

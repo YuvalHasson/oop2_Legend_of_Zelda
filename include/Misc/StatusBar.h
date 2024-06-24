@@ -28,4 +28,5 @@ private:
 	sf::Sprite m_hpSprite;
 	sf::Sprite m_equipped; //for what weapond is now on
 	sf::Sprite m_weapon; //for the sprite to draw
+	sf::Sprite m_shield;
 };

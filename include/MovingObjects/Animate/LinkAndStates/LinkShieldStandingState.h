@@ -9,6 +9,6 @@
 class LinkShieldStandingState: public LinkState
 {
 public:
-    virtual std::unique_ptr<LinkState> handleInput(Input, bool) override;
+    virtual std::unique_ptr<LinkState> handleInput(Input, bool, bool) override;
     virtual void enter(Link&) override;
 };
