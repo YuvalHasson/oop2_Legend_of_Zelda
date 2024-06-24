@@ -9,6 +9,7 @@
 
 #include "Link.h"
 #include "Wall.h"
+#include "Door.h"
 #include "Pot.h"
 #include "WaterTile.h"
 #include "Octorok.h"

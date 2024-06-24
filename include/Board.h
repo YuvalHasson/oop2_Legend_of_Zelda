@@ -31,17 +31,40 @@ public:
 	void update(const sf::Time&);
 	void handleCollision();
 	void setMap();
+	void initializeLevel(const Level&);
 
 	//temp get
 	const Link& getLink() const { return *m_link; }
+	void setLinkPosition(const sf::Vector2f& pos) { m_link->setPosition(pos); }
+	const std::vector<std::unique_ptr<Door>>& getDoors() const { return m_doors; }
+
+	// Method to extract Animate object
+	const std::vector<std::unique_ptr<Enemy>>& getAnimateObjects() const {
+		return m_animateObjects;
+	}
+
+	// Method to extract Link object
+	std::unique_ptr<Link> extractLink() {
+		return std::move(m_link); // Transfer ownership
+	}
+
+	// Method to set Link object
+	void setLink(std::unique_ptr<Link> link) {
+		m_link = std::move(link); // Transfer ownership
+	}	
+	//tmp ??
 
 	bool isAttacking() const;
 
 private:
-	std::vector<std::unique_ptr<Animate>> m_animateObjects;
+	std::vector<std::unique_ptr<Enemy>> m_animateObjects;
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
+	std::vector<std::unique_ptr<Door>> m_doors;
 	std::unique_ptr<Link> m_link;
+
+	sf::Sprite m_background;
+
 	Map m_map;
 
 

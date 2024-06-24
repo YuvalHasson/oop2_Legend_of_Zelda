@@ -11,7 +11,9 @@ Board::Board(Board&& other) noexcept
 	:m_animateObjects(std::move(other.m_animateObjects)),
 	 m_staticObjects(std::move(other.m_staticObjects)),
 	 m_link(std::move(other.m_link)),
-	 m_inanimateObjects(std::move(other.m_inanimateObjects)) {}
+	 m_inanimateObjects(std::move(other.m_inanimateObjects)),
+	 m_doors(std::move(other.m_doors)),
+	 m_background(std::move(other.m_background)) {}
 
 Board& Board::operator=(Board&& other) noexcept
 {
@@ -21,12 +23,15 @@ Board& Board::operator=(Board&& other) noexcept
 		m_inanimateObjects	= std::move(other.m_inanimateObjects);
 		m_staticObjects		= std::move(other.m_staticObjects);
 		m_link				= std::move(other.m_link);
+		m_background		= std::move(other.m_background);
+		m_doors				= std::move(other.m_doors);
 	}
 	return *this;
 }
 
 void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 {
+	target.draw(m_background);
 	for (const auto& gameObject : m_staticObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
@@ -159,6 +164,15 @@ void Board::handleCollision()
 			}
 		}
 
+		//link and doors
+		for (const auto& door : m_doors)
+		{
+			if (colide(*m_link, *door))
+			{
+				processCollision(*m_link, *door);
+			}
+		}
+
 		//moving and static objects
 		for_each_pair(m_animateObjects.begin(), m_animateObjects.end(), m_staticObjects.begin(), m_staticObjects.end(), [this](auto& obj1, auto& obj2) {
 			if (colide(*obj1, *obj2)) 
@@ -208,6 +222,22 @@ void Board::setMap()
 {
 	m_animateObjects	= std::move(m_map.getEnemyObjects(m_link.get()));
 	m_staticObjects		= std::move(m_map.getStaticObjects());
+	m_doors				= std::move(m_map.getDoors());
+}
+
+void Board::initializeLevel(const Level& level)
+{
+	switch (level)
+	{
+	case Level::MAIN:
+		m_map.setMap("Map.csv");
+		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
+		break;
+	case Level::FIRST_DUNGEON:
+		m_map.setMap("Dungeon.csv");
+		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon1));
+		break;
+	}
 }
 
 bool Board::isAttacking() const

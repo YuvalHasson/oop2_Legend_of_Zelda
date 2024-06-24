@@ -1,5 +1,8 @@
 #include "StatusBar.h"
 
+StatusBar::StatusBar()
+	:m_statusBar(sf::Vector2f(WindowWidth * 1.3f, 75.f)), m_hp(0), m_type(false) {}
+
 StatusBar::StatusBar(int hp, bool type)
 	:m_statusBar(sf::Vector2f(WindowWidth * 1.3f, 75.f)), m_hp(hp), m_type(type)
 {

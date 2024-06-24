@@ -1,31 +1,44 @@
 #include "GameRunningState.h"
 
-GameRunningState::GameRunningState(sf::RenderWindow* window, Board&& board, sf::View&& view, sf::Sprite background)
-	:State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background),
-	m_statusBar(board.getLink().getHp(), board.getLink().getShooting())
+GameRunningState::GameRunningState(sf::RenderWindow* window, std::vector<Board>&& board, sf::View&& view, Level level)
+	:State(window), m_boardLevels(std::move(board)), m_view(std::move(view)),
+	m_level(level), m_statusBar()
 {
+	StatusBar status(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getShooting());
+	m_statusBar = status;
 	setCenterView();
+	std::cout << "GameRunningState\n";
 }
 
 void GameRunningState::update(const sf::Time& deltaTime)
 {
-	m_board.handleCollision();
-	m_board.update(deltaTime);
+	m_boardLevels[m_level].handleCollision();
+	m_boardLevels[m_level].update(deltaTime);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		updateState(GAME_STATE::PAUSE_MENU);
 	}
-	m_statusBar.update(m_board.getLink().getHp(), m_board.getLink().getShooting());
+	m_statusBar.update(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getShooting());
 
-	if (m_board.getLink().getHp() <= 0)
+	if (m_boardLevels[m_level].getLink().getHp() <= 0)
 	{
 		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::StartGame);
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 		updateState(GAME_STATE::DEATH);
 	}
 
-	m_board.addProjectileToMoving();
+	m_boardLevels[m_level].addProjectileToMoving();
+
+	for (const auto& door : m_boardLevels[m_level].getDoors())
+	{
+		if (door->getChangeLevel())
+		{
+			m_nextLevel = door->getLevel();
+			updateState(GAME_STATE::SWITCH_LEVEL);
+			door->setChangeLevel(false);
+		}
+	}
 }
 
 void GameRunningState::render(sf::RenderTarget* target)
@@ -37,9 +50,8 @@ void GameRunningState::render(sf::RenderTarget* target)
 		target = getWindow();
 	}
 	target->setView(m_view);
-	target->draw(m_background);
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() / 2.f, target->getView().getSize());
-	m_board.draw(*target, viewBound);
+	m_boardLevels[m_level].draw(*target, viewBound);
 
 	target->setView(target->getDefaultView());
 
@@ -60,9 +72,11 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 		getWindow()->close();
 		return nullptr;
 	case GAME_STATE::PAUSE_MENU:
-		return std::make_unique<PauseMenu>(getWindow(), std::move(m_board), std::move(m_view), m_background);
+		return std::make_unique<PauseMenu>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
 	case GAME_STATE::DEATH:
-		return std::make_unique<DeathState>(getWindow(), m_board.getLink().getPosition(), std::move(m_view));
+		return std::make_unique<DeathState>(getWindow(), m_boardLevels[m_level].getLink().getPosition(), std::move(m_view));
+	case GAME_STATE::SWITCH_LEVEL:
+		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level, m_nextLevel);
 	}
 	return nullptr;
 }
@@ -76,7 +90,7 @@ void GameRunningState::setCenterView()
 	const float halfViewWidth = viewWidth / 2.f;
 	const float halfViewHeight = viewHeight / 2.f;
 
-	sf::Vector2f playerPos = m_board.getLink().getPosition();
+	sf::Vector2f playerPos = m_boardLevels[m_level].getLink().getPosition();
 
 	float viewCenterX = std::max(halfViewWidth, std::min(playerPos.x, Resources::getResource().getTexture(TEXTURE::Map)->getSize().x - halfViewWidth));
 	float viewCenterY = std::max(halfViewHeight, std::min(playerPos.y, Resources::getResource().getTexture(TEXTURE::Map)->getSize().y - halfViewHeight));
