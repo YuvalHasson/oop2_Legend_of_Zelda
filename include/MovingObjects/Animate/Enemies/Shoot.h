@@ -14,5 +14,5 @@ private:
 	sf::Clock m_attackTimer;
 	sf::Time m_attackDuration;
 	std::unique_ptr<Projectile> m_projectile;
-	bool m_isAnimationSet;
+	//bool m_isAnimationSet;
 };

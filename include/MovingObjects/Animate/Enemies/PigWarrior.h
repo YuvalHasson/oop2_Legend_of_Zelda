@@ -5,7 +5,6 @@
 #include "MovementStrategy.h"
 #include "SmartMovement.h"
 #include "PatrolMovement.h"
-//#include "AttackingState.h"
 #include "Sword.h"
 #include "LinkObserver.h"
 #include "Projectile.h"/// just for test

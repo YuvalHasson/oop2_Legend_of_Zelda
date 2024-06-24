@@ -116,21 +116,21 @@ namespace
 		SwordWall(sword, wall);
 	}
 
-	void OctoProjectileWall(GameObject& Project, GameObject& wall)
+	void ProjectileWall(GameObject& project, GameObject& wall)
 	{
-		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&Project);
+		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&project);
 		if (ProjectilePtr)
 		{
 			ProjectilePtr->destroy();
 		}
 	}
 
-	void WallOctoProjectile(GameObject& wall, GameObject& Projectile)
+	void WallProjectile(GameObject& wall, GameObject& projectile)
 	{
-		OctoProjectileWall(Projectile, wall);
+		ProjectileWall(projectile, wall);
 	}
 
-	void OctoProjectileLink(GameObject& project, GameObject& link)
+	void ProjectileLink(GameObject& project, GameObject& link)
 	{
 		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&project);
 		if (ProjectilePtr)
@@ -147,9 +147,9 @@ namespace
 		}
 	}
 
-	void LinkOctoProjectile(GameObject& link, GameObject& Projectile)
+	void LinkProjectile(GameObject& link, GameObject& projectile)
 	{
-		OctoProjectileLink(Projectile, link);
+		ProjectileLink(projectile, link);
 	}
 
 	void ProjectileOctorok(GameObject& Projectile, GameObject& octorok) {}
@@ -415,14 +415,14 @@ namespace
 		phm[Key(typeid(Link), typeid(Pot))] =					&LinkPot;
 		phm[Key(typeid(Link), typeid(WaterTile))] =				&LinkWater;
 		phm[Key(typeid(Link), typeid(Octorok))] =				&LinkOctorok;
-		phm[Key(typeid(Link), typeid(OctorokProjectile))] =		&LinkOctoProjectile;
+		phm[Key(typeid(Link), typeid(Projectile))] =			&LinkProjectile;
 		phm[Key(typeid(Link), typeid(Sword))] =					&LinkSword;
 		phm[Key(typeid(Link), typeid(Boulder))] =				&LinkBoulder;
 		phm[Key(typeid(Link), typeid(PigWarrior))] =			&LinkPigWarrior;
 		phm[Key(typeid(Link), typeid(LinkArrow))] =				&LinkLinkArrow;
 		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
 		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
-		phm[Key(typeid(Wall), typeid(OctorokProjectile))] =		&WallOctoProjectile;
+		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallProjectile;
 		phm[Key(typeid(Wall), typeid(Sword))] =					&WallSword;
 		phm[Key(typeid(Wall), typeid(Boulder))] =				&WallBoulder;
 		phm[Key(typeid(Wall), typeid(PigWarrior))] =			&WallPigWarrior;
@@ -446,8 +446,8 @@ namespace
 		phm[Key(typeid(Sword), typeid(Link))] =					&SwordLink;
 		phm[Key(typeid(Sword), typeid(Pot))] =					&SwordPot;
 		phm[Key(typeid(Sword), typeid(PigWarrior))] =			&SwordPigWarrior;
-		phm[Key(typeid(Projectile), typeid(Wall))] =			&OctoProjectileWall;
-		phm[Key(typeid(Projectile), typeid(Link))] =			&OctoProjectileLink;
+		phm[Key(typeid(Projectile), typeid(Wall))] =			&ProjectileWall;
+		phm[Key(typeid(Projectile), typeid(Link))] =			&ProjectileLink;
 		phm[Key(typeid(Projectile), typeid(Octorok))] =			&ProjectileOctorok;
 		phm[Key(typeid(Projectile), typeid(Boulder))] =			&ProjectileBoulder;
 		phm[Key(typeid(Boulder), typeid(Link))] =				&BoulderLink;
