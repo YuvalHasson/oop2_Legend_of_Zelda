@@ -2,6 +2,9 @@
 
 #include "Utilities.h"
 #include <memory>
+#include "MovingObjects.h"
+#include "Enemy.h"
+#include "Link.h"
 #include "Animate.h"
 
 class MovementStrategy
@@ -9,7 +12,6 @@ class MovementStrategy
 public:
 
 	virtual ~MovementStrategy() = default;
-	virtual std::unique_ptr<MovementStrategy> handleInput(Input) = 0;
-	virtual void enter(Animate&) = 0;
+	virtual void move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock) = 0;
 	// ...
 };

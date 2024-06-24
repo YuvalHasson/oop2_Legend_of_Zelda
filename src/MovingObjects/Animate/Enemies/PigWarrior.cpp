@@ -9,9 +9,9 @@ bool PigWarrior::m_registerit = Factory<PigWarrior>::instance()->registerit("Pig
     });
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
-    : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(tileSize / 2, tileSize / 2)), 
-    m_moveStrategy(std::make_unique<StandingState>()),
-    m_currInput(PRESS_UP), m_sword()
+    : Enemy(texture, position, sf::Vector2f(10, 10), sf::Vector2f(10 / 2, 10 / 2)), 
+        m_moveStrategy(std::make_unique<PatrolMovement>()), m_currInput(PRESS_DOWN), m_sword(),
+        m_projectile(nullptr), m_attackStrategy(std::make_unique<Shoot>())
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
@@ -19,34 +19,31 @@ PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     setHp(2);
 }
 
-PigWarrior::~PigWarrior(){
-    m_link->RemoveObserver(this);
+PigWarrior::~PigWarrior()
+{
+    if (m_link)
+    {
+        m_link->RemoveObserver(this);
+    }
+    std::cout << "~PigWarrior\n";
 }
 
 void PigWarrior::update(const sf::Time& deltaTime)
 {
+    setAttackStrategy(std::make_unique<Shoot>());
     sf::Vector2f currentPosition = getSprite().getPosition();
     // If Link is close, change movement strategy
-    if (distance(currentPosition, m_linkPos) < 100.0f) {
+    if (distance(currentPosition, m_linkPos) < 60.0f) {
         // If the distance to the Link is small enough, change strategy  to track Link
-        std::unique_ptr<MovementStrategy> newMove = std::make_unique<SmartMovement>(PRESS_UP, *this, m_linkPos);
-        setMoveStrategy(newMove);
-    }
-    else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 2.0f)
-    {
-        //std::cout << m_directionChangeClock.getElapsedTime().asSeconds() << "\n";
-        std::unique_ptr <MovementStrategy> newMove = std::make_unique<PatrolMovement>(m_currInput, &m_directionChangeClock);
-        setMoveStrategy(newMove);
-        m_directionChangeClock.restart();
+        setMoveStrategy(std::make_unique<SmartMovement>());
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
     {
-        std::unique_ptr <MovementStrategy> newMove = std::make_unique<AttackingState>();
-        setMoveStrategy(newMove);
+        setMoveStrategy(std::make_unique<PatrolMovement>());
+        //PerformAttack();
+        
     }
-
-    m_moveStrategy->enter(*this);
-    //m_sword->update(deltaTime);
+    PerformMove();
 
     // Update graphics
     updateGraphics(deltaTime);
@@ -56,6 +53,11 @@ void PigWarrior::update(const sf::Time& deltaTime)
     {
         destroy();
     }
+}
+
+sf::Vector2f PigWarrior::getLinkPos()
+{
+    return m_link->getPosition();
 }
 
 void PigWarrior::attack()
@@ -85,15 +87,29 @@ const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
     }
 }
 
-void PigWarrior::setMoveStrategy(std::unique_ptr<MovementStrategy>& move)
+void PigWarrior::setMoveStrategy(std::unique_ptr<MovementStrategy> move)
 {
     m_moveStrategy = std::move(move);
 }
 
-void PigWarrior::UpdateLinkPos(const sf::Vector2f& position)
+void PigWarrior::PerformMove()
 {
-    m_linkPos = position;
+    m_moveStrategy->move(m_currInput, *this, &m_directionChangeClock);
 }
+
+void PigWarrior::setAttackStrategy(std::unique_ptr<AttackStrategy> attack)
+{
+    m_attackStrategy = std::move(attack);
+}
+
+void PigWarrior::PerformAttack()
+{
+    std::cout << "pigAttack\n";
+    m_attackDuration = sf::seconds(0.3f);
+    m_attackStrategy->attack(m_attackDuration, m_attackTimer, m_projectile, *this);
+    std::cout << "pigAfterAttack\n";
+}
+
 void PigWarrior::insertSword(Sword* sword)
 {
 }
@@ -122,16 +138,6 @@ void PigWarrior::stopSwordSwipe()
     setAttacking(false);
 }
 
-bool PigWarrior::getInvincible() const
-{
-    return m_invincibleTimer.getElapsedTime().asSeconds() - invincibilityTime.asSeconds() <= 0;
-}
-
-void PigWarrior::initializeInvincible()
-{
-    m_invincibleTimer.restart();
-}
-
 float PigWarrior::distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
 {
     float dx = p2.x - p1.x;
@@ -141,12 +147,18 @@ float PigWarrior::distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
 
 std::unique_ptr<Inanimate> PigWarrior::getAttack()
 {
-    return std::unique_ptr<Inanimate>();
+    setAttacking(false);
+    return std::move(m_projectile);
 }
 
 //--------------observer function--------------
 void PigWarrior::updateLinkPosition(const sf::Vector2f& position){
     m_linkPos = position;
+}
+
+void PigWarrior::removeLink()
+{
+    m_link = nullptr;
 }
 
 void PigWarrior::registerAsLinkObserver(Link* link){

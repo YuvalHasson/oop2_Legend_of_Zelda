@@ -15,6 +15,7 @@ class Link : public Animate, public LinkSubject
 {
 public:
 	Link(const sf::Texture&, const sf::Vector2f&);
+	~Link();
 
 	virtual void update(const sf::Time& deltaTime) override;
 	virtual void draw(sf::RenderTarget& ) override;
@@ -26,6 +27,7 @@ public:
 	virtual void RegisterObserver(LinkObserver* observer)override;
 	virtual void RemoveObserver(LinkObserver* observer)override;
 	virtual void NotifyObservers()override;
+	virtual void NotifyObserversLinkOut()override;
 
 
 	void swipeSword();

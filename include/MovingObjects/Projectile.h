@@ -2,10 +2,10 @@
 
 #include "Projectiles.h"
 
-class OctorokProjectile : public Projectile
+class Projectile : public Projectiles
 {
 public:
-	OctorokProjectile(const sf::Texture&, const sf::Vector2f&);
+	Projectile(const sf::Texture&, const sf::Vector2f&);
 
 	virtual void update(const sf::Time&) override;
 

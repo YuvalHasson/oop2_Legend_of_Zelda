@@ -2,7 +2,7 @@
 
 #include "Projectiles.h"
 
-class LinkArrow : public Projectile
+class LinkArrow : public Projectiles
 {
 public:
 	LinkArrow(const sf::Texture&, const sf::Vector2f&);

@@ -9,6 +9,8 @@ public:
 
 	virtual void RemoveObserver(LinkObserver* observer) = 0;
 
+	virtual void NotifyObserversLinkOut() = 0;
+
 	virtual void NotifyObservers() = 0;
 
 };

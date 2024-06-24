@@ -22,6 +22,11 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     setHp(4);
 }
 
+Link::~Link()
+{
+    NotifyObserversLinkOut();
+}
+
 void Link::update(const sf::Time& deltaTime){
 
     Input input;
@@ -207,7 +212,15 @@ void Link::RemoveObserver(LinkObserver* observer){
 }
 
 void Link::NotifyObservers(){
-        for(const auto& observer: m_observers){
-            observer->updateLinkPosition(getPosition());
-        }
+    for(const auto& observer: m_observers){
+        observer->updateLinkPosition(getPosition());
+    }
 }
+
+void Link::NotifyObserversLinkOut()
+{
+    for (const auto& observer : m_observers) {
+        observer->removeLink();
+    }
+}
+
