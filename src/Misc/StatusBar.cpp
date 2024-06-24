@@ -17,6 +17,12 @@ StatusBar::StatusBar(int hp, Weapons type)
 
 	m_weapon.setTexture(*Resources::getResource().getTexture(TEXTURE::StatusBar));
 	m_weapon.setScale(3.f, 3.f);
+
+	m_shield.setTexture(*Resources::getResource().getTexture(TEXTURE::StatusBar));
+	m_shield.setScale(3.f, 3.f);
+	sf::IntRect rect1(48, 41, tileSize / 2.f, tileSize);
+	m_shield.setTextureRect(rect1);
+	m_shield.setPosition(WindowWidth / 4.f * 1.15f, windowHeight / 9.f * 6.7f);
 }
 
 void StatusBar::draw(sf::RenderTarget& target)
@@ -47,6 +53,7 @@ void StatusBar::draw(sf::RenderTarget& target)
 	{
 		drawHearts(target, { 68, 61 }, offset);
 	}
+	target.draw(m_shield);
 }
 
 void StatusBar::drawHearts(sf::RenderTarget& target, const sf::Vector2f& textureRect, const int& offset)

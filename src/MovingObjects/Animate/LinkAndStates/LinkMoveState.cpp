@@ -4,7 +4,7 @@
 
 LinkMoveState::LinkMoveState(Input direction): m_direction(direction){}
 
-std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input, bool shielding)
+std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input, bool shielding, bool pushing)
 {
     if(input == PRESS_SPACE)
     {
@@ -14,8 +14,12 @@ std::unique_ptr<LinkState> LinkMoveState::handleInput(Input input, bool shieldin
             input == PRESS_UP_RIGHT  || input == PRESS_LEFT       || input == PRESS_RIGHT  ||
             input == PRESS_DOWN      || input == PRESS_UP )
     {
-        if(!shielding){
+        if(!shielding && !pushing){
             return std::make_unique<LinkMoveState>(input);
+        }
+		else if (pushing && !shielding)
+        {
+			return std::make_unique<LinkPushState>(input);
         }
         else{
             return std::make_unique<LinkShieldMovingState>(input);
@@ -53,19 +57,19 @@ void LinkMoveState::enter(Link& link){
             link.setDirection(DIRECTIONS::UpLeft);
             break;
         case PRESS_RIGHT:
-            link.setGraphics(link.isPush() ? ANIMATIONS_POSITIONS::LinkPushRight : ANIMATIONS_POSITIONS::LinkRight, 2);
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkRight, 2);
             link.setDirection(DIRECTIONS::Right);
             break;
         case PRESS_LEFT:
-            link.setGraphics(link.isPush() ? ANIMATIONS_POSITIONS::LinkPushLeft : ANIMATIONS_POSITIONS::LinkLeft, 2);
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkLeft, 2);
             link.setDirection(DIRECTIONS::Left);
             break;
         case PRESS_DOWN:
-            link.setGraphics(link.isPush() ? ANIMATIONS_POSITIONS::LinkPushDown : ANIMATIONS_POSITIONS::LinkDown, 2);
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
             link.setDirection(DIRECTIONS::Down);
             break;
         case PRESS_UP:
-            link.setGraphics(link.isPush() ? ANIMATIONS_POSITIONS::LinkPushUp : ANIMATIONS_POSITIONS::LinkUp, 2);
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkUp, 2);
             link.setDirection(DIRECTIONS::Up);
             break;
         default:
