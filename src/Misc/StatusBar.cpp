@@ -74,15 +74,16 @@ void StatusBar::drawEquipped(sf::RenderTarget& target, const int& offset)
 	switch(m_type){
 		case SwordWeapon:
 			rect.left = 58;
-			m_weapon.setTextureRect(rect);
 			break;
 		case BowWeapon:
 			rect.left = 138;
-			m_weapon.setTextureRect(rect);
 			break;
 		default:
+			rect.width = 0;
+			rect.height = 0;
 			break;
 	}
+	m_weapon.setTextureRect(rect);
 	m_equipped.setPosition(WindowWidth / 4.f * 1.f, windowHeight / 9.f * 6.7f);
 	m_weapon.setPosition(WindowWidth / 4.f * 1.9f, windowHeight / 9.f * 6.7f);
 	m_equipped.move(offset * 30.f * 5.f, 0.f);
