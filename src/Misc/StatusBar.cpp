@@ -1,9 +1,9 @@
 #include "StatusBar.h"
 
 StatusBar::StatusBar()
-	:m_statusBar(sf::Vector2f(WindowWidth * 1.3f, 75.f)), m_hp(0), m_type(false) {}
+	:m_statusBar(sf::Vector2f(WindowWidth * 1.3f, 75.f)), m_hp(0), m_type(NoWeapon) {}
 
-StatusBar::StatusBar(int hp, bool type)
+StatusBar::StatusBar(int hp, Weapons type)
 	:m_statusBar(sf::Vector2f(WindowWidth * 1.3f, 75.f)), m_hp(hp), m_type(type)
 {
 	m_statusBar.setFillColor(sf::Color(248, 248, 168));
@@ -67,16 +67,23 @@ void StatusBar::drawHearts(sf::RenderTarget& target, const sf::Vector2f& texture
 
 void StatusBar::drawEquipped(sf::RenderTarget& target, const int& offset)
 {
-	if (!m_type)
-	{
-		sf::IntRect rect(58, 41, tileSize / 2.f, tileSize);
-		m_weapon.setTextureRect(rect);
+	sf::IntRect rect;
+	rect.width = tileSize/2.f;
+	rect.height = tileSize;
+	rect.top = 41;
+	switch(m_type){
+		case SwordWeapon:
+			rect.left = 58;
+			break;
+		case BowWeapon:
+			rect.left = 138;
+			break;
+		default:
+			rect.width = 0;
+			rect.height = 0;
+			break;
 	}
-	else
-	{
-		sf::IntRect rect(138, 41, tileSize / 2.f, tileSize);
-		m_weapon.setTextureRect(rect);
-	}
+	m_weapon.setTextureRect(rect);
 	m_equipped.setPosition(WindowWidth / 4.f * 1.f, windowHeight / 9.f * 6.7f);
 	m_weapon.setPosition(WindowWidth / 4.f * 1.9f, windowHeight / 9.f * 6.7f);
 	m_equipped.move(offset * 30.f * 5.f, 0.f);
@@ -90,7 +97,7 @@ void StatusBar::setBottomView(const sf::RenderTarget& target)
 	m_statusBar.setPosition(0.f, target.getSize().y - statusBarRect.height);
 }
 
-void StatusBar::update(const int& hp, const bool& type)
+void StatusBar::update(const int& hp, Weapons type)
 {
 	m_hp = hp;
 	m_type = type;

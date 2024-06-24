@@ -34,10 +34,11 @@ void LinkAttackState::enter(Link& link)
         }
         link.setAttacking(true);
     }
-    if(!link.getShooting()){
+    if(link.getCurrentWeapon() == SwordWeapon){
         link.swipeSword();
     }
-    else{
+    else if(link.getCurrentWeapon() == BowWeapon){
+        std::cout<<"shooting!!!";
         link.shoot();
     }
 }

@@ -4,7 +4,7 @@ GameRunningState::GameRunningState(sf::RenderWindow* window, std::vector<Board>&
 	:State(window), m_boardLevels(std::move(board)), m_view(std::move(view)),
 	m_level(level), m_statusBar()
 {
-	StatusBar status(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getShooting());
+	StatusBar status(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getCurrentWeapon());
 	m_statusBar = status;
 	setCenterView();
 	std::cout << "GameRunningState\n";
@@ -19,7 +19,7 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	{
 		updateState(GAME_STATE::PAUSE_MENU);
 	}
-	m_statusBar.update(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getShooting());
+	m_statusBar.update(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getCurrentWeapon());
 
 	if (m_boardLevels[m_level].getLink().getHp() <= 0)
 	{
