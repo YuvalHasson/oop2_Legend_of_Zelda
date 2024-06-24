@@ -11,6 +11,7 @@
 
 const sf::Time invincibilityTime(sf::seconds(2));
 
+
 class Link : public Animate, public LinkSubject
 {
 public:
@@ -42,22 +43,45 @@ public:
 	Shield* getShield();
 	virtual std::unique_ptr<Inanimate> getAttack() override;
 
+	void takeSword();
+	void takeBow();
+	bool doesHaveBow()const;
+	bool doesHaveSword()const;
+	Weapons getCurrentWeapon()const;
 
 	void setPush(bool);
 	bool isPush() const;
 	bool getShooting() const;
 	bool getShielding()const;
+
 private:
+	//current link state
 	std::unique_ptr<LinkState> m_state;
+	
+	//activity members
 	std::unique_ptr<Sword> m_sword;
 	std::unique_ptr<LinkArrow> m_arrow;
 	std::unique_ptr<Shield> m_shield;
+	
+	//invincibility
 	sf::Clock m_invincibleTimer;
+	
+	//acticity variables
 	bool m_isPushing;
 	bool m_isShooting;
 	bool m_wasTabPressed;
 	bool m_isShielding;
+
+	//weapons currently held
+	bool m_hasSword;
+	bool m_hasBow;
+	std::vector<Weapons> m_weapons;
+	size_t m_currentWeapon;
+
+	//factory registration variable
   	static bool m_registerit;
+	
+	//observers vector
 	std::vector<LinkObserver*> m_observers;
 
 };

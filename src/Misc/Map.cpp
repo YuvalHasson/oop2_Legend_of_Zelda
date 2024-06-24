@@ -1,5 +1,7 @@
 #include "Map.h"
 #include "Link.h"
+#include "BowItem.h"
+#include "SwordItem.h"
 
 
 Map::Map()
@@ -162,11 +164,6 @@ void Map::initVector(Cell cell)
 		}
 	}
 
-	////texture of border
-	//if (cell.value > 100000 || cell.value < -100000)
-	//{
-	//}
-
 }
 
 std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects(Link* link)
@@ -186,6 +183,13 @@ std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects(Link* link)
 
 std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects()
 {
+	if(auto p = Factory<BowItem>::instance()->create("BowItem", {25,25})){
+		m_staticObjects.emplace_back(std::move(p));
+	}
+
+	if(auto p = Factory<SwordItem>::instance()->create("SwordItem", {25,45})){
+		m_staticObjects.emplace_back(std::move(p));
+	}
 	return m_staticObjects;
 }
 

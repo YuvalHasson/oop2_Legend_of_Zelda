@@ -422,6 +422,28 @@ namespace
 		LinkDoor(link, door);
 	}
 
+	void LinkSwordItem(GameObject& link, GameObject& swordItem)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		SwordItem* swordItemPtr = dynamic_cast<SwordItem*>(&swordItem);
+		if(swordItemPtr && linkPtr){
+			linkPtr->takeSword();
+			swordItemPtr->destroy();
+		}
+		
+	}
+	
+	void LinkBowItem(GameObject& link, GameObject& bowItem)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		BowItem* bowItemPtr = dynamic_cast<BowItem*>(&bowItem);
+		if(bowItemPtr && linkPtr){
+			linkPtr->takeBow();
+			bowItemPtr->destroy();
+		}
+		
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -487,6 +509,8 @@ namespace
 		phm[Key(typeid(LinkArrow), typeid(Octorok))] =			&LinkArrowOctorok;
 		phm[Key(typeid(LinkArrow), typeid(Link))] =				&LinkArrowLink;
 		phm[Key(typeid(LinkArrow), typeid(Wall))] =				&LinkArrowWall;
+		phm[Key(typeid(Link), typeid(SwordItem))] =				&LinkSwordItem;
+		phm[Key(typeid(Link), typeid(BowItem))] =				&LinkBowItem;
 
 		//...
 		return phm;
