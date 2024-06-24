@@ -3,10 +3,15 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 7;
+const int OBJ_AMOUNT = 8;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
+enum Level
+{
+	MAIN,
+	FIRST_DUNGEON,
+};
 
 enum GAME_STATE {
 	MAIN_MENU,
@@ -17,7 +22,8 @@ enum GAME_STATE {
 	SETTINGS,
 	PAUSE_MENU,
 	DEATH,
-	GAME_OVER
+	GAME_OVER,
+	SWITCH_LEVEL
 };
 
 //might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
@@ -50,6 +56,7 @@ namespace TEXTURE
 	constexpr int Enemies = 4;
 	constexpr int StatusBar = 5;
 	constexpr int GameOver = 6;
+	constexpr int Dungeon1 = 7;
 }
 
 namespace BACKGROUND_SOUND

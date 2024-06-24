@@ -1,8 +1,9 @@
 #include "PauseMenu.h"
 
-PauseMenu::PauseMenu(sf::RenderWindow* window, Board&& board, sf::View&& view, sf::Sprite background)
-	: State(window), m_board(std::move(board)), m_view(std::move(view)), m_background(background), m_volumeSlider(),
-	m_pauseBackground(sf::Vector2f(WindowWidth * 1.2f, windowHeight / 1.3f))
+PauseMenu::PauseMenu(sf::RenderWindow* window, std::vector<Board>&& board, sf::View&& view, Level level)
+	: State(window), m_boardLevels(std::move(board)), m_view(std::move(view)), m_volumeSlider(),
+	m_pauseBackground(sf::Vector2f(WindowWidth * 1.2f, windowHeight / 1.3f)),
+	m_level(level)
 {
 	setCenterView();
 	getWindow()->setView(m_view);
@@ -32,9 +33,8 @@ void PauseMenu::render(sf::RenderTarget* target)
 		target = getWindow();
 	}
 	target->setView(m_view);
-	target->draw(m_background);
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() / 2.f, target->getView().getSize());
-	m_board.draw(*target, viewBound);
+	m_boardLevels[m_level].draw(*target, viewBound);
 
 	target->setView(target->getDefaultView());
 	target->draw(m_pauseBackground);
@@ -58,7 +58,7 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 		return nullptr;
 	case GAME_STATE::GAME_RUNNING:
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
-		return std::make_unique<GameRunningState>(getWindow(), std::move(m_board), std::move(m_view), m_background);
+		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
 	}
 	return nullptr;
 }
@@ -81,7 +81,7 @@ void PauseMenu::setCenterView()
 	const float halfViewWidth = viewWidth / 2.f;
 	const float halfViewHeight = viewHeight / 2.f;
 
-	sf::Vector2f playerPos = m_board.getLink().getPosition();
+	sf::Vector2f playerPos = m_boardLevels[m_level].getLink().getPosition();
 
 	float viewCenterX = std::max(halfViewWidth, std::min(playerPos.x, Resources::getResource().getTexture(TEXTURE::Map)->getSize().x - halfViewWidth));
 	float viewCenterY = std::max(halfViewHeight, std::min(playerPos.y, Resources::getResource().getTexture(TEXTURE::Map)->getSize().y - halfViewHeight));
