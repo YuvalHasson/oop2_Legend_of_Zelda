@@ -35,7 +35,7 @@ std::unique_ptr<State> NewGameState::handleInput(const GAME_STATE& gameState)
 	}
 	else if (gameState == GAME_STATE::GAME_RUNNING)
 	{
-		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view));
+		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), Level::MAIN);
 	}
 	else if(gameState == GAME_STATE::EXIT)
 	{
@@ -49,8 +49,13 @@ void NewGameState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 void NewGameState::setMap()
 {
 	Board board;
-	board.enterLevel(Level::MAIN);
+	board.initializeLevel(Level::MAIN);
 	board.makeLink();
 	board.setMap();
 	m_boardLevels.emplace_back(std::move(board));
+
+	Board board2;
+	//board2.initializeLevel(Level::FIRST_DUNGEON);
+	m_boardLevels.emplace_back(std::move(board2));
+
 }

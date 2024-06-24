@@ -1,6 +1,5 @@
 ﻿configure_file ("The Legend of Zelda.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Zelda Menu.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("ZeldaFont.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Game Boy GBC - The Legend of Zelda Links Awakening DX - Link.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Weapons-items-hud.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Overworld.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -8,11 +7,15 @@ configure_file ("Mapobject.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Enemies.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Bosses.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("LinkandSword.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("Map.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("zeldaIcon.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Zelda_status_bar.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Zelda_Game_Over.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Dungeon.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("ZeldaFont.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("Map.csv" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Dungeon.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("MainTheme.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("LinkAwakens.ogg" ${CMAKE_BINARY_DIR} COPYONLY)

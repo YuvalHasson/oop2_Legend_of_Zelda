@@ -72,13 +72,14 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(-1073741511, "Wall" );
 	dict.emplace(-1610612461, "Wall" );
 	dict.emplace(-1610612462, "Wall" );
+	dict.emplace(1610612787, "Door");
 	dict.emplace(51, "Door");
 }
 
 void Map::setMap(const std::string& mapName)
 {
 	std::string gameMap = mapName;
-
+	std::cout << "map name: " << gameMap << std::endl;
 	try
 	{
 		auto map = std::ifstream(gameMap);
@@ -136,6 +137,25 @@ void Map::initVector(Cell cell)
 	auto it = m_dict.find(cell.value);
 	if (it != m_dict.end())
 	{
+		if (it->second == "Door")
+		{
+			if (auto p = Factory<Door>::instance()->create(it->second, { static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row }))
+			{
+				if (cell.value == 51)
+				{
+					p->setLevelToDoor(Level::FIRST_DUNGEON);
+					p->setLinkOutPosition({ 22, 105 });
+					m_doors.emplace_back(std::move(p));
+				}
+				if (cell.value == 1610612787)
+				{
+					p->setLevelToDoor(Level::MAIN);
+					p->setLinkOutPosition({ 168, 149 });
+					m_doors.emplace_back(std::move(p));
+				}
+			}
+			return;
+		}
 		if (auto p = Factory<StaticObjects>::instance()->create(it->second, {static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row}))
 		{
 			m_staticObjects.emplace_back(std::move(p));
@@ -145,13 +165,11 @@ void Map::initVector(Cell cell)
 	////texture of border
 	//if (cell.value > 100000 || cell.value < -100000)
 	//{
-	//	//m_staticObjects.emplace_back(Factory::createWall(sf::Vector2f(tileSize * cell.col, tileSize * cell.row)));
-	//	return;
 	//}
 
 }
 
-std::vector<std::unique_ptr<Animate>>& Map::getEnemyObjects(Link* link)
+std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects(Link* link)
 {
 	//tmp create
 	if (auto p = Factory<Octorok>::instance()->create("Octorok", { 70.f, 150.f }))
@@ -169,4 +187,9 @@ std::vector<std::unique_ptr<Animate>>& Map::getEnemyObjects(Link* link)
 std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects()
 {
 	return m_staticObjects;
+}
+
+std::vector<std::unique_ptr<Door>>& Map::getDoors()
+{
+	return m_doors;
 }

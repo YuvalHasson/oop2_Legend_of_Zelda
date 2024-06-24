@@ -1,8 +1,8 @@
 #include "GameRunningState.h"
 
-GameRunningState::GameRunningState(sf::RenderWindow* window, std::vector<Board>&& board, sf::View&& view)
+GameRunningState::GameRunningState(sf::RenderWindow* window, std::vector<Board>&& board, sf::View&& view, Level level)
 	:State(window), m_boardLevels(std::move(board)), m_view(std::move(view)),
-	m_level(Level::MAIN), m_statusBar()
+	m_level(level), m_statusBar()
 {
 	StatusBar status(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getShooting());
 	m_statusBar = status;
@@ -29,6 +29,16 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	}
 
 	m_boardLevels[m_level].addProjectileToMoving();
+
+	for (const auto& door : m_boardLevels[m_level].getDoors())
+	{
+		if (door->getChangeLevel())
+		{
+			m_nextLevel = door->getLevel();
+			updateState(GAME_STATE::SWITCH_LEVEL);
+			door->setChangeLevel(false);
+		}
+	}
 }
 
 void GameRunningState::render(sf::RenderTarget* target)
@@ -66,7 +76,7 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 	case GAME_STATE::DEATH:
 		return std::make_unique<DeathState>(getWindow(), m_boardLevels[m_level].getLink().getPosition(), std::move(m_view));
 	case GAME_STATE::SWITCH_LEVEL:
-		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
+		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level, m_nextLevel);
 	}
 	return nullptr;
 }

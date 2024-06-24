@@ -27,9 +27,8 @@ private:
 	void add(const std::string&, std::unique_ptr<Button>);
 
 	VolumeSlider m_volumeSlider;
-
+	Level m_level;
 	std::vector<Board> m_boardLevels;
-	Board m_board;
 
 	sf::View m_view;
 
