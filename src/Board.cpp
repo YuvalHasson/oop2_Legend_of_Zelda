@@ -8,7 +8,7 @@
 Board::Board() {}
 
 Board::Board(Board&& other) noexcept
-	:m_animateObjects(std::move(other.m_animateObjects)),
+	:m_enemiesObjects(std::move(other.m_enemiesObjects)),
 	 m_staticObjects(std::move(other.m_staticObjects)),
 	 m_link(std::move(other.m_link)),
 	 m_inanimateObjects(std::move(other.m_inanimateObjects)),
@@ -19,7 +19,7 @@ Board& Board::operator=(Board&& other) noexcept
 {
 	if (this != &other)
 	{
-		m_animateObjects	= std::move(other.m_animateObjects);
+		m_enemiesObjects	= std::move(other.m_enemiesObjects);
 		m_inanimateObjects	= std::move(other.m_inanimateObjects);
 		m_staticObjects		= std::move(other.m_staticObjects);
 		m_link				= std::move(other.m_link);
@@ -48,7 +48,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
 	}
 
-	for (const auto& gameObject : m_animateObjects)
+	for (const auto& gameObject : m_enemiesObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
 		{
@@ -60,7 +60,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 
 void Board::addProjectileToMoving()
 {
-    for (const auto& moving : m_animateObjects)
+    for (const auto& moving : m_enemiesObjects)
     {
         auto projectile = moving->getAttack();
         if (projectile)
@@ -89,7 +89,7 @@ void Board::update(const sf::Time& deltaTime)
 	{
 		gameObject->update(deltaTime);
 	}
-	for (const auto& gameObject : m_animateObjects)
+	for (const auto& gameObject : m_enemiesObjects)
 	{
 		gameObject->update(deltaTime);
 	}
@@ -97,7 +97,7 @@ void Board::update(const sf::Time& deltaTime)
 	m_link->update(deltaTime);
 
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
-	std::erase_if(m_animateObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
+	std::erase_if(m_enemiesObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
 	std::erase_if(m_inanimateObjects, [](const auto& InanimateObejects) { return InanimateObejects->isDestroyed(); });
 }
 
@@ -127,7 +127,7 @@ void Board::handleCollision()
 		}
 
 		//link, sword and moving objects
-		for (const auto& movingObject : m_animateObjects)
+		for (const auto& movingObject : m_enemiesObjects)
 		{
 			if(sword)
 			{
@@ -158,6 +158,13 @@ void Board::handleCollision()
 					processCollision(*sword, *object);
 				}
 			}
+			
+			if (shield) {
+				if (colide(*shield, *object))
+				{
+					processCollision(*shield, *object);
+				}
+			}
 			if (colide(*m_link, *object))
 			{
 				processCollision(*m_link, *object);
@@ -174,7 +181,7 @@ void Board::handleCollision()
 		}
 
 		//moving and static objects
-		for_each_pair(m_animateObjects.begin(), m_animateObjects.end(), m_staticObjects.begin(), m_staticObjects.end(), [this](auto& obj1, auto& obj2) {
+		for_each_pair(m_enemiesObjects.begin(), m_enemiesObjects.end(), m_staticObjects.begin(), m_staticObjects.end(), [this](auto& obj1, auto& obj2) {
 			if (colide(*obj1, *obj2)) 
 			{
 				processCollision(*obj1, *obj2);
@@ -189,14 +196,14 @@ void Board::handleCollision()
 			}
 			});
 
-		for_each_pair(m_animateObjects.begin(), m_animateObjects.end(), m_inanimateObjects.begin(), m_inanimateObjects.end(), [this](auto& obj1, auto& obj2) {
+		for_each_pair(m_enemiesObjects.begin(), m_enemiesObjects.end(), m_inanimateObjects.begin(), m_inanimateObjects.end(), [this](auto& obj1, auto& obj2) {
 			if (colide(*obj1, *obj2))
 			{
 				processCollision(*obj1, *obj2);
 			}
 			});
 
-		for_each_pair(m_animateObjects.begin(), m_animateObjects.end(), [this](auto& obj1, auto& obj2) {
+		for_each_pair(m_enemiesObjects.begin(), m_enemiesObjects.end(), [this](auto& obj1, auto& obj2) {
 			if (colide(*obj1, *obj2))
 			{
 				processCollision(*obj1, *obj2);
@@ -220,7 +227,7 @@ void Board::handleCollision()
 
 void Board::setMap()
 {
-	m_animateObjects	= std::move(m_map.getEnemyObjects(m_link.get()));
+	m_enemiesObjects	= std::move(m_map.getEnemyObjects(m_link.get()));
 	m_staticObjects		= std::move(m_map.getStaticObjects());
 	m_doors				= std::move(m_map.getDoors());
 }
@@ -240,9 +247,15 @@ void Board::initializeLevel(const Level& level)
 	}
 }
 
+void Board::resetEnemiesAndInanimated()
+{
+	m_enemiesObjects = std::move(m_map.getEnemyObjects(m_link.get()));
+	m_inanimateObjects = std::move(m_map.getInanimateObjects());
+}
+
 bool Board::isAttacking() const
 {
-	for (const auto& moving : m_animateObjects)
+	for (const auto& moving : m_enemiesObjects)
 	{
 		if (moving->isAttacking())
 		{

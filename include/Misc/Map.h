@@ -14,6 +14,10 @@
 #include "PigWarrior.h"
 #include "Octorok.h"
 #include "Door.h"
+#include "BowItem.h"
+#include "SwordItem.h"
+#include "Link.h"
+#include "Heart.h"
 
 #include "BadFileName.h"
 
@@ -30,6 +34,7 @@ public:
 	void setMap(const std::string&);
 	void initVector(Cell);
 	std::vector<std::unique_ptr<Enemy>>& getEnemyObjects(Link*);
+	std::vector<std::unique_ptr<Inanimate>>& getInanimateObjects();
 	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects();
 	std::vector<std::unique_ptr<Door>>& getDoors();
 
@@ -38,6 +43,7 @@ public:
 private:
 	std::map<int, std::string> m_dict;
 	std::vector<std::unique_ptr<Enemy>> m_enemyObjects;
+	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 	std::vector<std::unique_ptr<Door>> m_doors;
 

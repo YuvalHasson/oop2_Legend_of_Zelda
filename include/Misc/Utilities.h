@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 8;
+const int OBJ_AMOUNT = 9;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
@@ -26,8 +26,6 @@ enum GAME_STATE {
 	SWITCH_LEVEL
 };
 
-//might want to map each direction to a sf::Vector2i with a map for easy accesing to direction vector
-//might need to be held in links class since only link uses those specific states
 enum Input {
 	PRESS_UP,
 	PRESS_DOWN,
@@ -42,10 +40,15 @@ enum Input {
 	NONE
 };
 
+enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
+
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
 #define VOLUME 0.f
+
+#define MAX_HEALTH 6
+#define MIN_HEALTH 0
 
 namespace TEXTURE
 {
@@ -57,6 +60,7 @@ namespace TEXTURE
 	constexpr int StatusBar = 5;
 	constexpr int GameOver = 6;
 	constexpr int Dungeon1 = 7;
+	constexpr int PickableItems = 8;
 }
 
 namespace BACKGROUND_SOUND

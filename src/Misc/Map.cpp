@@ -1,5 +1,4 @@
 #include "Map.h"
-#include "Link.h"
 
 
 Map::Map()
@@ -74,6 +73,8 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(-1610612462, "Wall" );
 	dict.emplace(1610612787, "Door");
 	dict.emplace(51, "Door");
+	dict.emplace(999, "Octorok");
+	dict.emplace(888, "PigWarrior");
 }
 
 void Map::setMap(const std::string& mapName)
@@ -160,32 +161,47 @@ void Map::initVector(Cell cell)
 		{
 			m_staticObjects.emplace_back(std::move(p));
 		}
+		if (auto p = Factory<Enemy>::instance()->create(it->second, { static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row }))
+		{
+			m_enemyObjects.emplace_back(std::move(p));
+		}
 	}
-
-	////texture of border
-	//if (cell.value > 100000 || cell.value < -100000)
-	//{
-	//}
 
 }
 
 std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects(Link* link)
 {
 	//tmp create
-	if (auto p = Factory<Octorok>::instance()->create("Octorok", { 70.f, 150.f }))
+	for (const auto& enemy : m_enemyObjects)
 	{
-		m_enemyObjects.emplace_back(std::move(p));
+		if (const auto& p = dynamic_cast<PigWarrior*>(enemy.get()))
+		{
+			p->registerAsLinkObserver(link);
+		}
+
 	}
-	 if (auto p1 = Factory<PigWarrior>::instance()->create("PigWarrior", { 32.f, 150.f }))
-	 {
-	 	p1->registerAsLinkObserver(link);
-	 	m_enemyObjects.emplace_back(std::move(p1));
-	 }
 	return m_enemyObjects;
+}
+
+std::vector<std::unique_ptr<Inanimate>>& Map::getInanimateObjects()
+{
+	return m_inanimateObjects;
 }
 
 std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects()
 {
+	//put in the map.cvs
+	if(auto p = Factory<BowItem>::instance()->create("BowItem", {25,25})){
+		m_staticObjects.emplace_back(std::move(p));
+	}
+
+	if(auto p = Factory<SwordItem>::instance()->create("SwordItem", {25,45})){
+		m_staticObjects.emplace_back(std::move(p));
+	}
+
+	if (auto p = Factory<Heart>::instance()->create("Heart", { 25,65 })) {
+		m_staticObjects.emplace_back(std::move(p));
+	}
 	return m_staticObjects;
 }
 

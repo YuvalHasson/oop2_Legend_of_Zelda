@@ -3,11 +3,9 @@
 SwitchLevelState::SwitchLevelState(sf::RenderWindow* window, std::vector<Board>&& baord, sf::View&& view, Level level, Level nextLevel)
 	:State(window), m_boardLevels(std::move(baord)), m_view(std::move(view)), m_level(nextLevel)
 {
-	auto linkPtr = m_boardLevels[level].extractLink();
-	m_boardLevels[m_level].setLink(std::move(linkPtr));
+	m_boardLevels[m_level].setLink(std::move(m_boardLevels[level].extractLink()));
 	m_boardLevels[m_level].initializeLevel(m_level);
-	m_boardLevels[m_level].setMap();
-	std::cout << "SwitchLevelState\n";
+	m_boardLevels[m_level].resetEnemiesAndInanimated();
 }
 
 void SwitchLevelState::update(const sf::Time& deltaTime)

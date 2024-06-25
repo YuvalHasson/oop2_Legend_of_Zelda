@@ -15,11 +15,12 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })),
     m_shield(Factory<Shield>::instance()->create("Shield", { 0,0 })),
     m_isPushing(false), m_wasTabPressed(false),
-    m_isShooting(false), m_arrow(nullptr)
+    m_isShooting(false), m_arrow(nullptr),m_isShielding(false),
+    m_hasSword(false), m_hasBow(false), m_currentWeapon(0)
 {
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
-    setHp(4);
+    setHp(MAX_HEALTH);
 }
 
 Link::~Link()
@@ -28,7 +29,6 @@ Link::~Link()
 }
 
 void Link::update(const sf::Time& deltaTime){
-
     Input input;
     bool up     = sf::Keyboard::isKeyPressed(sf::Keyboard::Up)      || sf::Keyboard::isKeyPressed(sf::Keyboard::W);
     bool down   = sf::Keyboard::isKeyPressed(sf::Keyboard::Down)    || sf::Keyboard::isKeyPressed(sf::Keyboard::S);
@@ -52,8 +52,11 @@ void Link::update(const sf::Time& deltaTime){
     }
 
     if(space)
-    {
-        input = PRESS_SPACE;
+    {   
+        if(!m_weapons.empty())//can enter attack state
+            input = PRESS_SPACE;
+        else
+            input = NONE;
     }
     else if(down && right)
     {
@@ -92,11 +95,12 @@ void Link::update(const sf::Time& deltaTime){
         input = NONE;
     }
     if(tab && !m_wasTabPressed){
-        std::cout<<"tab!!!!!\n";
-        m_isShooting = !m_isShooting;
+        if(!m_weapons.empty()){
+            m_currentWeapon = (m_currentWeapon + 1) % m_weapons.size();
+        }
     }
     m_wasTabPressed = tab;
-    std::unique_ptr<LinkState> state = m_state->handleInput(input, m_isShielding);
+    std::unique_ptr<LinkState> state = m_state->handleInput(input, m_isShielding, isPush());
 
     if(state)
     {
@@ -144,7 +148,7 @@ void Link::initializeInvincible()
 }
 
 Sword* Link::getSword(){
-    if(m_attacking){
+    if(m_attacking && m_sword){
         return m_sword.get();
     }
     return nullptr;
@@ -189,7 +193,7 @@ void Link::shoot()
 
 std::unique_ptr<Inanimate> Link::getAttack()
 {
-    if(m_attacking && m_isShooting){
+    if(m_attacking && getCurrentWeapon() == BowWeapon){
         if(auto p = Factory<LinkArrow>::instance()->create("LinkArrow", getPosition())){
             m_arrow = std::move(p);
             m_arrow->setPosition(getPosition());
@@ -200,6 +204,29 @@ std::unique_ptr<Inanimate> Link::getAttack()
         return std::move(m_arrow);
     }
     return nullptr;
+}
+
+bool Link::doesHaveBow()const{
+    return m_hasBow;
+}
+
+void Link::takeSword(){
+    m_weapons.emplace_back(SwordWeapon);
+}
+
+void Link::takeBow(){
+    m_weapons.emplace_back(BowWeapon);
+}
+
+bool Link::doesHaveSword()const{
+    return m_hasSword;
+}
+
+Weapons Link::getCurrentWeapon()const{
+    if(!m_weapons.empty()){
+        return m_weapons[m_currentWeapon];
+    }
+    return NoWeapon;
 }
 
 //-------------observer list functions--------------

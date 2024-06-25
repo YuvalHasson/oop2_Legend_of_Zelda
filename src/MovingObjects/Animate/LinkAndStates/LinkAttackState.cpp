@@ -2,7 +2,7 @@
 
 LinkAttackState::LinkAttackState(): m_attackDuration(sf::seconds(0.3f)), m_isAnimationSet(false){}
 
-std::unique_ptr<LinkState> LinkAttackState::handleInput(Input input, bool shielding)
+std::unique_ptr<LinkState> LinkAttackState::handleInput(Input input, bool shielding, bool)
 {
     if(m_attackDuration.asSeconds() - m_attackTimer.getElapsedTime().asSeconds()  <= 0)
     {
@@ -34,10 +34,11 @@ void LinkAttackState::enter(Link& link)
         }
         link.setAttacking(true);
     }
-    if(!link.getShooting()){
+    if(link.getCurrentWeapon() == SwordWeapon){
         link.swipeSword();
     }
-    else{
+    else if(link.getCurrentWeapon() == BowWeapon){
+        std::cout<<"shooting!!!";
         link.shoot();
     }
 }
