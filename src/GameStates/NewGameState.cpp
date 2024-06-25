@@ -60,5 +60,11 @@ void NewGameState::setMap()
 	board2.setMap();
 	m_boardLevels.emplace_back(std::move(board2));
 
-	m_boardLevels[0].setLink(std::move(m_boardLevels[1].extractLink()));
+	Board board3;
+	board3.setLink(std::move(m_boardLevels[1].extractLink()));
+	board3.initializeLevel(Level::SECOND_DUNGEON);
+	board3.setMap();
+	m_boardLevels.emplace_back(std::move(board3));
+
+	m_boardLevels[0].setLink(std::move(m_boardLevels[2].extractLink()));
 }
