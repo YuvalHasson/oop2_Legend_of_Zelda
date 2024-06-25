@@ -1,7 +1,7 @@
 #include "Heart.h"
 
-bool Heart::m_registerit = Factory<Heart>::instance()->registerit("Heart",
-	[](const sf::Vector2f& position) -> std::unique_ptr<Heart>
+bool Heart::m_registerit = Factory<StaticObjects>::instance()->registerit("Heart",
+	[](const sf::Vector2f& position) -> std::unique_ptr<StaticObjects>
 	{
 		return std::make_unique<Heart>(*Resources::getResource().getTexture(TEXTURE::PickableItems), position);
 	});

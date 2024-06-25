@@ -466,6 +466,15 @@ namespace
 		LinkHeart(link, heart);
 	}
 
+	void BoulderBoulder(GameObject& boulder1, GameObject& boulder2)
+	{
+		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder1);
+		if (boulderPtr)
+		{
+			boulderPtr->undoMove();
+		}
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -528,6 +537,7 @@ namespace
 		phm[Key(typeid(Boulder), typeid(Wall))] =				&BoulderWall;
 		phm[Key(typeid(Boulder), typeid(Octorok))] =			&BoulderOctorok;
 		phm[Key(typeid(Boulder), typeid(Projectile))] =			&BoulderProjectile;
+		phm[Key(typeid(Boulder), typeid(Boulder))] =			&BoulderBoulder;
 		phm[Key(typeid(PigWarrior), typeid(Link))] =			&PigWarriorLink;
 		phm[Key(typeid(PigWarrior), typeid(Wall))] =			&PigWarriorWall;
 		phm[Key(typeid(PigWarrior), typeid(WaterTile))] =		&PigWarriorWater;

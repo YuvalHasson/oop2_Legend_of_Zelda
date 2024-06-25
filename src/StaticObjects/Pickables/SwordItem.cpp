@@ -1,7 +1,7 @@
 #include "SwordItem.h"
 
-bool SwordItem::m_registerit = Factory<SwordItem>::instance()->registerit("SwordItem",
-	[](const sf::Vector2f& position) -> std::unique_ptr<SwordItem>
+bool SwordItem::m_registerit = Factory<StaticObjects>::instance()->registerit("SwordItem",
+	[](const sf::Vector2f& position) -> std::unique_ptr<StaticObjects>
 	{
 		return std::make_unique<SwordItem>(*Resources::getResource().getTexture(TEXTURE::PickableItems), position);
 	});

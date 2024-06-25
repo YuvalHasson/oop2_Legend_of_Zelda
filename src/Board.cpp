@@ -229,6 +229,7 @@ void Board::setMap()
 {
 	m_enemiesObjects	= std::move(m_map.getEnemyObjects(m_link.get()));
 	m_staticObjects		= std::move(m_map.getStaticObjects());
+	m_inanimateObjects	= std::move(m_map.getInanimateObjects());
 	m_doors				= std::move(m_map.getDoors());
 }
 
@@ -243,6 +244,10 @@ void Board::initializeLevel(const Level& level)
 	case Level::FIRST_DUNGEON:
 		m_map.setMap("Dungeon.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon1));
+		break;
+	case Level::SECOND_DUNGEON:
+		m_map.setMap("Dungeon01.csv");
+		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon2));
 		break;
 	}
 }

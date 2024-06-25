@@ -1,7 +1,7 @@
 #include "BowItem.h"
 
-bool BowItem::m_registerit = Factory<BowItem>::instance()->registerit("BowItem",
-	[](const sf::Vector2f& position) -> std::unique_ptr<BowItem>
+bool BowItem::m_registerit = Factory<StaticObjects>::instance()->registerit("BowItem",
+	[](const sf::Vector2f& position) -> std::unique_ptr<StaticObjects>
 	{
 		return std::make_unique<BowItem>(*Resources::getResource().getTexture(TEXTURE::PickableItems), position);
 	});
