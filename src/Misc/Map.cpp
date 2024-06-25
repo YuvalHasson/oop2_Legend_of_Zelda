@@ -175,13 +175,6 @@ void Map::initVector(Cell cell)
 std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects(Link* link)
 {
 	//tmp create
-
-	 //if (auto p1 = Factory<PigWarrior>::instance()->create("PigWarrior", { 32.f, 150.f }))
-	//{
-	// 	p1->registerAsLinkObserver(link);
-	// 	m_enemyObjects.emplace_back(std::move(p1));
-	//}
-	
 	for (const auto& enemy : m_enemyObjects)
 	{
 		if (const auto& p = dynamic_cast<PigWarrior*>(enemy.get()))

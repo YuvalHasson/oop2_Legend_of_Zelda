@@ -390,8 +390,7 @@ namespace
 		sf::Vector2i direction = getCollisionDirection(shield, projectile);
 		if (ProjectilePtr && shieldPtr)
 		{
-			ProjectilePtr->setDirection(-direction);
-			// shieldPtr->pushBack(direction);
+			ProjectilePtr->setDirection(direction);
 		}
 	}
 	void ProjectileShield(GameObject& projectile, GameObject& shield){
@@ -414,6 +413,7 @@ namespace
 			auto pos = doorPtr->getLinkOutPosition();
 			if (linkPtr)
 			{
+				linkPtr->setPosition(pos);
 				linkPtr->getSprite().setPosition(pos);
 			}
 		}
@@ -443,8 +443,9 @@ namespace
 			linkPtr->takeBow();
 			bowItemPtr->destroy();
 		}
-		
 	}
+
+	void OctorokOctorok(GameObject& octorok1, GameObject& octorok2) {}
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
@@ -465,6 +466,8 @@ namespace
 		phm[Key(typeid(Link), typeid(PigWarrior))] =			&LinkPigWarrior;
 		phm[Key(typeid(Link), typeid(LinkArrow))] =				&LinkLinkArrow;
 		phm[Key(typeid(Link), typeid(Door))] =					&LinkDoor;
+		phm[Key(typeid(Link), typeid(SwordItem))] =				&LinkSwordItem;
+		phm[Key(typeid(Link), typeid(BowItem))] =				&LinkBowItem;
 		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
 		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
 		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallOctoProjectile;
@@ -488,6 +491,7 @@ namespace
 		phm[Key(typeid(Octorok), typeid(Pot))] =				&OctorokPot;
 		phm[Key(typeid(Octorok), typeid(LinkArrow))] =			&OctorokLinkArrow;
 		phm[Key(typeid(Octorok), typeid(Shield))] =				&OctorokShield;
+		phm[Key(typeid(Octorok), typeid(Octorok))] =			&OctorokOctorok;
 		phm[Key(typeid(Sword), typeid(Octorok))] =				&SwordOctorok;
 		phm[Key(typeid(Sword), typeid(Wall))] =					&SwordWall;
 		phm[Key(typeid(Sword), typeid(Link))] =					&SwordLink;
@@ -511,8 +515,7 @@ namespace
 		phm[Key(typeid(LinkArrow), typeid(Octorok))] =			&LinkArrowOctorok;
 		phm[Key(typeid(LinkArrow), typeid(Link))] =				&LinkArrowLink;
 		phm[Key(typeid(LinkArrow), typeid(Wall))] =				&LinkArrowWall;
-		phm[Key(typeid(Link), typeid(SwordItem))] =				&LinkSwordItem;
-		phm[Key(typeid(Link), typeid(BowItem))] =				&LinkBowItem;
+		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
 
 		//...
 		return phm;

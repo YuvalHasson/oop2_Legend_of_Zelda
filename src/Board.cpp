@@ -158,6 +158,13 @@ void Board::handleCollision()
 					processCollision(*sword, *object);
 				}
 			}
+			
+			if (shield) {
+				if (colide(*shield, *object))
+				{
+					processCollision(*shield, *object);
+				}
+			}
 			if (colide(*m_link, *object))
 			{
 				processCollision(*m_link, *object);
