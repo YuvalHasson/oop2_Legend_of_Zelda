@@ -279,12 +279,16 @@ namespace
 	void LinkPigWarrior(GameObject& link, GameObject& pigWarrior)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
 		if (linkPtr)
 		{
-			linkPtr->undoMove();
-			if (linkPtr->isAttacking())
-			{
+			if (!linkPtr->getInvincible()) {
+				linkPtr->pushBack(getCollisionDirection(link, pigWarrior));
+				linkPtr->initializeInvincible();
+				linkPtr->setHp(linkPtr->getHp() - 1);
+				pigWarriorPtr->undoMove();
 			}
+			pigWarriorPtr->undoMove();
 		}
 	}
 
@@ -334,9 +338,7 @@ namespace
 		}
 	}
 
-	void PigWarriorSword(GameObject& pigWarrior, GameObject& sword)
-	{
-	}
+	void PigWarriorSword(GameObject& pigWarrior, GameObject& sword){}
 
 	void LinkArrowOctorok(GameObject& arrow, GameObject& octorok)
 	{
@@ -353,6 +355,22 @@ namespace
 	void OctorokLinkArrow(GameObject& octorok, GameObject& arrow)
 	{
 		LinkArrowOctorok(arrow, octorok);
+	}
+	void LinkArrowPigWarrior(GameObject& arrow, GameObject& pigWarrior)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		if (pigWarriorPtr && arrowPtr)
+		{
+			pigWarriorPtr->pushBack(-getCollisionDirection(arrow, pigWarrior));
+			pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
+			arrowPtr->destroy();
+		}
+	}
+
+	void PigWarriorLinkArrow(GameObject& pigWarrior, GameObject& arrow)
+	{
+		LinkArrowPigWarrior(arrow, pigWarrior);
 	}
 
 	void LinkLinkArrow(GameObject& link, GameObject& arrow) {}
@@ -443,7 +461,7 @@ namespace
 		phm[Key(typeid(Link), typeid(Door))] =					&LinkDoor;
 		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
 		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
-		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallOctoProjectile;
+		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallProjectile;
 		phm[Key(typeid(Wall), typeid(Sword))] =					&WallSword;
 		phm[Key(typeid(Wall), typeid(Boulder))] =				&WallBoulder;
 		phm[Key(typeid(Wall), typeid(PigWarrior))] =			&WallPigWarrior;
@@ -484,7 +502,9 @@ namespace
 		phm[Key(typeid(PigWarrior), typeid(Wall))] =			&PigWarriorWall;
 		phm[Key(typeid(PigWarrior), typeid(WaterTile))] =		&PigWarriorWater;
 		phm[Key(typeid(PigWarrior), typeid(Sword))] =			&PigWarriorSword;
+		phm[Key(typeid(PigWarrior), typeid(LinkArrow))] =		&PigWarriorLinkArrow;
 		phm[Key(typeid(LinkArrow), typeid(Octorok))] =			&LinkArrowOctorok;
+		phm[Key(typeid(LinkArrow), typeid(PigWarrior))] =		&LinkArrowPigWarrior;
 		phm[Key(typeid(LinkArrow), typeid(Link))] =				&LinkArrowLink;
 		phm[Key(typeid(LinkArrow), typeid(Wall))] =				&LinkArrowWall;
 

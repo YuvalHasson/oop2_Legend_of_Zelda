@@ -9,8 +9,10 @@ bool Octorok::m_registerit = Factory<Octorok>::instance()->registerit("Octorok",
     });
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
-	: Enemy(texture, position, sf::Vector2f(12,12),sf::Vector2f(12/2, 12/2)), m_projectile(nullptr), m_currInput(PRESS_DOWN),
-        m_moveStrategy(std::make_unique<PatrolMovement>()), m_attackStrategy(std::make_unique<Shoot>())
+	:Enemy(texture, position, sf::Vector2f(12,12),sf::Vector2f(12/2, 12/2)), 
+     m_projectile(nullptr), m_currInput(PRESS_DOWN),
+     m_moveStrategy(std::make_unique<PatrolMovement>()),
+     m_attackStrategy(std::make_unique<Shoot>())
 {
     setDirection(DIRECTIONS::Down);
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);

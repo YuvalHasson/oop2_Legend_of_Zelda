@@ -5,11 +5,13 @@
 #include "MovementStrategy.h"
 #include "SmartMovement.h"
 #include "PatrolMovement.h"
-#include "Sword.h"
+#include "Standing.h"
+#include "EnemySword.h"
 #include "LinkObserver.h"
 #include "Projectile.h"/// just for test
 #include "AttackStrategy.h"/// just for test
 #include "Shoot.h"/// just for test
+#include "Stab.h"/// just for test
 
 #include "Link.h"
 
@@ -26,7 +28,6 @@ public:
 	virtual void attack();
 	virtual void draw(sf::RenderTarget&) override;
 	virtual const sf::Vector2u& getAnimationTexturePosition(Input)override;
-	//void setMoveStrategy(std::unique_ptr<MovementStrategy>&);
 	void setMoveStrategy(std::unique_ptr<MovementStrategy>);
 	void PerformMove();
 	void setAttackStrategy(std::unique_ptr<AttackStrategy>);
@@ -38,17 +39,7 @@ public:
 	virtual void updateLinkPosition(const sf::Vector2f& position)override;
 	virtual void removeLink() override;
 
-
 	void registerAsLinkObserver(Link*);
-	//void UpdateLinkPos(const sf::Vector2f& position);
-	//void updateLinkPosition(const sf::Vector2f& position) override;
-
-	void insertSword(Sword*);
-	Sword* getSword();
-
-	void swipeSword();
-	void stopSwordSwipe();
-
 
 private:
 	sf::Clock m_directionChangeClock;
@@ -62,10 +53,10 @@ private:
 	sf::Clock m_attackTimer;
 	sf::Time m_attackDuration;
 	std::unique_ptr <AttackStrategy> m_attackStrategy;
-	std::unique_ptr<Projectile> m_projectile;
+	//std::unique_ptr<Sword> m_sword;
+	std::unique_ptr<Weapon> m_sword;
 	///
 	static bool m_registerit;
-	std::unique_ptr<Sword> m_sword;
 
 	//sf::Clock m_invincibleTimer;
 
