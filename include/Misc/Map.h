@@ -14,6 +14,10 @@
 #include "PigWarrior.h"
 #include "Octorok.h"
 #include "Door.h"
+#include "BowItem.h"
+#include "SwordItem.h"
+#include "Link.h"
+#include "Heart.h"
 
 #include "BadFileName.h"
 

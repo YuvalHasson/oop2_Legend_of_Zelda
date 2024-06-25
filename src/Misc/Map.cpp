@@ -1,7 +1,4 @@
 #include "Map.h"
-#include "Link.h"
-#include "BowItem.h"
-#include "SwordItem.h"
 
 
 Map::Map()
@@ -199,6 +196,10 @@ std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects()
 	}
 
 	if(auto p = Factory<SwordItem>::instance()->create("SwordItem", {25,45})){
+		m_staticObjects.emplace_back(std::move(p));
+	}
+
+	if (auto p = Factory<Heart>::instance()->create("Heart", { 25,65 })) {
 		m_staticObjects.emplace_back(std::move(p));
 	}
 	return m_staticObjects;

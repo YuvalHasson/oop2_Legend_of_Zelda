@@ -18,17 +18,17 @@ public:
 	Link(const sf::Texture&, const sf::Vector2f&);
 	~Link();
 
-	virtual void update(const sf::Time& deltaTime) override;
+	virtual void update(const sf::Time&) override;
 	virtual void draw(sf::RenderTarget& ) override;
 
 	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
-	virtual void move()override;
+	virtual void move() override;
 
 	//observer list functions
-	virtual void RegisterObserver(LinkObserver* observer)override;
-	virtual void RemoveObserver(LinkObserver* observer)override;
-	virtual void NotifyObservers()override;
-	virtual void NotifyObserversLinkOut()override;
+	virtual void RegisterObserver(LinkObserver*) override;
+	virtual void RemoveObserver(LinkObserver*) override;
+	virtual void NotifyObservers() override;
+	virtual void NotifyObserversLinkOut() override;
 
 
 	void swipeSword();
@@ -45,14 +45,13 @@ public:
 
 	void takeSword();
 	void takeBow();
-	bool doesHaveBow()const;
-	bool doesHaveSword()const;
-	Weapons getCurrentWeapon()const;
+	bool doesHaveBow() const;
+	bool doesHaveSword() const;
+	Weapons getCurrentWeapon() const;
 
 	void setPush(bool);
 	bool isPush() const;
 	bool getShooting() const;
-	bool getShielding()const;
 
 private:
 	//current link state

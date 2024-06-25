@@ -47,6 +47,9 @@ enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
 #define tileSize 16
 #define VOLUME 0.f
 
+#define MAX_HEALTH 6
+#define MIN_HEALTH 0
+
 namespace TEXTURE
 {
 	constexpr int Menu = 0;

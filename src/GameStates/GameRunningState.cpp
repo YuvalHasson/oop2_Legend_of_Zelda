@@ -21,7 +21,7 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	}
 	m_statusBar.update(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getCurrentWeapon());
 
-	if (m_boardLevels[m_level].getLink().getHp() <= 0)
+	if (m_boardLevels[m_level].getLink().getHp() <= MIN_HEALTH)
 	{
 		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::StartGame);
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
