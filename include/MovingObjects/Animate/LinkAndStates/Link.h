@@ -28,7 +28,7 @@ public:
 	virtual void RegisterObserver(LinkObserver*) override;
 	virtual void RemoveObserver(LinkObserver*) override;
 	virtual void NotifyObservers() override;
-	virtual void NotifyObserversLinkOut() override;
+	virtual void NotifyObserversLinkOut() const override;
 
 
 	void swipeSword();

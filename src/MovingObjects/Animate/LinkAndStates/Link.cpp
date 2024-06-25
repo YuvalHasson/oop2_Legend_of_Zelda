@@ -245,7 +245,7 @@ void Link::NotifyObservers(){
     }
 }
 
-void Link::NotifyObserversLinkOut()
+void Link::NotifyObserversLinkOut() const
 {
     for (const auto& observer : m_observers) {
         observer->removeLink();
