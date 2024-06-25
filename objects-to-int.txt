@@ -1,0 +1,19 @@
+object to int
+
+
+-1 - empty tile
+0 - wall
+1 - Octorok
+2 - pigWarrior
+3 - Boulder
+4 - Pot
+5 - Water
+6 - SwordItem
+7 - BowItem
+8 - Boss
+9 - Zelda
+10 - Sign
+11 - Heart
+
+//dungeons
+51 - Door out of first dungeon
