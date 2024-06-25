@@ -10,9 +10,9 @@ bool Pot::m_registerit = Factory<StaticObjects>::instance()->registerit("Pot",
 
 
 Pot::Pot(const sf::Texture& texture, const sf::Vector2f& position)
-	:Destructible(texture, position, sf::Vector2f(tileSize / 2.f, tileSize / 2.f), sf::Vector2f(tileSize / 3.8f, tileSize / 3.8f))
+	:Destructible(texture, position, sf::Vector2f(tileSize * 0.8f, tileSize * 0.8f), sf::Vector2f(0, 0))
 {
 	setPosition(position);
-	getSprite().setTextureRect(sf::IntRect(156, 207, tileSize, tileSize));
-	getSprite().setScale(0.6, 0.6);
+	getSprite().setTextureRect(sf::IntRect(156, 208, tileSize, tileSize));
+	getSprite().setScale(0.8f, 0.8f);
 }

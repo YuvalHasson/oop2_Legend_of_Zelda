@@ -469,9 +469,11 @@ namespace
 	void BoulderBoulder(GameObject& boulder1, GameObject& boulder2)
 	{
 		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder1);
-		if (boulderPtr)
+		Boulder* boulderPtr2 = dynamic_cast<Boulder*>(&boulder2);
+		if (boulderPtr && boulderPtr2)
 		{
 			boulderPtr->undoMove();
+			boulderPtr2->undoMove();
 		}
 	}
 

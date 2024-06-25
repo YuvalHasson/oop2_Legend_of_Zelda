@@ -8,7 +8,9 @@ bool Sword::m_registerit = Factory<Sword>::instance()->registerit("Sword",
     });
 
 Sword::Sword(const sf::Texture& texture, const sf::Vector2f& position)
-    : Inanimate(texture, position, sf::Vector2f(12,12), sf::Vector2f(12/2, 12/2)), m_active(false) {}
+    : Inanimate(texture, position, sf::Vector2f(12,12), sf::Vector2f(12/2, 12/2)), m_active(false) {
+        getSprite().setOrigin(tileSize/2, tileSize/2);
+    }
     
 void Sword::activate(const sf::Vector2f& position, const sf::Vector2i& direction){
     m_active = true;

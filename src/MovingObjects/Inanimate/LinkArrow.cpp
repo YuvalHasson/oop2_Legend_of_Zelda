@@ -10,9 +10,7 @@ bool LinkArrow::m_registerit = Factory<LinkArrow>::instance()->registerit("LinkA
 
 //might need to add direction to constructor so arrow initializes to right direction at creation
 LinkArrow::LinkArrow(const sf::Texture& Texture, const sf::Vector2f& position)
-    : Projectiles(Texture, position, sf::Vector2f(8,8), sf::Vector2f(8/2,8/2))
-{
-}
+    : Projectiles(Texture, position, sf::Vector2f(6,6), sf::Vector2f(6/2,6/2)){}
 
 void LinkArrow::update(const sf::Time& deltaTime)
 {

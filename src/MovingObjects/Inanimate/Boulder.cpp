@@ -7,9 +7,8 @@ bool Boulder::m_registerit = Factory<Inanimate>::instance()->registerit("Boulder
 	});
 
 Boulder::Boulder(const sf::Texture& texture, const sf::Vector2f& pos)
-	: Inanimate(texture, pos, sf::Vector2f(tileSize / 1.3f, tileSize / 1.3f), sf::Vector2f(tileSize / 2.5f, tileSize / 2.5f))
+	: Inanimate(texture, pos, sf::Vector2f(tileSize / 1.3f, tileSize / 1.3f), sf::Vector2f(0, 0))
 {
-	setPosition(pos);
 	setGraphics({190, 170}, 1);
 	getSprite().setTextureRect(getAnimation().getuvRect());
 	updateSprite();

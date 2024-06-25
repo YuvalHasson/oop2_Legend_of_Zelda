@@ -9,8 +9,8 @@ bool m_registerit = Factory<Link>::instance()->registerit("Link",
 	});
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
-	: Animate(texture, position, sf::Vector2f(7,7),
-    sf::Vector2f(tileSize/5, tileSize / 10)),
+	: Animate(texture, position, sf::Vector2f(7,7.5f),
+    sf::Vector2f(tileSize/4.5f, tileSize / 9)),
     m_state(std::make_unique<LinkStandingState>()),
     m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })),
     m_shield(Factory<Shield>::instance()->create("Shield", { 0,0 })),
@@ -18,6 +18,7 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     m_isShooting(false), m_arrow(nullptr),m_isShielding(false),
     m_hasSword(false), m_hasBow(false), m_currentWeapon(0)
 {
+    getSprite().setOrigin(tileSize/2, tileSize/2);
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
     setHp(MAX_HEALTH);
@@ -196,8 +197,8 @@ std::unique_ptr<Inanimate> Link::getAttack()
     if(m_attacking && getCurrentWeapon() == BowWeapon){
         if(auto p = Factory<LinkArrow>::instance()->create("LinkArrow", getPosition())){
             m_arrow = std::move(p);
-            m_arrow->setPosition(getPosition());
-            m_arrow->getSprite().setPosition(getPosition());
+            m_arrow->setPosition(sf::Vector2f(getPosition().x, getPosition().y + 3));
+            m_arrow->getSprite().setPosition(sf::Vector2f(getPosition().x, getPosition().y + 3));
             m_arrow->initArrow(getDirection());
         }
         stopShooting();
