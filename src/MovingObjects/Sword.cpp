@@ -70,7 +70,6 @@ void Sword::setActive(const bool& active)
 
 void Sword::update(const sf::Time& deltaTime)
 {
-    //updateGraphics(deltaTime);
     getAnimation().update(deltaTime);
     updateSprite();
 }

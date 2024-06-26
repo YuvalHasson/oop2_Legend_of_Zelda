@@ -33,7 +33,6 @@ std::unique_ptr<LinkState> LinkShieldMovingState::handleInput(Input input, bool 
 }
 
 void LinkShieldMovingState::enter(Link& link){
-    //can make directions and enums into a map
     if(link.isPushedBack()){
         link.move();
         return;
