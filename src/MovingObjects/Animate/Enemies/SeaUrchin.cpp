@@ -28,6 +28,12 @@ void SeaUrchin::update(const sf::Time& deltaTime)
 {
 	updateGraphics(deltaTime);
 	updateSprite();
+
+
+	if (getHp() <= MIN_HEALTH)
+	{
+		destroy();
+	}
 }
 
 const sf::Vector2u& SeaUrchin::getAnimationTexturePosition(Input)
