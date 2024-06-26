@@ -114,7 +114,7 @@ void Link::update(const sf::Time& deltaTime){
     }
     m_sword->update(deltaTime);
     updateSprite();
-    if(!(m_timeSinceLastPush.getElapsedTime().asSeconds() - 0.04f <= 0)){
+    if(!(m_timeSinceLastPush.getElapsedTime().asSeconds() - 0.01f <= 0)){
         setPush(false);
     }
 }
