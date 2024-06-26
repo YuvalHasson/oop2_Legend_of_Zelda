@@ -45,14 +45,13 @@ public:
 
 	void takeSword();
 	void takeBow();
-	bool doesHaveBow() const;
-	bool doesHaveSword() const;
 	Weapons getCurrentWeapon() const;
 
 	void setPush(bool);
 	bool isPush() const;
 	bool getShooting() const;
 
+	void resetTimeSinceLastPushed();
 private:
 	//current link state
 	std::unique_ptr<LinkState> m_state;
@@ -71,9 +70,9 @@ private:
 	bool m_wasTabPressed;
 	bool m_isShielding;
 
+	sf::Clock m_timeSinceLastPush;
+
 	//weapons currently held
-	bool m_hasSword;
-	bool m_hasBow;
 	std::vector<Weapons> m_weapons;
 	size_t m_currentWeapon;
 

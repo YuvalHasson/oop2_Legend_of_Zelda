@@ -78,12 +78,6 @@ void PigWarrior::attack()
     setAttacking(true);
 }
 
-void PigWarrior::draw(sf::RenderTarget& target)
-{
-    GameObject::draw(target);
-    target.draw(getSprite());
-}
-
 const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
 {
     switch (side)

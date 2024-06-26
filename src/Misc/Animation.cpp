@@ -18,7 +18,6 @@ Animation::Animation(sf::Vector2u startPosition ,int imageCount, float switchTim
     m_uvRect.height = spriteHeight;
 }
 
-//flip is to mirror image according to x value
 void Animation::update(const sf::Time& deltaTime) {
     
     m_timePassed += deltaTime.asSeconds();

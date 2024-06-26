@@ -12,6 +12,7 @@ namespace
 		{
 			linkPtr->undoMove();
 			linkPtr->setPush(true);
+			linkPtr->resetTimeSinceLastPushed();
 		}
 
 	}
@@ -175,7 +176,7 @@ namespace
 		{
 			Link* linkPtr = dynamic_cast<Link*>(&link);
 			if (linkPtr)
-			{
+			{	
 				linkPtr->undoMove();
 				if (linkPtr->getDirection() == DIRECTIONS::Up    ||
 					linkPtr->getDirection() == DIRECTIONS::Down  || 
@@ -183,6 +184,7 @@ namespace
 					linkPtr->getDirection() == DIRECTIONS::Right)
 				{
 					linkPtr->setPush(true);
+					linkPtr->resetTimeSinceLastPushed();
 					boulderPtr->setDirection(linkPtr->getDirection());
 					boulderPtr->move();
 				}
