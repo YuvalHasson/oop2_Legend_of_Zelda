@@ -14,6 +14,7 @@ object to int
 9 - Zelda
 10 - Sign
 11 - Heart
+12 - Sea Urchin
 
 //dungeons
 51 - Door out of first dungeon

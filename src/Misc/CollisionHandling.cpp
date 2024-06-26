@@ -581,6 +581,81 @@ namespace
 		ShieldPigWarrior(shield, pigWarrior);
 	}
 
+	void ShieldSeaUrchin(GameObject& shield, GameObject& seaUrchin)
+	{
+		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
+		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
+		if (shieldPtr && seaUrchinPtr)
+		{
+			seaUrchinPtr->setDirection(shieldPtr->getLinkDirection());
+			seaUrchinPtr->move();
+		}
+	}
+
+	void SeaUrchinShield(GameObject& seaUrchin, GameObject& shield)
+	{
+		ShieldSeaUrchin(shield, seaUrchin);
+	}
+
+	void SeaUrchinLink(GameObject& seaUrchin, GameObject& link)
+	{
+		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (seaUrchinPtr && linkPtr)
+		{
+			if (!linkPtr->getInvincible())
+			{
+				linkPtr->pushBack(getCollisionDirection(link, seaUrchin));
+				linkPtr->initializeInvincible();
+				linkPtr->setHp(linkPtr->getHp() - 1);
+			}
+		}
+	}
+
+	void LinkSeaUrchin(GameObject& link, GameObject& seaUrchin)
+	{
+		SeaUrchinLink(seaUrchin, link);
+	}
+
+	void SeaUrchinWall(GameObject& seaUrchin, GameObject& wall)
+	{
+		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
+		if (seaUrchinPtr)
+		{
+			seaUrchinPtr->undoMove();
+		}
+	}
+
+	void WallSeaUrchin(GameObject& wall, GameObject& seaUrchin)
+	{
+		SeaUrchinWall(seaUrchin, wall);
+	}
+
+	void SeaUrchinWater(GameObject& seaUrchin, GameObject& water)
+	{
+		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
+		if (seaUrchinPtr)
+		{
+			seaUrchinPtr->undoMove();
+		}
+	}
+
+	void WaterSeaUrchin(GameObject& water, GameObject& seaUrchin)
+	{
+		SeaUrchinWater(seaUrchin, water);
+	}
+
+	void SeaUrchinSeaUrchin(GameObject& seaUrchin1, GameObject& seaUrchin2)
+	{
+		SeaUrchin* seaUrchinPtr1 = dynamic_cast<SeaUrchin*>(&seaUrchin1);
+		SeaUrchin* seaUrchinPtr2 = dynamic_cast<SeaUrchin*>(&seaUrchin2);
+
+		if (seaUrchinPtr1 && seaUrchinPtr2)
+		{
+			seaUrchinPtr1->undoMove();
+			seaUrchinPtr2->undoMove();
+		}
+	}
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
@@ -605,6 +680,7 @@ namespace
 		phm[Key(typeid(Link), typeid(BowItem))] =				&LinkBowItem;
 		phm[Key(typeid(Link), typeid(Heart))] =					&LinkHeart;
 		phm[Key(typeid(Link), typeid(EnemySword))] =			&LinkEnemySword;
+		phm[Key(typeid(Link), typeid(SeaUrchin))] =				&LinkSeaUrchin;
 		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
 		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
 		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallProjectile;
@@ -614,6 +690,7 @@ namespace
 		phm[Key(typeid(Wall), typeid(LinkArrow))] =				&WallLinkArrow;
 		phm[Key(typeid(Wall), typeid(LinkArrow))] =				&WallLinkArrow;
 		phm[Key(typeid(Wall), typeid(EnemySword))] =			&WallEnemySword;
+		phm[Key(typeid(Wall), typeid(SeaUrchin))] =				&WallSeaUrchin; 
 		phm[Key(typeid(Pot), typeid(Link))] =					&PotLink;
 		phm[Key(typeid(Pot), typeid(Sword))] =					&PotSword;
 		phm[Key(typeid(Pot), typeid(Octorok))] =				&PotOctorok;
@@ -622,6 +699,7 @@ namespace
 		phm[Key(typeid(WaterTile), typeid(Octorok))] =			&WaterOctorok;
 		phm[Key(typeid(WaterTile), typeid(PigWarrior))] =		&WaterPigWarrior;
 		phm[Key(typeid(WaterTile), typeid(EnemySword))] =		&WaterEnemySword;
+		phm[Key(typeid(WaterTile), typeid(SeaUrchin))] =		&WaterSeaUrchin; 
 		phm[Key(typeid(Octorok), typeid(Link))] =				&OctorokLink;
 		phm[Key(typeid(Octorok), typeid(Wall))] =				&OctorokWall;
 		phm[Key(typeid(Octorok), typeid(WaterTile))] =			&OctorokWater;
@@ -641,6 +719,7 @@ namespace
 		phm[Key(typeid(Shield), typeid(Projectile))] =			&ShieldProjectile;
 		phm[Key(typeid(Shield), typeid(PigWarrior))] =			&ShieldPigWarrior;
 		phm[Key(typeid(Shield), typeid(EnemySword))] =			&ShieldEnemySword;
+		phm[Key(typeid(Shield), typeid(SeaUrchin))] =			&ShieldSeaUrchin;
 		phm[Key(typeid(Projectile), typeid(Wall))] =			&ProjectileWall;
 		phm[Key(typeid(Projectile), typeid(Link))] =			&ProjectileLink;
 		phm[Key(typeid(Projectile), typeid(Octorok))] =			&ProjectileOctorok;
@@ -670,6 +749,11 @@ namespace
 		phm[Key(typeid(EnemySword), typeid(Shield))] =			&EnemySwordShield;
 		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
 		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
+		phm[Key(typeid(SeaUrchin), typeid(Shield))] =			&SeaUrchinShield;
+		phm[Key(typeid(SeaUrchin), typeid(Link))] =				&SeaUrchinLink;
+		phm[Key(typeid(SeaUrchin), typeid(Wall))] =				&SeaUrchinWall;
+		phm[Key(typeid(SeaUrchin), typeid(WaterTile))] =		&SeaUrchinWater;
+		phm[Key(typeid(SeaUrchin), typeid(SeaUrchin))] =		&SeaUrchinSeaUrchin;
 
 		//...
 		return phm;

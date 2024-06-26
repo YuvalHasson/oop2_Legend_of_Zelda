@@ -23,6 +23,7 @@
 #include "SwordItem.h"
 #include "Heart.h"
 #include "EnemySword.h"
+#include "SeaUrchin.h"
 
 struct UnknownCollision : public std::runtime_error
 {

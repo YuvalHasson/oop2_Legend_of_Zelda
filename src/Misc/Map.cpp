@@ -20,6 +20,8 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(5, "WaterTile");
 	dict.emplace(6, "SwordItem");
 	dict.emplace(7, "BowItem");
+	dict.emplace(11, "Heart");
+	dict.emplace(12, "SeaUrchin");
 	dict.emplace(50, "Door");
 	dict.emplace(51, "Door");
 	dict.emplace(52, "Door");

@@ -17,14 +17,14 @@ Shield::Shield(const sf::Texture& texture, const sf::Vector2f& position)
 
 void Shield::activate(const sf::Vector2f& linkPosition, const sf::Vector2i& linkDirection){
     m_active = true;
-    
+	m_linkDirection = linkDirection;
     float width = getHitBox().GetRect().width;
     float height = getHitBox().GetRect().height;
 
     sf::Vector2f position;
     sf::Vector2f size;
     sf::Vector2f offset;
-    if(linkDirection.x == -1){
+    if(m_linkDirection.x == -1){
         //change the hitbox to face left
         size.x = 2;
         size.y = 9;
@@ -32,7 +32,7 @@ void Shield::activate(const sf::Vector2f& linkPosition, const sf::Vector2i& link
         offset.y = 4/2;
         position = linkPosition;
     }
-    else if(linkDirection.x == 1){
+    else if(m_linkDirection.x == 1){
         //change the hitbox to face right
         size.x = 2;
         size.y = 9;
@@ -43,14 +43,14 @@ void Shield::activate(const sf::Vector2f& linkPosition, const sf::Vector2i& link
     else{
         offset.x = 9/2;
         offset.y = 1;
-        if(linkDirection == DIRECTIONS::Up){
+        if(m_linkDirection == DIRECTIONS::Up){
             //change hitbox to face up
             size.x = 9;
             size.y = 2;
             position.x = linkPosition.x;
             position.y = linkPosition.y - 7;
         }
-        else if(linkDirection == DIRECTIONS::Down){
+        else if(m_linkDirection == DIRECTIONS::Down){
             //change hitbox to face down
             size.x = 9;
             size.y = 2;
@@ -85,8 +85,14 @@ bool Shield::getCollided(){
     return m_collided;
 }
 
-sf::Vector2i Shield::getCollisionDirection() const{
+sf::Vector2i Shield::getCollisionDirection() const
+{
     return m_collisionDirection;
+}
+
+sf::Vector2i Shield::getLinkDirection() const
+{
+    return m_linkDirection;
 }
 
 void Shield::pushBack(const sf::Vector2i& direction){
