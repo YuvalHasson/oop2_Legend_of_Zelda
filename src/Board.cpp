@@ -77,7 +77,7 @@ void Board::addProjectileToMoving()
 
 void Board::makeLink()
 {	
-	if (auto p = Factory<Link>::instance()->create("Link", { 39.f, 35.f }))
+	if (auto p = Factory<Link>::instance()->create("Link", { 86.f, 35.f }))
 	{
 		m_link = std::move(p);
 	}

@@ -12,4 +12,6 @@ public:
 
 private:
 	static bool m_registerit;
+	
+	sf::Clock m_timer;
 };
