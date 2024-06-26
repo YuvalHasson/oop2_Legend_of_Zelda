@@ -11,6 +11,7 @@ bool Projectile::m_registerit = Factory<Projectile>::instance()->registerit("Pro
 Projectile::Projectile(const sf::Texture& Texture, const sf::Vector2f& position)
     : Projectiles(Texture, position, sf::Vector2f(8,8), sf::Vector2f(8/2,8/2))
 {
+    setSpeed(2);
     setGraphics({ 265, 143 }, 1);
 	updateSprite();
     setDirection(DIRECTIONS::Down);

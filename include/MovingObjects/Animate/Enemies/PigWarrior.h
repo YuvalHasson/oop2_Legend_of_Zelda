@@ -59,16 +59,5 @@ private:
 	static bool m_registerit;
 
 	//sf::Clock m_invincibleTimer;
-
-	//for (const auto& enemy : m_movingObjects)
-	//{
-	//	if (dynamic_cast<PigWarrior*>(enemy.get()))
-	//	{
-	//		std::cout << "addSword\n";
-	//		auto sword = Factory::createSword();
-	//		dynamic_cast<PigWarrior*>(enemy.get())->insertSword(sword.get());
-	//		//m_movingObjects.emplace_back(std::move(sword));
-	//	}
-	//}
 };
 

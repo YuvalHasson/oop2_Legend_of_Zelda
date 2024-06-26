@@ -11,8 +11,8 @@ void Animate::move()
 	{
 		if (!(pushbackDuration - m_pushbackTimer.getElapsedTime() <= sf::Time(sf::seconds(0))))
 		{
-			newPos.x = getSprite().getPosition().x + (-m_collisionDirection.x * getSpeed());
-			newPos.y = getSprite().getPosition().y + (-m_collisionDirection.y * getSpeed());
+			newPos.x = getSprite().getPosition().x + (-m_collisionDirection.x * getSpeed() * 1.5f);
+			newPos.y = getSprite().getPosition().y + (-m_collisionDirection.y * getSpeed() * 1.5f);
 			setPosition(newPos);
 			getSprite().setPosition(newPos);
 		}

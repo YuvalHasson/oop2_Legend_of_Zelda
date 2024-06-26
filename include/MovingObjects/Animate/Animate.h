@@ -4,7 +4,7 @@
 
 #include "Inanimate/Inanimate.h"
 
-const sf::Time pushbackDuration(sf::seconds(0.2f));
+const sf::Time pushbackDuration(sf::seconds(0.3f));
 
 class Animate : public MovingObjects
 {

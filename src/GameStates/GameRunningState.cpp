@@ -7,7 +7,6 @@ GameRunningState::GameRunningState(sf::RenderWindow* window, std::vector<Board>&
 	StatusBar status(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getCurrentWeapon());
 	m_statusBar = status;
 	setCenterView();
-	std::cout << "GameRunningState\n";
 }
 
 void GameRunningState::update(const sf::Time& deltaTime)

@@ -9,9 +9,8 @@ bool PigWarrior::m_registerit = Factory<Enemy>::instance()->registerit("PigWarri
     });
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
-    :Enemy(texture, position, sf::Vector2f(10, 10), 
-     sf::Vector2f(10 / 2, 10 / 2)),
-     m_sword(/*Factory<EnemySword>::instance()->create("EnemySword", position)*/nullptr),
+    :Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f), sf::Vector2f(-2, -2)),
+     m_sword(nullptr),
      m_currInput(PRESS_RIGHT),
      m_moveStrategy(std::make_unique<PatrolMovement>()), 
      m_attackStrategy(std::make_unique<Stab>())
@@ -63,7 +62,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
     PerformMove();
     updateGraphics(deltaTime);
     updateSprite();
-    if (getHp() <= 0)
+    if (getHp() <= MIN_HEALTH)
     {
         destroy();
     }
@@ -82,7 +81,6 @@ void PigWarrior::attack()
 void PigWarrior::draw(sf::RenderTarget& target)
 {
     GameObject::draw(target);
-    //m_sword->draw(target);
     target.draw(getSprite());
 }
 

@@ -12,12 +12,13 @@ std::unique_ptr<LinkState> LinkPushState::handleInput(Input input, bool shieldin
             input == PRESS_UP_RIGHT   || input == PRESS_LEFT        || input == PRESS_RIGHT     ||
             input == PRESS_DOWN       || input == PRESS_UP)
     {
-        if (!shielding && !pushing) {
+        if (!shielding && !pushing)
+        {
             return std::make_unique<LinkMoveState>(input);
         }
         else if (pushing && !shielding)
         {
-        	return std::make_unique<LinkPushState>(input);
+            return std::make_unique<LinkPushState>(input);
         }
         else {
             return std::make_unique<LinkShieldMovingState>(input);

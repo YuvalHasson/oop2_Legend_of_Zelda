@@ -32,7 +32,6 @@ void Map::setDict(std::map<int ,std::string>& dict)
 void Map::setMap(const std::string& mapName)
 {
 	std::string gameMap = mapName;
-	std::cout << "map name: " << gameMap << std::endl;
 	try
 	{
 		auto map = std::ifstream(gameMap);
@@ -88,25 +87,25 @@ void Map::initVector(Cell cell)
 		{
 			if (auto p = Factory<Door>::instance()->create(it->second, { static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row }))
 			{
-				if (cell.value == 52)
+				if (cell.value == 50)
 				{
 					p->setLevelToDoor(Level::FIRST_DUNGEON);
 					p->setLinkOutPosition({ 22, 105 });
 					m_doors.emplace_back(std::move(p));
 				}
-				if (cell.value == 53)
+				if (cell.value == 51)
 				{
 					p->setLevelToDoor(Level::MAIN);
 					p->setLinkOutPosition({ 166, 150 });
 					m_doors.emplace_back(std::move(p));
 				}
-				if (cell.value == 50)
+				if (cell.value == 52)
 				{
 					p->setLevelToDoor(Level::SECOND_DUNGEON);
 					p->setLinkOutPosition({ 72, 138 });
 					m_doors.emplace_back(std::move(p));
 				}
-				if (cell.value == 51)
+				if (cell.value == 53)
 				{
 					p->setLevelToDoor(Level::MAIN);
 					p->setLinkOutPosition({ 503, 86});

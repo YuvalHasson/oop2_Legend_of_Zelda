@@ -13,9 +13,7 @@ void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCha
         // Check if the PigWarrior reached the Link
         if (isLinkAtPosition(nextPosition, enemy.getLinkPos()))
         {
-            //std::cout << "Link is reached at: " << m_linkPos.x << ", " << m_linkPos.y << "\n";
             // Handle reaching the Link
-            std::cout << "link get caught\n";
             // You may want to stop the PigWarrior or trigger a specific action
         }
         moveTowards(enemy, enemy.getLinkPos());

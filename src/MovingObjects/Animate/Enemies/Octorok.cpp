@@ -9,7 +9,7 @@ bool Octorok::m_registerit = Factory<Enemy>::instance()->registerit("Octorok",
     });
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
-	:Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f),sf::Vector2f(-2, -2)), 
+	:Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f), sf::Vector2f(-2, -2)), 
      m_projectile(nullptr), m_currInput(PRESS_DOWN),
      m_moveStrategy(std::make_unique<PatrolMovement>()),
      m_attackStrategy(std::make_unique<Shoot>())
@@ -37,7 +37,6 @@ void Octorok::update(const sf::Time& deltaTime)
         case 3:
             setMoveStrategy(std::make_unique<Standing>());
             PerformMove();
-			std::cout << "Octorok is attacking" << std::endl;
             PerformAttack();
 			break;            
         default:

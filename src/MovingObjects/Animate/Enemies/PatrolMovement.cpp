@@ -11,8 +11,6 @@ void PatrolMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCh
     {
         int randomMovment = rand() % 4;
 
-        std::cout << "randomMovment: " << randomMovment << std::endl;
-
         switch (randomMovment)
         {
         case 0:
