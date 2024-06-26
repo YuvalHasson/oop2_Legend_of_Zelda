@@ -815,8 +815,6 @@ namespace
 		phm[Key(typeid(EnemySword), typeid(WaterTile))] =		&EnemySwordWater;
 		phm[Key(typeid(EnemySword), typeid(Shield))] =			&EnemySwordShield;
 		phm[Key(typeid(EnemySword), typeid(Octorok))] =			&EnemySwordOctorok;
-		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
-		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
 		phm[Key(typeid(SeaUrchin), typeid(Shield))] =			&SeaUrchinShield;
 		phm[Key(typeid(SeaUrchin), typeid(Link))] =				&SeaUrchinLink;
 		phm[Key(typeid(SeaUrchin), typeid(Wall))] =				&SeaUrchinWall;
@@ -825,6 +823,8 @@ namespace
 		phm[Key(typeid(SeaUrchin), typeid(Sword))] =			&SeaUrchinSword;
 		phm[Key(typeid(SeaUrchin), typeid(Projectile))] =		&SeaUrchinProjectile;
 		phm[Key(typeid(SeaUrchin), typeid(Octorok))] =			&SeaUrchinOctorok;
+		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
+		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
 
 		//...
 		return phm;

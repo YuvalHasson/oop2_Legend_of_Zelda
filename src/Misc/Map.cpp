@@ -104,7 +104,7 @@ void Map::initVector(Cell cell)
 				if (cell.value == 51)
 				{
 					p->setLevelToDoor(Level::Home);
-					p->setLinkOutPosition({ 72, 137 });
+					p->setLinkOutPosition({ 120, 137 });
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 52)
