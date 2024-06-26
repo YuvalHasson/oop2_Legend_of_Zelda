@@ -270,3 +270,8 @@ bool Board::isAttacking() const
 	}
 	return false;
 }
+
+const sf::Sprite& Board::getBackground() const
+{
+	return m_background;
+}
