@@ -710,6 +710,30 @@ namespace
 
 	void OctorokSeaUrchin(GameObject& octorok, GameObject& seaUrchin) {}
 
+	void SignLink(GameObject& sign, GameObject& link)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		Sign* signPtr = dynamic_cast<Sign*>(&sign);
+		if (linkPtr && signPtr)
+		{
+			if (signPtr->getInnerBox(linkPtr->getHitBox())) {
+				linkPtr->undoMove();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+			{
+				signPtr->setActive(true);
+			}
+			else {
+				signPtr->setActive(false);
+			}
+		}
+	}
+
+	void LinkSign(GameObject& link, GameObject& sign)
+	{
+		SignLink(sign, link);
+	}
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -734,6 +758,7 @@ namespace
 		phm[Key(typeid(Link), typeid(Heart))] =					&LinkHeart;
 		phm[Key(typeid(Link), typeid(EnemySword))] =			&LinkEnemySword;
 		phm[Key(typeid(Link), typeid(SeaUrchin))] =				&LinkSeaUrchin;
+		phm[Key(typeid(Link), typeid(Sign))] =					&LinkSign;
 		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
 		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
 		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallProjectile;
@@ -823,6 +848,7 @@ namespace
 		phm[Key(typeid(SeaUrchin), typeid(Sword))] =			&SeaUrchinSword;
 		phm[Key(typeid(SeaUrchin), typeid(Projectile))] =		&SeaUrchinProjectile;
 		phm[Key(typeid(SeaUrchin), typeid(Octorok))] =			&SeaUrchinOctorok;
+		phm[Key(typeid(Sign), typeid(Link))] =					&SignLink;
 		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
 		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
 
