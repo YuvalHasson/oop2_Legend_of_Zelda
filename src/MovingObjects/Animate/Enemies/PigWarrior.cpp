@@ -66,6 +66,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
     {
         destroy();
     }
+	setSpeed(1.f);
 }
 
 sf::Vector2f PigWarrior::getLinkPos()

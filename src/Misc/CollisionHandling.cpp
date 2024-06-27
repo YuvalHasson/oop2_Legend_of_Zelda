@@ -776,6 +776,69 @@ namespace
 		LinkHole(link, hole);
 	}
 
+	void LinkShrub(GameObject& link, GameObject& shrub)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		Shrub* shrubPtr = dynamic_cast<Shrub*>(&shrub);
+		if (linkPtr && shrubPtr)
+		{
+			linkPtr->setSpeed(0.5f);
+		}
+	}
+
+	void ShrubLink(GameObject& shrub, GameObject& link)
+	{
+		LinkShrub(link, shrub);
+	}
+
+	void SwordShrub(GameObject& sword, GameObject& shrub)
+	{
+		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
+		Shrub* shrubPtr = dynamic_cast<Shrub*>(&shrub);
+		if (swordPtr && shrubPtr)
+		{
+			if (swordPtr->getActive()) {
+				shrubPtr->destroy();
+				swordPtr->setActive(false);
+			}
+		}
+	}
+
+	void ShrubSword(GameObject& shrub, GameObject& sword)
+	{
+		SwordShrub(sword, shrub);
+	}
+
+	void octorokShrub(GameObject& octorok, GameObject& shrub)
+	{
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		Shrub* shrubPtr = dynamic_cast<Shrub*>(&shrub);
+		if (octorokPtr && shrubPtr)
+		{
+			octorokPtr->setSpeed(0.5f);
+		}
+	}
+
+	void ShrubOctorok(GameObject& shrub, GameObject& octorok)
+	{
+		octorokShrub(octorok, shrub);
+	}
+
+	void PigWarriorShrub(GameObject& pigWarrior, GameObject& shrub)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		Shrub* shrubPtr = dynamic_cast<Shrub*>(&shrub);
+		if (pigWarriorPtr && shrubPtr)
+		{
+			pigWarriorPtr->setSpeed(0.5f);
+		}
+	}
+
+	void ShrubPigWarrior(GameObject& shrub, GameObject& pigWarrior)
+	{
+		PigWarriorShrub(pigWarrior, shrub);
+	}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -804,6 +867,7 @@ namespace
 		phm[Key(typeid(Link), typeid(SeaUrchin))] =				&LinkSeaUrchin;
 		phm[Key(typeid(Link), typeid(Sign))] =					&LinkSign;
 		phm[Key(typeid(Link), typeid(Hole))] =					&LinkHole;
+		phm[Key(typeid(Link), typeid(Shrub))] =					&LinkShrub;
 		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
 		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
 		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallProjectile;
@@ -837,6 +901,7 @@ namespace
 		phm[Key(typeid(Octorok), typeid(EnemySword))] =			&OctorokEnemySword;
 		phm[Key(typeid(Octorok), typeid(SeaUrchin))] =			&OctorokSeaUrchin;
 		phm[Key(typeid(Octorok), typeid(Sign))] =				&OctorokSign;
+		phm[Key(typeid(Octorok), typeid(Shrub))] =				&octorokShrub;
 		phm[Key(typeid(Octorok), typeid(Octorok))] =			&OctorokOctorok;
 		phm[Key(typeid(Sword), typeid(Octorok))] =				&SwordOctorok;
 		phm[Key(typeid(Sword), typeid(Wall))] =					&SwordWall;
@@ -844,6 +909,7 @@ namespace
 		phm[Key(typeid(Sword), typeid(Pot))] =					&SwordPot;
 		phm[Key(typeid(Sword), typeid(PigWarrior))] =			&SwordPigWarrior;
 		phm[Key(typeid(Sword), typeid(SeaUrchin))] =			&SwordSeaUrchin;
+		phm[Key(typeid(Sword), typeid(Shrub))] =				&SwordShrub;
 		phm[Key(typeid(Shield), typeid(Octorok))] =				&ShieldOctorok;
 		phm[Key(typeid(Shield), typeid(Projectile))] =			&ShieldProjectile;
 		phm[Key(typeid(Shield), typeid(PigWarrior))] =			&ShieldPigWarrior;
@@ -875,6 +941,7 @@ namespace
 		phm[Key(typeid(PigWarrior), typeid(Shield))] =			&PigWarriorShield;
 		phm[Key(typeid(PigWarrior), typeid(Octorok))] =			&PigWarriorOctorok;
 		phm[Key(typeid(PigWarrior), typeid(Projectile))] =		&PigWarriorProjectile;
+		phm[Key(typeid(PigWarrior), typeid(Shrub))] =			&PigWarriorShrub;
 		phm[Key(typeid(PigWarrior), typeid(PigWarrior))] =		&PigWarriorPigWarrior;
 		phm[Key(typeid(LinkArrow), typeid(Octorok))] =			&LinkArrowOctorok;
 		phm[Key(typeid(LinkArrow), typeid(PigWarrior))] =		&LinkArrowPigWarrior;
@@ -899,6 +966,11 @@ namespace
 		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
 		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
 		phm[Key(typeid(Hole), typeid(Link))] =					&HoleLink;
+		phm[Key(typeid(Shrub), typeid(Link))] =					&ShrubLink;
+		phm[Key(typeid(Shrub), typeid(Sword))] =				&ShrubSword;
+		phm[Key(typeid(Shrub), typeid(Octorok))] =				&ShrubOctorok;
+		phm[Key(typeid(Shrub), typeid(PigWarrior))] =			&ShrubPigWarrior;
+
 
 		//...
 		return phm;

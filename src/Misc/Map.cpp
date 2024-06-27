@@ -23,6 +23,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(11, "Heart");
 	dict.emplace(12, "SeaUrchin");
 	dict.emplace(13, "Hole");
+	dict.emplace(14, "Shrub" );
 
 	dict.emplace(50, "Door");
 	dict.emplace(51, "Door");
@@ -30,7 +31,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(53, "Door");
 	dict.emplace(54, "Door");
 	dict.emplace(55, "Door");
-	dict.emplace(56, "Door");
+	dict.emplace(56, "Door"); // not in use
 	dict.emplace(57, "Door");
 	dict.emplace(58, "Door");
 	dict.emplace(59, "Door");
@@ -38,8 +39,6 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(100, "Sign");
 	dict.emplace(101, "Sign");
 
-	dict.emplace(253, "Flowers" );
-	dict.emplace(229, "Flowers" );
 }
 
 void Map::setMap(const std::string& mapName)

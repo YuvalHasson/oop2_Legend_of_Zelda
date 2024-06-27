@@ -52,6 +52,7 @@ void Octorok::update(const sf::Time& deltaTime)
     {
         destroy();
     }
+	setSpeed(1.f);
 }
 
 void Octorok::attack()

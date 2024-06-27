@@ -117,6 +117,7 @@ void Link::update(const sf::Time& deltaTime){
     if(!(m_timeSinceLastPush.getElapsedTime().asSeconds() - 0.01f <= 0)){
         setPush(false);
     }
+	setSpeed(1.f);
 }
 
 void Link::move()
