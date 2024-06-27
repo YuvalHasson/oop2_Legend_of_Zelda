@@ -6,6 +6,7 @@ GameRunningState::GameRunningState(sf::RenderWindow* window, std::vector<Board>&
 {
 	StatusBar status(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getCurrentWeapon());
 	m_statusBar = status;
+
 	setCenterView();
 }
 
@@ -91,8 +92,8 @@ void GameRunningState::setCenterView()
 
 	sf::Vector2f playerPos = m_boardLevels[m_level].getLink().getPosition();
 
-	float viewCenterX = std::max(halfViewWidth, std::min(playerPos.x, Resources::getResource().getTexture(TEXTURE::Map)->getSize().x - halfViewWidth));
-	float viewCenterY = std::max(halfViewHeight, std::min(playerPos.y, Resources::getResource().getTexture(TEXTURE::Map)->getSize().y - halfViewHeight));
+	float viewCenterX = std::max(halfViewWidth, std::min(playerPos.x, m_boardLevels[m_level].getBackground().getGlobalBounds().getSize().x - halfViewWidth));
+	float viewCenterY = std::max(halfViewHeight, std::min(playerPos.y, m_boardLevels[m_level].getBackground().getGlobalBounds().getSize().y - halfViewHeight));
 
 	m_view.setCenter(viewCenterX, viewCenterY);
 }

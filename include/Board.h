@@ -34,7 +34,6 @@ public:
 	void initializeLevel(const Level&);
 	void resetEnemiesAndInanimated();
 
-	//temp get
 	const Link& getLink() const { return *m_link; }
 	void setLinkPosition(const sf::Vector2f& pos) { m_link->setPosition(pos); }
 	const std::vector<std::unique_ptr<Door>>& getDoors() const { return m_doors; }
@@ -48,8 +47,9 @@ public:
 	void setLink(std::unique_ptr<Link> link) {
 		m_link = std::move(link); // Transfer ownership
 	}	
-	//tmp ??
 
+	bool isAttacking() const;
+	const sf::Sprite& getBackground() const;
 
 private:
 	std::vector<std::unique_ptr<Enemy>> m_enemiesObjects;

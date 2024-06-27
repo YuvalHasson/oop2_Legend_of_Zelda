@@ -4,8 +4,7 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	:State(window), m_boardLevels(), m_view(sf::FloatRect(sf::Vector2f(80.f, 140.f), sf::Vector2f(250.f, 165.f)))
 {
 	setMap();
-	auto linkPos = m_boardLevels[Level::MAIN].getLink().getPosition();
-	m_view.setCenter(linkPos); //think about a better way to get link position.
+	m_view.setCenter(m_boardLevels[Level::Home].getLink().getPosition()); //think about a better way to get link position.
 
 	SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 }
@@ -24,7 +23,7 @@ void NewGameState::render(sf::RenderTarget* target)
 	target->setView(m_view);
 
 	sf::FloatRect viewBound(target->getView().getCenter() - target->getView().getSize() /2.f, target->getView().getSize());
-	m_boardLevels[Level::MAIN].draw(*target, viewBound);
+	m_boardLevels[Level::Home].draw(*target, viewBound);
 }
 
 std::unique_ptr<State> NewGameState::handleInput(const GAME_STATE& gameState)
@@ -35,7 +34,7 @@ std::unique_ptr<State> NewGameState::handleInput(const GAME_STATE& gameState)
 	}
 	else if (gameState == GAME_STATE::GAME_RUNNING)
 	{
-		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), Level::MAIN);
+		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), Level::Home);
 	}
 	else if(gameState == GAME_STATE::EXIT)
 	{
@@ -48,23 +47,29 @@ void NewGameState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 
 void NewGameState::setMap()
 {
-	Board board;
-	board.initializeLevel(Level::MAIN);
-	board.makeLink();
-	board.setMap();
-	m_boardLevels.emplace_back(std::move(board));
+	Board home;
+	home.initializeLevel(Level::Home);
+	home.makeLink();
+	home.setMap();
+	m_boardLevels.emplace_back(std::move(home));
 
-	Board board2;
-	board2.setLink(std::move(m_boardLevels[0].extractLink()));
-	board2.initializeLevel(Level::FIRST_DUNGEON);
-	board2.setMap();
-	m_boardLevels.emplace_back(std::move(board2));
+	Board map;
+	map.initializeLevel(Level::MAIN);
+	map.setLink(std::move(m_boardLevels.back().extractLink()));
+	map.setMap();
+	m_boardLevels.emplace_back(std::move(map));
 
-	Board board3;
-	board3.setLink(std::move(m_boardLevels[1].extractLink()));
-	board3.initializeLevel(Level::SECOND_DUNGEON);
-	board3.setMap();
-	m_boardLevels.emplace_back(std::move(board3));
+	Board dungeon1;
+	dungeon1.setLink(std::move(m_boardLevels.back().extractLink()));
+	dungeon1.initializeLevel(Level::FIRST_DUNGEON);
+	dungeon1.setMap();
+	m_boardLevels.emplace_back(std::move(dungeon1));
 
-	m_boardLevels[0].setLink(std::move(m_boardLevels[2].extractLink()));
+	Board dungeon2;
+	dungeon2.setLink(std::move(m_boardLevels.back().extractLink()));
+	dungeon2.initializeLevel(Level::SECOND_DUNGEON);
+	dungeon2.setMap();
+	m_boardLevels.emplace_back(std::move(dungeon2));
+
+	m_boardLevels.front().setLink(std::move(m_boardLevels.back().extractLink()));
 }

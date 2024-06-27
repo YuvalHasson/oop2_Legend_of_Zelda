@@ -136,6 +136,7 @@ void Link::update(const sf::Time& deltaTime){
 
     //update sprite
     updateSprite();
+	setSpeed(1.f);
 }
 
 void Link::move()

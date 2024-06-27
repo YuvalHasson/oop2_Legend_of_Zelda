@@ -32,6 +32,7 @@ Board& Board::operator=(Board&& other) noexcept
 void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 {
 	target.draw(m_background);
+
 	for (const auto& gameObject : m_staticObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
@@ -55,6 +56,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 			gameObject->draw(target);
 		}
   	}
+
 	m_link->draw(target);
 }
 
@@ -77,7 +79,7 @@ void Board::addProjectileToMoving()
 
 void Board::makeLink()
 {	
-	if (auto p = Factory<Link>::instance()->create("Link", { 32.f, 50.f }))
+	if (auto p = Factory<Link>::instance()->create("Link", { 86.f, 35.f }))
 	{
 		m_link = std::move(p);
 	}
@@ -237,6 +239,10 @@ void Board::initializeLevel(const Level& level)
 {
 	switch (level)
 	{
+	case Level::Home:
+		m_map.setMap("Home.csv");
+		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Home));
+		break;
 	case Level::MAIN:
 		m_map.setMap("Map.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
@@ -258,3 +264,8 @@ void Board::resetEnemiesAndInanimated()
 	m_inanimateObjects = std::move(m_map.getInanimateObjects());
 }
 
+
+const sf::Sprite& Board::getBackground() const
+{
+	return m_background;
+}
