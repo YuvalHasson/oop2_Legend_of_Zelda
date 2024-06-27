@@ -50,7 +50,6 @@ public:
 	}	
 	//tmp ??
 
-	bool isAttacking() const;
 
 private:
 	std::vector<std::unique_ptr<Enemy>> m_enemiesObjects;

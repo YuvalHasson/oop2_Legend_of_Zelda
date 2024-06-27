@@ -42,9 +42,9 @@ void MovingObjects::updateSprite()
 	getSprite().setScale(0.8f, 0.8f);
 }
 
-void MovingObjects::setGraphics(const sf::Vector2u& animationPos, int imgCount, bool flip, bool singleTime, float switchTime)
+void MovingObjects::setGraphics(const sf::Vector2u& animationPos, int imgCount, bool singleTime, float switchTime)
 {
-	m_animation.setAnimation(animationPos, imgCount, flip, singleTime, switchTime);
+	m_animation.setAnimation(animationPos, imgCount, singleTime, switchTime);
 }
 
 void MovingObjects::setSpeed(int speed)

@@ -9,10 +9,10 @@ Board::Board() {}
 
 Board::Board(Board&& other) noexcept
 	:m_enemiesObjects(std::move(other.m_enemiesObjects)),
-	 m_staticObjects(std::move(other.m_staticObjects)),
-	 m_link(std::move(other.m_link)),
 	 m_inanimateObjects(std::move(other.m_inanimateObjects)),
+	 m_staticObjects(std::move(other.m_staticObjects)),
 	 m_doors(std::move(other.m_doors)),
+	 m_link(std::move(other.m_link)),
 	 m_background(std::move(other.m_background)) {}
 
 Board& Board::operator=(Board&& other) noexcept
@@ -258,15 +258,3 @@ void Board::resetEnemiesAndInanimated()
 	m_inanimateObjects = std::move(m_map.getInanimateObjects());
 }
 
-bool Board::isAttacking() const
-{
-	for (const auto& moving : m_enemiesObjects)
-	{
-		if (moving->isAttacking())
-		{
-			moving->setAttacking(false);
-			return true;
-		}
-	}
-	return false;
-}

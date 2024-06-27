@@ -79,6 +79,7 @@ void SmartMovement::addNeighborsToQueue(const sf::Vector2f& position)
     for (const auto& move : movements)
     {
         sf::Vector2f newPosition = position + move;
+
         if (m_visited.find(newPosition) == m_visited.end())
         {
             m_bfsQueue.push(newPosition);

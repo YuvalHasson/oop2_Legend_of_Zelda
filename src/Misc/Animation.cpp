@@ -1,7 +1,7 @@
 #include "Animation.h"
 #include <iostream>
 
-Animation::Animation(): m_singleImgFlip(false), m_flip(false), m_timePassed(0),
+Animation::Animation(): m_singleImgFlip(false), m_timePassed(0),
      m_switchTime(0.1f), m_singleTime(false){
     m_uvRect.width = tileSize;
     m_uvRect.height = tileSize;
@@ -47,20 +47,14 @@ void Animation::update(const sf::Time& deltaTime) {
                 m_currentImage = 0;
             }
         }
-        if (m_flip) {
-            m_uvRect.left = m_animationStartPosition.x + ((m_currentImage + 1) * abs(m_uvRect.width)) + (1 * m_currentImage);
-            m_uvRect.width = -abs(m_uvRect.width);
-        } 
-        else {
-            m_uvRect.left = m_animationStartPosition.x + m_currentImage * m_uvRect.width + (1 * m_currentImage);
-            m_uvRect.width = abs(m_uvRect.width);
-        }
+        m_uvRect.left = m_animationStartPosition.x + m_currentImage * m_uvRect.width + (1 * m_currentImage);
+        m_uvRect.width = abs(m_uvRect.width);
     }
 
     m_uvRect.top = m_animationStartPosition.y;
 }
 
-void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool flip, bool singleTime, float switchTime){
+void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool singleTime, float switchTime){
     if(m_animationStartPosition == startPosition){
         if(isDone()){
             m_currentImage = 0;
@@ -75,7 +69,6 @@ void Animation::setAnimation(sf::Vector2u startPosition, int imgCount, bool flip
     m_imageCount = imgCount;
     m_uvRect.left = startPosition.x;
     m_uvRect.top = startPosition.y;
-    m_flip = flip;
     m_singleTime = singleTime;
     m_switchTime = switchTime;
 }

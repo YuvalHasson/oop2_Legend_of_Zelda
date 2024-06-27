@@ -19,18 +19,18 @@ void LinkAttackState::enter(Link& link)
     {
         if(currentDirection == DIRECTIONS::Right || currentDirection == DIRECTIONS::UpRight || currentDirection == DIRECTIONS::DownRight)
         {
-            link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackRight, 2, false , true);
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackRight, 2 , true);
         }
         else if(currentDirection == DIRECTIONS::Left || currentDirection == DIRECTIONS::UpLeft || currentDirection == DIRECTIONS::DownLeft)
         {
-            link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackLeft, 2, false , true);
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackLeft, 2 , true);
         }
         else if(currentDirection == DIRECTIONS::Down){
-            link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackDown, 3, false , true);
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackDown, 3 , true);
         }
         else if(currentDirection == DIRECTIONS::Up)
         {
-            link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackUp, 3, false , true);
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkAttackUp, 3 , true);
         }
         link.setAttacking(true);
     }

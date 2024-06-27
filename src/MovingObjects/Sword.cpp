@@ -26,22 +26,22 @@ void Sword::activate(const sf::Vector2f& position, const sf::Vector2i& direction
     sf::Vector2f attackPos;
     //set sword position and animation according to direction and link position
     if(direction.x == 1){
-        setGraphics(ANIMATIONS_POSITIONS::SwordRight, 2, false ,true, 0.10f);//true for singleTime
+        setGraphics(ANIMATIONS_POSITIONS::SwordRight, 2 ,true, 0.10f);//true for singleTime
         attackPos.x = position.x + tileSize * 0.8f;
         attackPos.y = position.y;
     }
     else if(direction.x == -1){
-        setGraphics(ANIMATIONS_POSITIONS::SwordLeft, 2, false ,true, 0.10f);//true for singleTime
+        setGraphics(ANIMATIONS_POSITIONS::SwordLeft, 2,true, 0.10f);//true for singleTime
         attackPos.x = position.x - tileSize * 0.8f;
         attackPos.y = position.y;
     }
     else if(direction == DIRECTIONS::Up){
-        setGraphics(ANIMATIONS_POSITIONS::SwordUp, 3, false ,true, 0.10f);//true for singleTime
+        setGraphics(ANIMATIONS_POSITIONS::SwordUp, 3,true, 0.10f);//true for singleTime
         attackPos.x = position.x;
         attackPos.y = position.y - tileSize * 0.8f;
     }
     else if(direction == DIRECTIONS::Down){
-        setGraphics(ANIMATIONS_POSITIONS::SwordDown, 3, false ,true, 0.10f);//true for singleTime
+        setGraphics(ANIMATIONS_POSITIONS::SwordDown, 3 ,true, 0.10f);//true for singleTime
         attackPos.x = position.x ;
         attackPos.y = position.y + tileSize * 0.8f;
     }
