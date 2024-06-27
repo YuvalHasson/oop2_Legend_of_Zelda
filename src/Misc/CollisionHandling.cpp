@@ -219,7 +219,7 @@ namespace
 			Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 			if (octorokPtr)
 			{
-				boulderPtr->setSpeed(0.f);
+				boulderPtr->setSpeed(0);
 				octorokPtr->undoMove();
 			}
 		}
@@ -611,6 +611,7 @@ namespace
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
 			}
+			linkPtr->undoMove();
 		}
 	}
 
@@ -736,6 +737,47 @@ namespace
 		SignLink(sign, link);
 	}
 
+	void SignOctorok(GameObject& sign, GameObject& octorok)
+	{
+		Sign* signPtr = dynamic_cast<Sign*>(&sign);
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		if (signPtr && octorokPtr)
+		{
+			if (signPtr->getInnerBox(octorokPtr->getHitBox())) {
+				octorokPtr->undoMove();
+			}
+		}
+
+	}
+
+	void OctorokSign(GameObject& octorok, GameObject& sign)
+	{
+		SignOctorok(sign, octorok);
+	}
+
+	void LinkHole(GameObject& link, GameObject& hole)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		Hole* holePtr = dynamic_cast<Hole*>(&hole);
+		if (linkPtr && holePtr)
+		{
+			if (!linkPtr->getInvincible())
+			{
+				linkPtr->pushBack(getCollisionDirection(link, hole));
+				linkPtr->initializeInvincible();
+				linkPtr->setHp(linkPtr->getHp() - 1);
+			}
+			linkPtr->undoMove();
+		}
+	}
+
+	void HoleLink(GameObject& hole, GameObject& link)
+	{
+		LinkHole(link, hole);
+	}
+
+	//...
+
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
 	using Key = std::pair<std::type_index, std::type_index>;
@@ -761,6 +803,7 @@ namespace
 		phm[Key(typeid(Link), typeid(EnemySword))] =			&LinkEnemySword;
 		phm[Key(typeid(Link), typeid(SeaUrchin))] =				&LinkSeaUrchin;
 		phm[Key(typeid(Link), typeid(Sign))] =					&LinkSign;
+		phm[Key(typeid(Link), typeid(Hole))] =					&LinkHole;
 		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
 		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
 		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallProjectile;
@@ -793,6 +836,7 @@ namespace
 		phm[Key(typeid(Octorok), typeid(PigWarrior))] =			&OctorokPigWarrior;
 		phm[Key(typeid(Octorok), typeid(EnemySword))] =			&OctorokEnemySword;
 		phm[Key(typeid(Octorok), typeid(SeaUrchin))] =			&OctorokSeaUrchin;
+		phm[Key(typeid(Octorok), typeid(Sign))] =				&OctorokSign;
 		phm[Key(typeid(Octorok), typeid(Octorok))] =			&OctorokOctorok;
 		phm[Key(typeid(Sword), typeid(Octorok))] =				&SwordOctorok;
 		phm[Key(typeid(Sword), typeid(Wall))] =					&SwordWall;
@@ -851,8 +895,10 @@ namespace
 		phm[Key(typeid(SeaUrchin), typeid(Projectile))] =		&SeaUrchinProjectile;
 		phm[Key(typeid(SeaUrchin), typeid(Octorok))] =			&SeaUrchinOctorok;
 		phm[Key(typeid(Sign), typeid(Link))] =					&SignLink;
+		phm[Key(typeid(Sign), typeid(Octorok))] =				&SignOctorok;
 		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
 		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
+		phm[Key(typeid(Hole), typeid(Link))] =					&HoleLink;
 
 		//...
 		return phm;

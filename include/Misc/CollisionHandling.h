@@ -25,6 +25,7 @@
 #include "EnemySword.h"
 #include "SeaUrchin.h"
 #include "Sign.h"
+#include "Hole.h"
 
 
 struct UnknownCollision : public std::runtime_error

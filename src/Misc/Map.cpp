@@ -22,6 +22,8 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(7, "BowItem");
 	dict.emplace(11, "Heart");
 	dict.emplace(12, "SeaUrchin");
+	dict.emplace(13, "Hole");
+
 	dict.emplace(50, "Door");
 	dict.emplace(51, "Door");
 	dict.emplace(52, "Door");
@@ -34,6 +36,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(59, "Door");
 
 	dict.emplace(100, "Sign");
+	dict.emplace(101, "Sign");
 
 	dict.emplace(253, "Flowers" );
 	dict.emplace(229, "Flowers" );
@@ -135,6 +138,22 @@ void Map::initVector(Cell cell)
 				}
 			}
 			return;
+		}
+		if (it->second == "Sign")
+		{
+			if (auto p = Factory<Sign>::instance()->create(it->second, { static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row }))
+			{
+				if (cell.value == 100)
+				{
+					p->setText("Press  B  to  use  shield\nUse  the  shield  to  push  the  sea  Urchin");
+					m_staticObjects.emplace_back(std::move(p));
+				}
+				if (cell.value == 101)
+				{
+					p->setText("Sharp  suprise  is  at  the  end  of  the  Dungeon");
+					m_staticObjects.emplace_back(std::move(p));
+				}
+			}
 		}
 		if (auto p = Factory<StaticObjects>::instance()->create(it->second, {static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row}))
 		{
