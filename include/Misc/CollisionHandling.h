@@ -24,6 +24,8 @@
 #include "Heart.h"
 #include "EnemySword.h"
 #include "SeaUrchin.h"
+#include "Sign.h"
+
 
 struct UnknownCollision : public std::runtime_error
 {

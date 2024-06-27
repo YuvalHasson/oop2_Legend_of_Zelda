@@ -26,6 +26,14 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(51, "Door");
 	dict.emplace(52, "Door");
 	dict.emplace(53, "Door");
+	dict.emplace(54, "Door");
+	dict.emplace(55, "Door");
+	dict.emplace(56, "Door");
+	dict.emplace(57, "Door");
+	dict.emplace(58, "Door");
+	dict.emplace(59, "Door");
+
+	dict.emplace(100, "Sign");
 
 	dict.emplace(253, "Flowers" );
 	dict.emplace(229, "Flowers" );
@@ -91,14 +99,14 @@ void Map::initVector(Cell cell)
 			{
 				if (cell.value == 50)
 				{
-					p->setLevelToDoor(Level::FIRST_DUNGEON);
-					p->setLinkOutPosition({ 22, 105 });
+					p->setLevelToDoor(Level::MAIN);
+					p->setLinkOutPosition({ 87, 72 });
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 51)
 				{
-					p->setLevelToDoor(Level::MAIN);
-					p->setLinkOutPosition({ 166, 150 });
+					p->setLevelToDoor(Level::Home);
+					p->setLinkOutPosition({ 120, 137 });
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 52)
@@ -110,7 +118,19 @@ void Map::initVector(Cell cell)
 				if (cell.value == 53)
 				{
 					p->setLevelToDoor(Level::MAIN);
-					p->setLinkOutPosition({ 503, 86});
+					p->setLinkOutPosition({ 279, 52 });
+					m_doors.emplace_back(std::move(p));
+				}
+				if (cell.value == 54)
+				{
+					p->setLevelToDoor(Level::FIRST_DUNGEON);
+					p->setLinkOutPosition({ 22, 103 });
+					m_doors.emplace_back(std::move(p));
+				}
+				if (cell.value == 55)
+				{
+					p->setLevelToDoor(Level::MAIN);
+					p->setLinkOutPosition({ 263, 196 });
 					m_doors.emplace_back(std::move(p));
 				}
 			}
