@@ -839,6 +839,14 @@ namespace
 		PigWarriorShrub(pigWarrior, shrub);
 	}
 
+	void ProjectileShrub(GameObject& projectile, GameObject& shrub) {}
+
+	void ShrubProjectile(GameObject& shrub, GameObject& projectile) {}
+
+	void ShrubEnemySword(GameObject& shrub, GameObject& enemySword) {}
+
+	void EnemySwordShrub(GameObject& enemySword, GameObject& shrub) {}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -925,6 +933,7 @@ namespace
 		phm[Key(typeid(Projectile), typeid(Projectile))] =		&ProjectileProjectile;
 		phm[Key(typeid(Projectile), typeid(WaterTile))] =		&ProjectileWater;
 		phm[Key(typeid(Projectile), typeid(SeaUrchin))] =		&ProjectileSeaUrchin;
+		phm[Key(typeid(Projectile), typeid(Shrub))] =		&ProjectileShrub;
 		phm[Key(typeid(Boulder), typeid(Link))] =				&BoulderLink;
 		phm[Key(typeid(Boulder), typeid(Wall))] =				&BoulderWall;
 		phm[Key(typeid(Boulder), typeid(Octorok))] =			&BoulderOctorok;
@@ -953,6 +962,7 @@ namespace
 		phm[Key(typeid(EnemySword), typeid(WaterTile))] =		&EnemySwordWater;
 		phm[Key(typeid(EnemySword), typeid(Shield))] =			&EnemySwordShield;
 		phm[Key(typeid(EnemySword), typeid(Octorok))] =			&EnemySwordOctorok;
+		phm[Key(typeid(EnemySword), typeid(Shrub))] =			&EnemySwordShrub;
 		phm[Key(typeid(SeaUrchin), typeid(Shield))] =			&SeaUrchinShield;
 		phm[Key(typeid(SeaUrchin), typeid(Link))] =				&SeaUrchinLink;
 		phm[Key(typeid(SeaUrchin), typeid(Wall))] =				&SeaUrchinWall;
@@ -963,13 +973,15 @@ namespace
 		phm[Key(typeid(SeaUrchin), typeid(Octorok))] =			&SeaUrchinOctorok;
 		phm[Key(typeid(Sign), typeid(Link))] =					&SignLink;
 		phm[Key(typeid(Sign), typeid(Octorok))] =				&SignOctorok;
-		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
-		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
-		phm[Key(typeid(Hole), typeid(Link))] =					&HoleLink;
 		phm[Key(typeid(Shrub), typeid(Link))] =					&ShrubLink;
 		phm[Key(typeid(Shrub), typeid(Sword))] =				&ShrubSword;
 		phm[Key(typeid(Shrub), typeid(Octorok))] =				&ShrubOctorok;
 		phm[Key(typeid(Shrub), typeid(PigWarrior))] =			&ShrubPigWarrior;
+		phm[Key(typeid(Shrub), typeid(EnemySword))] =			&ShrubEnemySword;
+		phm[Key(typeid(Shrub), typeid(Projectile))] =			&ShrubProjectile;
+		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
+		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
+		phm[Key(typeid(Hole), typeid(Link))] =					&HoleLink;
 
 
 		//...
