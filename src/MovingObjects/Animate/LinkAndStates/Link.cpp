@@ -12,16 +12,19 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: Animate(texture, position, sf::Vector2f(7,7.5f),
     sf::Vector2f(tileSize/4.5f, tileSize / 9)),
     m_state(std::make_unique<LinkStandingState>()),
-    m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })),
+    m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })),m_arrow(nullptr),
     m_shield(Factory<Shield>::instance()->create("Shield", { 0,0 })),
-    m_isPushing(false), m_wasTabPressed(false),
-    m_isShooting(false), m_arrow(nullptr),m_isShielding(false),
+    m_isPushing(false), m_isShooting(false), m_wasTabPressed(false),
+    m_isShielding(false), m_invincible(false),
     m_currentWeapon(0)
 {
     getSprite().setOrigin(tileSize/2, tileSize/2);
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
     setHp(MAX_HEALTH);
+    //hitanimation color
+    addHitColor(sf::Color(255,93,0));
+    addHitColor(sf::Color(255,255,255,0));
 }
 
 Link::~Link()
@@ -100,7 +103,19 @@ void Link::update(const sf::Time& deltaTime){
             m_currentWeapon = (m_currentWeapon + 1) % m_weapons.size();
         }
     }
+
     m_wasTabPressed = tab;
+
+    //update color animation
+    if(getInvincible()){
+        Animate::updateHitAnimation(deltaTime);
+        getSprite().setColor(getCurrentColor());
+    }
+    else{
+        getSprite().setColor(getBaseColor());
+    }
+
+    //handle state switching
     std::unique_ptr<LinkState> state = m_state->handleInput(input, m_isShielding, isPush());
 
     if(state)
@@ -112,11 +127,16 @@ void Link::update(const sf::Time& deltaTime){
     {
         updateGraphics(deltaTime);
     }
-    m_sword->update(deltaTime);
-    updateSprite();
+
     if(!(m_timeSinceLastPush.getElapsedTime().asSeconds() - 0.01f <= 0)){
         setPush(false);
     }
+
+    //update sword
+    m_sword->update(deltaTime);
+
+    //update sprite
+    updateSprite();
 	setSpeed(1.f);
 }
 
@@ -142,14 +162,20 @@ void Link::stopSwordSwipe()
     setAttacking(false);
 }
 
-bool Link::getInvincible() const
+bool Link::getInvincible() 
 {
-    return m_invincibleTimer.getElapsedTime().asSeconds() - invincibilityTime.asSeconds() <= 0;
+    if(m_invincibleTimer.getElapsedTime().asSeconds() - invincibilityTime.asSeconds() >= 0){
+        m_invincible = false;
+    }
+    return m_invincible;
 }
 
 void Link::initializeInvincible()
 {
-    m_invincibleTimer.restart();
+    if(!m_invincible){
+        m_invincible = true;
+        m_invincibleTimer.restart();
+    }
 }
 
 Sword* Link::getSword(){

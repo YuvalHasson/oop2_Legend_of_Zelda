@@ -51,6 +51,8 @@ public:
 	bool isAttacking() const;
 	const sf::Sprite& getBackground() const;
 
+	static std::vector<sf::FloatRect> getStaticRects();
+
 private:
 	std::vector<std::unique_ptr<Enemy>> m_enemiesObjects;
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
@@ -61,6 +63,8 @@ private:
 	sf::Sprite m_background;
 
 	Map m_map;
+
+	static std::vector<sf::FloatRect> m_staticRects;
 
 
 	// STL-like algorithm to run over all pairs within the same range

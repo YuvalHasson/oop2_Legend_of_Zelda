@@ -5,6 +5,7 @@
 class LinkSubject{
 
 public:
+	virtual ~LinkSubject() = default;
     virtual void RegisterObserver(LinkObserver* observer) = 0;
 
 	virtual void RemoveObserver(LinkObserver* observer) = 0;

@@ -76,4 +76,5 @@ void LinkMoveState::enter(Link& link){
             break;
     }
     link.move();
+    link.stopSwordSwipe();
 }

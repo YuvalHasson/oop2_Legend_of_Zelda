@@ -5,14 +5,16 @@
 
 #include <iostream> // debug
 
+std::vector<sf::FloatRect> Board::m_staticRects;
+
 Board::Board() {}
 
 Board::Board(Board&& other) noexcept
 	:m_enemiesObjects(std::move(other.m_enemiesObjects)),
-	 m_staticObjects(std::move(other.m_staticObjects)),
-	 m_link(std::move(other.m_link)),
 	 m_inanimateObjects(std::move(other.m_inanimateObjects)),
+	 m_staticObjects(std::move(other.m_staticObjects)),
 	 m_doors(std::move(other.m_doors)),
+	 m_link(std::move(other.m_link)),
 	 m_background(std::move(other.m_background)) {}
 
 Board& Board::operator=(Board&& other) noexcept
@@ -58,6 +60,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
   	}
 
 	m_link->draw(target);
+
 }
 
 void Board::addProjectileToMoving()
@@ -256,6 +259,7 @@ void Board::initializeLevel(const Level& level)
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon2));
 		break;
 	}
+	m_staticRects = m_map.getStaticObjectsRects();
 }
 
 void Board::resetEnemiesAndInanimated()
@@ -264,20 +268,12 @@ void Board::resetEnemiesAndInanimated()
 	m_inanimateObjects = std::move(m_map.getInanimateObjects());
 }
 
-bool Board::isAttacking() const
-{
-	for (const auto& moving : m_enemiesObjects)
-	{
-		if (moving->isAttacking())
-		{
-			moving->setAttacking(false);
-			return true;
-		}
-	}
-	return false;
-}
 
 const sf::Sprite& Board::getBackground() const
 {
 	return m_background;
+}
+
+std::vector<sf::FloatRect> Board::getStaticRects(){
+	return m_staticRects;
 }

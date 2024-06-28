@@ -10,10 +10,10 @@ bool PigWarrior::m_registerit = Factory<Enemy>::instance()->registerit("PigWarri
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     :Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f), sf::Vector2f(-2, -2)),
-     m_sword(nullptr),
      m_currInput(PRESS_RIGHT),
      m_moveStrategy(std::make_unique<PatrolMovement>()), 
-     m_attackStrategy(std::make_unique<Stab>())
+     m_attackStrategy(std::make_unique<Stab>()),
+     m_sword(nullptr)
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
@@ -31,15 +31,16 @@ PigWarrior::~PigWarrior()
 
 void PigWarrior::update(const sf::Time& deltaTime)
 {
-    bool standing = false;
-    bool attacking = false;
+    Enemy::updateHitAnimation(deltaTime);
+    Enemy::update(deltaTime);
+    
     sf::Vector2f currentPosition = getSprite().getPosition();
     // If Link is close, change movement strategy
-    if (distance(currentPosition, m_linkPos) < 60.0f) {
-        // If the distance to the Link is small enough, change strategy  to track Link
+    if (distance(currentPosition, m_linkPos) < 100.0f && castRay(getPosition(), m_linkPos)) {
+        // If the distance to Link is small enough, change strategy to track Link
         setMoveStrategy(std::make_unique<SmartMovement>());
-        if (distance(currentPosition, m_linkPos) < 16.0f) {
-            // If the distance to the Link is small enough, change strategy  to track Link
+        if (distance(currentPosition, m_linkPos) < 28.0f) {
+            // If the distance to Link is small enough, change strategy to attack Link
             PerformAttack();
             m_sword->setBool();
         }
@@ -91,6 +92,8 @@ const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
         return ANIMATIONS_POSITIONS::PigWarriorLeft;
     case PRESS_RIGHT:
         return ANIMATIONS_POSITIONS::PigWarriorRight;
+    default:
+        return ANIMATIONS_POSITIONS::PigWarriorDown; //will never get here
     }
 }
 

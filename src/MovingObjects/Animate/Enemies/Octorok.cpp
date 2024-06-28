@@ -18,12 +18,14 @@ Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();
     setHp(2);
+    addHitColor(sf::Color::Black);
 }
 
 void Octorok::update(const sf::Time& deltaTime)
 { 
-    bool standing = false;
-    bool attacking = false;
+    Enemy::updateHitAnimation(deltaTime);
+    Enemy::update(deltaTime);
+
     auto directionChange = m_directionChangeClock.getElapsedTime().asSeconds();
     if (directionChange >= 1.0f) // Change direction every 1 seconds
     {

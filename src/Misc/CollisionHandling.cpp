@@ -105,6 +105,7 @@ namespace
 			if(swordPtr->getActive()){
 				octorokPtr->pushBack(-getCollisionDirection(sword, octorok));
 				octorokPtr->setHp(octorokPtr->getHp() - 1);
+				octorokPtr->hit();
 				swordPtr->setActive(false);
 			}
 		}
@@ -337,6 +338,7 @@ namespace
 			if (swordPtr->getActive()) {
 				pigWarriorPtr->pushBack(-getCollisionDirection(sword, pigWarrior));
 				pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
+				pigWarriorPtr->hit();
 				swordPtr->setActive(false);
 			}
 		}
@@ -352,6 +354,7 @@ namespace
 		{	
 			octorokPtr->pushBack(-getCollisionDirection(arrow, octorok));
 			octorokPtr->setHp(octorokPtr->getHp() - 1);
+			octorokPtr->hit();
 			arrowPtr->destroy();
 		}
 	}
@@ -368,6 +371,7 @@ namespace
 		{
 			pigWarriorPtr->pushBack(-getCollisionDirection(arrow, pigWarrior));
 			pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
+			pigWarriorPtr->hit();
 			arrowPtr->destroy();
 		}
 	}
