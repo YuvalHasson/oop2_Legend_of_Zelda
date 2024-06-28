@@ -83,7 +83,4 @@ private:
 	
 	//observers vector
 	std::vector<LinkObserver*> m_observers;
-
-	//hit color animation
-	ColorAnimation m_hitAnimation;
 };

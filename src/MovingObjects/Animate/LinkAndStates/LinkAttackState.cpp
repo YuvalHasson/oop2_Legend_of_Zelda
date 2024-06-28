@@ -4,9 +4,17 @@ LinkAttackState::LinkAttackState(): m_attackDuration(sf::seconds(0.3f)), m_isAni
 
 std::unique_ptr<LinkState> LinkAttackState::handleInput(Input input, bool shielding, bool)
 {
+
     if(m_attackDuration.asSeconds() - m_attackTimer.getElapsedTime().asSeconds()  <= 0)
     {
-        return std::make_unique<LinkStandingState>();
+        if(input == PRESS_DOWN_LEFT || input == PRESS_DOWN_RIGHT || input == PRESS_UP_LEFT||
+            input == PRESS_UP_RIGHT  || input == PRESS_LEFT       || input == PRESS_RIGHT  ||
+            input == PRESS_DOWN      || input == PRESS_UP){
+                return std::make_unique<LinkMoveState>(input);        
+        }
+        else{
+            return std::make_unique<LinkStandingState>();
+        }
     }   
     return nullptr;
 }

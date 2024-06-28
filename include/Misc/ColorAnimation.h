@@ -7,7 +7,7 @@ public:
     ColorAnimation(){};
     
     //when creating gets the default color of the sprite
-    ColorAnimation(const sf::Color&, float);
+    ColorAnimation(const sf::Color&, float switchTime = 0.06f);
 
     void update(const sf::Time& deltaTime);
     void addColorToAnimation(const sf::Color&);

@@ -5,6 +5,8 @@
 
 #include <iostream> // debug
 
+std::vector<sf::FloatRect> Board::m_staticRects;
+
 Board::Board() {}
 
 Board::Board(Board&& other) noexcept
@@ -58,6 +60,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
   	}
 
 	m_link->draw(target);
+
 }
 
 void Board::addProjectileToMoving()
@@ -256,6 +259,7 @@ void Board::initializeLevel(const Level& level)
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon2));
 		break;
 	}
+	m_staticRects = m_map.getStaticObjectsRects();
 }
 
 void Board::resetEnemiesAndInanimated()
@@ -268,4 +272,8 @@ void Board::resetEnemiesAndInanimated()
 const sf::Sprite& Board::getBackground() const
 {
 	return m_background;
+}
+
+std::vector<sf::FloatRect> Board::getStaticRects(){
+	return m_staticRects;
 }

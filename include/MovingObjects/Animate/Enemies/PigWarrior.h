@@ -39,7 +39,6 @@ public:
 	virtual void removeLink() override;
 
 	void registerAsLinkObserver(Link*);
-
 private:
 	sf::Clock m_directionChangeClock;
 	Input m_currInput;

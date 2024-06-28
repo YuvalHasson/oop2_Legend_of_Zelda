@@ -156,6 +156,7 @@ void Map::initVector(Cell cell)
 		}
 		if (auto p = Factory<StaticObjects>::instance()->create(it->second, {static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row}))
 		{
+			m_staticObjectsRects.emplace_back(p->getHitBox().GetRect());
 			m_staticObjects.emplace_back(std::move(p));
 		}
 		if (auto p = Factory<Inanimate>::instance()->create(it->second, { static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row }))
@@ -209,4 +210,8 @@ std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects()
 std::vector<std::unique_ptr<Door>>& Map::getDoors()
 {
 	return m_doors;
+}
+
+std::vector<sf::FloatRect> Map::getStaticObjectsRects()const{
+	return m_staticObjectsRects;
 }

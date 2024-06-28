@@ -1,8 +1,7 @@
 #include "ColorAnimation.h"
 
-
 ColorAnimation::ColorAnimation(const sf::Color& baseColor, float switchTime)
-    :m_baseColor(baseColor), m_switchTime(switchTime), m_currentColor(0){
+    :m_baseColor(baseColor), m_switchTime(switchTime), m_currentColor(1){
         m_colors.emplace_back(baseColor);
 }
 
