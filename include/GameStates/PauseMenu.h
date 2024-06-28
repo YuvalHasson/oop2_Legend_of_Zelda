@@ -34,5 +34,7 @@ private:
 
 	sf::RectangleShape m_pauseBackground;
 
+	sf::RectangleShape m_controls;
+
 	std::vector<Option> m_options;
 };

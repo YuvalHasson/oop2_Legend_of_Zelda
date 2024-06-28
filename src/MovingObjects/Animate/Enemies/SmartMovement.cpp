@@ -10,12 +10,7 @@ void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCha
         sf::Vector2f nextPosition = m_bfsQueue.front();
         m_bfsQueue.pop();
 
-        // Check if the PigWarrior reached the Link
-        if (isLinkAtPosition(nextPosition, enemy.getLinkPos()))
-        {
-            // Handle reaching the Link
-            // You may want to stop the PigWarrior or trigger a specific action
-        }
+ 
         moveTowards(enemy, enemy.getLinkPos());
 
         // Explore neighbors of the current position
@@ -23,35 +18,42 @@ void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCha
     }
     else
     {
-        // If BFS queue is empty, reinitialize it to find a new path to the Link
+        // If BFS queue is empty, reinitialize it to find a new path to Link
         initializeBFS(enemy.getSprite().getPosition());
     }
-
-    sf::Vector2i currentDirection = enemy.getDirection();
-    if (m_direction == PRESS_RIGHT) {
-        if (currentDirection != DIRECTIONS::Right) {
-            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_RIGHT), 2);
-            enemy.setDirection(DIRECTIONS::Right);
+    if (directionChangeClock->getElapsedTime().asSeconds() > 0.1f)
+    {
+        sf::Vector2i currentDirection = enemy.getDirection();
+        if (m_direction == PRESS_RIGHT) {
+            if (currentDirection != DIRECTIONS::Right) {
+                enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_RIGHT), 2);
+                enemy.setDirection(DIRECTIONS::Right);
+                directionChangeClock->restart();
+            }
         }
-    }
-    else if (m_direction == PRESS_LEFT) {
-        if (currentDirection != DIRECTIONS::Left) {
-            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_LEFT), 2);
-            enemy.setDirection(DIRECTIONS::Left);
+        else if (m_direction == PRESS_LEFT) {
+            if (currentDirection != DIRECTIONS::Left) {
+                enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_LEFT), 2);
+                enemy.setDirection(DIRECTIONS::Left);
+                directionChangeClock->restart();
+            }
         }
-    }
-    else if (m_direction == PRESS_UP) {
-        if (currentDirection != DIRECTIONS::Up) {
-            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_UP), 2);
-            enemy.setDirection(DIRECTIONS::Up);
+        else if (m_direction == PRESS_UP) {
+            if (currentDirection != DIRECTIONS::Up) {
+                enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_UP), 2);
+                enemy.setDirection(DIRECTIONS::Up);
+                directionChangeClock->restart();
+            }
         }
+        else if (m_direction == PRESS_DOWN) {
+            if (currentDirection != DIRECTIONS::Down) {
+                enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_DOWN), 2);
+                enemy.setDirection(DIRECTIONS::Down);
+                directionChangeClock->restart();
+            }
+        } 
     }
-    else if (m_direction == PRESS_DOWN) {
-        if (currentDirection != DIRECTIONS::Down) {
-            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_DOWN), 2);
-            enemy.setDirection(DIRECTIONS::Down);
-        }
-    }
+    direction = m_direction;
     enemy.move();
 }
 

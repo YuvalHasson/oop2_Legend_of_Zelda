@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 10;
+const int OBJ_AMOUNT = 12;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
@@ -24,7 +24,8 @@ enum GAME_STATE {
 	PAUSE_MENU,
 	DEATH,
 	GAME_OVER,
-	SWITCH_LEVEL
+	SWITCH_LEVEL,
+	HELP
 };
 
 enum Input {
@@ -63,6 +64,8 @@ namespace TEXTURE
 	constexpr int Dungeon1 = 7;
 	constexpr int PickableItems = 8;
 	constexpr int Dungeon2 = 9;
+	constexpr int Help = 10;
+	constexpr int Controls = 11;
 }
 
 namespace BACKGROUND_SOUND

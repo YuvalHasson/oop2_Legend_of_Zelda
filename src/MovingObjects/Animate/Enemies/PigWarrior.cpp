@@ -13,12 +13,13 @@ PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
      m_sword(nullptr),
      m_currInput(PRESS_RIGHT),
      m_moveStrategy(std::make_unique<PatrolMovement>()), 
-     m_attackStrategy(std::make_unique<Stab>())
+    m_attackStrategy(std::make_unique<Stab>()), m_lineOfSight(position, sf::Vector2f(60.f, 16.f), sf::Vector2f(0, 0))
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
     updateSprite();
     setHp(2);
+    //m_lineOfSight.setPosition(position);
 }
 
 PigWarrior::~PigWarrior()
@@ -59,6 +60,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
             break;
         }        
     }
+    m_lineOfSight.setPosition(getSprite().getPosition());
     PerformMove();
     updateGraphics(deltaTime);
     updateSprite();
@@ -82,6 +84,14 @@ void PigWarrior::draw(sf::RenderTarget& target)
 {
     GameObject::draw(target);
     target.draw(getSprite());
+    ////
+    //sf::RectangleShape rect;
+    //rect.setPosition(m_lineOfSight.GetRect().left, m_lineOfSight.GetRect().top);
+    //rect.setSize(sf::Vector2f(m_lineOfSight.GetRect().width, m_lineOfSight.GetRect().height));
+    //rect.setFillColor(sf::Color::Transparent);
+    //rect.setOutlineColor(sf::Color::Blue);
+    //rect.setOutlineThickness(1);
+    //target.draw(rect);
 }
 
 const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
@@ -132,6 +142,37 @@ std::unique_ptr<Inanimate> PigWarrior::getAttack()
     setAttacking(false);
     return std::move(m_sword);
 }
+
+//void PigWarrior::updateLineOfSight()
+//{
+//    switch (m_currInput)
+//    {
+//    case PRESS_UP:
+//        m_lineOfSight.setBox(sf::Vector2f(60.f, -60.f), sf::Vector2f(26, 0));
+//        break;
+//    case PRESS_DOWN:
+//        m_lineOfSight.setBox(sf::Vector2f(60.f, 60.f), sf::Vector2f(26, -12));
+//        break;
+//    case PRESS_LEFT:
+//        m_lineOfSight.setBox(sf::Vector2f(-60.f, 60.f), sf::Vector2f(0, 25));
+//        break;
+//    case PRESS_RIGHT:
+//        m_lineOfSight.setBox(sf::Vector2f(60.f, 60.f), sf::Vector2f(-12, 25));
+//        break;
+//    default:
+//        break;
+//    }
+//    //for (/*loop on the static vetor*/)
+//    //{
+//    //    if (m_lineOfSight.checkCollision(/*stactic obj*/))
+//    //    {
+//    //        setMoveStrategy(std::make_unique<PatrolMovement>());
+//    //        break;
+//    //    }
+//
+//    //}
+//    
+//}
 
 //--------------observer function--------------
 void PigWarrior::updateLinkPosition(const sf::Vector2f& position){

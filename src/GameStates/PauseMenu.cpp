@@ -3,12 +3,15 @@
 PauseMenu::PauseMenu(sf::RenderWindow* window, std::vector<Board>&& board, sf::View&& view, Level level)
 	: State(window), m_boardLevels(std::move(board)), m_view(std::move(view)), m_volumeSlider(),
 	m_pauseBackground(sf::Vector2f(WindowWidth * 1.2f, windowHeight / 1.3f)),
+	m_controls(sf::Vector2f(WindowWidth / 2, windowHeight / 2)),
 	m_level(level)
 {
 	setCenterView();
 	getWindow()->setView(m_view);
 	m_pauseBackground.setFillColor(sf::Color(128, 128, 128, 200));
 	m_pauseBackground.setPosition(WindowWidth / 2.f - 750.f / 2.f , windowHeight / 2.f - 950.f / 2.f);
+	m_controls.setTexture(Resources::getResource().getTexture(TEXTURE::Controls));
+	m_controls.setPosition(WindowWidth / 1.5f, windowHeight / 7);
 
 	add("Exit", std::make_unique<ExitButton>(this));
 	add("Main Menu", std::make_unique<BackToMenuButton>(this));
@@ -38,11 +41,13 @@ void PauseMenu::render(sf::RenderTarget* target)
 
 	target->setView(target->getDefaultView());
 	target->draw(m_pauseBackground);
+	target->draw(m_controls);
 	for (auto& option : m_options)
 	{
 		option.second->draw(*target);
 	}
 	m_volumeSlider.draw(*target);
+
 }
 
 std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)

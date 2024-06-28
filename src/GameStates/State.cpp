@@ -25,6 +25,11 @@ void State::openSettings()
 	updateState(GAME_STATE::SETTINGS);
 }
 
+void State::openHelp()
+{
+	updateState(GAME_STATE::HELP);
+}
+
 void State::backToMenu()
 {
 	updateState(GAME_STATE::MAIN_MENU);

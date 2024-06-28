@@ -20,6 +20,9 @@ public:
 	virtual void attack();
 	virtual sf::Vector2f getLinkPos() override;
 	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override;
+	//virtual bool switchHitBox(bool) { return false; };
+	//virtual void updateLineOfSight() override {};
+
 	void setMoveStrategy(std::unique_ptr<MovementStrategy>);
 	void PerformMove();
 	void setAttackStrategy(std::unique_ptr<AttackStrategy>);

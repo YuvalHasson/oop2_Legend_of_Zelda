@@ -8,5 +8,5 @@ HelpButton::HelpButton(State* state)
 
 void HelpButton::execute()
 {
-	//getState()->setHelpMenu();
+	getState()->openHelp();
 }

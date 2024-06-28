@@ -65,9 +65,9 @@ std::unique_ptr<State> MainMenu::handleInput(const GAME_STATE& gameState)
 	case  GAME_STATE::SETTINGS:
 		return std::make_unique<SettingState>(getWindow());
 		break;
-	//case  GAME_STATE::HELP:
-		//return std::make_unique<HelpState>(getWindow());
-		//break;
+	case  GAME_STATE::HELP:
+		return std::make_unique<HelpState>(getWindow());
+		break;
 	//case  GAME_STATE::LOAD:	
 		//return std::make_unique<LoadState>(getWindow());
 		//	break;

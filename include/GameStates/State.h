@@ -20,6 +20,7 @@ public:
 	void startGame();
 	void exitGame();
 	void openSettings();
+	void openHelp();
 	void backToMenu();
 	void backToGame();
 
