@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "SoundResource.h"
 #include "Utilities.h"
 #include "Factory.h"
 #include "HitBox.h"

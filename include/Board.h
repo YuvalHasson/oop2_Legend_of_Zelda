@@ -6,6 +6,7 @@
 #include "StaticObjects/StaticObjects.h"
 #include "Misc/Utilities.h"
 #include "ResourcesManager/Resources.h"
+#include "ResourcesManager/SoundResource.h"
 #include <vector>
 #include <memory>
 #include <fstream>

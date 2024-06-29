@@ -240,23 +240,28 @@ void Board::setMap()
 
 void Board::initializeLevel(const Level& level)
 {
+	SoundResource::getSound().StopBackground();
 	switch (level)
 	{
 	case Level::Home:
 		m_map.setMap("Home.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Home));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::House);
 		break;
 	case Level::MAIN:
 		m_map.setMap("Map.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::OverWorld);
 		break;
 	case Level::FIRST_DUNGEON:
 		m_map.setMap("Dungeon.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon1));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	case Level::SECOND_DUNGEON:
 		m_map.setMap("Dungeon01.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon2));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	}
 	m_staticRects = m_map.getStaticObjectsRects();

@@ -60,6 +60,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, octorok));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 			}
 		}
 	}
@@ -291,6 +292,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, pigWarrior));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 				pigWarriorPtr->undoMove();
 			}
 			pigWarriorPtr->undoMove();
@@ -533,6 +535,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, enemySword));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 			}
 		}
 	}
@@ -614,6 +617,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, seaUrchin));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 			}
 			linkPtr->undoMove();
 		}
@@ -770,6 +774,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, hole));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 			}
 			linkPtr->undoMove();
 		}
@@ -851,6 +856,8 @@ namespace
 
 	void EnemySwordShrub(GameObject& enemySword, GameObject& shrub) {}
 
+	void SwordHole(GameObject& sword, GameObject& hole) {}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -922,6 +929,7 @@ namespace
 		phm[Key(typeid(Sword), typeid(PigWarrior))] =			&SwordPigWarrior;
 		phm[Key(typeid(Sword), typeid(SeaUrchin))] =			&SwordSeaUrchin;
 		phm[Key(typeid(Sword), typeid(Shrub))] =				&SwordShrub;
+		phm[Key(typeid(Sword), typeid(Hole))] =				&SwordHole;
 		phm[Key(typeid(Shield), typeid(Octorok))] =				&ShieldOctorok;
 		phm[Key(typeid(Shield), typeid(Projectile))] =			&ShieldProjectile;
 		phm[Key(typeid(Shield), typeid(PigWarrior))] =			&ShieldPigWarrior;
