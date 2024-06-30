@@ -61,7 +61,10 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
 	}
 
-	m_zelda->draw(target);
+	if (m_zelda)
+	{
+		m_zelda->draw(target);
+	}
 	m_link->draw(target);
 
 }
