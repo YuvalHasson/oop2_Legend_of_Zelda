@@ -14,6 +14,7 @@ Board::Board(Board&& other) noexcept
 	 m_inanimateObjects(std::move(other.m_inanimateObjects)),
 	 m_staticObjects(std::move(other.m_staticObjects)),
 	 m_doors(std::move(other.m_doors)),
+	 m_zelda(std::move(other.m_zelda)),
 	 m_link(std::move(other.m_link)),
 	 m_background(std::move(other.m_background)) {}
 
@@ -25,6 +26,7 @@ Board& Board::operator=(Board&& other) noexcept
 		m_inanimateObjects	= std::move(other.m_inanimateObjects);
 		m_staticObjects		= std::move(other.m_staticObjects);
 		m_link				= std::move(other.m_link);
+		m_zelda				= std::move(other.m_zelda);
 		m_background		= std::move(other.m_background);
 		m_doors				= std::move(other.m_doors);
 	}
@@ -59,6 +61,10 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
 	}
 
+	if (m_zelda)
+	{
+		m_zelda->draw(target);
+	}
 	m_link->draw(target);
 
 }
@@ -85,6 +91,11 @@ void Board::makeLink()
 	if (auto p = Factory<Link>::instance()->create("Link", { 86.f, 35.f }))
 	{
 		m_link = std::move(p);
+	}
+
+	if (auto p = Factory<Zelda>::instance()->create("Zelda", { 120.f, 35.f }))
+	{
+		m_zelda = std::move(p);
 	}
 }
 
