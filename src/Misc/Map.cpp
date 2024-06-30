@@ -22,13 +22,23 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(7, "BowItem");
 	dict.emplace(11, "Heart");
 	dict.emplace(12, "SeaUrchin");
+	dict.emplace(13, "Hole");
+	dict.emplace(14, "Shrub" );
+
 	dict.emplace(50, "Door");
 	dict.emplace(51, "Door");
 	dict.emplace(52, "Door");
 	dict.emplace(53, "Door");
+	dict.emplace(54, "Door");
+	dict.emplace(55, "Door");
+	dict.emplace(56, "Door"); // not in use
+	dict.emplace(57, "Door");
+	dict.emplace(58, "Door");
+	dict.emplace(59, "Door");
 
-	dict.emplace(253, "Flowers" );
-	dict.emplace(229, "Flowers" );
+	dict.emplace(100, "Sign");
+	dict.emplace(101, "Sign");
+
 }
 
 void Map::setMap(const std::string& mapName)
@@ -91,14 +101,14 @@ void Map::initVector(Cell cell)
 			{
 				if (cell.value == 50)
 				{
-					p->setLevelToDoor(Level::FIRST_DUNGEON);
-					p->setLinkOutPosition({ 22, 105 });
+					p->setLevelToDoor(Level::MAIN);
+					p->setLinkOutPosition({ 87, 72 });
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 51)
 				{
-					p->setLevelToDoor(Level::MAIN);
-					p->setLinkOutPosition({ 166, 150 });
+					p->setLevelToDoor(Level::Home);
+					p->setLinkOutPosition({ 120, 137 });
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 52)
@@ -110,11 +120,39 @@ void Map::initVector(Cell cell)
 				if (cell.value == 53)
 				{
 					p->setLevelToDoor(Level::MAIN);
-					p->setLinkOutPosition({ 503, 86});
+					p->setLinkOutPosition({ 279, 52 });
+					m_doors.emplace_back(std::move(p));
+				}
+				if (cell.value == 54)
+				{
+					p->setLevelToDoor(Level::FIRST_DUNGEON);
+					p->setLinkOutPosition({ 22, 103 });
+					m_doors.emplace_back(std::move(p));
+				}
+				if (cell.value == 55)
+				{
+					p->setLevelToDoor(Level::MAIN);
+					p->setLinkOutPosition({ 263, 196 });
 					m_doors.emplace_back(std::move(p));
 				}
 			}
 			return;
+		}
+		if (it->second == "Sign")
+		{
+			if (auto p = Factory<Sign>::instance()->create(it->second, { static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row }))
+			{
+				if (cell.value == 100)
+				{
+					p->setText("Press  B  to  use  shield\nUse  the  shield  to  push  the  sea  Urchin");
+					m_staticObjects.emplace_back(std::move(p));
+				}
+				if (cell.value == 101)
+				{
+					p->setText("Sharp  suprise  is  at  the  end  of  the  Dungeon");
+					m_staticObjects.emplace_back(std::move(p));
+				}
+			}
 		}
 		if (auto p = Factory<StaticObjects>::instance()->create(it->second, {static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row}))
 		{

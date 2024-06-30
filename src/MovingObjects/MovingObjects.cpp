@@ -17,7 +17,7 @@ Animation& MovingObjects::getAnimation()
 	return m_animation;
 }
 
-int MovingObjects::getSpeed() const
+float MovingObjects::getSpeed() const
 {
 	return m_speed;
 }
@@ -47,7 +47,7 @@ void MovingObjects::setGraphics(const sf::Vector2u& animationPos, int imgCount, 
 	m_animation.setAnimation(animationPos, imgCount, flip, singleTime, switchTime);
 }
 
-void MovingObjects::setSpeed(int speed)
+void MovingObjects::setSpeed(float speed)
 {
 	m_speed = speed;
 }

@@ -14,6 +14,7 @@
 #include "PigWarrior.h"
 #include "Octorok.h"
 #include "Door.h"
+#include "Sign.h"
 #include "BowItem.h"
 #include "SwordItem.h"
 #include "Link.h"

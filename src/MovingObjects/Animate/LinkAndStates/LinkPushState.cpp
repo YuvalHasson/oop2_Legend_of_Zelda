@@ -12,13 +12,12 @@ std::unique_ptr<LinkState> LinkPushState::handleInput(Input input, bool shieldin
             input == PRESS_UP_RIGHT   || input == PRESS_LEFT        || input == PRESS_RIGHT     ||
             input == PRESS_DOWN       || input == PRESS_UP)
     {
-        if (!shielding && !pushing)
-        {
+        if (!shielding && !pushing) {
             return std::make_unique<LinkMoveState>(input);
         }
         else if (pushing && !shielding)
         {
-            return std::make_unique<LinkPushState>(input);
+        	return std::make_unique<LinkPushState>(input);
         }
         else {
             return std::make_unique<LinkShieldMovingState>(input);
@@ -33,31 +32,30 @@ std::unique_ptr<LinkState> LinkPushState::handleInput(Input input, bool shieldin
 }
 
 void LinkPushState::enter(Link& link) {
-    //can make directions and enums into a map
     if (link.isPushedBack()) {
         link.move();
         return;
     }
     switch (m_direction) {
-    case PRESS_RIGHT:
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkPushRight, 2);
-        link.setDirection(DIRECTIONS::Right);
-        break;
-    case PRESS_LEFT:
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkPushLeft, 2);
-        link.setDirection(DIRECTIONS::Left);
-        break;
-    case PRESS_DOWN:
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkPushDown, 2);
-        link.setDirection(DIRECTIONS::Down);
-        break;
-    case PRESS_UP:
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkPushUp, 2);
-        link.setDirection(DIRECTIONS::Up);
-        break;
-    default:
-        break;
+        case PRESS_RIGHT:
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkPushRight, 2);
+            link.setDirection(DIRECTIONS::Right);
+            break;
+        case PRESS_LEFT:
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkPushLeft, 2);
+            link.setDirection(DIRECTIONS::Left);
+            break;
+        case PRESS_DOWN:
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkPushDown, 2);
+            link.setDirection(DIRECTIONS::Down);
+            break;
+        case PRESS_UP:
+            link.setGraphics(ANIMATIONS_POSITIONS::LinkPushUp, 2);
+            link.setDirection(DIRECTIONS::Up);
+            break;
+        default:
+            break;
     }
     link.move();
-    link.setPush(false);
+
 }

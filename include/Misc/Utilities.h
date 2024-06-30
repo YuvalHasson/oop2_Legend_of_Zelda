@@ -3,12 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 12;
+const int OBJ_AMOUNT = 13;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
 enum Level
 {
+	Home,
 	MAIN,
 	FIRST_DUNGEON,
 	SECOND_DUNGEON
@@ -64,8 +65,9 @@ namespace TEXTURE
 	constexpr int Dungeon1 = 7;
 	constexpr int PickableItems = 8;
 	constexpr int Dungeon2 = 9;
-	constexpr int Help = 10;
-	constexpr int Controls = 11;
+	constexpr int Home = 10;
+	constexpr int Help = 11;
+	constexpr int Controls = 12;
 }
 
 namespace BACKGROUND_SOUND

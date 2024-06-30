@@ -16,7 +16,7 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     m_shield(Factory<Shield>::instance()->create("Shield", { 0,0 })),
     m_isPushing(false), m_wasTabPressed(false),
     m_isShooting(false), m_arrow(nullptr),m_isShielding(false),
-    m_hasSword(false), m_hasBow(false), m_currentWeapon(0)
+    m_currentWeapon(0)
 {
     getSprite().setOrigin(tileSize/2, tileSize/2);
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
@@ -114,6 +114,10 @@ void Link::update(const sf::Time& deltaTime){
     }
     m_sword->update(deltaTime);
     updateSprite();
+    if(!(m_timeSinceLastPush.getElapsedTime().asSeconds() - 0.01f <= 0)){
+        setPush(false);
+    }
+	setSpeed(1.f);
 }
 
 void Link::move()
@@ -207,9 +211,6 @@ std::unique_ptr<Inanimate> Link::getAttack()
     return nullptr;
 }
 
-bool Link::doesHaveBow()const{
-    return m_hasBow;
-}
 
 void Link::takeSword(){
     m_weapons.emplace_back(SwordWeapon);
@@ -219,15 +220,15 @@ void Link::takeBow(){
     m_weapons.emplace_back(BowWeapon);
 }
 
-bool Link::doesHaveSword()const{
-    return m_hasSword;
-}
-
 Weapons Link::getCurrentWeapon()const{
     if(!m_weapons.empty()){
         return m_weapons[m_currentWeapon];
     }
     return NoWeapon;
+}
+
+void Link::resetTimeSinceLastPushed(){
+    m_timeSinceLastPush.restart();
 }
 
 //-------------observer list functions--------------

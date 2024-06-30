@@ -68,6 +68,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
     {
         destroy();
     }
+	setSpeed(1.f);
 }
 
 sf::Vector2f PigWarrior::getLinkPos()
@@ -78,20 +79,6 @@ sf::Vector2f PigWarrior::getLinkPos()
 void PigWarrior::attack()
 {
     setAttacking(true);
-}
-
-void PigWarrior::draw(sf::RenderTarget& target)
-{
-    GameObject::draw(target);
-    target.draw(getSprite());
-    ////
-    //sf::RectangleShape rect;
-    //rect.setPosition(m_lineOfSight.GetRect().left, m_lineOfSight.GetRect().top);
-    //rect.setSize(sf::Vector2f(m_lineOfSight.GetRect().width, m_lineOfSight.GetRect().height));
-    //rect.setFillColor(sf::Color::Transparent);
-    //rect.setOutlineColor(sf::Color::Blue);
-    //rect.setOutlineThickness(1);
-    //target.draw(rect);
 }
 
 const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
