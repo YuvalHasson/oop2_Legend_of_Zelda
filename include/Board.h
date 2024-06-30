@@ -65,6 +65,7 @@ private:
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 	std::vector<std::unique_ptr<Door>> m_doors;
 	std::unique_ptr<Link> m_link;
+	std::unique_ptr<Zelda> m_zelda;
 
 	sf::Sprite m_background;
 
