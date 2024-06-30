@@ -6,6 +6,7 @@
 #include "StaticObjects/StaticObjects.h"
 #include "Misc/Utilities.h"
 #include "ResourcesManager/Resources.h"
+#include "ResourcesManager/SoundResource.h"
 #include <vector>
 #include <memory>
 #include <fstream>
@@ -56,6 +57,8 @@ public:
 	bool isAttacking() const;
 	const sf::Sprite& getBackground() const;
 
+	static std::vector<sf::FloatRect> getStaticRects();
+
 private:
 	std::vector<std::unique_ptr<Enemy>> m_enemiesObjects;
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
@@ -68,6 +71,8 @@ private:
 	std::vector <std::pair<sf::Vector2f, EnemyType>> m_enemiesPositions;
 
 	Map m_map;
+
+	static std::vector<sf::FloatRect> m_staticRects;
 
 
 	// STL-like algorithm to run over all pairs within the same range

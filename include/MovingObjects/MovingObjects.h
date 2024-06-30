@@ -12,7 +12,7 @@ public:
 	virtual void update(const sf::Time& deltaTime) = 0;
 	
 	void updateSprite();
-	void setGraphics(const sf::Vector2u&, int, bool = false, bool = false, float switchTime = 0.2f);
+	void setGraphics(const sf::Vector2u&, int, bool = false, float switchTime = 0.2f);
 	void setSpeed(float);
 	void setDirection(const sf::Vector2i&);
 	void undoMove();

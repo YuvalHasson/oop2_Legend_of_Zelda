@@ -11,7 +11,7 @@ void Stab::attack(sf::Time& attackDuration, sf::Clock& attackTimer, std::unique_
             sf::Vector2f position = enemy.getSprite().getPosition();
             sf::Vector2f attackPos;
             if (enemy.getDirection().x == 1) {
-                sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordRight, 2, false, true, 0.10f);//true for singleTime
+                sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordRight, 2, true, 0.10f);//true for singleTime
                 attackPos.x = position.x + tileSize * 0.71f;
                 attackPos.y = position.y;
             }

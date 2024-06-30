@@ -9,7 +9,7 @@ DeathState::DeathState(sf::RenderWindow* window, sf::Vector2f position, sf::View
 	getWindow()->setView(view);
 	m_linkDeathSprite.setTexture(*Resources::getResource().getTexture(TEXTURE::Link));
 	m_linkDeathSprite.setPosition(position);
-	m_animation.setAnimation(sf::Vector2u(188, 42), 4, false, true, 0.2f);
+	m_animation.setAnimation(sf::Vector2u(188, 42), 4, true, 0.2f);
 	m_linkDeathSprite.setTextureRect(m_animation.getuvRect());
 	m_linkDeathSprite.setScale(1, 1);
 }
@@ -19,7 +19,7 @@ void DeathState::update(const sf::Time& deltaTime)
 	if (m_animation.isDone() && m_amountOfSpins < 3)
 	{
 		
-		m_animation.setAnimation(sf::Vector2u(188, 42), 4, false, true, 0.2f);
+		m_animation.setAnimation(sf::Vector2u(188, 42), 4, true, 0.2f);
 		m_amountOfSpins++;
 	}
 

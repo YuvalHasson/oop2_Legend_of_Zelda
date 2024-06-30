@@ -1,8 +1,13 @@
 #include "Animate.h"
 
 Animate::Animate(const sf::Texture& texture, const sf::Vector2f& position, const sf::Vector2f& size, const sf::Vector2f& originOffset)
-	: MovingObjects(texture, position, size, originOffset), m_attacking(false), m_hp(1), m_isPushedback(false) {}
+	: MovingObjects(texture, position, size, originOffset), m_attacking(false), 
+	  m_hp(1), m_isPushedback(false), m_hitAnimation(getSprite().getColor())
+	  {}
 
+void Animate::updateHitAnimation(const sf::Time& deltaTime){
+	m_hitAnimation.update(deltaTime);
+}
 
 void Animate::move()
 {
@@ -60,4 +65,15 @@ int Animate::getHp() const
 bool Animate::isPushedBack() const
 {
 	return m_isPushedback;
+}
+
+void Animate::addHitColor(sf::Color color){
+	m_hitAnimation.addColorToAnimation(color);
+}
+
+sf::Color Animate::getCurrentColor()const{
+	return m_hitAnimation.getCurrentColor();
+}
+sf::Color Animate::getBaseColor()const{
+	return m_hitAnimation.getBaseColor();
 }

@@ -3,6 +3,7 @@
 #include "MovingObjects.h"
 
 #include "Inanimate/Inanimate.h"
+#include "ColorAnimation.h"
 
 const sf::Time pushbackDuration(sf::seconds(0.3f));
 
@@ -16,8 +17,12 @@ public:
 
 	void move() override;
 	void updateGraphics(const sf::Time& deltaTime);
-	void setAttacking(const bool& = false);
+	virtual void updateHitAnimation(const sf::Time&);
 	void pushBack(const sf::Vector2i&);
+	void addHitColor(sf::Color color);
+	sf::Color getCurrentColor()const;
+	sf::Color getBaseColor()const;
+	void setAttacking(const bool& = false);
 
 	bool isAttacking() const;
 	bool isPushedBack() const;
@@ -26,12 +31,13 @@ public:
 	int getHp() const;
 
 protected:
-	bool m_attacking; //might not be necessary
+	bool m_attacking;
 
 private:
 	int m_hp;
 	sf::Clock m_pushbackTimer;
 	bool m_isPushedback;
 	sf::Vector2i m_collisionDirection;
+	ColorAnimation m_hitAnimation;
 
 };

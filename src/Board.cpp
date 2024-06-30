@@ -5,14 +5,16 @@
 
 #include <iostream> // debug
 
+std::vector<sf::FloatRect> Board::m_staticRects;
+
 Board::Board() {}
 
 Board::Board(Board&& other) noexcept
 	:m_enemiesObjects(std::move(other.m_enemiesObjects)),
-	 m_staticObjects(std::move(other.m_staticObjects)),
-	 m_link(std::move(other.m_link)),
 	 m_inanimateObjects(std::move(other.m_inanimateObjects)),
+	 m_staticObjects(std::move(other.m_staticObjects)),
 	 m_doors(std::move(other.m_doors)),
+	 m_link(std::move(other.m_link)),
 	 m_background(std::move(other.m_background)) {}
 
 Board& Board::operator=(Board&& other) noexcept
@@ -58,6 +60,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
   	}
 
 	m_link->draw(target);
+
 }
 
 void Board::addProjectileToMoving()
@@ -252,25 +255,31 @@ void Board::setLoadedMap(std::vector<std::unique_ptr<Enemy>>& enemies, std::vect
 
 void Board::initializeLevel(const Level& level)
 {
+	SoundResource::getSound().StopBackground();
 	switch (level)
 	{
 	case Level::Home:
 		m_map.setMap("Home.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Home));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::House);
 		break;
 	case Level::MAIN:
 		m_map.setMap("Map.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Map));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::OverWorld);
 		break;
 	case Level::FIRST_DUNGEON:
 		m_map.setMap("Dungeon.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon1));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	case Level::SECOND_DUNGEON:
 		m_map.setMap("Dungeon01.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon2));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	}
+	m_staticRects = m_map.getStaticObjectsRects();
 }
 
 void Board::resetEnemiesAndInanimated()
@@ -310,4 +319,8 @@ bool Board::isAttacking() const
 const sf::Sprite& Board::getBackground() const
 {
 	return m_background;
+}
+
+std::vector<sf::FloatRect> Board::getStaticRects(){
+	return m_staticRects;
 }

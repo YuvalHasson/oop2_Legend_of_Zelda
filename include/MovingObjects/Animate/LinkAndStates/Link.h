@@ -8,6 +8,7 @@
 #include "LinkArrow.h"
 #include "LinkSubject.h"
 #include "Shield.h"
+#include "ColorAnimation.h"
 
 const sf::Time invincibilityTime(sf::seconds(2));
 
@@ -36,7 +37,7 @@ public:
 	void shoot();
 	void stopShooting();
 
-	bool getInvincible() const;
+	bool getInvincible();
 	void initializeInvincible();
 
 	Sword* getSword();
@@ -70,6 +71,7 @@ private:
 	bool m_isShooting;
 	bool m_wasTabPressed;
 	bool m_isShielding;
+	bool m_invincible;
 
 	sf::Clock m_timeSinceLastPush;
 
@@ -82,5 +84,4 @@ private:
 	
 	//observers vector
 	std::vector<LinkObserver*> m_observers;
-
 };

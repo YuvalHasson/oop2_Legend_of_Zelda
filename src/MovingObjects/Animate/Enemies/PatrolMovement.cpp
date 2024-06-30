@@ -3,30 +3,23 @@
 
 void PatrolMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock)
 {
-    bool up = false;
-    bool down = false;
-    bool right = false;
-    bool left = false;
-    if (directionChangeClock->getElapsedTime().asSeconds() >= 1.0f) // Change direction every 2 seconds
+    
+    if (directionChangeClock->getElapsedTime().asSeconds() >= 1.0f) // Change direction every 1 seconds
     {
         int randomMovment = rand() % 4;
 
         switch (randomMovment)
         {
         case 0:
-            up = true;
             m_direction = PRESS_UP;
             break;
         case 1:
-            down = true;
             m_direction = PRESS_DOWN;
             break;
         case 2:
-            right = true;
             m_direction = PRESS_RIGHT;
             break;
         case 3:
-            left = true;
             m_direction = PRESS_LEFT;
             break;
         default:

@@ -10,40 +10,37 @@ bool PigWarrior::m_registerit = Factory<Enemy>::instance()->registerit("PigWarri
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     :Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f), sf::Vector2f(-2, -2)),
-     m_sword(nullptr),
      m_currInput(PRESS_RIGHT),
      m_moveStrategy(std::make_unique<PatrolMovement>()), 
-    m_attackStrategy(std::make_unique<Stab>()), m_lineOfSight(position, sf::Vector2f(60.f, 16.f), sf::Vector2f(0, 0))
+     m_attackStrategy(std::make_unique<Stab>()),
+     m_sword(nullptr)
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
     updateSprite();
     setHp(2);
-    std::cout << "new pig born\n";
-    //m_lineOfSight.setPosition(position);
 }
 
 PigWarrior::~PigWarrior()
 {
-    std::cout << "~pig\n";
     if (m_link)
     {
-        std::cout << "~pig RemoveObserver\n";
         m_link->RemoveObserver(this);
     }
 }
 
 void PigWarrior::update(const sf::Time& deltaTime)
 {
-    bool standing = false;
-    bool attacking = false;
+    Enemy::updateHitAnimation(deltaTime);
+    Enemy::update(deltaTime);
+    
     sf::Vector2f currentPosition = getSprite().getPosition();
     // If Link is close, change movement strategy
-    if (distance(currentPosition, m_linkPos) < 60.0f) {
-        // If the distance to the Link is small enough, change strategy  to track Link
+    if (distance(currentPosition, m_linkPos) < 100.0f && castRay(getPosition(), m_linkPos)) {
+        // If the distance to Link is small enough, change strategy to track Link
         setMoveStrategy(std::make_unique<SmartMovement>());
-        if (distance(currentPosition, m_linkPos) < 16.0f) {
-            // If the distance to the Link is small enough, change strategy  to track Link
+        if (distance(currentPosition, m_linkPos) < 28.0f) {
+            // If the distance to Link is small enough, change strategy to attack Link
             PerformAttack();
             m_sword->setBool();
         }
@@ -63,13 +60,13 @@ void PigWarrior::update(const sf::Time& deltaTime)
             break;
         }        
     }
-    m_lineOfSight.setPosition(getSprite().getPosition());
     PerformMove();
     updateGraphics(deltaTime);
     updateSprite();
     if (getHp() <= MIN_HEALTH)
     {
         destroy();
+		SoundResource::getSound().playSound(SOUNDS::EnemyDie);
     }
 	setSpeed(1.f);
 }
@@ -96,6 +93,8 @@ const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
         return ANIMATIONS_POSITIONS::PigWarriorLeft;
     case PRESS_RIGHT:
         return ANIMATIONS_POSITIONS::PigWarriorRight;
+    default:
+        return ANIMATIONS_POSITIONS::PigWarriorDown; //will never get here
     }
 }
 
@@ -137,37 +136,6 @@ std::unique_ptr<Inanimate> PigWarrior::getAttack()
     setAttacking(false);
     return std::move(m_sword);
 }
-
-//void PigWarrior::updateLineOfSight()
-//{
-//    switch (m_currInput)
-//    {
-//    case PRESS_UP:
-//        m_lineOfSight.setBox(sf::Vector2f(60.f, -60.f), sf::Vector2f(26, 0));
-//        break;
-//    case PRESS_DOWN:
-//        m_lineOfSight.setBox(sf::Vector2f(60.f, 60.f), sf::Vector2f(26, -12));
-//        break;
-//    case PRESS_LEFT:
-//        m_lineOfSight.setBox(sf::Vector2f(-60.f, 60.f), sf::Vector2f(0, 25));
-//        break;
-//    case PRESS_RIGHT:
-//        m_lineOfSight.setBox(sf::Vector2f(60.f, 60.f), sf::Vector2f(-12, 25));
-//        break;
-//    default:
-//        break;
-//    }
-//    //for (/*loop on the static vetor*/)
-//    //{
-//    //    if (m_lineOfSight.checkCollision(/*stactic obj*/))
-//    //    {
-//    //        setMoveStrategy(std::make_unique<PatrolMovement>());
-//    //        break;
-//    //    }
-//
-//    //}
-//    
-//}
 
 //--------------observer function--------------
 void PigWarrior::updateLinkPosition(const sf::Vector2f& position){

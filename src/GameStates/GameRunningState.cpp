@@ -24,8 +24,7 @@ void GameRunningState::update(const sf::Time& deltaTime)
 
 	if (m_boardLevels[m_level].getLink().getHp() <= MIN_HEALTH)
 	{
-		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::StartGame);
-		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
+		SoundResource::getSound().StopBackground();
 		updateState(GAME_STATE::DEATH);
 	}
 
@@ -66,15 +65,18 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 	switch (gameState)
 	{
 	case GAME_STATE::MAIN_MENU:
-		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::StartGame);
+		SoundResource::getSound().StopBackground();
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 		return std::make_unique<MainMenu>(getWindow());
 	case GAME_STATE::EXIT:
 		getWindow()->close();
 		return nullptr;
 	case GAME_STATE::PAUSE_MENU:
+		SoundResource::getSound().playSound(SOUNDS::PauseMenuOpen);
 		return std::make_unique<PauseMenu>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
 	case GAME_STATE::DEATH:
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Death);
+		SoundResource::getSound().playSound(SOUNDS::Death);
 		return std::make_unique<DeathState>(getWindow(), m_boardLevels[m_level].getLink().getPosition(), std::move(m_view));
 	case GAME_STATE::SWITCH_LEVEL:
 		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level, m_nextLevel);

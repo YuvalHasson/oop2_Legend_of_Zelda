@@ -16,7 +16,7 @@ public:
 
     //for when changing animation for an object
     //i.e if link has a shield or not
-    void setAnimation(sf::Vector2u, int, bool flip = false, bool singleTime = false, float switchTime = 0.1f);
+    void setAnimation(sf::Vector2u, int, bool singleTime = false, float switchTime = 0.1f);
 
     //for single time animation(attacks)
     bool isDone()const;
@@ -32,7 +32,6 @@ private:
 
     sf::IntRect m_uvRect;
     bool m_singleImgFlip;
-    bool m_flip;
 
     float m_timePassed;//time passed from last image change
     float m_switchTime; //switch interval between each picture

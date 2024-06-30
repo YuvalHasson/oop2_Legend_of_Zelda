@@ -40,19 +40,19 @@ void LinkShieldStandingState::enter(Link& link){
 
     if(currentDirection.x == 1)
     {
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkShieldRight, 2, false , true);
+        link.setGraphics(ANIMATIONS_POSITIONS::LinkShieldRight, 2, true);
     }
     else if(currentDirection.x == -1)
     {
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkShieldLeft, 2, false , true);
+        link.setGraphics(ANIMATIONS_POSITIONS::LinkShieldLeft, 2 , true);
     }
     else if(currentDirection == DIRECTIONS::Down)
     {
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkShieldDown, 2, false , true);
+        link.setGraphics(ANIMATIONS_POSITIONS::LinkShieldDown, 2 , true);
     }
     else if(currentDirection == DIRECTIONS::Up)
     {
-        link.setGraphics(ANIMATIONS_POSITIONS::LinkShieldUp, 2, false , true);
+        link.setGraphics(ANIMATIONS_POSITIONS::LinkShieldUp, 2 , true);
     }
 }
 
