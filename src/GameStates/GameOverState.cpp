@@ -40,6 +40,8 @@ std::unique_ptr<State> GameOverState::handleInput(const GAME_STATE& gameState)
 	switch (gameState)
 	{
 	case GAME_STATE::MAIN_MENU:
+		SoundResource::getSound().StopBackground();
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 		return std::make_unique<MainMenu>(getWindow());
 	//case GAME_STATE::LOAD:
 	//	return std::make_unique<LoadButton>(getWindow());

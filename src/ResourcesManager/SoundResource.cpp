@@ -35,9 +35,12 @@ void SoundResource::playBackground(int sound)
 	this->m_backgroundMusic[sound].play();
 }
 
-void SoundResource::stopBackground(int sound)
+void SoundResource::StopBackground()
 {
-	this->m_backgroundMusic[sound].stop();
+	for (auto& backgroundMusic : m_backgroundMusic)
+	{
+		backgroundMusic.stop();
+	}
 }
 
 void SoundResource::setBackgroundVolume(float amount)

@@ -22,4 +22,12 @@ configure_file ("Dungeon.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Dungeon01.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("MainTheme.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("LinkAwakens.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("House.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Overworld.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("GameOver.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Dungeon01.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("DeathSound.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("LinkSwordSwing.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("LinkDamage.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("LinkArrow.ogg" ${CMAKE_BINARY_DIR} COPYONLY)

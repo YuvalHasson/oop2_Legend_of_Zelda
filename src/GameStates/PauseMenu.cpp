@@ -50,14 +50,13 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 	switch (gameState)
 	{
 	case GAME_STATE::MAIN_MENU:
-		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::StartGame);
+		SoundResource::getSound().StopBackground();
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 		return std::make_unique<MainMenu>(getWindow());
 	case GAME_STATE::EXIT:
 		getWindow()->close();
 		return nullptr;
 	case GAME_STATE::GAME_RUNNING:
-		SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
 	}
 	return nullptr;

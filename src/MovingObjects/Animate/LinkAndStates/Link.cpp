@@ -151,6 +151,7 @@ void Link::swipeSword()
     if(m_sword)
     {
         m_sword->activate(getSprite().getPosition(), getDirection());
+        SoundResource::getSound().playSound(SOUNDS::LinkSword);
     }
 }
 void Link::stopSwordSwipe()
@@ -230,6 +231,7 @@ std::unique_ptr<Inanimate> Link::getAttack()
             m_arrow->setPosition(sf::Vector2f(getPosition().x, getPosition().y + 3));
             m_arrow->getSprite().setPosition(sf::Vector2f(getPosition().x, getPosition().y + 3));
             m_arrow->initArrow(getDirection());
+            SoundResource::getSound().playSound(SOUNDS::LinkArrow);
         }
         stopShooting();
         return std::move(m_arrow);

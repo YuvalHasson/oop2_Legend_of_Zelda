@@ -4,8 +4,8 @@
 #include <vector>
 
 const int OBJ_AMOUNT = 11;
-const int SOUND_AMOUNT = 1;
-const int BACK_SOUND_AMNT = 2;
+const int SOUND_AMOUNT = 4;
+const int BACK_SOUND_AMNT = 5;
 
 enum Level
 {
@@ -47,7 +47,7 @@ enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
-#define VOLUME 0.f
+#define VOLUME 20.f
 
 #define MAX_HEALTH 6
 #define MIN_HEALTH 0
@@ -70,7 +70,18 @@ namespace TEXTURE
 namespace BACKGROUND_SOUND
 {
 	constexpr int Menu = 0;
-	constexpr int StartGame = 1;
+	constexpr int House = 1;
+	constexpr int OverWorld = 2;
+	constexpr int Death = 3;
+	constexpr int Dungeon01 = 4;
+}
+
+namespace SOUNDS
+{
+	constexpr int Death = 0;
+	constexpr int LinkSword = 1;
+	constexpr int LinkArrow = 2;
+	constexpr int LinkDamaged = 3;
 }
 
 namespace ANIMATIONS_POSITIONS
