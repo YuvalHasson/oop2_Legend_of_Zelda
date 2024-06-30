@@ -8,7 +8,7 @@ LoadGameState::LoadGameState(sf::RenderWindow* window)
 	updateLevel();
 }
 
-void LoadGameState::update(const sf::Time& deltaTime)
+void LoadGameState::update(const sf::Time&)
 {
 	updateState(GAME_STATE::GAME_RUNNING);
 }
@@ -26,12 +26,10 @@ std::unique_ptr<State> LoadGameState::handleInput(const GAME_STATE& gameState)
 {
 	if (gameState == GAME_STATE::GAME_RUNNING)
 	{
-		std::cout << "move to GAME_RUNNING\n";
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), Level(m_level));
 	}
 	else if (gameState == GAME_STATE::EXIT)
 	{
-		std::cout << "EXIT\n";
 		getWindow()->close();
 	}
 	return nullptr;

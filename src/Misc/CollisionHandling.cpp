@@ -898,6 +898,19 @@ namespace
 
 	void SwordWater(GameObject& sword, GameObject& water) {}
 
+	void SeaUrchinSign(GameObject& seaUrchin, GameObject& sign)
+	{
+		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
+		Sign* signPtr = dynamic_cast<Sign*>(&sign);
+		if (seaUrchinPtr && signPtr)
+		{
+			if (signPtr->getInnerBox(seaUrchinPtr->getHitBox())) {
+				seaUrchinPtr->undoMove();
+			}
+		}
+
+	}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -1029,6 +1042,7 @@ namespace
 		phm[Key(typeid(SeaUrchin), typeid(Sword))] =			&SeaUrchinSword;
 		phm[Key(typeid(SeaUrchin), typeid(Projectile))] =		&SeaUrchinProjectile;
 		phm[Key(typeid(SeaUrchin), typeid(Octorok))] =			&SeaUrchinOctorok;
+		phm[Key(typeid(SeaUrchin), typeid(Sign))] =				&SeaUrchinSign;
 		phm[Key(typeid(Sign), typeid(Link))] =					&SignLink;
 		phm[Key(typeid(Sign), typeid(Octorok))] =				&SignOctorok;
 		phm[Key(typeid(Shrub), typeid(Link))] =					&ShrubLink;
