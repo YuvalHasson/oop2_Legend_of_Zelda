@@ -108,6 +108,7 @@ namespace
 				octorokPtr->setHp(octorokPtr->getHp() - 1);
 				octorokPtr->hit();
 				swordPtr->setActive(false);
+				SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 			}
 		}
 	}
@@ -164,7 +165,7 @@ namespace
 		ProjectileOctorok(Projectile, octorok);
 	}
 
-	void LinkSword(GameObject& link, GameObject& sword) {}
+	void LinkSword(GameObject& link, GameObject& sword)	{}
 
 	void SwordLink(GameObject& sword, GameObject& link)
 	{
@@ -342,6 +343,7 @@ namespace
 				pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
 				pigWarriorPtr->hit();
 				swordPtr->setActive(false);
+				SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 			}
 		}
 	}
@@ -358,6 +360,7 @@ namespace
 			octorokPtr->setHp(octorokPtr->getHp() - 1);
 			octorokPtr->hit();
 			arrowPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 		}
 	}
 
@@ -375,6 +378,7 @@ namespace
 			pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
 			pigWarriorPtr->hit();
 			arrowPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 		}
 	}
 
@@ -403,6 +407,7 @@ namespace
 		{
 			octorokPtr->pushBack(-direction);
 			shieldPtr->pushBack(direction);
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
 		}
 	}
 
@@ -417,6 +422,7 @@ namespace
 		if (ProjectilePtr && shieldPtr)
 		{
 			ProjectilePtr->setDirection(direction);
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
 		}
 	}
 	void ProjectileShield(GameObject& projectile, GameObject& shield){
@@ -457,6 +463,7 @@ namespace
 		if(swordItemPtr && linkPtr){
 			linkPtr->takeSword();
 			swordItemPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::LinkGetSword);
 		}
 		
 	}
@@ -483,6 +490,7 @@ namespace
 			{
 				linkPtr->setHp(linkPtr->getHp() + 1);
 				heartPtr->destroy();
+				SoundResource::getSound().playSound(SOUNDS::LinkGetItem);
 			}
 		}
 	}
@@ -566,6 +574,7 @@ namespace
 		if (shieldPtr && enemySwordPtr)
 		{
 			shieldPtr->pushBack(getCollisionDirection(shield, enemySword));
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
 		}
 	}
 
@@ -582,6 +591,7 @@ namespace
 		{
 			shieldPtr->pushBack(getCollisionDirection(shield, pigWarrior));
 			pigWarriorPtr->pushBack(-getCollisionDirection(shield, pigWarrior));
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
 		}
 	}
 
@@ -598,6 +608,17 @@ namespace
 		{
 			seaUrchinPtr->setDirection(shieldPtr->getLinkDirection());
 			seaUrchinPtr->move();
+
+			auto randPushSound = rand() % 2;
+			switch (randPushSound)
+			{
+			case 0:
+				SoundResource::getSound().playSound(SOUNDS::SeaUrchinPush1);
+				break;
+			case 1:
+				SoundResource::getSound().playSound(SOUNDS::SeaUrchinPush2);
+				break;
+			}
 		}
 	}
 
@@ -700,6 +721,7 @@ namespace
 			if (swordPtr->getActive()) {
 				seaUrchinPtr->setHp(seaUrchinPtr->getHp() - 1);
 				swordPtr->setActive(false);
+				SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 			}
 		}
 	}
@@ -809,6 +831,7 @@ namespace
 			if (swordPtr->getActive()) {
 				shrubPtr->destroy();
 				swordPtr->setActive(false);
+				SoundResource::getSound().playSound(SOUNDS::BushCut);
 			}
 		}
 	}
@@ -857,6 +880,14 @@ namespace
 	void EnemySwordShrub(GameObject& enemySword, GameObject& shrub) {}
 
 	void SwordHole(GameObject& sword, GameObject& hole) {}
+
+	void SwordBoulder(GameObject& sword, GameObject& boulder) {}
+
+	void SwordDoor(GameObject& sword, GameObject& door) {}
+
+	void SwordSign(GameObject& sword, GameObject& sign) {}
+
+	void SwordWater(GameObject& sword, GameObject& water) {}
 
 	//...
 
@@ -929,7 +960,11 @@ namespace
 		phm[Key(typeid(Sword), typeid(PigWarrior))] =			&SwordPigWarrior;
 		phm[Key(typeid(Sword), typeid(SeaUrchin))] =			&SwordSeaUrchin;
 		phm[Key(typeid(Sword), typeid(Shrub))] =				&SwordShrub;
-		phm[Key(typeid(Sword), typeid(Hole))] =				&SwordHole;
+		phm[Key(typeid(Sword), typeid(Hole))] =					&SwordHole;
+		phm[Key(typeid(Sword), typeid(Boulder))] =				&SwordBoulder;
+		phm[Key(typeid(Sword), typeid(Door))] =					&SwordDoor;
+		phm[Key(typeid(Sword), typeid(Sign))] =					&SwordSign;
+		phm[Key(typeid(Sword), typeid(WaterTile))] =			&SwordWater;
 		phm[Key(typeid(Shield), typeid(Octorok))] =				&ShieldOctorok;
 		phm[Key(typeid(Shield), typeid(Projectile))] =			&ShieldProjectile;
 		phm[Key(typeid(Shield), typeid(PigWarrior))] =			&ShieldPigWarrior;
@@ -945,7 +980,7 @@ namespace
 		phm[Key(typeid(Projectile), typeid(Projectile))] =		&ProjectileProjectile;
 		phm[Key(typeid(Projectile), typeid(WaterTile))] =		&ProjectileWater;
 		phm[Key(typeid(Projectile), typeid(SeaUrchin))] =		&ProjectileSeaUrchin;
-		phm[Key(typeid(Projectile), typeid(Shrub))] =		&ProjectileShrub;
+		phm[Key(typeid(Projectile), typeid(Shrub))] =			&ProjectileShrub;
 		phm[Key(typeid(Boulder), typeid(Link))] =				&BoulderLink;
 		phm[Key(typeid(Boulder), typeid(Wall))] =				&BoulderWall;
 		phm[Key(typeid(Boulder), typeid(Octorok))] =			&BoulderOctorok;

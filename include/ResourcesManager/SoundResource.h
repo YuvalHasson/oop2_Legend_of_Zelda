@@ -7,7 +7,12 @@ class SoundResource
 {
 private:
 	std::string m_soundNames[SOUND_AMOUNT] = {
-		"DeathSound.ogg", "LinkSwordSwing.ogg", "LinkArrow.ogg", "LinkDamage.ogg"
+		"DeathSound.ogg", "LinkGetSword.ogg", "LinkBowArrow.ogg", "LinkDamage.ogg",
+		"LinkSwordSlash01.ogg", "LinkSwordSlash02.ogg", "LinkSwordSlash03.ogg", "LinkSwordSlash04.ogg",
+		"LinkGetItem.ogg", "EnemyHit.ogg", "EnemyDie.ogg",
+		"SeaUrchinPush1.ogg", "SeaUrchinPush2.ogg",
+		"PauseMenuOpen.ogg", "PauseMenuClose.ogg",
+		"BushCut.ogg", "ShieldDeflect.ogg"
 	};
 
 	std::string m_backgroundNames[BACK_SOUND_AMNT] = {

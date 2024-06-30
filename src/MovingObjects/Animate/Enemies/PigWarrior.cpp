@@ -66,6 +66,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
     if (getHp() <= MIN_HEALTH)
     {
         destroy();
+		SoundResource::getSound().playSound(SOUNDS::EnemyDie);
     }
 	setSpeed(1.f);
 }

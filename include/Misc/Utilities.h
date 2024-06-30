@@ -4,7 +4,7 @@
 #include <vector>
 
 const int OBJ_AMOUNT = 11;
-const int SOUND_AMOUNT = 4;
+const int SOUND_AMOUNT = 17;
 const int BACK_SOUND_AMNT = 5;
 
 enum Level
@@ -79,9 +79,22 @@ namespace BACKGROUND_SOUND
 namespace SOUNDS
 {
 	constexpr int Death = 0;
-	constexpr int LinkSword = 1;
+	constexpr int LinkGetSword = 1;
 	constexpr int LinkArrow = 2;
 	constexpr int LinkDamaged = 3;
+	constexpr int LinkSwordSlash01 = 4;
+	constexpr int LinkSwordSlash02 = 5;
+	constexpr int LinkSwordSlash03 = 6;
+	constexpr int LinkSwordSlash04 = 7;
+	constexpr int LinkGetItem = 8;
+	constexpr int EnemyHit = 9;
+	constexpr int EnemyDie = 10;
+	constexpr int SeaUrchinPush1 = 11;
+	constexpr int SeaUrchinPush2 = 12;
+	constexpr int PauseMenuOpen = 13;
+	constexpr int PauseMenuClose = 14;
+	constexpr int BushCut = 15;
+	constexpr int ShieldDeflect = 16;
 }
 
 namespace ANIMATIONS_POSITIONS
