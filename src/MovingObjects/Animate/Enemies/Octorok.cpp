@@ -53,6 +53,7 @@ void Octorok::update(const sf::Time& deltaTime)
     if(getHp() <= 0)
     {
         destroy();
+        SoundResource::getSound().playSound(SOUNDS::EnemyDie);
     }
 	setSpeed(1.f);
 }

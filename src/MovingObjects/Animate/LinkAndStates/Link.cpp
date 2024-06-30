@@ -151,7 +151,22 @@ void Link::swipeSword()
     if(m_sword)
     {
         m_sword->activate(getSprite().getPosition(), getDirection());
-        SoundResource::getSound().playSound(SOUNDS::LinkSword);
+		auto randSwipeSound = rand() % 4;
+        switch (randSwipeSound)
+        {
+		case 0:
+			SoundResource::getSound().playSound(SOUNDS::LinkSwordSlash01);
+			break;
+		case 1:
+			SoundResource::getSound().playSound(SOUNDS::LinkSwordSlash02);
+			break;
+		case 2:
+			SoundResource::getSound().playSound(SOUNDS::LinkSwordSlash03);
+			break;
+		case 3:
+			SoundResource::getSound().playSound(SOUNDS::LinkSwordSlash04);
+            break;
+        }
     }
 }
 void Link::stopSwordSwipe()

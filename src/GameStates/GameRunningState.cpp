@@ -71,6 +71,7 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 		getWindow()->close();
 		return nullptr;
 	case GAME_STATE::PAUSE_MENU:
+		SoundResource::getSound().playSound(SOUNDS::PauseMenuOpen);
 		return std::make_unique<PauseMenu>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
 	case GAME_STATE::DEATH:
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Death);
