@@ -6,7 +6,6 @@ LoadGameState::LoadGameState(sf::RenderWindow* window)
 	loadGame(window);
 	setMap();
 	updateLevel();
-	SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 }
 
 void LoadGameState::update(const sf::Time& deltaTime)

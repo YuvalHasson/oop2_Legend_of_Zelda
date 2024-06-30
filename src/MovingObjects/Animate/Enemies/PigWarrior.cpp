@@ -10,10 +10,10 @@ bool PigWarrior::m_registerit = Factory<Enemy>::instance()->registerit("PigWarri
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     :Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f), sf::Vector2f(-2, -2)),
-     m_currInput(PRESS_RIGHT),
-     m_moveStrategy(std::make_unique<PatrolMovement>()), 
-     m_attackStrategy(std::make_unique<Stab>()),
-     m_sword(nullptr)
+    m_currInput(PRESS_RIGHT),
+    m_moveStrategy(std::make_unique<PatrolMovement>()),
+    m_attackStrategy(std::make_unique<Stab>()),
+    m_sword(nullptr)
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);

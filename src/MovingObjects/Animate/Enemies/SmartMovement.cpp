@@ -48,11 +48,6 @@ void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCha
             }
         }
         directionChangeClock->restart();
-    else if (m_direction == PRESS_DOWN) {
-        if (currentDirection != DIRECTIONS::Down) {
-            enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_DOWN), 2);
-            enemy.setDirection(DIRECTIONS::Down);
-        }
     }
     direction = m_direction;
     enemy.move();

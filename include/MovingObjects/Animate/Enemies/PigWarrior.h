@@ -57,6 +57,5 @@ private:
 	std::unique_ptr<Weapon> m_sword;
 	///
 	static bool m_registerit;
-	HitBox m_lineOfSight;
 };
 

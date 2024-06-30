@@ -61,7 +61,6 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 	case GAME_STATE::MAIN_MENU:
 		SoundResource::getSound().StopBackground();
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
-		std::cout << "pause menu is ok\n";
 		return std::make_unique<MainMenu>(getWindow());
 	case GAME_STATE::EXIT:
 		getWindow()->close();
@@ -71,6 +70,9 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
 	case GAME_STATE::SAVE:
 		return std::make_unique<SaveState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
+	case GAME_STATE::LOAD_GAME:
+		return std::make_unique<LoadGameState>(getWindow());
+
 	}
 	return nullptr;
 }
