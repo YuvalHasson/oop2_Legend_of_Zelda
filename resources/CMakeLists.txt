@@ -15,6 +15,7 @@ configure_file ("Dungeon.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Dungeon01.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Help.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Controls.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Zelda_Game_Over.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("ZeldaFont.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 

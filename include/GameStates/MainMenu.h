@@ -12,6 +12,7 @@
 #include "State.h"
 #include "SettingState.h"
 #include "NewGameState.h"
+#include "LoadGameState.h"
 #include "HelpState.h"
 
 using Option = std::pair<std::string, std::unique_ptr<Button>>;

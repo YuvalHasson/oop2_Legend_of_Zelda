@@ -40,6 +40,16 @@ void State::backToGame()
 	updateState(GAME_STATE::GAME_RUNNING);
 }
 
+void State::saveGame()
+{
+	updateState(GAME_STATE::SAVE);
+}
+
+void State::loadGame()
+{
+	updateState(GAME_STATE::LOAD_GAME);
+}
+
 sf::RenderWindow* State::getWindow() const
 {
 	return m_window;

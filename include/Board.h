@@ -31,12 +31,17 @@ public:
 	void update(const sf::Time&);
 	void handleCollision();
 	void setMap();
+	void setLoadedMap(std::vector<std::unique_ptr<Enemy>>&, std::vector<std::unique_ptr<Inanimate>>&);
 	void initializeLevel(const Level&);
 	void resetEnemiesAndInanimated();
 
 	const Link& getLink() const { return *m_link; }
 	void setLinkPosition(const sf::Vector2f& pos) { m_link->setPosition(pos); }
 	const std::vector<std::unique_ptr<Door>>& getDoors() const { return m_doors; }
+
+	std::vector <std::pair<sf::Vector2f, EnemyType>> getEnemiesPositions() const;
+	const std::vector<std::unique_ptr<Inanimate>>& getInanimateObjects() const;
+	std::vector<std::unique_ptr<Inanimate>>& editInanimateObjects();
 
 	// Method to extract Link object
 	std::unique_ptr<Link> extractLink() {
@@ -59,6 +64,8 @@ private:
 	std::unique_ptr<Link> m_link;
 
 	sf::Sprite m_background;
+
+	std::vector <std::pair<sf::Vector2f, EnemyType>> m_enemiesPositions;
 
 	Map m_map;
 

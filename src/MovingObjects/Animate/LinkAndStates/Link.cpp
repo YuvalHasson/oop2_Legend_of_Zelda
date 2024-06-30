@@ -227,6 +227,11 @@ Weapons Link::getCurrentWeapon()const{
     return NoWeapon;
 }
 
+std::vector<Weapons> Link::getAllWeapons() const
+{   
+    return m_weapons;
+}
+
 void Link::resetTimeSinceLastPushed(){
     m_timeSinceLastPush.restart();
 }
@@ -250,6 +255,7 @@ void Link::NotifyObserversLinkOut() const
 {
     for (const auto& observer : m_observers) {
         observer->removeLink();
+        std::cout << "cut out\n";
     }
 }
 

@@ -101,6 +101,12 @@ void Board::update(const sf::Time& deltaTime)
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
 	std::erase_if(m_enemiesObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
 	std::erase_if(m_inanimateObjects, [](const auto& InanimateObejects) { return InanimateObejects->isDestroyed(); });
+	m_enemiesPositions.clear();
+
+	for (const auto& enemy : m_enemiesObjects)
+	{
+		m_enemiesPositions.emplace_back(enemy->getPosition(), enemy->getType());
+	}
 }
 
 void Board::handleCollision()
@@ -230,9 +236,18 @@ void Board::handleCollision()
 void Board::setMap()
 {
 	m_enemiesObjects	= std::move(m_map.getEnemyObjects(m_link.get()));
-	m_staticObjects		= std::move(m_map.getStaticObjects());
+	m_staticObjects		= std::move(m_map.getStaticObjects(m_link.get()));
 	m_inanimateObjects	= std::move(m_map.getInanimateObjects());
 	m_doors				= std::move(m_map.getDoors());
+}
+
+void Board::setLoadedMap(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Inanimate>>& inanimateObjects)
+{
+	m_enemiesObjects.clear();
+	m_enemiesObjects = std::move(enemies);
+	//m_inanimateObjects.clear();
+	m_inanimateObjects = std::move(inanimateObjects);
+	std::cout << m_inanimateObjects.size() << '\n';
 }
 
 void Board::initializeLevel(const Level& level)
@@ -262,6 +277,21 @@ void Board::resetEnemiesAndInanimated()
 {
 	m_enemiesObjects = std::move(m_map.getEnemyObjects(m_link.get()));
 	m_inanimateObjects = std::move(m_map.getInanimateObjects());
+}
+
+std::vector<std::pair<sf::Vector2f, EnemyType>> Board::getEnemiesPositions() const
+{
+	return m_enemiesPositions;
+}
+
+const std::vector<std::unique_ptr<Inanimate>>& Board::getInanimateObjects() const
+{
+	return m_inanimateObjects;
+}
+
+std::vector<std::unique_ptr<Inanimate>>& Board::editInanimateObjects()
+{
+	return m_inanimateObjects;
 }
 
 bool Board::isAttacking() const

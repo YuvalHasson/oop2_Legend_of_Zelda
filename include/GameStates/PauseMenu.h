@@ -3,8 +3,10 @@
 #include "State.h"
 #include "Board.h"
 #include "MainMenu.h"
+#include "SaveState.h"
 
 #include "ExitButton.h"
+#include "SaveButton.h"
 #include "BackToGameButton.h"
 #include "VolumeSlider.h"
 

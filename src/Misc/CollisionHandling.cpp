@@ -809,6 +809,15 @@ namespace
 		SwordShrub(sword, shrub);
 	}
 
+	void SwordEnemySword(GameObject& sword, GameObject& Enemysword)
+	{}
+
+	void EnemySwordSword(GameObject& Enemysword, GameObject& sword)
+	{
+		SwordEnemySword(sword, Enemysword);
+	}
+
+
 	void octorokShrub(GameObject& octorok, GameObject& shrub)
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
@@ -918,6 +927,7 @@ namespace
 		phm[Key(typeid(Sword), typeid(PigWarrior))] =			&SwordPigWarrior;
 		phm[Key(typeid(Sword), typeid(SeaUrchin))] =			&SwordSeaUrchin;
 		phm[Key(typeid(Sword), typeid(Shrub))] =				&SwordShrub;
+		phm[Key(typeid(Sword), typeid(EnemySword))] =			&SwordEnemySword;
 		phm[Key(typeid(Shield), typeid(Octorok))] =				&ShieldOctorok;
 		phm[Key(typeid(Shield), typeid(Projectile))] =			&ShieldProjectile;
 		phm[Key(typeid(Shield), typeid(PigWarrior))] =			&ShieldPigWarrior;
@@ -933,7 +943,7 @@ namespace
 		phm[Key(typeid(Projectile), typeid(Projectile))] =		&ProjectileProjectile;
 		phm[Key(typeid(Projectile), typeid(WaterTile))] =		&ProjectileWater;
 		phm[Key(typeid(Projectile), typeid(SeaUrchin))] =		&ProjectileSeaUrchin;
-		phm[Key(typeid(Projectile), typeid(Shrub))] =		&ProjectileShrub;
+		phm[Key(typeid(Projectile), typeid(Shrub))] =			&ProjectileShrub;
 		phm[Key(typeid(Boulder), typeid(Link))] =				&BoulderLink;
 		phm[Key(typeid(Boulder), typeid(Wall))] =				&BoulderWall;
 		phm[Key(typeid(Boulder), typeid(Octorok))] =			&BoulderOctorok;
@@ -963,6 +973,7 @@ namespace
 		phm[Key(typeid(EnemySword), typeid(Shield))] =			&EnemySwordShield;
 		phm[Key(typeid(EnemySword), typeid(Octorok))] =			&EnemySwordOctorok;
 		phm[Key(typeid(EnemySword), typeid(Shrub))] =			&EnemySwordShrub;
+		phm[Key(typeid(EnemySword), typeid(Sword))] =			&EnemySwordSword;
 		phm[Key(typeid(SeaUrchin), typeid(Shield))] =			&SeaUrchinShield;
 		phm[Key(typeid(SeaUrchin), typeid(Link))] =				&SeaUrchinLink;
 		phm[Key(typeid(SeaUrchin), typeid(Wall))] =				&SeaUrchinWall;

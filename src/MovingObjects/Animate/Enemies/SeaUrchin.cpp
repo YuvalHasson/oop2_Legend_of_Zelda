@@ -40,3 +40,8 @@ const sf::Vector2u& SeaUrchin::getAnimationTexturePosition(Input)
 {
 	return sf::Vector2u();
 }
+
+EnemyType SeaUrchin::getType() const
+{
+	return SEA_URCHIN;
+}

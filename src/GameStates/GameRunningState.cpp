@@ -8,6 +8,7 @@ GameRunningState::GameRunningState(sf::RenderWindow* window, std::vector<Board>&
 	m_statusBar = status;
 
 	setCenterView();
+	std::cout << "GAME_RUNNING\n";
 }
 
 void GameRunningState::update(const sf::Time& deltaTime)

@@ -26,7 +26,8 @@ enum GAME_STATE {
 	DEATH,
 	GAME_OVER,
 	SWITCH_LEVEL,
-	HELP
+	HELP,
+	SAVE
 };
 
 enum Input {
@@ -41,6 +42,12 @@ enum Input {
 	PRESS_SPACE,
 	STANDING,
 	NONE
+};
+
+enum EnemyType {
+	PIG_WARRIOR,
+	OCTOROK,
+	SEA_URCHIN
 };
 
 enum Weapons{NoWeapon, SwordWeapon, BowWeapon};

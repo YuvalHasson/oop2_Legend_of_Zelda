@@ -16,6 +16,10 @@ PauseMenu::PauseMenu(sf::RenderWindow* window, std::vector<Board>&& board, sf::V
 	add("Exit", std::make_unique<ExitButton>(this));
 	add("Main Menu", std::make_unique<BackToMenuButton>(this));
 	add("Resume", std::make_unique<BackToGameButton>(this));
+	add("Save", std::make_unique<SaveButton>(this));
+	m_options.back().second->setPosition(sf::Vector2f(70, 600));
+	add("Load", std::make_unique<LoadButton>(this));
+	m_options.back().second->setPosition(sf::Vector2f(70, 650));
 }
 
 void PauseMenu::update(const sf::Time&)
@@ -57,6 +61,7 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 	case GAME_STATE::MAIN_MENU:
 		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::StartGame);
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
+		std::cout << "pause menu is ok\n";
 		return std::make_unique<MainMenu>(getWindow());
 	case GAME_STATE::EXIT:
 		getWindow()->close();
@@ -64,6 +69,8 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 	case GAME_STATE::GAME_RUNNING:
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
+	case GAME_STATE::SAVE:
+		return std::make_unique<SaveState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
 	}
 	return nullptr;
 }

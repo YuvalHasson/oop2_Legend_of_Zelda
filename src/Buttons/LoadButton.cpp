@@ -8,5 +8,5 @@ LoadButton::LoadButton(State* state)
 
 void LoadButton::execute()
 {
-	//getState()->setLoadMenu();
+	getState()->loadGame();
 }

@@ -189,12 +189,35 @@ std::vector<std::unique_ptr<Inanimate>>& Map::getInanimateObjects()
 	return m_inanimateObjects;
 }
 
-std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects()
+std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects(Link* link)
 {
-	//put in the map.cvs
-	if(auto p = Factory<BowItem>::instance()->create("BowItem", {25,25})){
-		m_staticObjects.emplace_back(std::move(p));
+	for (const auto& weapon : link->getAllWeapons())
+	{
+		if (weapon == BowWeapon)
+		{
+			for (const auto& staticObject : m_staticObjects)
+			{
+				if (const auto& p = dynamic_cast<BowItem*>(staticObject.get()))
+				{
+					p->destroy();
+				}
+			}
+		}
+		else if (weapon == SwordWeapon)
+		{
+			for (const auto& staticObject : m_staticObjects)
+			{
+				if (const auto& p = dynamic_cast<SwordItem*>(staticObject.get()))
+				{
+					p->destroy();
+				}
+			}
+		}
 	}
+	//put in the map.cvs
+	//if(auto p = Factory<BowItem>::instance()->create("BowItem", {25,25})){
+	//	m_staticObjects.emplace_back(std::move(p));
+	//}
 
 	//if(auto p = Factory<SwordItem>::instance()->create("SwordItem", {25,45})){
 	//	m_staticObjects.emplace_back(std::move(p));

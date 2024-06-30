@@ -36,7 +36,8 @@ public:
 	void initVector(Cell);
 	std::vector<std::unique_ptr<Enemy>>& getEnemyObjects(Link*);
 	std::vector<std::unique_ptr<Inanimate>>& getInanimateObjects();
-	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects();
+	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects(Link*);
+
 	std::vector<std::unique_ptr<Door>>& getDoors();
 
 	std::map<int, std::string> getDict() const;

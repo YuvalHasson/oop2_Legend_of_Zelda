@@ -19,13 +19,16 @@ PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
     updateSprite();
     setHp(2);
+    std::cout << "new pig born\n";
     //m_lineOfSight.setPosition(position);
 }
 
 PigWarrior::~PigWarrior()
 {
+    std::cout << "~pig\n";
     if (m_link)
     {
+        std::cout << "~pig RemoveObserver\n";
         m_link->RemoveObserver(this);
     }
 }
@@ -94,6 +97,11 @@ const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
     case PRESS_RIGHT:
         return ANIMATIONS_POSITIONS::PigWarriorRight;
     }
+}
+
+EnemyType PigWarrior::getType() const
+{
+    return PIG_WARRIOR;
 }
 
 void PigWarrior::setMoveStrategy(std::unique_ptr<MovementStrategy> move)

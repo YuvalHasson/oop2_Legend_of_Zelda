@@ -80,6 +80,11 @@ const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
     }
 }
 
+EnemyType Octorok::getType() const
+{
+    return OCTOROK;
+}
+
 void Octorok::setMoveStrategy(std::unique_ptr<MovementStrategy> move)
 {
     m_moveStrategy = std::move(move);

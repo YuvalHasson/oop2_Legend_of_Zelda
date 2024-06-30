@@ -10,8 +10,7 @@ public:
 	virtual std::unique_ptr<Inanimate> getAttack() override;
 	virtual void update(const sf::Time& deltaTime) override;
 	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override;
-	//virtual bool switchHitBox(bool) { return false; };
-	//virtual void updateLineOfSight() override {};
+	virtual EnemyType getType() const override;
 
 private:
 	static bool m_registerit;

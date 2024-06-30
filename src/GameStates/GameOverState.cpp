@@ -7,7 +7,6 @@ GameOverState::GameOverState(sf::RenderWindow* window)
 
 	m_background.setSize(sf::Vector2f(windowHeight, WindowWidth));
 	m_background.setTexture(Resources::getResource().getTexture(TEXTURE::GameOver));
-
 	add("Back", std::make_unique<BackToMenuButton>(this));
 	m_options.back().second->setPosition(sf::Vector2f(450, 450));
 	add("Load", std::make_unique<LoadButton>(this));
@@ -41,8 +40,8 @@ std::unique_ptr<State> GameOverState::handleInput(const GAME_STATE& gameState)
 	{
 	case GAME_STATE::MAIN_MENU:
 		return std::make_unique<MainMenu>(getWindow());
-	//case GAME_STATE::LOAD:
-	//	return std::make_unique<LoadButton>(getWindow());
+	case GAME_STATE::LOAD_GAME:
+		return std::make_unique<LoadGameState>(getWindow());
 	}
 	return nullptr;
 }

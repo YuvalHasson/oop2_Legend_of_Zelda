@@ -23,6 +23,8 @@ public:
 	void openHelp();
 	void backToMenu();
 	void backToGame();
+	void saveGame();
+	void loadGame();
 
 	sf::RenderWindow* getWindow() const;
 	static GAME_STATE getGameState();
