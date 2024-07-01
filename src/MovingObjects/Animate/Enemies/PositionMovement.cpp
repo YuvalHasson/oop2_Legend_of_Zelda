@@ -38,7 +38,7 @@ void PositionMovement::move(Input& direction, Enemy& enemy, sf::Clock* direction
 
 
 
-    sf::Vector2i currentDirection = enemy.getDirection();
+    sf::Vector2f currentDirection = enemy.getDirection();
     if (m_direction == PRESS_RIGHT) {
         if (currentDirection != DIRECTIONS::Right) {
             enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_RIGHT), 2);
