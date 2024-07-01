@@ -24,6 +24,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(12, "SeaUrchin");
 	dict.emplace(13, "Hole");
 	dict.emplace(14, "Shrub" );
+	dict.emplace(15, "WizardBoss" );
 
 	dict.emplace(50, "Door");
 	dict.emplace(51, "Door");
@@ -178,6 +179,9 @@ std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects(Link* link)
 	{
 		if (const auto& p = dynamic_cast<PigWarrior*>(enemy.get()))
 		{
+			p->registerAsLinkObserver(link);
+		}
+		else if(const auto& p = dynamic_cast<WizardBoss*>(enemy.get())){
 			p->registerAsLinkObserver(link);
 		}
 

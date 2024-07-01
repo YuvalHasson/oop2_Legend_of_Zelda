@@ -15,8 +15,6 @@
 
 #include "Link.h"
 
-//const sf::Time invincibilityTime(sf::seconds(2));
-
 class PigWarrior : public Enemy, public LinkObserver
 {
 public:
@@ -37,8 +35,8 @@ public:
 
 	virtual void updateLinkPosition(const sf::Vector2f& position)override;
 	virtual void removeLink() override;
-
 	void registerAsLinkObserver(Link*);
+	
 private:
 	sf::Clock m_directionChangeClock;
 	Input m_currInput;
@@ -51,11 +49,10 @@ private:
 	sf::Clock m_attackTimer;
 	sf::Time m_attackDuration;
 	std::unique_ptr <AttackStrategy> m_attackStrategy;
-	//std::unique_ptr<Sword> m_sword;
+
 	std::unique_ptr<Weapon> m_sword;
 	///
 	static bool m_registerit;
 
-	//sf::Clock m_invincibleTimer;
 };
 

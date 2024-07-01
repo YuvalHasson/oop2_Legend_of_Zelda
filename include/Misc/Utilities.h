@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 11;
+const int OBJ_AMOUNT = 12;
 const int SOUND_AMOUNT = 1;
 const int BACK_SOUND_AMNT = 2;
 
@@ -65,6 +65,7 @@ namespace TEXTURE
 	constexpr int PickableItems = 8;
 	constexpr int Dungeon2 = 9;
 	constexpr int Home = 10;
+	constexpr int Boss = 11;
 }
 
 namespace BACKGROUND_SOUND
@@ -114,6 +115,11 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u EnemySwordDown(107, 262);
 	const sf::Vector2u EnemySwordLeft(124, 262);
 	const sf::Vector2u EnemySwordRight(141, 262);
+
+	const sf::Vector2u BossDown(1, 1);
+	const sf::Vector2u BossUp(35, 1);
+	const sf::Vector2u BossLeft(69, 1);
+	const sf::Vector2u BossRight(103, 1);
 
 }
 

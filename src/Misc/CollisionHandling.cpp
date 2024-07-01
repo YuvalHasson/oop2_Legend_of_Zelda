@@ -851,6 +851,22 @@ namespace
 
 	void EnemySwordShrub(GameObject& enemySword, GameObject& shrub) {}
 
+	void SwordWizardBoss(GameObject& sword, GameObject& wizardBoss) {
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
+		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
+		if (wizardBossPtr && swordPtr)
+		{
+			if (swordPtr->getActive()) {
+				wizardBossPtr->pushBack(-getCollisionDirection(sword, wizardBoss));
+				wizardBossPtr->setHp(wizardBossPtr->getHp() - 1);
+				wizardBossPtr->hit();
+				swordPtr->setActive(false);
+			}
+		}
+	}
+
+	void WizardBossSword(GameObject& wizardBoss, GameObject& sword){}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -987,6 +1003,8 @@ namespace
 		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
 		phm[Key(typeid(Hole), typeid(Link))] =					&HoleLink;
 
+		phm[Key(typeid(WizardBoss), typeid(Sword))] =			&WizardBossSword;
+		phm[Key(typeid(Sword), typeid(WizardBoss))] =			&SwordWizardBoss;
 
 		//...
 		return phm;

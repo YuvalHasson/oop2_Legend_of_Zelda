@@ -16,7 +16,7 @@ PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
      m_sword(nullptr)
 {
     setDirection(DIRECTIONS::Down);
-    setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
+    setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, true);
     updateSprite();
     setHp(2);
 }
@@ -72,7 +72,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
 
 sf::Vector2f PigWarrior::getLinkPos()
 {
-    return m_link->getPosition();
+    return m_linkPos;
 }
 
 void PigWarrior::attack()
