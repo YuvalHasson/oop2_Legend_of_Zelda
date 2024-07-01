@@ -38,14 +38,6 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 {
 	target.draw(m_background);
 
-	for (const auto& gameObject : m_inanimateObjects)
-	{
-		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
-		{
-			gameObject->draw(target);
-		}
-	}
-
 	for (const auto& gameObject : m_enemiesObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
@@ -53,6 +45,14 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 			gameObject->draw(target);
 		}
   	}
+
+	for (const auto& gameObject : m_inanimateObjects)
+	{
+		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		{
+			gameObject->draw(target);
+		}
+	}
 
 	for (const auto& gameObject : m_staticObjects)
 	{
@@ -70,7 +70,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 	for (const auto& gameObject : m_staticRects)
 	{
 		rect.setPosition(gameObject.left, gameObject.top);
-		target.draw(rect);
+		//target.draw(rect);
 	}
 
 	if (m_zelda)

@@ -20,7 +20,7 @@ void GameObject::draw(sf::RenderTarget& target)
     rect.setOutlineColor(sf::Color::Blue);
     rect.setOutlineThickness(1);
     target.draw(m_sprite);
-    // target.draw(rect);
+    //target.draw(rect);
 }
 
 void GameObject::destroy()
@@ -50,7 +50,8 @@ sf::Vector2f GameObject::getPosition() const
     return m_position;
 }
 
-bool GameObject::checkCollision(const GameObject& other)const{
+bool GameObject::checkCollision(const GameObject& other) const
+{
     return m_hitBox.checkCollision(other.m_hitBox);
 }
 
@@ -59,6 +60,7 @@ HitBox GameObject::getHitBox() const
     return m_hitBox;
 }
 
-void GameObject::setHitBox(const sf::Vector2f& size, const sf::Vector2f& offset){
+void GameObject::setHitBox(const sf::Vector2f& size, const sf::Vector2f& offset)
+{
     m_hitBox.setBox(size,offset);
 }

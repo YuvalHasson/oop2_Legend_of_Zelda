@@ -55,7 +55,7 @@ enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
-#define VOLUME 20.f
+#define VOLUME 0.f
 
 #define MAX_HEALTH 6
 #define MIN_HEALTH 0
