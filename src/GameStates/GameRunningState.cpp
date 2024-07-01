@@ -86,7 +86,6 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level, m_nextLevel);
 	case GAME_STATE::VICTORY:
 		//SoundResource::getSound().playBackground(BACKGROUND_SOUND::Victory);
-		std::cout << "Victory!!!!!!!!!!!safddkjkg" << std::endl;
 		return std::make_unique<VictoryState>(getWindow());
 
 	}

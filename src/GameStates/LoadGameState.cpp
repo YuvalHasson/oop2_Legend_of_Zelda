@@ -151,6 +151,12 @@ void LoadGameState::setMap()
 	dungeon2.setMap();
 	m_boardLevels.emplace_back(std::move(dungeon2));
 
+	Board dungeon3;
+	dungeon3.setLink(std::move(m_boardLevels.back().extractLink()));
+	dungeon3.initializeLevel(Level::BOSS_DUNGEON);
+	dungeon3.setMap();
+	m_boardLevels.emplace_back(std::move(dungeon3));
+
 	m_link = std::move(m_boardLevels.back().extractLink());
 }
 
@@ -239,7 +245,6 @@ void LoadGameState::initialize(sf::RenderWindow* window)
 	{
 		setMap();
 		updateLevel();
-		std::cout << "LoadGameState initialized" << std::endl;
 	}
 }
 
