@@ -7,7 +7,7 @@ MovingObjects::MovingObjects(const sf::Texture& texture, const sf::Vector2f& pos
 {
 }
 
-sf::Vector2i MovingObjects::getDirection()const
+sf::Vector2f MovingObjects::getDirection()const
 {
 	return m_direction;
 }
@@ -22,9 +22,10 @@ float MovingObjects::getSpeed() const
 	return m_speed;
 }
 
-void MovingObjects::setDirection(const sf::Vector2i& direction)
+void MovingObjects::setDirection(const sf::Vector2f& direction)
 {
-	m_direction = direction;
+	m_direction.x = direction.x;
+	m_direction.y = direction.y;
 }
 
 void MovingObjects::move()

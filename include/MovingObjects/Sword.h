@@ -8,7 +8,7 @@ public:
     Sword(const sf::Texture&, const sf::Vector2f&);
 
     virtual void update(const sf::Time&) override;
-    void activate(const sf::Vector2f&, const sf::Vector2i&);
+    void activate(const sf::Vector2f&, const sf::Vector2f&);
     void deActivate();
     bool getActive() const;
     void setActive(const bool&);

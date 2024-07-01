@@ -332,6 +332,7 @@ std::vector<sf::FloatRect> Board::getStaticRectsOfCurLevel() const
 	return m_staticRectsOfCurLevel;
 }
 
+//I think I removed it many times
 bool Board::isAttacking() const
 {
 	for (const auto& moving : m_enemiesObjects)

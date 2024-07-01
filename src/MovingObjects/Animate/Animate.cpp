@@ -40,7 +40,7 @@ void Animate::setAttacking(const bool& attack)
 	m_attacking = attack;
 }
 
-void Animate::pushBack(const sf::Vector2i& direction)
+void Animate::pushBack(const sf::Vector2f& direction)
 {
 	m_collisionDirection = direction;
 	m_isPushedback = true;

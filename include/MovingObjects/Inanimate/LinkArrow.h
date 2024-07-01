@@ -9,7 +9,7 @@ public:
 
 	virtual void update(const sf::Time&) override;
 	virtual void setBool() {};
-	void initArrow(const sf::Vector2i&);
+	void initArrow(const sf::Vector2f&);
 
 private:
 	static bool m_registerit;

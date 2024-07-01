@@ -17,9 +17,9 @@ void LinkArrow::update(const sf::Time& deltaTime)
     move();
 }
 
-void LinkArrow::initArrow(const sf::Vector2i& direction){
+void LinkArrow::initArrow(const sf::Vector2f& direction){
     setSpeed(2);
-    sf::Vector2i arrowDirection;
+    sf::Vector2f arrowDirection;
     if(direction == DIRECTIONS::Down){
         setGraphics(ANIMATIONS_POSITIONS::ArrowDown, 1);
         arrowDirection = direction;

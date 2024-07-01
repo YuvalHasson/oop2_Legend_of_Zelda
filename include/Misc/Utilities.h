@@ -155,14 +155,14 @@ namespace ANIMATIONS_POSITIONS
 //might be useless
 namespace DIRECTIONS
 {
-	const sf::Vector2i Up(0, -1);
-	const sf::Vector2i Down(0, 1);
-	const sf::Vector2i Left(-1, 0);
-	const sf::Vector2i Right(1, 0);
-	const sf::Vector2i UpLeft(-1, -1);
-	const sf::Vector2i UpRight(1, -1);
-	const sf::Vector2i DownLeft(-1, 1);
-	const sf::Vector2i DownRight(1, 1);
+	const sf::Vector2f Up(0, -1);
+	const sf::Vector2f Down(0, 1);
+	const sf::Vector2f Left(-1, 0);
+	const sf::Vector2f Right(1, 0);
+	const sf::Vector2f UpLeft(-1, -1);
+	const sf::Vector2f UpRight(1, -1);
+	const sf::Vector2f DownLeft(-1, 1);
+	const sf::Vector2f DownRight(1, 1);
 }
 
 struct Cell
