@@ -7,6 +7,7 @@
 #include "StatusBar.h"
 #include "DeathState.h"
 #include "SwitchLevelState.h"
+#include "VictoryState.h"
 
 class GameRunningState : public State
 {

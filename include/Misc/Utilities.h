@@ -27,7 +27,8 @@ enum GAME_STATE {
 	GAME_OVER,
 	SWITCH_LEVEL,
 	HELP,
-	SAVE
+	SAVE,
+	VICTORY
 };
 
 enum Input {

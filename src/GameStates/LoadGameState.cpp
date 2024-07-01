@@ -17,7 +17,7 @@ LoadGameState::LoadGameState(sf::RenderWindow* window, GAME_STATE state, std::ve
 
 void LoadGameState::update(const sf::Time&)
 {
-	updateState(m_cameFromState);
+	updateState(GAME_STATE::GAME_RUNNING);
 }
 
 void LoadGameState::render(sf::RenderTarget* target)
@@ -35,13 +35,12 @@ std::unique_ptr<State> LoadGameState::handleInput(const GAME_STATE& gameState)
 	{
 	case GAME_STATE::MAIN_MENU:
 		return std::make_unique<MainMenu>(getWindow());
-		break;
 	case GAME_STATE::PAUSE_MENU:
 		return std::make_unique<PauseMenu>(getWindow(), std::move(m_boardLevelsIfNoSave), std::move(m_view), m_levelIfNoSave);
-		break;
 	case GAME_STATE::GAME_OVER:
 		return std::make_unique<GameOverState>(getWindow());
-		break;
+	case GAME_STATE::GAME_RUNNING:
+		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), (Level)m_level);
 	}
 	return nullptr;
 }
@@ -240,6 +239,7 @@ void LoadGameState::initialize(sf::RenderWindow* window)
 	{
 		setMap();
 		updateLevel();
+		std::cout << "LoadGameState initialized" << std::endl;
 	}
 }
 

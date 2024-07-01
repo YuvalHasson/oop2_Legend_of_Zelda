@@ -36,6 +36,11 @@ void GameRunningState::update(const sf::Time& deltaTime)
 			m_nextLevel = door->getLevel();
 			updateState(GAME_STATE::SWITCH_LEVEL);
 			door->setChangeLevel(false);
+
+			if (door->getVictoryDoor())
+			{
+				updateState(GAME_STATE::VICTORY);
+			}
 		}
 	}
 }
@@ -79,6 +84,11 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 		return std::make_unique<DeathState>(getWindow(), m_boardLevels[m_level].getLink().getPosition(), std::move(m_view));
 	case GAME_STATE::SWITCH_LEVEL:
 		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level, m_nextLevel);
+	case GAME_STATE::VICTORY:
+		//SoundResource::getSound().playBackground(BACKGROUND_SOUND::Victory);
+		std::cout << "Victory!!!!!!!!!!!safddkjkg" << std::endl;
+		return std::make_unique<VictoryState>(getWindow());
+
 	}
 	return nullptr;
 }

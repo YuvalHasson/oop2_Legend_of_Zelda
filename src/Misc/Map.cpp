@@ -33,7 +33,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(55, "Door");
 	dict.emplace(56, "Door"); // not in use
 	dict.emplace(57, "Door");
-	dict.emplace(58, "Door");
+	dict.emplace(58, "Door"); // fin Dungeon
 	dict.emplace(59, "Door");
 
 	dict.emplace(100, "Sign");
@@ -133,6 +133,13 @@ void Map::initVector(Cell cell)
 				{
 					p->setLevelToDoor(Level::MAIN);
 					p->setLinkOutPosition({ 263, 196 });
+					m_doors.emplace_back(std::move(p));
+				}
+				if (cell.value == 58)
+				{
+					p->setLevelToDoor(Level::MAIN);
+					p->setLinkOutPosition({ 263, 196 });
+					p->setVictoryDoor(true);
 					m_doors.emplace_back(std::move(p));
 				}
 			}
