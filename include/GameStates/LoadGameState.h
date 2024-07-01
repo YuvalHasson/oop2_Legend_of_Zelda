@@ -11,7 +11,8 @@
 class LoadGameState : public State
 {
 public:
-	LoadGameState(sf::RenderWindow*);
+	LoadGameState(sf::RenderWindow*, GAME_STATE);
+	LoadGameState(sf::RenderWindow*, GAME_STATE, std::vector<Board>&& , sf::View&&, Level);
 
 	virtual void update(const sf::Time&) override;
 	virtual void render(sf::RenderTarget* = nullptr) override;
@@ -23,15 +24,18 @@ public:
 	void updateLink();
 	void updateLevel();
 
-	//void loadGame();
-
 private:
 	void setMap();
 	void loadGame(sf::RenderWindow* window);
+	void initialize(sf::RenderWindow*);
 	std::vector<Board> m_boardLevels;
 	sf::View m_view;
 	std::vector<std::unique_ptr<Enemy>> m_enemyObjects;
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
+	
+	GAME_STATE m_cameFromState;
+	std::vector<Board> m_boardLevelsIfNoSave;
+	Level m_levelIfNoSave;
 
 	// about Link
 	std::unique_ptr<Link> m_link;

@@ -67,7 +67,7 @@ std::unique_ptr<State> MainMenu::handleInput(const GAME_STATE& gameState)
 		return std::make_unique<HelpState>(getWindow());
 		break;
 	case  GAME_STATE::LOAD_GAME:
-		return std::make_unique<LoadGameState>(getWindow());
+		return std::make_unique<LoadGameState>(getWindow(), GAME_STATE::MAIN_MENU);
 		break;
 	case  GAME_STATE::EXIT:
 		getWindow()->close();

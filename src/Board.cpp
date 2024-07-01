@@ -140,8 +140,8 @@ void Board::handleCollision()
 	try
 	{
 		//if link is attacking get the sword from link and check its collision with enemies
-		Sword* sword = m_link->getSword();
-		Shield* shield = m_link->getShield();
+		Sword* sword	= m_link->getSword();
+		Shield* shield	= m_link->getShield();
 
 
 		//link and static objects
@@ -270,10 +270,11 @@ void Board::setMap()
 
 void Board::setLoadedMap(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Inanimate>>& inanimateObjects)
 {
-	m_staticRects = m_staticRectsOfCurLevel;
+	m_staticRects		= m_staticRectsOfCurLevel;
 	m_enemiesObjects.clear();
-	m_enemiesObjects = std::move(enemies);
-	m_inanimateObjects = std::move(inanimateObjects);
+
+	m_enemiesObjects	= std::move(enemies);
+	m_inanimateObjects	= std::move(inanimateObjects);
 }
 
 void Board::initializeLevel(const Level& level)

@@ -6,6 +6,6 @@ class BadFileFormat : public std::exception
 {
 public:
 	const char* what() const noexcept {
-		return "Bad file Format.\n";
+		return "Bad file Format\n";
 	}
 };
