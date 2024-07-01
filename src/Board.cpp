@@ -78,7 +78,6 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		m_zelda->draw(target);
 	}
 	m_link->draw(target);
-
 }
 
 void Board::addProjectileToMoving()
@@ -202,6 +201,14 @@ void Board::handleCollision()
 			if (colide(*m_link, *object))
 			{
 				processCollision(*m_link, *object);
+			}
+		}
+
+		if (m_zelda)
+		{
+			if (colide(*m_link, *m_zelda))
+			{
+				processCollision(*m_link, *m_zelda);
 			}
 		}
 

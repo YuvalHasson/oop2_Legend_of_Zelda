@@ -961,6 +961,25 @@ namespace
 		}
 	}
 
+	void LinkZelda(GameObject& link, GameObject& zelda)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		Zelda* zeldaPtr = dynamic_cast<Zelda*>(&zelda);
+		if (linkPtr && zeldaPtr)
+		{
+			if (zeldaPtr->getInnerBox(linkPtr->getHitBox())) {
+				linkPtr->undoMove();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+			{
+				zeldaPtr->setActive(true);
+			}
+			else {
+				zeldaPtr->setActive(false);
+			}
+		}
+	}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -990,6 +1009,7 @@ namespace
 		phm[Key(typeid(Link),		typeid(Sign))] =			&LinkSign;
 		phm[Key(typeid(Link),		typeid(Hole))] =			&LinkHole;
 		phm[Key(typeid(Link),		typeid(Shrub))] =			&LinkShrub;
+		phm[Key(typeid(Link),		typeid(Zelda))] =			&LinkZelda;
 		phm[Key(typeid(Wall),		typeid(Link))] =			&WallLink;
 		phm[Key(typeid(Wall),		typeid(Octorok))] =			&WallOctorok;
 		phm[Key(typeid(Wall),		typeid(Projectile))] =		&WallProjectile;
