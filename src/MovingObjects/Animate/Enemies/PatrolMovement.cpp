@@ -30,7 +30,7 @@ void PatrolMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCh
         direction = m_direction;
     }
 
-    sf::Vector2i currentDirection = enemy.getDirection();
+    sf::Vector2f currentDirection = enemy.getDirection();
     if (m_direction == PRESS_RIGHT) {
         if (currentDirection != DIRECTIONS::Right) {
 

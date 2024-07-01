@@ -40,4 +40,4 @@ struct UnknownCollision : public std::runtime_error
 
 void processCollision(GameObject&, GameObject&);
 
-sf::Vector2i getCollisionDirection(GameObject&, GameObject&);
+sf::Vector2f getCollisionDirection(GameObject&, GameObject&);

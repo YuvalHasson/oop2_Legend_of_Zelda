@@ -468,7 +468,7 @@ namespace
 	void ShieldOctorok(GameObject& shield, GameObject& octorok){
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
-		sf::Vector2i direction = getCollisionDirection(shield, octorok);
+		sf::Vector2f direction = getCollisionDirection(shield, octorok);
 		if (octorokPtr && shieldPtr)
 		{
 			octorokPtr->pushBack(-direction);
@@ -485,7 +485,7 @@ namespace
 	void ShieldProjectile(GameObject& shield, GameObject& projectile){
 		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&projectile);
 		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
-		sf::Vector2i direction = getCollisionDirection(shield, projectile);
+		sf::Vector2f direction = getCollisionDirection(shield, projectile);
 		if (ProjectilePtr && shieldPtr)
 		{
 			ProjectilePtr->setDirection(direction);
@@ -1154,7 +1154,7 @@ void processCollision(GameObject& object1, GameObject& object2)
 
 }
 
-sf::Vector2i getCollisionDirection(GameObject& a, GameObject& b){
+sf::Vector2f getCollisionDirection(GameObject& a, GameObject& b){
     sf::Vector2f pos1 = a.getPosition();
     sf::Vector2f pos2 = b.getPosition();
 
@@ -1168,8 +1168,5 @@ sf::Vector2i getCollisionDirection(GameObject& a, GameObject& b){
         direction.y /= length;
     }
 
-    // Convert to sf::Vector2i with values -1, 0, or 1
-    sf::Vector2i intDirection(static_cast<int>(std::round(direction.x)), static_cast<int>(std::round(direction.y)));
-
-    return intDirection;
+    return direction;
 }

@@ -22,7 +22,7 @@ void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCha
     }
 
     if(directionChangeClock->getElapsedTime().asSeconds() > 0.3f){
-        sf::Vector2i currentDirection = enemy.getDirection();
+        sf::Vector2f currentDirection = enemy.getDirection();
         if (m_direction == PRESS_RIGHT) {
             if (currentDirection != DIRECTIONS::Right) {
                 enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_RIGHT), 2);

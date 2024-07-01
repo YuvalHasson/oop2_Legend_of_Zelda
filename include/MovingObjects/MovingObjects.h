@@ -14,11 +14,10 @@ public:
 	void updateSprite();
 	void setGraphics(const sf::Vector2u&, int, bool = false, float switchTime = 0.2f);
 	void setSpeed(float);
-	void setDirection(const sf::Vector2i&);
+	void setDirection(const sf::Vector2f&);
 	void undoMove();
-	void pushBack(const sf::Vector2i&);
 
-	sf::Vector2i getDirection() const;
+	sf::Vector2f getDirection() const;
 
 protected:
 	Animation& getAnimation();
@@ -26,7 +25,7 @@ protected:
 
 private:
 	Animation m_animation;
-	sf::Vector2i m_direction;
+	sf::Vector2f m_direction;
 	float m_speed;
 	
 

@@ -36,8 +36,10 @@ void PigWarrior::update(const sf::Time& deltaTime)
     
     sf::Vector2f currentPosition = getSprite().getPosition();
     // If Link is close, change movement strategy
+    std::cout<<castRay(getPosition(), m_linkPos)<<std::endl;
+    std::cout<<m_directionChangeClock.getElapsedTime().asSeconds()<<std::endl;
+
     if (distance(currentPosition, m_linkPos) < 100.0f && castRay(getPosition(), m_linkPos)) {
-        // If the distance to Link is small enough, change strategy to track Link
         setMoveStrategy(std::make_unique<SmartMovement>());
         if (distance(currentPosition, m_linkPos) < 28.0f) {
             // If the distance to Link is small enough, change strategy to attack Link
@@ -45,10 +47,12 @@ void PigWarrior::update(const sf::Time& deltaTime)
             m_sword->setBool();
         }
     }
-    else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
+    else if(m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
     {
-        std::cout << "pig patrol\n";
-        setMoveStrategy(std::make_unique<PatrolMovement>());
+        auto pm = dynamic_cast<PatrolMovement*>(m_moveStrategy.get());
+        if(!pm){
+            setMoveStrategy(std::make_unique<PatrolMovement>());
+        }
         int randomMovment = rand() % 4;
 
         switch (randomMovment)

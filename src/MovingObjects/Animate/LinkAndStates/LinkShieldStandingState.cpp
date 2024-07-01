@@ -36,7 +36,7 @@ void LinkShieldStandingState::enter(Link& link){
         link.move();
     }
 
-    sf::Vector2i currentDirection = link.getDirection();
+    sf::Vector2f currentDirection = link.getDirection();
 
     if(currentDirection.x == 1)
     {
