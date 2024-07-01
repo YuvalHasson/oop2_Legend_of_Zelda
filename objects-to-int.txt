@@ -16,5 +16,7 @@ object to int
 11 - Heart
 12 - Sea Urchin
 
+15 - WizardBoss
+
 //dungeons
 51 - Door out of first dungeon
