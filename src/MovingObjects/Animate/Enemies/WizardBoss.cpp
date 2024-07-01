@@ -81,6 +81,7 @@ void WizardBoss::update(const sf::Time& deltaTime)
         PerformAttack();
         m_weapon->setBool();
         m_shootIntervalTimer.restart();
+
     }
 
     PerformMove();
