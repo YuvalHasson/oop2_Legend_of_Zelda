@@ -13,6 +13,7 @@ Board::Board(Board&& other) noexcept
 	:m_enemiesObjects(std::move(other.m_enemiesObjects)),
 	 m_inanimateObjects(std::move(other.m_inanimateObjects)),
 	 m_staticObjects(std::move(other.m_staticObjects)),
+	 m_staticRectsOfCurLevel(std::move(other.m_staticRectsOfCurLevel)),
 	 m_doors(std::move(other.m_doors)),
 	 m_link(std::move(other.m_link)),
 	 m_background(std::move(other.m_background)) {}
@@ -59,6 +60,17 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
   	}
 
+	sf::RectangleShape rect;
+	rect.setSize(sf::Vector2f(16,16));
+	rect.setFillColor(sf::Color::Transparent);
+	rect.setOutlineColor(sf::Color::Blue);
+	rect.setOutlineThickness(1);
+	for (const auto& gameObject : m_staticRects)
+	{
+		rect.setPosition(gameObject.left, gameObject.top);
+		target.draw(rect);
+	}
+
 	m_link->draw(target);
 
 }
@@ -104,8 +116,8 @@ void Board::update(const sf::Time& deltaTime)
 	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
 	std::erase_if(m_enemiesObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
 	std::erase_if(m_inanimateObjects, [](const auto& InanimateObejects) { return InanimateObejects->isDestroyed(); });
+	
 	m_enemiesPositions.clear();
-
 	for (const auto& enemy : m_enemiesObjects)
 	{
 		m_enemiesPositions.emplace_back(enemy->getPosition(), enemy->getType());
@@ -242,15 +254,15 @@ void Board::setMap()
 	m_staticObjects		= std::move(m_map.getStaticObjects(m_link.get()));
 	m_inanimateObjects	= std::move(m_map.getInanimateObjects());
 	m_doors				= std::move(m_map.getDoors());
+
 }
 
 void Board::setLoadedMap(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Inanimate>>& inanimateObjects)
 {
+	m_staticRects = m_staticRectsOfCurLevel;
 	m_enemiesObjects.clear();
 	m_enemiesObjects = std::move(enemies);
-	//m_inanimateObjects.clear();
 	m_inanimateObjects = std::move(inanimateObjects);
-	std::cout << m_inanimateObjects.size() << '\n';
 }
 
 void Board::initializeLevel(const Level& level)
@@ -280,6 +292,7 @@ void Board::initializeLevel(const Level& level)
 		break;
 	}
 	m_staticRects = m_map.getStaticObjectsRects();
+	m_staticRectsOfCurLevel = m_staticRects;
 }
 
 void Board::resetEnemiesAndInanimated()
@@ -301,6 +314,11 @@ const std::vector<std::unique_ptr<Inanimate>>& Board::getInanimateObjects() cons
 std::vector<std::unique_ptr<Inanimate>>& Board::editInanimateObjects()
 {
 	return m_inanimateObjects;
+}
+
+std::vector<sf::FloatRect> Board::getStaticRectsOfCurLevel() const
+{
+	return m_staticRectsOfCurLevel;
 }
 
 bool Board::isAttacking() const

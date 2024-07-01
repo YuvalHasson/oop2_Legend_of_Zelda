@@ -91,7 +91,6 @@ void LoadGameState::updateLevel()
 		if (const auto& p = dynamic_cast<PigWarrior*>(enemy.get()))
 		{
 			p->registerAsLinkObserver(m_link.get());
-			std::cout << "pig registered\n";
 		}
 
 	}
@@ -107,13 +106,9 @@ void LoadGameState::updateLevel()
 		}
 		index++;
 	}
-
+	
 	m_boardLevels[m_level].setLink(std::move(m_link));
 	m_boardLevels[m_level].setLoadedMap(m_enemyObjects, m_inanimateObjects);
-	//std::cout << "m_inanimateObjects after update: " << m_bouldersObjects.size() << "\n";
-
-	//m_boardLevels[m_level].initializeLevel(Level(m_level));
-	//std::cout << "is pig deleted?\n";
 }
 
 void LoadGameState::setMap()
