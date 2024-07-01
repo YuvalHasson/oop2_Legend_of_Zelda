@@ -300,7 +300,7 @@ void Board::initializeLevel(const Level& level)
 	case Level::SECOND_DUNGEON:
 		m_map.setMap("Dungeon01.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon2));
-		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
+		// SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	}
 	m_staticRects = m_map.getStaticObjectsRects();

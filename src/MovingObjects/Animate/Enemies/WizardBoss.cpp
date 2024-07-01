@@ -1,4 +1,5 @@
 #include "WizardBoss.h"
+#include <cmath>
 
 #include <iostream> // Debug
 
@@ -168,6 +169,9 @@ float WizardBoss::distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
     return std::sqrt(dx * dx + dy * dy);
 }
 
+EnemyType WizardBoss::getType()const{
+    return WIZARDBOSS;
+}
 
 //----------observer functions----------
 void WizardBoss::updateLinkPosition(const sf::Vector2f& position){

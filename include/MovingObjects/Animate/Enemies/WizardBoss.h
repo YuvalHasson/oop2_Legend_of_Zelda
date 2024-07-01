@@ -36,7 +36,7 @@ public:
     virtual void updateLinkPosition(const sf::Vector2f& position)override;
 	virtual void removeLink() override;
 	void registerAsLinkObserver(Link*);
-
+	EnemyType getType()const;
 private:
     sf::Clock m_directionChangeClock;
 	Input m_currInput;
