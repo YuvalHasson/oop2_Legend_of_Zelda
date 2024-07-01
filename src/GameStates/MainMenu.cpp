@@ -7,7 +7,6 @@ MainMenu::MainMenu(sf::RenderWindow* window)
 {
 	m_menuBackground.setSize(sf::Vector2f(windowHeight, WindowWidth));
 	m_menuBackground.setTexture(Resources::getResource().getTexture(TEXTURE::Menu));
-
 	add("Start", std::make_unique<StartButton>(this));
 	add("Exit", std::make_unique<ExitButton>(this));
 	add("Settings", std::make_unique<SettingsButton>(this));
@@ -59,18 +58,17 @@ std::unique_ptr<State> MainMenu::handleInput(const GAME_STATE& gameState)
 	switch (gameState)
 	{
 	case  GAME_STATE::NEW_GAME:
-		SoundResource::getSound().stopBackground(BACKGROUND_SOUND::Menu);
 		return std::make_unique<NewGameState>(getWindow());
 		break;
 	case  GAME_STATE::SETTINGS:
 		return std::make_unique<SettingState>(getWindow());
 		break;
-	//case  GAME_STATE::HELP:
-		//return std::make_unique<HelpState>(getWindow());
-		//break;
-	//case  GAME_STATE::LOAD:	
-		//return std::make_unique<LoadState>(getWindow());
-		//	break;
+	case  GAME_STATE::HELP:
+		return std::make_unique<HelpState>(getWindow());
+		break;
+	case  GAME_STATE::LOAD_GAME:
+		return std::make_unique<LoadGameState>(getWindow(), GAME_STATE::MAIN_MENU);
+		break;
 	case  GAME_STATE::EXIT:
 		getWindow()->close();
 		break;

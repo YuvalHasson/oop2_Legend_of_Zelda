@@ -16,6 +16,8 @@ public:
 	bool castRay(const sf::Vector2f& enemyPos ,const sf::Vector2f& linkPos)const;
 	void hit();
 
+	virtual EnemyType getType() const = 0;
+
 private:
 	sf::Clock m_hitTimer;
 	bool m_isHit;

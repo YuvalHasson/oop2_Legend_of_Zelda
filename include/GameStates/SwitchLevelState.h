@@ -15,6 +15,7 @@ public:
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) override;
 
 private:
+	std::unique_ptr<Link> m_link;
 	Level m_level;
 	sf::View m_view;
 	std::vector<Board> m_boardLevels;

@@ -33,10 +33,16 @@ void SeaUrchin::update(const sf::Time& deltaTime)
 	if (getHp() <= MIN_HEALTH)
 	{
 		destroy();
+		SoundResource::getSound().playSound(SOUNDS::EnemyDie);
 	}
 }
 
 const sf::Vector2u& SeaUrchin::getAnimationTexturePosition(Input)
 {
 	return sf::Vector2u();
+}
+
+EnemyType SeaUrchin::getType() const
+{
+	return SEA_URCHIN;
 }

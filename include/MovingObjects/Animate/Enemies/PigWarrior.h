@@ -24,7 +24,9 @@ public:
 	virtual void update(const sf::Time& deltaTime) override;
 	virtual sf::Vector2f getLinkPos() override;
 	virtual void attack();
-	virtual const sf::Vector2u& getAnimationTexturePosition(Input)override;
+	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override;
+	virtual EnemyType getType() const override;
+
 	void setMoveStrategy(std::unique_ptr<MovementStrategy>);
 	void PerformMove();
 	void setAttackStrategy(std::unique_ptr<AttackStrategy>);
@@ -32,6 +34,7 @@ public:
 	float distance(const sf::Vector2f& p1, const sf::Vector2f& p2);
 
 	virtual std::unique_ptr<Inanimate> getAttack() override;
+	
 
 	virtual void updateLinkPosition(const sf::Vector2f& position)override;
 	virtual void removeLink() override;
@@ -49,10 +52,10 @@ private:
 	sf::Clock m_attackTimer;
 	sf::Time m_attackDuration;
 	std::unique_ptr <AttackStrategy> m_attackStrategy;
-
 	std::unique_ptr<Weapon> m_sword;
 	///
 	static bool m_registerit;
 
+	//sf::Clock m_invincibleTimer;
 };
 

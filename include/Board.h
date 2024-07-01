@@ -6,6 +6,7 @@
 #include "StaticObjects/StaticObjects.h"
 #include "Misc/Utilities.h"
 #include "ResourcesManager/Resources.h"
+#include "ResourcesManager/SoundResource.h"
 #include <vector>
 #include <memory>
 #include <fstream>
@@ -31,6 +32,7 @@ public:
 	void update(const sf::Time&);
 	void handleCollision();
 	void setMap();
+	void setLoadedMap(std::vector<std::unique_ptr<Enemy>>&, std::vector<std::unique_ptr<Inanimate>>&);
 	void initializeLevel(const Level&);
 	void resetEnemiesAndInanimated();
 
@@ -38,6 +40,10 @@ public:
 	void setLinkPosition(const sf::Vector2f& pos) { m_link->setPosition(pos); }
 	const std::vector<std::unique_ptr<Door>>& getDoors() const { return m_doors; }
 
+	std::vector <std::pair<sf::Vector2f, EnemyType>> getEnemiesPositions() const;
+	const std::vector<std::unique_ptr<Inanimate>>& getInanimateObjects() const;
+	std::vector<std::unique_ptr<Inanimate>>& editInanimateObjects();
+	std::vector<sf::FloatRect> getStaticRectsOfCurLevel() const;
 	// Method to extract Link object
 	std::unique_ptr<Link> extractLink() {
 		return std::move(m_link); // Transfer ownership
@@ -58,9 +64,13 @@ private:
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 	std::vector<std::unique_ptr<Door>> m_doors;
+	std::vector<sf::FloatRect> m_staticRectsOfCurLevel;
 	std::unique_ptr<Link> m_link;
+	std::unique_ptr<Zelda> m_zelda;
 
 	sf::Sprite m_background;
+
+	std::vector <std::pair<sf::Vector2f, EnemyType>> m_enemiesPositions;
 
 	Map m_map;
 

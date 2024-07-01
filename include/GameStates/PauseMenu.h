@@ -3,8 +3,10 @@
 #include "State.h"
 #include "Board.h"
 #include "MainMenu.h"
+#include "SaveState.h"
 
 #include "ExitButton.h"
+#include "SaveButton.h"
 #include "BackToGameButton.h"
 #include "VolumeSlider.h"
 
@@ -33,6 +35,8 @@ private:
 	sf::View m_view;
 
 	sf::RectangleShape m_pauseBackground;
+
+	sf::RectangleShape m_controls;
 
 	std::vector<Option> m_options;
 };

@@ -53,6 +53,7 @@ void Octorok::update(const sf::Time& deltaTime)
     if(getHp() <= 0)
     {
         destroy();
+        SoundResource::getSound().playSound(SOUNDS::EnemyDie);
     }
 	setSpeed(1.f);
 }
@@ -80,6 +81,11 @@ const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
     case PRESS_RIGHT:
         return ANIMATIONS_POSITIONS::OctorokRight;
     }
+}
+
+EnemyType Octorok::getType() const
+{
+    return OCTOROK;
 }
 
 void Octorok::setMoveStrategy(std::unique_ptr<MovementStrategy> move)

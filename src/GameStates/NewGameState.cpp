@@ -4,9 +4,9 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	:State(window), m_boardLevels(), m_view(sf::FloatRect(sf::Vector2f(80.f, 140.f), sf::Vector2f(250.f, 165.f)))
 {
 	setMap();
-	m_view.setCenter(m_boardLevels[Level::Home].getLink().getPosition()); //think about a better way to get link position.
-
-	SoundResource::getSound().playBackground(BACKGROUND_SOUND::StartGame);
+	m_view.setCenter(m_boardLevels[Level::Home].getLink().getPosition());
+	SoundResource::getSound().StopBackground();
+	SoundResource::getSound().playBackground(BACKGROUND_SOUND::House);
 }
 
 void NewGameState::update(const sf::Time& deltaTime)

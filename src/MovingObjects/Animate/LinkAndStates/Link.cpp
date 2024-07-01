@@ -151,6 +151,22 @@ void Link::swipeSword()
     if(m_sword)
     {
         m_sword->activate(getSprite().getPosition(), getDirection());
+		auto randSwipeSound = rand() % 4;
+        switch (randSwipeSound)
+        {
+		case 0:
+			SoundResource::getSound().playSound(SOUNDS::LinkSwordSlash01);
+			break;
+		case 1:
+			SoundResource::getSound().playSound(SOUNDS::LinkSwordSlash02);
+			break;
+		case 2:
+			SoundResource::getSound().playSound(SOUNDS::LinkSwordSlash03);
+			break;
+		case 3:
+			SoundResource::getSound().playSound(SOUNDS::LinkSwordSlash04);
+            break;
+        }
     }
 }
 void Link::stopSwordSwipe()
@@ -230,6 +246,7 @@ std::unique_ptr<Inanimate> Link::getAttack()
             m_arrow->setPosition(sf::Vector2f(getPosition().x, getPosition().y + 3));
             m_arrow->getSprite().setPosition(sf::Vector2f(getPosition().x, getPosition().y + 3));
             m_arrow->initArrow(getDirection());
+            SoundResource::getSound().playSound(SOUNDS::LinkArrow);
         }
         stopShooting();
         return std::move(m_arrow);
@@ -251,6 +268,11 @@ Weapons Link::getCurrentWeapon()const{
         return m_weapons[m_currentWeapon];
     }
     return NoWeapon;
+}
+
+std::vector<Weapons> Link::getAllWeapons() const
+{   
+    return m_weapons;
 }
 
 void Link::resetTimeSinceLastPushed(){
@@ -276,6 +298,7 @@ void Link::NotifyObserversLinkOut() const
 {
     for (const auto& observer : m_observers) {
         observer->removeLink();
+        std::cout << "cut out\n";
     }
 }
 

@@ -47,6 +47,7 @@ public:
 	void takeSword();
 	void takeBow();
 	Weapons getCurrentWeapon() const;
+	std::vector<Weapons> getAllWeapons() const;
 
 	void setPush(bool);
 	bool isPush() const;

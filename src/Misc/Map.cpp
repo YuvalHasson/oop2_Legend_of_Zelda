@@ -34,7 +34,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(55, "Door");
 	dict.emplace(56, "Door"); // not in use
 	dict.emplace(57, "Door");
-	dict.emplace(58, "Door");
+	dict.emplace(58, "Door"); // fin Dungeon
 	dict.emplace(59, "Door");
 
 	dict.emplace(100, "Sign");
@@ -136,6 +136,13 @@ void Map::initVector(Cell cell)
 					p->setLinkOutPosition({ 263, 196 });
 					m_doors.emplace_back(std::move(p));
 				}
+				if (cell.value == 58)
+				{
+					p->setLevelToDoor(Level::MAIN);
+					p->setLinkOutPosition({ 263, 196 });
+					p->setVictoryDoor(true);
+					m_doors.emplace_back(std::move(p));
+				}
 			}
 			return;
 		}
@@ -194,12 +201,35 @@ std::vector<std::unique_ptr<Inanimate>>& Map::getInanimateObjects()
 	return m_inanimateObjects;
 }
 
-std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects()
+std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects(Link* link)
 {
-	//put in the map.cvs
-	if(auto p = Factory<BowItem>::instance()->create("BowItem", {25,25})){
-		m_staticObjects.emplace_back(std::move(p));
+	for (const auto& weapon : link->getAllWeapons())
+	{
+		if (weapon == BowWeapon)
+		{
+			for (const auto& staticObject : m_staticObjects)
+			{
+				if (const auto& p = dynamic_cast<BowItem*>(staticObject.get()))
+				{
+					p->destroy();
+				}
+			}
+		}
+		else if (weapon == SwordWeapon)
+		{
+			for (const auto& staticObject : m_staticObjects)
+			{
+				if (const auto& p = dynamic_cast<SwordItem*>(staticObject.get()))
+				{
+					p->destroy();
+				}
+			}
+		}
 	}
+	//put in the map.cvs
+	//if(auto p = Factory<BowItem>::instance()->create("BowItem", {25,25})){
+	//	m_staticObjects.emplace_back(std::move(p));
+	//}
 
 	//if(auto p = Factory<SwordItem>::instance()->create("SwordItem", {25,45})){
 	//	m_staticObjects.emplace_back(std::move(p));

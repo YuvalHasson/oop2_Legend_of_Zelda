@@ -9,7 +9,7 @@ VolumeSlider::VolumeSlider()
     m_slider.setFillColor(sf::Color::Green);
     m_slider.setPosition(70 + (200.f * (m_volume / 100.f)), 425);
 
-    m_sliderBar.setSize(sf::Vector2f(200.f, 5.f));
+    m_sliderBar.setSize(sf::Vector2f(200.f, 10.f));
     m_sliderBar.setFillColor(sf::Color::White);
     m_sliderBar.setPosition(70, 430);
 

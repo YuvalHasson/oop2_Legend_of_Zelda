@@ -5,6 +5,84 @@
 
 namespace
 {
+	void ProjectileProjectile(GameObject&, GameObject&) {}
+
+	void OctorokPigWarrior(GameObject&, GameObject&) {}
+
+	void PigWarriorOctorok(GameObject&, GameObject&) {}
+
+	void OctorokEnemySword(GameObject&, GameObject&) {}
+
+	void EnemySwordOctorok(GameObject&, GameObject&) {}
+
+	void PigWarriorProjectile(GameObject&, GameObject&) {}
+
+	void ProjectilePigWarrior(GameObject&, GameObject&) {}
+
+	void PigWarriorPigWarrior(GameObject&, GameObject&) {}
+
+	void ShieldBoulder(GameObject&, GameObject&) {}
+
+	void ProjectileWater(GameObject&, GameObject&) {}
+
+	void WaterProjectile(GameObject&, GameObject&) {}
+
+	void SeaUrchinProjectile(GameObject&, GameObject&) {}
+
+	void ProjectileSeaUrchin(GameObject&, GameObject&) {}
+
+	void SeaUrchinOctorok(GameObject&, GameObject&) {}
+
+	void OctorokSeaUrchin(GameObject&, GameObject&) {}
+
+	void SwordEnemySword(GameObject&, GameObject&) {}
+
+	void ProjectileShrub(GameObject&, GameObject&) {}
+
+	void ShrubProjectile(GameObject&, GameObject&) {}
+
+	void ShrubEnemySword(GameObject&, GameObject&) {}
+
+	void EnemySwordShrub(GameObject&, GameObject&) {}
+
+	void SwordHole(GameObject&, GameObject&) {}
+
+	void SwordBoulder(GameObject&, GameObject&) {}
+
+	void SwordDoor(GameObject&, GameObject&) {}
+
+	void SwordSign(GameObject&, GameObject&) {}
+
+	void SwordWater(GameObject&, GameObject&) {}
+
+	void OctorokSword(GameObject&, GameObject&) {}
+
+	void SwordWall(GameObject&, GameObject&) {}
+
+	void ProjectileOctorok(GameObject&, GameObject&) {}
+
+	void LinkSword(GameObject&, GameObject&)	{}
+
+	void PigWarriorSword(GameObject&, GameObject&){}
+
+	void LinkLinkArrow(GameObject&, GameObject&) {}
+
+	void LinkArrowLink(GameObject&, GameObject&) {}
+
+	void OctorokOctorok(GameObject&, GameObject&) {}
+
+	void EnemySwordWater(GameObject&, GameObject&) {}
+
+	void PigWarriorEnemySword(GameObject&, GameObject&) {}
+
+	void EnemySwordWall(GameObject&, GameObject&) {}
+
+	void LinkArrowHole(GameObject&, GameObject&) {}
+
+	void LinkArrowSwordItem(GameObject&, GameObject&) {}
+
+	void LinkArrowSeaUrchin(GameObject&, GameObject&) {}
+
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
@@ -60,6 +138,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, octorok));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 			}
 		}
 	}
@@ -107,13 +186,10 @@ namespace
 				octorokPtr->setHp(octorokPtr->getHp() - 1);
 				octorokPtr->hit();
 				swordPtr->setActive(false);
+				SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 			}
 		}
 	}
-
-	void OctorokSword(GameObject& octorok, GameObject& sword) {}
-
-	void SwordWall(GameObject& sword, GameObject& wall) {}
 
 	void WallSword(GameObject& wall, GameObject& sword)
 	{
@@ -156,14 +232,10 @@ namespace
 		ProjectileLink(projectile, link);
 	}
 
-	void ProjectileOctorok(GameObject& Projectile, GameObject& octorok) {}
-
 	void OctorokProjectile(GameObject& octorok, GameObject& Projectile)
 	{
 		ProjectileOctorok(Projectile, octorok);
 	}
-
-	void LinkSword(GameObject& link, GameObject& sword) {}
 
 	void SwordLink(GameObject& sword, GameObject& link)
 	{
@@ -291,6 +363,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, pigWarrior));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 				pigWarriorPtr->undoMove();
 			}
 			pigWarriorPtr->undoMove();
@@ -340,11 +413,10 @@ namespace
 				pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
 				pigWarriorPtr->hit();
 				swordPtr->setActive(false);
+				SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 			}
 		}
 	}
-
-	void PigWarriorSword(GameObject& pigWarrior, GameObject& sword){}
 
 	void LinkArrowOctorok(GameObject& arrow, GameObject& octorok)
 	{
@@ -356,6 +428,7 @@ namespace
 			octorokPtr->setHp(octorokPtr->getHp() - 1);
 			octorokPtr->hit();
 			arrowPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 		}
 	}
 
@@ -363,6 +436,7 @@ namespace
 	{
 		LinkArrowOctorok(arrow, octorok);
 	}
+
 	void LinkArrowPigWarrior(GameObject& arrow, GameObject& pigWarrior)
 	{
 		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
@@ -373,6 +447,7 @@ namespace
 			pigWarriorPtr->setHp(pigWarriorPtr->getHp() - 1);
 			pigWarriorPtr->hit();
 			arrowPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 		}
 	}
 
@@ -380,9 +455,6 @@ namespace
 	{
 		LinkArrowPigWarrior(arrow, pigWarrior);
 	}
-
-	void LinkLinkArrow(GameObject& link, GameObject& arrow) {}
-	void LinkArrowLink(GameObject& arrow, GameObject& link) {}
 
 	void LinkArrowWall(GameObject& arrow, GameObject& wall)
 	{
@@ -401,10 +473,12 @@ namespace
 		{
 			octorokPtr->pushBack(-direction);
 			shieldPtr->pushBack(direction);
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
 		}
 	}
 
-	void OctorokShield(GameObject& octorok, GameObject& shield){
+	void OctorokShield(GameObject& octorok, GameObject& shield)
+	{
 		ShieldOctorok(shield, octorok);
 	}
 
@@ -415,9 +489,12 @@ namespace
 		if (ProjectilePtr && shieldPtr)
 		{
 			ProjectilePtr->setDirection(direction);
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
 		}
 	}
-	void ProjectileShield(GameObject& projectile, GameObject& shield){
+
+	void ProjectileShield(GameObject& projectile, GameObject& shield)
+	{
 		ShieldProjectile(shield, projectile);
 	}
 
@@ -455,6 +532,7 @@ namespace
 		if(swordItemPtr && linkPtr){
 			linkPtr->takeSword();
 			swordItemPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::LinkGetSword);
 		}
 		
 	}
@@ -469,8 +547,6 @@ namespace
 		}
 	}
 
-	void OctorokOctorok(GameObject& octorok1, GameObject& octorok2) {}
-
 	void LinkHeart(GameObject& link, GameObject& heart)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
@@ -481,6 +557,7 @@ namespace
 			{
 				linkPtr->setHp(linkPtr->getHp() + 1);
 				heartPtr->destroy();
+				SoundResource::getSound().playSound(SOUNDS::LinkGetItem);
 			}
 		}
 	}
@@ -516,8 +593,6 @@ namespace
 		BoulderPot(boulder, pot);
 	}
 
-	void EnemySwordWall(GameObject& enemySword, GameObject& wall) {}
-
 	void WallEnemySword(GameObject& wall, GameObject& enemySword)
 	{
 		EnemySwordWall(enemySword, wall);
@@ -533,18 +608,16 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, enemySword));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 			}
 		}
 	}
 
-	void PigWarriorEnemySword(GameObject& pigWarrior, GameObject& enemySword) {}
 
 	void EnemySwordPigWarrior(GameObject& enemySword, GameObject& pigWarrior)
 	{
 		PigWarriorEnemySword(pigWarrior, enemySword);
 	}
-
-	void EnemySwordWater(GameObject& enemySword, GameObject& water) {}
 
 	void WaterEnemySword(GameObject& water, GameObject& enemySword)
 	{
@@ -563,6 +636,7 @@ namespace
 		if (shieldPtr && enemySwordPtr)
 		{
 			shieldPtr->pushBack(getCollisionDirection(shield, enemySword));
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
 		}
 	}
 
@@ -579,6 +653,7 @@ namespace
 		{
 			shieldPtr->pushBack(getCollisionDirection(shield, pigWarrior));
 			pigWarriorPtr->pushBack(-getCollisionDirection(shield, pigWarrior));
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
 		}
 	}
 
@@ -595,6 +670,17 @@ namespace
 		{
 			seaUrchinPtr->setDirection(shieldPtr->getLinkDirection());
 			seaUrchinPtr->move();
+
+			auto randPushSound = rand() % 2;
+			switch (randPushSound)
+			{
+			case 0:
+				SoundResource::getSound().playSound(SOUNDS::SeaUrchinPush1);
+				break;
+			case 1:
+				SoundResource::getSound().playSound(SOUNDS::SeaUrchinPush2);
+				break;
+			}
 		}
 	}
 
@@ -614,6 +700,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, seaUrchin));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 			}
 			linkPtr->undoMove();
 		}
@@ -664,24 +751,6 @@ namespace
 		}
 	}
 
-	void ProjectileProjectile(GameObject& projectile1, GameObject& projectile2) {}
-
-	void OctorokPigWarrior(GameObject& octorok, GameObject& pigWarrior) {}
-
-	void PigWarriorOctorok(GameObject& pigWarrior, GameObject& octorok) {}
-
-	void OctorokEnemySword(GameObject& octorok, GameObject& enemySword) {}
-
-	void EnemySwordOctorok(GameObject& enemySword, GameObject& octorok) {}
-
-	void PigWarriorProjectile(GameObject& pigWarrior, GameObject& projectile) {}
-
-	void ProjectilePigWarrior(GameObject& projectile, GameObject& pigWarrior) {}
-
-	void PigWarriorPigWarrior(GameObject& pigWarrior1, GameObject& pigWarrior2) {}
-
-	void ShieldBoulder(GameObject& shield, GameObject& boulder) {}
-
 	void BoulderShield(GameObject& boulder, GameObject& shield)
 	{
 		ShieldBoulder(shield, boulder);
@@ -696,6 +765,7 @@ namespace
 			if (swordPtr->getActive()) {
 				seaUrchinPtr->setHp(seaUrchinPtr->getHp() - 1);
 				swordPtr->setActive(false);
+				SoundResource::getSound().playSound(SOUNDS::EnemyHit);
 			}
 		}
 	}
@@ -704,18 +774,6 @@ namespace
 	{
 		SwordSeaUrchin(sword, seaUrchin);
 	}
-
-	void ProjectileWater(GameObject& projectile, GameObject& water) {}
-
-	void WaterProjectile(GameObject& water, GameObject& projectile) {}
-
-	void SeaUrchinProjectile(GameObject& seaUrchin, GameObject& projectile) {}
-
-	void ProjectileSeaUrchin(GameObject& projectile, GameObject& seaUrchin) {}
-
-	void SeaUrchinOctorok(GameObject& seaUrchin, GameObject& octorok) {}
-
-	void OctorokSeaUrchin(GameObject& octorok, GameObject& seaUrchin) {}
 
 	void SignLink(GameObject& sign, GameObject& link)
 	{
@@ -770,6 +828,7 @@ namespace
 				linkPtr->pushBack(getCollisionDirection(link, hole));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 			}
 			linkPtr->undoMove();
 		}
@@ -804,6 +863,7 @@ namespace
 			if (swordPtr->getActive()) {
 				shrubPtr->destroy();
 				swordPtr->setActive(false);
+				SoundResource::getSound().playSound(SOUNDS::BushCut);
 			}
 		}
 	}
@@ -812,6 +872,12 @@ namespace
 	{
 		SwordShrub(sword, shrub);
 	}
+
+	void EnemySwordSword(GameObject& Enemysword, GameObject& sword)
+	{
+		SwordEnemySword(sword, Enemysword);
+	}
+
 
 	void octorokShrub(GameObject& octorok, GameObject& shrub)
 	{
@@ -843,13 +909,53 @@ namespace
 		PigWarriorShrub(pigWarrior, shrub);
 	}
 
-	void ProjectileShrub(GameObject& projectile, GameObject& shrub) {}
+	void SeaUrchinSign(GameObject& seaUrchin, GameObject& sign)
+	{
+		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
+		Sign* signPtr = dynamic_cast<Sign*>(&sign);
+		if (seaUrchinPtr && signPtr)
+		{
+			if (signPtr->getInnerBox(seaUrchinPtr->getHitBox())) {
+				seaUrchinPtr->undoMove();
+			}
+		}
 
-	void ShrubProjectile(GameObject& shrub, GameObject& projectile) {}
+	}
 
-	void ShrubEnemySword(GameObject& shrub, GameObject& enemySword) {}
+	void LinkArrowPot(GameObject& arrow, GameObject& pot)
+	{
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		Pot* potPtr = dynamic_cast<Pot*>(&pot);
+		if (arrowPtr && potPtr)
+		{
+			arrowPtr->destroy();
+		}
+	}
 
-	void EnemySwordShrub(GameObject& enemySword, GameObject& shrub) {}
+	void SeaUrchinLinkArrow(GameObject& seaUrchin, GameObject& arrow)
+	{
+		LinkArrowSeaUrchin(arrow, seaUrchin);
+	}
+
+	void LinkArrowSign(GameObject& arrow, GameObject& sign)
+	{
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		Sign* signPtr = dynamic_cast<Sign*>(&sign);
+		if (arrowPtr && signPtr)
+		{
+			arrowPtr->destroy();
+		}
+	}
+
+	void BoulderLinkArrow(GameObject& boulder, GameObject& arrow)
+	{
+		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		if (boulderPtr && arrowPtr)
+		{
+			arrowPtr->destroy();
+		}
+	}
 
 	void SwordWizardBoss(GameObject& sword, GameObject& wizardBoss) {
 		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
@@ -878,72 +984,78 @@ namespace
 	HitMap initializeCollisionMap()
 	{
 		HitMap phm;
-		phm[Key(typeid(Link), typeid(Wall))] =					&LinkWall;
-		phm[Key(typeid(Link), typeid(Pot))] =					&LinkPot;
-		phm[Key(typeid(Link), typeid(WaterTile))] =				&LinkWater;
-		phm[Key(typeid(Link), typeid(Octorok))] =				&LinkOctorok;
-		phm[Key(typeid(Link), typeid(Projectile))] =			&LinkProjectile;
-		phm[Key(typeid(Link), typeid(Sword))] =					&LinkSword;
-		phm[Key(typeid(Link), typeid(Boulder))] =				&LinkBoulder;
-		phm[Key(typeid(Link), typeid(PigWarrior))] =			&LinkPigWarrior;
-		phm[Key(typeid(Link), typeid(LinkArrow))] =				&LinkLinkArrow;
-		phm[Key(typeid(Link), typeid(Door))] =					&LinkDoor;
-		phm[Key(typeid(Link), typeid(SwordItem))] =				&LinkSwordItem;
-		phm[Key(typeid(Link), typeid(BowItem))] =				&LinkBowItem;
-		phm[Key(typeid(Link), typeid(Heart))] =					&LinkHeart;
-		phm[Key(typeid(Link), typeid(EnemySword))] =			&LinkEnemySword;
-		phm[Key(typeid(Link), typeid(SeaUrchin))] =				&LinkSeaUrchin;
-		phm[Key(typeid(Link), typeid(Sign))] =					&LinkSign;
-		phm[Key(typeid(Link), typeid(Hole))] =					&LinkHole;
-		phm[Key(typeid(Link), typeid(Shrub))] =					&LinkShrub;
-		phm[Key(typeid(Wall), typeid(Link))] =					&WallLink;
-		phm[Key(typeid(Wall), typeid(Octorok))] =				&WallOctorok;
-		phm[Key(typeid(Wall), typeid(Projectile))] =			&WallProjectile;
-		phm[Key(typeid(Wall), typeid(Sword))] =					&WallSword;
-		phm[Key(typeid(Wall), typeid(Boulder))] =				&WallBoulder;
-		phm[Key(typeid(Wall), typeid(PigWarrior))] =			&WallPigWarrior;
-		phm[Key(typeid(Wall), typeid(LinkArrow))] =				&WallLinkArrow;
-		phm[Key(typeid(Wall), typeid(LinkArrow))] =				&WallLinkArrow;
-		phm[Key(typeid(Wall), typeid(EnemySword))] =			&WallEnemySword;
-		phm[Key(typeid(Wall), typeid(SeaUrchin))] =				&WallSeaUrchin; 
-		phm[Key(typeid(Pot), typeid(Link))] =					&PotLink;
-		phm[Key(typeid(Pot), typeid(Sword))] =					&PotSword;
-		phm[Key(typeid(Pot), typeid(Octorok))] =				&PotOctorok;
-		phm[Key(typeid(Pot), typeid(Boulder))] =				&PotBoulder;
-		phm[Key(typeid(WaterTile), typeid(Link))] =				&WaterLink;
-		phm[Key(typeid(WaterTile), typeid(Octorok))] =			&WaterOctorok;
-		phm[Key(typeid(WaterTile), typeid(PigWarrior))] =		&WaterPigWarrior;
-		phm[Key(typeid(WaterTile), typeid(EnemySword))] =		&WaterEnemySword;
-		phm[Key(typeid(WaterTile), typeid(SeaUrchin))] =		&WaterSeaUrchin;
-		phm[Key(typeid(WaterTile), typeid(Projectile))] =		&WaterProjectile;
-		phm[Key(typeid(Octorok), typeid(Link))] =				&OctorokLink;
-		phm[Key(typeid(Octorok), typeid(Wall))] =				&OctorokWall;
-		phm[Key(typeid(Octorok), typeid(WaterTile))] =			&OctorokWater;
-		phm[Key(typeid(Octorok), typeid(Sword))] =				&OctorokSword;
-		phm[Key(typeid(Octorok), typeid(Projectile))] =			&OctorokProjectile;
-		phm[Key(typeid(Octorok), typeid(Boulder))] =			&OctorockBoulder;
-		phm[Key(typeid(Octorok), typeid(Pot))] =				&OctorokPot;
-		phm[Key(typeid(Octorok), typeid(LinkArrow))] =			&OctorokLinkArrow;
-		phm[Key(typeid(Octorok), typeid(Shield))] =				&OctorokShield;
-		phm[Key(typeid(Octorok), typeid(PigWarrior))] =			&OctorokPigWarrior;
-		phm[Key(typeid(Octorok), typeid(EnemySword))] =			&OctorokEnemySword;
-		phm[Key(typeid(Octorok), typeid(SeaUrchin))] =			&OctorokSeaUrchin;
-		phm[Key(typeid(Octorok), typeid(Sign))] =				&OctorokSign;
-		phm[Key(typeid(Octorok), typeid(Shrub))] =				&octorokShrub;
-		phm[Key(typeid(Octorok), typeid(Octorok))] =			&OctorokOctorok;
-		phm[Key(typeid(Sword), typeid(Octorok))] =				&SwordOctorok;
-		phm[Key(typeid(Sword), typeid(Wall))] =					&SwordWall;
-		phm[Key(typeid(Sword), typeid(Link))] =					&SwordLink;
-		phm[Key(typeid(Sword), typeid(Pot))] =					&SwordPot;
-		phm[Key(typeid(Sword), typeid(PigWarrior))] =			&SwordPigWarrior;
-		phm[Key(typeid(Sword), typeid(SeaUrchin))] =			&SwordSeaUrchin;
-		phm[Key(typeid(Sword), typeid(Shrub))] =				&SwordShrub;
-		phm[Key(typeid(Shield), typeid(Octorok))] =				&ShieldOctorok;
-		phm[Key(typeid(Shield), typeid(Projectile))] =			&ShieldProjectile;
-		phm[Key(typeid(Shield), typeid(PigWarrior))] =			&ShieldPigWarrior;
-		phm[Key(typeid(Shield), typeid(EnemySword))] =			&ShieldEnemySword;
-		phm[Key(typeid(Shield), typeid(SeaUrchin))] =			&ShieldSeaUrchin;
-		phm[Key(typeid(Shield), typeid(Boulder))] =				&ShieldBoulder;
+		phm[Key(typeid(Link),		typeid(Wall))] =			&LinkWall;
+		phm[Key(typeid(Link),		typeid(Pot))] =				&LinkPot;
+		phm[Key(typeid(Link),		typeid(WaterTile))] =		&LinkWater;
+		phm[Key(typeid(Link),		typeid(Octorok))] =			&LinkOctorok;
+		phm[Key(typeid(Link),		typeid(Projectile))] =		&LinkProjectile;
+		phm[Key(typeid(Link),		typeid(Sword))] =			&LinkSword;
+		phm[Key(typeid(Link),		typeid(Boulder))] =			&LinkBoulder;
+		phm[Key(typeid(Link),		typeid(PigWarrior))] =		&LinkPigWarrior;
+		phm[Key(typeid(Link),		typeid(LinkArrow))] =		&LinkLinkArrow;
+		phm[Key(typeid(Link),		typeid(Door))] =			&LinkDoor;
+		phm[Key(typeid(Link),		typeid(SwordItem))] =		&LinkSwordItem;
+		phm[Key(typeid(Link),		typeid(BowItem))] =			&LinkBowItem;
+		phm[Key(typeid(Link),		typeid(Heart))] =			&LinkHeart;
+		phm[Key(typeid(Link),		typeid(EnemySword))] =		&LinkEnemySword;
+		phm[Key(typeid(Link),		typeid(SeaUrchin))] =		&LinkSeaUrchin;
+		phm[Key(typeid(Link),		typeid(Sign))] =			&LinkSign;
+		phm[Key(typeid(Link),		typeid(Hole))] =			&LinkHole;
+		phm[Key(typeid(Link),		typeid(Shrub))] =			&LinkShrub;
+		phm[Key(typeid(Wall),		typeid(Link))] =			&WallLink;
+		phm[Key(typeid(Wall),		typeid(Octorok))] =			&WallOctorok;
+		phm[Key(typeid(Wall),		typeid(Projectile))] =		&WallProjectile;
+		phm[Key(typeid(Wall),		typeid(Sword))] =			&WallSword;
+		phm[Key(typeid(Wall),		typeid(Boulder))] =			&WallBoulder;
+		phm[Key(typeid(Wall),		typeid(PigWarrior))] =		&WallPigWarrior;
+		phm[Key(typeid(Wall),		typeid(LinkArrow))] =		&WallLinkArrow;
+		phm[Key(typeid(Wall),		typeid(LinkArrow))] =		&WallLinkArrow;
+		phm[Key(typeid(Wall),		typeid(EnemySword))] =		&WallEnemySword;
+		phm[Key(typeid(Wall),		typeid(SeaUrchin))] =		&WallSeaUrchin; 
+		phm[Key(typeid(Pot),		typeid(Link))] =			&PotLink;
+		phm[Key(typeid(Pot),		typeid(Sword))] =			&PotSword;
+		phm[Key(typeid(Pot),		typeid(Octorok))] =			&PotOctorok;
+		phm[Key(typeid(Pot),		typeid(Boulder))] =			&PotBoulder;
+		phm[Key(typeid(WaterTile),	typeid(Link))] =			&WaterLink;
+		phm[Key(typeid(WaterTile),	typeid(Octorok))] =			&WaterOctorok;
+		phm[Key(typeid(WaterTile),	typeid(PigWarrior))] =		&WaterPigWarrior;
+		phm[Key(typeid(WaterTile),	typeid(EnemySword))] =		&WaterEnemySword;
+		phm[Key(typeid(WaterTile),	typeid(SeaUrchin))] =		&WaterSeaUrchin;
+		phm[Key(typeid(WaterTile),	typeid(Projectile))] =		&WaterProjectile;
+		phm[Key(typeid(Octorok),	typeid(Link))] =			&OctorokLink;
+		phm[Key(typeid(Octorok),	typeid(Wall))] =			&OctorokWall;
+		phm[Key(typeid(Octorok),	typeid(WaterTile))] =		&OctorokWater;
+		phm[Key(typeid(Octorok),	typeid(Sword))] =			&OctorokSword;
+		phm[Key(typeid(Octorok),	typeid(Projectile))] =		&OctorokProjectile;
+		phm[Key(typeid(Octorok),	typeid(Boulder))] =			&OctorockBoulder;
+		phm[Key(typeid(Octorok),	typeid(Pot))] =				&OctorokPot;
+		phm[Key(typeid(Octorok),	typeid(LinkArrow))] =		&OctorokLinkArrow;
+		phm[Key(typeid(Octorok),	typeid(Shield))] =			&OctorokShield;
+		phm[Key(typeid(Octorok),	typeid(PigWarrior))] =		&OctorokPigWarrior;
+		phm[Key(typeid(Octorok),	typeid(EnemySword))] =		&OctorokEnemySword;
+		phm[Key(typeid(Octorok),	typeid(SeaUrchin))] =		&OctorokSeaUrchin;
+		phm[Key(typeid(Octorok),	typeid(Sign))] =			&OctorokSign;
+		phm[Key(typeid(Octorok),	typeid(Shrub))] =			&octorokShrub;
+		phm[Key(typeid(Octorok),	typeid(Octorok))] =			&OctorokOctorok;
+		phm[Key(typeid(Sword),		typeid(Octorok))] =			&SwordOctorok;
+		phm[Key(typeid(Sword),		typeid(Wall))] =			&SwordWall;
+		phm[Key(typeid(Sword),		typeid(Link))] =			&SwordLink;
+		phm[Key(typeid(Sword),		typeid(Pot))] =				&SwordPot;
+		phm[Key(typeid(Sword),		typeid(PigWarrior))] =		&SwordPigWarrior;
+		phm[Key(typeid(Sword),		typeid(SeaUrchin))] =		&SwordSeaUrchin;
+		phm[Key(typeid(Sword),		typeid(Shrub))] =			&SwordShrub;
+		phm[Key(typeid(Sword),		typeid(Hole))] =			&SwordHole;
+		phm[Key(typeid(Sword),		typeid(Boulder))] =			&SwordBoulder;
+		phm[Key(typeid(Sword),		typeid(Door))] =			&SwordDoor;
+		phm[Key(typeid(Sword),		typeid(Sign))] =			&SwordSign;
+		phm[Key(typeid(Sword),		typeid(WaterTile))] =		&SwordWater;
+		phm[Key(typeid(Sword),		typeid(EnemySword))] =		&SwordEnemySword;
+		phm[Key(typeid(Shield),		typeid(Octorok))] =			&ShieldOctorok;
+		phm[Key(typeid(Shield),		typeid(Projectile))] =		&ShieldProjectile;
+		phm[Key(typeid(Shield),		typeid(PigWarrior))] =		&ShieldPigWarrior;
+		phm[Key(typeid(Shield),		typeid(EnemySword))] =		&ShieldEnemySword;
+		phm[Key(typeid(Shield),		typeid(SeaUrchin))] =		&ShieldSeaUrchin;
+		phm[Key(typeid(Shield),		typeid(Boulder))] =			&ShieldBoulder;
 		phm[Key(typeid(Projectile), typeid(Wall))] =			&ProjectileWall;
 		phm[Key(typeid(Projectile), typeid(Link))] =			&ProjectileLink;
 		phm[Key(typeid(Projectile), typeid(Octorok))] =			&ProjectileOctorok;
@@ -953,14 +1065,15 @@ namespace
 		phm[Key(typeid(Projectile), typeid(Projectile))] =		&ProjectileProjectile;
 		phm[Key(typeid(Projectile), typeid(WaterTile))] =		&ProjectileWater;
 		phm[Key(typeid(Projectile), typeid(SeaUrchin))] =		&ProjectileSeaUrchin;
-		phm[Key(typeid(Projectile), typeid(Shrub))] =		&ProjectileShrub;
-		phm[Key(typeid(Boulder), typeid(Link))] =				&BoulderLink;
-		phm[Key(typeid(Boulder), typeid(Wall))] =				&BoulderWall;
-		phm[Key(typeid(Boulder), typeid(Octorok))] =			&BoulderOctorok;
-		phm[Key(typeid(Boulder), typeid(Projectile))] =			&BoulderProjectile;
-		phm[Key(typeid(Boulder), typeid(Boulder))] =			&BoulderBoulder;
-		phm[Key(typeid(Boulder), typeid(Pot))] =				&BoulderPot;
-		phm[Key(typeid(Boulder), typeid(Shield))] =				&BoulderShield;
+		phm[Key(typeid(Projectile), typeid(Shrub))] =			&ProjectileShrub;
+		phm[Key(typeid(Boulder),	typeid(Link))] =			&BoulderLink;
+		phm[Key(typeid(Boulder),	typeid(Wall))] =			&BoulderWall;
+		phm[Key(typeid(Boulder),	typeid(Octorok))] =			&BoulderOctorok;
+		phm[Key(typeid(Boulder),	typeid(Projectile))] =		&BoulderProjectile;
+		phm[Key(typeid(Boulder),	typeid(Boulder))] =			&BoulderBoulder;
+		phm[Key(typeid(Boulder),	typeid(Pot))] =				&BoulderPot;
+		phm[Key(typeid(Boulder),	typeid(Shield))] =			&BoulderShield;
+		phm[Key(typeid(Boulder),	typeid(LinkArrow))] =		&BoulderLinkArrow;
 		phm[Key(typeid(PigWarrior), typeid(Link))] =			&PigWarriorLink;
 		phm[Key(typeid(PigWarrior), typeid(Wall))] =			&PigWarriorWall;
 		phm[Key(typeid(PigWarrior), typeid(WaterTile))] =		&PigWarriorWater;
@@ -972,10 +1085,15 @@ namespace
 		phm[Key(typeid(PigWarrior), typeid(Projectile))] =		&PigWarriorProjectile;
 		phm[Key(typeid(PigWarrior), typeid(Shrub))] =			&PigWarriorShrub;
 		phm[Key(typeid(PigWarrior), typeid(PigWarrior))] =		&PigWarriorPigWarrior;
-		phm[Key(typeid(LinkArrow), typeid(Octorok))] =			&LinkArrowOctorok;
-		phm[Key(typeid(LinkArrow), typeid(PigWarrior))] =		&LinkArrowPigWarrior;
-		phm[Key(typeid(LinkArrow), typeid(Link))] =				&LinkArrowLink;
-		phm[Key(typeid(LinkArrow), typeid(Wall))] =				&LinkArrowWall;
+		phm[Key(typeid(LinkArrow),	typeid(Octorok))] =			&LinkArrowOctorok;
+		phm[Key(typeid(LinkArrow),	typeid(PigWarrior))] =		&LinkArrowPigWarrior;
+		phm[Key(typeid(LinkArrow),	typeid(Link))] =			&LinkArrowLink;
+		phm[Key(typeid(LinkArrow),	typeid(Wall))] =			&LinkArrowWall;
+		phm[Key(typeid(LinkArrow),	typeid(Pot))] =				&LinkArrowPot;
+		phm[Key(typeid(LinkArrow),	typeid(SeaUrchin))] =		&LinkArrowSeaUrchin;
+		phm[Key(typeid(LinkArrow),	typeid(Sign))] =			&LinkArrowSign;
+		phm[Key(typeid(LinkArrow),	typeid(Hole))] =			&LinkArrowHole;
+		phm[Key(typeid(LinkArrow),	typeid(SwordItem))] =		&LinkArrowSwordItem;
 		phm[Key(typeid(EnemySword), typeid(Link))] =			&EnemySwordLink;
 		phm[Key(typeid(EnemySword), typeid(Wall))] =			&EnemySwordWall;
 		phm[Key(typeid(EnemySword), typeid(PigWarrior))] =		&EnemySwordPigWarrior;
@@ -983,26 +1101,28 @@ namespace
 		phm[Key(typeid(EnemySword), typeid(Shield))] =			&EnemySwordShield;
 		phm[Key(typeid(EnemySword), typeid(Octorok))] =			&EnemySwordOctorok;
 		phm[Key(typeid(EnemySword), typeid(Shrub))] =			&EnemySwordShrub;
-		phm[Key(typeid(SeaUrchin), typeid(Shield))] =			&SeaUrchinShield;
-		phm[Key(typeid(SeaUrchin), typeid(Link))] =				&SeaUrchinLink;
-		phm[Key(typeid(SeaUrchin), typeid(Wall))] =				&SeaUrchinWall;
-		phm[Key(typeid(SeaUrchin), typeid(WaterTile))] =		&SeaUrchinWater;
-		phm[Key(typeid(SeaUrchin), typeid(SeaUrchin))] =		&SeaUrchinSeaUrchin;
-		phm[Key(typeid(SeaUrchin), typeid(Sword))] =			&SeaUrchinSword;
-		phm[Key(typeid(SeaUrchin), typeid(Projectile))] =		&SeaUrchinProjectile;
-		phm[Key(typeid(SeaUrchin), typeid(Octorok))] =			&SeaUrchinOctorok;
-		phm[Key(typeid(Sign), typeid(Link))] =					&SignLink;
-		phm[Key(typeid(Sign), typeid(Octorok))] =				&SignOctorok;
-		phm[Key(typeid(Shrub), typeid(Link))] =					&ShrubLink;
-		phm[Key(typeid(Shrub), typeid(Sword))] =				&ShrubSword;
-		phm[Key(typeid(Shrub), typeid(Octorok))] =				&ShrubOctorok;
-		phm[Key(typeid(Shrub), typeid(PigWarrior))] =			&ShrubPigWarrior;
-		phm[Key(typeid(Shrub), typeid(EnemySword))] =			&ShrubEnemySword;
-		phm[Key(typeid(Shrub), typeid(Projectile))] =			&ShrubProjectile;
-		phm[Key(typeid(Door), typeid(Link))] =					&DoorLink;
-		phm[Key(typeid(Heart), typeid(Link))] =					&HeartLink;
-		phm[Key(typeid(Hole), typeid(Link))] =					&HoleLink;
-
+		phm[Key(typeid(EnemySword), typeid(Sword))] =			&EnemySwordSword;
+		phm[Key(typeid(SeaUrchin),	typeid(Shield))] =			&SeaUrchinShield;
+		phm[Key(typeid(SeaUrchin),	typeid(Link))] =			&SeaUrchinLink;
+		phm[Key(typeid(SeaUrchin),	typeid(Wall))] =			&SeaUrchinWall;
+		phm[Key(typeid(SeaUrchin),	typeid(WaterTile))] =		&SeaUrchinWater;
+		phm[Key(typeid(SeaUrchin),	typeid(SeaUrchin))] =		&SeaUrchinSeaUrchin;
+		phm[Key(typeid(SeaUrchin),	typeid(Sword))] =			&SeaUrchinSword;
+		phm[Key(typeid(SeaUrchin),	typeid(Projectile))] =		&SeaUrchinProjectile;
+		phm[Key(typeid(SeaUrchin),	typeid(Octorok))] =			&SeaUrchinOctorok;
+		phm[Key(typeid(SeaUrchin),	typeid(Sign))] =			&SeaUrchinSign;
+		phm[Key(typeid(SeaUrchin),	typeid(LinkArrow))] =		&SeaUrchinLinkArrow;
+		phm[Key(typeid(Sign),		typeid(Link))] =			&SignLink;
+		phm[Key(typeid(Sign),		typeid(Octorok))] =			&SignOctorok;
+		phm[Key(typeid(Shrub),		typeid(Link))] =			&ShrubLink;
+		phm[Key(typeid(Shrub),		typeid(Sword))] =			&ShrubSword;
+		phm[Key(typeid(Shrub),		typeid(Octorok))] =			&ShrubOctorok;
+		phm[Key(typeid(Shrub),		typeid(PigWarrior))] =		&ShrubPigWarrior;
+		phm[Key(typeid(Shrub),		typeid(EnemySword))] =		&ShrubEnemySword;
+		phm[Key(typeid(Shrub),		typeid(Projectile))] =		&ShrubProjectile;
+		phm[Key(typeid(Door),		typeid(Link))] =			&DoorLink;
+		phm[Key(typeid(Heart),		typeid(Link))] =			&HeartLink;
+		phm[Key(typeid(Hole),		typeid(Link))] =			&HoleLink;
 		phm[Key(typeid(WizardBoss), typeid(Sword))] =			&WizardBossSword;
 		phm[Key(typeid(Sword), typeid(WizardBoss))] =			&SwordWizardBoss;
 

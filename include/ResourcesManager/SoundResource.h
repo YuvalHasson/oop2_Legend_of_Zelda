@@ -7,11 +7,16 @@ class SoundResource
 {
 private:
 	std::string m_soundNames[SOUND_AMOUNT] = {
-		""
+		"DeathSound.ogg", "LinkGetSword.ogg", "LinkBowArrow.ogg", "LinkDamage.ogg",
+		"LinkSwordSlash01.ogg", "LinkSwordSlash02.ogg", "LinkSwordSlash03.ogg", "LinkSwordSlash04.ogg",
+		"LinkGetItem.ogg", "EnemyHit.ogg", "EnemyDie.ogg",
+		"SeaUrchinPush1.ogg", "SeaUrchinPush2.ogg",
+		"PauseMenuOpen.ogg", "PauseMenuClose.ogg",
+		"BushCut.ogg", "ShieldDeflect.ogg"
 	};
 
 	std::string m_backgroundNames[BACK_SOUND_AMNT] = {
-		"MainTheme.ogg", "LinkAwakens.ogg"
+		"MainTheme.ogg", "House.ogg", "Overworld.ogg", "GameOver.ogg", "Dungeon01.ogg"
 	};
 
 	sf::Music m_backgroundMusic[BACK_SOUND_AMNT];
@@ -28,7 +33,7 @@ public:
 
 	void playSound(int);
 	void playBackground(int);
-	void stopBackground(int);
+	void StopBackground();
 
 	void setBackgroundVolume(float);
 	
