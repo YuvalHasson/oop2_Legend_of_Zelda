@@ -27,6 +27,7 @@ void Controller::run()
                 m_window.close();
                 break;
             case sf::Event::MouseButtonReleased:
+            case sf::Event::KeyPressed:
 				m_state->buttonPressed(*m_state->getWindow(), event);
 				break;
             default:

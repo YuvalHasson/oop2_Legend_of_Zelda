@@ -15,10 +15,6 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	m_boardLevels[m_level].handleCollision();
 	m_boardLevels[m_level].update(deltaTime);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	{
-		updateState(GAME_STATE::PAUSE_MENU);
-	}
 	m_statusBar.update(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getCurrentWeapon());
 
 	if (m_boardLevels[m_level].getLink().getHp() <= MIN_HEALTH)
@@ -93,7 +89,16 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 	return nullptr;
 }
 
-void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
+void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event& event)
+{
+	if (event.type == sf::Event::KeyPressed)
+	{
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			updateState(GAME_STATE::PAUSE_MENU);
+		}
+	}
+}
 
 void GameRunningState::setCenterView()
 {
