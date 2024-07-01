@@ -83,6 +83,10 @@ namespace
 
 	void LinkArrowSeaUrchin(GameObject&, GameObject&) {}
 
+	void LinkArrowShrub(GameObject&, GameObject&) {}
+
+	void LinkArrowWater(GameObject&, GameObject&) {}
+
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
@@ -1078,6 +1082,8 @@ namespace
 		phm[Key(typeid(LinkArrow),	typeid(Sign))] =			&LinkArrowSign;
 		phm[Key(typeid(LinkArrow),	typeid(Hole))] =			&LinkArrowHole;
 		phm[Key(typeid(LinkArrow),	typeid(SwordItem))] =		&LinkArrowSwordItem;
+		phm[Key(typeid(LinkArrow),	typeid(Shrub))] =			&LinkArrowShrub;
+		phm[Key(typeid(LinkArrow),	typeid(WaterTile))] =		&LinkArrowWater;
 		phm[Key(typeid(EnemySword), typeid(Link))] =			&EnemySwordLink;
 		phm[Key(typeid(EnemySword), typeid(Wall))] =			&EnemySwordWall;
 		phm[Key(typeid(EnemySword), typeid(PigWarrior))] =		&EnemySwordPigWarrior;

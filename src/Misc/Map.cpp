@@ -138,7 +138,7 @@ void Map::initVector(Cell cell)
 				{
 					p->setLevelToDoor(Level::BOSS_DUNGEON);
 					p->setLinkOutPosition({ 40, 150 });
-					p->setVictoryDoor(true);
+					p->setVictoryDoor(true); // remember to change
 					m_doors.emplace_back(std::move(p));
 				}
 			}

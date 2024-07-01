@@ -37,6 +37,7 @@ void GameRunningState::update(const sf::Time& deltaTime)
 			updateState(GAME_STATE::SWITCH_LEVEL);
 			door->setChangeLevel(false);
 
+			//tmp???
 			if (door->getVictoryDoor())
 			{
 				updateState(GAME_STATE::VICTORY);
