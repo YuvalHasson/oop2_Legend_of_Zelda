@@ -15,6 +15,7 @@ Board::Board(Board&& other) noexcept
 	 m_staticObjects(std::move(other.m_staticObjects)),
 	 m_staticRectsOfCurLevel(std::move(other.m_staticRectsOfCurLevel)),
 	 m_doors(std::move(other.m_doors)),
+	 m_zelda(std::move(other.m_zelda)),
 	 m_link(std::move(other.m_link)),
 	 m_background(std::move(other.m_background)) {}
 
@@ -26,6 +27,7 @@ Board& Board::operator=(Board&& other) noexcept
 		m_inanimateObjects	= std::move(other.m_inanimateObjects);
 		m_staticObjects		= std::move(other.m_staticObjects);
 		m_link				= std::move(other.m_link);
+		m_zelda				= std::move(other.m_zelda);
 		m_background		= std::move(other.m_background);
 		m_doors				= std::move(other.m_doors);
 	}
@@ -35,14 +37,6 @@ Board& Board::operator=(Board&& other) noexcept
 void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 {
 	target.draw(m_background);
-
-	for (const auto& gameObject : m_staticObjects)
-	{
-		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
-		{
-			gameObject->draw(target);
-		}
-	}
 
 	for (const auto& gameObject : m_inanimateObjects)
 	{
@@ -60,6 +54,14 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
   	}
 
+	for (const auto& gameObject : m_staticObjects)
+	{
+		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		{
+			gameObject->draw(target);
+		}
+	}
+
 	sf::RectangleShape rect;
 	rect.setSize(sf::Vector2f(16,16));
 	rect.setFillColor(sf::Color::Transparent);
@@ -71,6 +73,10 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		target.draw(rect);
 	}
 
+	if (m_zelda)
+	{
+		m_zelda->draw(target);
+	}
 	m_link->draw(target);
 
 }
@@ -97,6 +103,11 @@ void Board::makeLink()
 	if (auto p = Factory<Link>::instance()->create("Link", { 86.f, 35.f }))
 	{
 		m_link = std::move(p);
+	}
+
+	if (auto p = Factory<Zelda>::instance()->create("Zelda", { 120.f, 35.f }))
+	{
+		m_zelda = std::move(p);
 	}
 }
 

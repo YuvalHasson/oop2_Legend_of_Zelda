@@ -66,6 +66,7 @@ private:
 	std::vector<std::unique_ptr<Door>> m_doors;
 	std::vector<sf::FloatRect> m_staticRectsOfCurLevel;
 	std::unique_ptr<Link> m_link;
+	std::unique_ptr<Zelda> m_zelda;
 
 	sf::Sprite m_background;
 
