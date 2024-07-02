@@ -90,6 +90,10 @@ namespace
 
 	void ProjectileEnemySword(GameObject&, GameObject&) {}
 
+	void EnemySwordSign(GameObject&, GameObject&) {}
+
+	void EnemySwordLinkArrow(GameObject&, GameObject&) {}
+
 	void LinkWall(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
@@ -1064,6 +1068,15 @@ namespace
 		LinkArrowLock(arrow, lock);
 	}
 
+	void PigWarriorSign(GameObject& pigWarrior, GameObject&)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+	}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -1182,6 +1195,7 @@ namespace
 		phm[Key(typeid(PigWarrior), typeid(Octorok))] =			&PigWarriorOctorok;
 		phm[Key(typeid(PigWarrior), typeid(Projectile))] =		&PigWarriorProjectile;
 		phm[Key(typeid(PigWarrior), typeid(Shrub))] =			&PigWarriorShrub;
+		phm[Key(typeid(PigWarrior), typeid(Sign))] =			&PigWarriorSign;
 		phm[Key(typeid(PigWarrior), typeid(PigWarrior))] =		&PigWarriorPigWarrior;
 		phm[Key(typeid(LinkArrow),	typeid(Octorok))] =			&LinkArrowOctorok;
 		phm[Key(typeid(LinkArrow),	typeid(PigWarrior))] =		&LinkArrowPigWarrior;
@@ -1203,6 +1217,8 @@ namespace
 		phm[Key(typeid(EnemySword), typeid(Octorok))] =			&EnemySwordOctorok;
 		phm[Key(typeid(EnemySword), typeid(Shrub))] =			&EnemySwordShrub;
 		phm[Key(typeid(EnemySword), typeid(Sword))] =			&EnemySwordSword;
+		phm[Key(typeid(EnemySword), typeid(Sign))] =			&EnemySwordSign;
+		phm[Key(typeid(EnemySword), typeid(LinkArrow))] =		&EnemySwordLinkArrow;
 		phm[Key(typeid(SeaUrchin),	typeid(Shield))] =			&SeaUrchinShield;
 		phm[Key(typeid(SeaUrchin),	typeid(Link))] =			&SeaUrchinLink;
 		phm[Key(typeid(SeaUrchin),	typeid(Wall))] =			&SeaUrchinWall;
