@@ -17,15 +17,16 @@ struct Vector2fComparator{
 class SmartMovement : public MovementStrategy
 {
 public:
-	virtual void move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock) override;
+	SmartMovement() = default;
+	virtual void move(Input&, Enemy&, sf::Clock*) override;
 
 	void initializeBFS(sf::Vector2f);
-	bool isLinkAtPosition(const sf::Vector2f& position, const sf::Vector2f&);
-	void addNeighborsToQueue(const sf::Vector2f& position);
-	void moveTowards(Enemy& enemy , const sf::Vector2f& targetPosition);
+	bool isLinkAtPosition(const sf::Vector2f&, const sf::Vector2f&);
+	void addNeighborsToQueue(const sf::Vector2f&);
+	void moveTowards(Enemy&, const sf::Vector2f&);
 
 	//void UpdateLinkPos(const sf::Vector2f& position);
-	float distance(const sf::Vector2f& p1, const sf::Vector2f& p2);
+	float distance(const sf::Vector2f&, const sf::Vector2f&);
 
 private:
 	std::queue<sf::Vector2f> m_bfsQueue;

@@ -7,8 +7,7 @@ bool Shrub::m_registerit = Factory<StaticObjects>::instance()->registerit("Shrub
 	});
 
 Shrub::Shrub(const sf::Texture& texture, const sf::Vector2f& pos)
-	: Destructible(texture, pos, sf::Vector2f(14.f, 14.f), sf::Vector2f(2.4, 2.4))
+	: Destructible(texture, pos, sf::Vector2f(14.f, 14.f), sf::Vector2f(2.4f, 2.4f))
 {
-	getSprite().setTextureRect(sf::IntRect(103, 173, 14.f, 14.f));
-	getSprite().scale(0.7f, 0.7f);
+	getSprite().setTextureRect(sf::IntRect(SPRITE_POSITIONS::Shrub, { 14, 14 }));
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Enemy.h"
-#include "Link.h"
 
 #include "Projectile.h"
 
@@ -14,12 +13,12 @@
 class Octorok : public Enemy
 {
 public:
-	Octorok(const sf::Texture& texture, const sf::Vector2f& position);
+	Octorok(const sf::Texture&, const sf::Vector2f&);
 
-	virtual void update(const sf::Time& deltaTime) override;
+	virtual void update(const sf::Time&) override;
 	virtual void attack();
 	virtual sf::Vector2f getLinkPos() override;
-	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override;
+	virtual const sf::Vector2u getAnimationTexturePosition(Input) override;
 	virtual EnemyType getType() const override;
 
 	void setMoveStrategy(std::unique_ptr<MovementStrategy>);

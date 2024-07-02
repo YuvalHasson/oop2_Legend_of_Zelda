@@ -28,13 +28,6 @@ void Sign::setActive(bool active)
 void Sign::draw(sf::RenderTarget& target)
 {
 	GameObject::draw(target);
-	sf::RectangleShape inner;
-	inner.setPosition(m_hitBox.GetRect().left, m_hitBox.GetRect().top);
-	inner.setSize(sf::Vector2f(m_hitBox.GetRect().width, m_hitBox.GetRect().height));
-	inner.setFillColor(sf::Color::Transparent);
-	inner.setOutlineColor(sf::Color::Blue);
-	inner.setOutlineThickness(1);
-	//target.draw(inner);
 
 	auto curr = target.getView();
 	target.setView(target.getDefaultView());

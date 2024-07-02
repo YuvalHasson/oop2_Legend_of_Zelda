@@ -1,7 +1,5 @@
 #include "VolumeSlider.h"
 
-#include <iostream> //for debugging
-
 VolumeSlider::VolumeSlider()
 	: m_volume(SoundResource::getSound().getVolume())
 {

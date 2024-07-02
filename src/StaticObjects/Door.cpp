@@ -8,7 +8,7 @@ bool Door::m_registerit = Factory<Door>::instance()->registerit("Door",
 
 Door::Door(const sf::Texture& texture, const sf::Vector2f& position)
 	: InDestructible(texture, position, { tileSize, tileSize }, { 0.f, 0.f }),
-	m_changeLevel(false), m_victoryDoor(false)
+	m_changeLevel(false)
 {
 	getSprite().setColor(sf::Color::Transparent);
 }
@@ -41,14 +41,4 @@ void Door::setLinkOutPosition(const sf::Vector2f& position)
 sf::Vector2f Door::getLinkOutPosition() const
 {
 	return m_linkOutPosition;
-}
-
-void Door::setVictoryDoor(bool victory)
-{
-	m_victoryDoor = victory;
-}
-
-bool Door::getVictoryDoor() const
-{
-	return m_victoryDoor;
 }

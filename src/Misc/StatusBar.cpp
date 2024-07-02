@@ -12,7 +12,7 @@ StatusBar::StatusBar(int hp, Weapons type)
 
 	m_equipped.setTexture(*Resources::getResource().getTexture(TEXTURE::StatusBar));
 	m_equipped.setScale(3.f, 3.f);
-	sf::IntRect rect(120.f, 210.f, 28.f, tileSize);
+	sf::IntRect rect(SPRITE_POSITIONS::Equipped, { 28, tileSize });
 	m_equipped.setTextureRect(rect);
 
 	m_weapon.setTexture(*Resources::getResource().getTexture(TEXTURE::StatusBar));
@@ -20,7 +20,7 @@ StatusBar::StatusBar(int hp, Weapons type)
 
 	m_shield.setTexture(*Resources::getResource().getTexture(TEXTURE::StatusBar));
 	m_shield.setScale(3.f, 3.f);
-	sf::IntRect rect1(48, 41, tileSize / 2.f, tileSize);
+	sf::IntRect rect1(SPRITE_POSITIONS::Shield, { tileSize / 2, tileSize });
 	m_shield.setTextureRect(rect1);
 	m_shield.setPosition(WindowWidth / 4.f * 1.15f, windowHeight / 9.f * 6.7f);
 }
@@ -29,7 +29,7 @@ void StatusBar::draw(sf::RenderTarget& target)
 {
 	target.draw(m_statusBar);
 
-	for (size_t i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		drawEquipped(target, i);
 	}
@@ -47,19 +47,19 @@ void StatusBar::draw(sf::RenderTarget& target)
 	int offset = 0;
 	for (; offset < fullHeart; offset++)
 	{
-		drawHearts(target, { 48, 61 }, offset);
+		drawHearts(target, SPRITE_POSITIONS::FullHeart, offset);
 	}
 	if (halfHeart == 1)
 	{
-		drawHearts(target, { 68, 61 }, offset);
+		drawHearts(target, SPRITE_POSITIONS::HalfHeart, offset);
 	}
 	target.draw(m_shield);
 }
 
-void StatusBar::drawHearts(sf::RenderTarget& target, const sf::Vector2f& textureRect, const int& offset)
+void StatusBar::drawHearts(sf::RenderTarget& target, const sf::Vector2i& textureRect, const int& offset)
 {
 	m_hpSprite.setPosition(WindowWidth / 4.f * 3.f, windowHeight / 9.f * 6.9f);
-	sf::IntRect rect(textureRect.x, textureRect.y, tileSize / 2.f, tileSize / 2.f);
+	sf::IntRect rect(textureRect.x, textureRect.y, tileSize / 2, tileSize / 2);
 	m_hpSprite.setTextureRect(rect);
 	m_hpSprite.move(offset * 16.f, 0.f);
 	target.draw(m_hpSprite);
@@ -68,7 +68,7 @@ void StatusBar::drawHearts(sf::RenderTarget& target, const sf::Vector2f& texture
 void StatusBar::drawEquipped(sf::RenderTarget& target, const int& offset)
 {
 	sf::IntRect rect;
-	rect.width = tileSize/2.f;
+	rect.width = tileSize / 2;
 	rect.height = tileSize;
 	rect.top = 41;
 	switch(m_type){

@@ -9,7 +9,7 @@ NewGameState::NewGameState(sf::RenderWindow* window)
 	SoundResource::getSound().playBackground(BACKGROUND_SOUND::House);
 }
 
-void NewGameState::update(const sf::Time& deltaTime)
+void NewGameState::update(const sf::Time&)
 {
 	updateState(GAME_STATE::GAME_RUNNING);
 }

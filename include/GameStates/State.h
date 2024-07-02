@@ -15,7 +15,7 @@ public:
 	virtual std::unique_ptr<State> handleInput(const GAME_STATE&) = 0;
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) = 0;
 
-	void updateState(GAME_STATE gameState);
+	void updateState(const GAME_STATE&);
 
 	void startGame();
 	void exitGame();

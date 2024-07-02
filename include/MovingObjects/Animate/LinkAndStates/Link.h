@@ -22,7 +22,7 @@ public:
 	virtual void update(const sf::Time&) override;
 	virtual void draw(sf::RenderTarget& ) override;
 
-	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
+	virtual const sf::Vector2u getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
 	virtual void move() override;
 
 	//observer list functions

@@ -27,6 +27,4 @@ private:
 	Animation m_animation;
 	sf::Vector2f m_direction;
 	float m_speed;
-	
-
 };

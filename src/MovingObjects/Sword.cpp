@@ -1,5 +1,4 @@
 #include "Sword.h"
-#include <iostream>//debugging
 
 bool Sword::m_registerit = Factory<Sword>::instance()->registerit("Sword",
     [](const sf::Vector2f& position) -> std::unique_ptr<Sword>
@@ -8,9 +7,12 @@ bool Sword::m_registerit = Factory<Sword>::instance()->registerit("Sword",
     });
 
 Sword::Sword(const sf::Texture& texture, const sf::Vector2f& position)
-    : Inanimate(texture, position, sf::Vector2f(12,12), sf::Vector2f(12/2, 12/2)), m_active(false) {
-        getSprite().setOrigin(tileSize/2, tileSize/2);
-    }
+    : Inanimate(texture, position, sf::Vector2f(12,12), sf::Vector2f(12/2, 12/2)), m_active(false)
+{
+    getSprite().setOrigin(tileSize / 2, tileSize / 2);
+    setGraphics(ANIMATIONS_POSITIONS::None, 3, true, 0.10f);//true for singleTime // weird
+    updateSprite();
+}
     
 void Sword::activate(const sf::Vector2f& position, const sf::Vector2f& direction){
     m_active = true;

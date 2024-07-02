@@ -9,8 +9,6 @@ bool BowItem::m_registerit = Factory<StaticObjects>::instance()->registerit("Bow
 BowItem::BowItem(const sf::Texture& texture, const sf::Vector2f& position)
 	: Pickable(texture, position, sf::Vector2f(tileSize * 0.8f / 2.f, tileSize * 0.8f), sf::Vector2f(0, 0))
 {
-
-    getSprite().setTextureRect(sf::IntRect(291,1, tileSize/2, tileSize));
+    getSprite().setTextureRect(sf::IntRect(SPRITE_POSITIONS::BowItem, { tileSize / 2, tileSize }));
 	getSprite().setScale(0.8f, 0.8f);
-    
 }

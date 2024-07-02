@@ -1,4 +1,3 @@
-#include <iostream>
 #include "LinkStandingState.h"
 
 std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input, bool shielding, bool pushing)
@@ -14,10 +13,6 @@ std::unique_ptr<LinkState> LinkStandingState::handleInput(Input input, bool shie
         if(!shielding && ! pushing){
             return std::make_unique<LinkMoveState>(input);
         }
-        // else if (pushing && !shielding)
-		// {
-		// 	return std::make_unique<LinkPushState>(input);
-		// }
         else {
             return std::make_unique<LinkShieldMovingState>(input);
         }

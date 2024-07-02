@@ -8,8 +8,8 @@ public:
 
     void activate(const sf::Vector2f&, const sf::Vector2f& direction);
     void deActivate();
-    bool getActive()const;
-    void setActive(bool active);
+    bool getActive() const;
+    void setActive(bool);
     bool getCollided();
     sf::Vector2f getCollisionDirection() const;
 	sf::Vector2f getLinkDirection() const;

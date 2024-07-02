@@ -52,7 +52,7 @@ private:
 	std::vector<sf::Vector2f> m_potsPositions;
 	int m_level;
 
-	// for exeptions
+	// for exceptions
 	bool m_isGameLoad = false;
 	bool m_isLoadFail = false;
 };

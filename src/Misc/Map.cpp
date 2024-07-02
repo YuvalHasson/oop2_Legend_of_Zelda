@@ -27,6 +27,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(15, "KeyTile" );
 	dict.emplace(16, "Lock" );
 	dict.emplace(17, "WizardBoss" );
+	dict.emplace(18, "Zelda" );
 
 	dict.emplace(50, "Door");
 	dict.emplace(51, "Door");
@@ -34,10 +35,9 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(53, "Door");
 	dict.emplace(54, "Door");
 	dict.emplace(55, "Door");
-	dict.emplace(56, "Door"); 
+	dict.emplace(56, "Door");
 	dict.emplace(57, "Door");
 	dict.emplace(58, "Door"); // fin Dungeon entrance
-	dict.emplace(59, "Door");// not in use
 
 	dict.emplace(100, "Sign");
 	dict.emplace(101, "Sign");
@@ -155,7 +155,6 @@ void Map::initVector(Cell cell)
 				{
 					p->setLevelToDoor(Level::BOSS_DUNGEON);
 					p->setLinkOutPosition({ 40, 150 });
-					// p->setVictoryDoor(true); // remember to change
 					m_doors.emplace_back(std::move(p));
 				}
 			}
@@ -172,7 +171,7 @@ void Map::initVector(Cell cell)
 				}
 				if (cell.value == 101)
 				{
-					p->setText("Sharp  suprise  is  at  the  end  of  the  Dungeon");
+					p->setText("Sharp  surprise  is  at  the  end  of  the  Dungeon");
 					m_staticObjects.emplace_back(std::move(p));
 				}
 				if (cell.value == 102)
@@ -182,6 +181,14 @@ void Map::initVector(Cell cell)
 				}
 			}
 		}
+		if (it->second == "Zelda")
+		{
+			if (auto p = Factory<Zelda>::instance()->create(it->second, { static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row }))
+			{
+				m_zelda = std::move(p);
+			}
+		}
+
 		if (auto p = Factory<StaticObjects>::instance()->create(it->second, {static_cast<float>(tileSize) * cell.col, static_cast<float>(tileSize) * cell.row}))
 		{
 			m_staticObjectsRects.emplace_back(p->getHitBox().GetRect());
@@ -201,7 +208,6 @@ void Map::initVector(Cell cell)
 
 std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects(Link* link)
 {
-	//tmp create
 	for (const auto& enemy : m_enemyObjects)
 	{
 		if (const auto& p = dynamic_cast<PigWarrior*>(enemy.get()))
@@ -246,18 +252,7 @@ std::vector<std::unique_ptr<StaticObjects>>& Map::getStaticObjects(Link* link)
 			}
 		}
 	}
-	//put in the map.cvs
-	//if(auto p = Factory<BowItem>::instance()->create("BowItem", {25,25})){
-	//	m_staticObjects.emplace_back(std::move(p));
-	//}
 
-	//if(auto p = Factory<SwordItem>::instance()->create("SwordItem", {25,45})){
-	//	m_staticObjects.emplace_back(std::move(p));
-	//}
-
-	if (auto p = Factory<Heart>::instance()->create("Heart", { 25,65 })) {
-		m_staticObjects.emplace_back(std::move(p));
-	}
 	return m_staticObjects;
 }
 
@@ -266,6 +261,12 @@ std::vector<std::unique_ptr<Door>>& Map::getDoors()
 	return m_doors;
 }
 
-std::vector<sf::FloatRect> Map::getStaticObjectsRects()const{
+std::unique_ptr<Zelda>& Map::getZelda()
+{
+	return m_zelda;
+}
+
+std::vector<sf::FloatRect> Map::getStaticObjectsRects() const
+{
 	return m_staticObjectsRects;
 }

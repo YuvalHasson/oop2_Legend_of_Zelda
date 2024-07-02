@@ -7,7 +7,7 @@
 class Stab : public AttackStrategy
 {
 public:
-	virtual void attack(sf::Time&, sf::Clock&, std::unique_ptr<Weapon>&, Enemy& enemy) override;
+	virtual void attack(sf::Time&, sf::Clock&, std::unique_ptr<Weapon>&, Enemy&) override;
 
 private:
 	sf::Clock m_attackTimer;

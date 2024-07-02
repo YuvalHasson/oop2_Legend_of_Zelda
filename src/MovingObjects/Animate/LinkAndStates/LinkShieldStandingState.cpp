@@ -1,4 +1,3 @@
-#include <iostream>
 #include "LinkShieldStandingState.h"
 
 std::unique_ptr<LinkState> LinkShieldStandingState::handleInput(Input input, bool shielding, bool pushing)

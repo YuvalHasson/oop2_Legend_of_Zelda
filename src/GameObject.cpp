@@ -37,6 +37,7 @@ void GameObject::setPosition(const sf::Vector2f& pos)
 {
     m_previousPosition = m_position;
     m_position = pos;
+    m_sprite.setPosition(pos);
     m_hitBox.setPosition(pos);
 }
 
@@ -53,6 +54,11 @@ sf::Vector2f GameObject::getPosition() const
 bool GameObject::checkCollision(const GameObject& other) const
 {
     return m_hitBox.checkCollision(other.m_hitBox);
+}
+
+bool GameObject::isInView(const sf::FloatRect& viewBound) const
+{
+    return m_sprite.getGlobalBounds().intersects(viewBound);
 }
 
 HitBox GameObject::getHitBox() const

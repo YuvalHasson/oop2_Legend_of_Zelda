@@ -1,12 +1,11 @@
 #include "SmartMovement.h"
-#include <iostream>
 
 void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock)
 {
-    initializeBFS(enemy.getSprite().getPosition());
+    initializeBFS(enemy.getPosition());
     if (!m_bfsQueue.empty())
     {
-        sf::Vector2f currentPosition = enemy.getSprite().getPosition();
+        sf::Vector2f currentPosition = enemy.getPosition();
         sf::Vector2f nextPosition = m_bfsQueue.front();
         m_bfsQueue.pop();
 
@@ -83,7 +82,7 @@ void SmartMovement::addNeighborsToQueue(const sf::Vector2f& position)
 
 void SmartMovement::moveTowards(Enemy& enemy, const sf::Vector2f& targetPosition)
 {
-    sf::Vector2f direction = targetPosition - enemy.getSprite().getPosition();
+    sf::Vector2f direction = targetPosition - enemy.getPosition();
 
     // Normalize direction
     float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
@@ -95,7 +94,7 @@ void SmartMovement::moveTowards(Enemy& enemy, const sf::Vector2f& targetPosition
     // Check if the PigWarrior is already close to the target position
     if (length <= 1.0f) {
         // If the PigWarrior is close enough, directly set its position to the target position
-        enemy.getSprite().setPosition(targetPosition);
+        enemy.setPosition(targetPosition);
         return;
     }
 

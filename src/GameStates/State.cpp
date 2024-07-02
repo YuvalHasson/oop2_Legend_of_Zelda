@@ -5,7 +5,7 @@ GAME_STATE State::m_gameState = GAME_STATE::MAIN_MENU;
 State::State(sf::RenderWindow* window)
 	: m_window(window) {}
 
-void State::updateState(GAME_STATE gameState)
+void State::updateState(const GAME_STATE& gameState)
 {
 	m_gameState = gameState;
 }

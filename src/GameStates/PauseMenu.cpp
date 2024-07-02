@@ -24,7 +24,7 @@ PauseMenu::PauseMenu(sf::RenderWindow* window, std::vector<Board>&& board, sf::V
 
 void PauseMenu::update(const sf::Time&)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->overButton(*getWindow());
 	}
@@ -46,7 +46,7 @@ void PauseMenu::render(sf::RenderTarget* target)
 	target->setView(target->getDefaultView());
 	target->draw(m_pauseBackground);
 	target->draw(m_controls);
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->draw(*target);
 	}
@@ -79,7 +79,7 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 
 void PauseMenu::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		if (option.second->isButtonPressed(window, event.mouseButton))
 		{

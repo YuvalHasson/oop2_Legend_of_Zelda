@@ -4,12 +4,12 @@
 
 class HitBox{
 public:
-    HitBox(const sf::Vector2f& position, const sf::Vector2f& size, const sf::Vector2f& originOffset);
+    HitBox(const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&);
 
     void setPosition(const sf::Vector2f&);
-    sf::Vector2f getPosition()const;
+    sf::Vector2f getPosition() const;
 
-    bool checkCollision(const HitBox&)const;
+    bool checkCollision(const HitBox&) const;
     sf::FloatRect GetRect();
     void setBox(const sf::Vector2f&, const sf::Vector2f&);
 

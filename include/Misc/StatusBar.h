@@ -18,7 +18,7 @@ public:
 	void update(const int&, Weapons);
 
 private:
-	void drawHearts(sf::RenderTarget&, const sf::Vector2f&, const int&);
+	void drawHearts(sf::RenderTarget&, const sf::Vector2i&, const int&);
 	void drawEquipped(sf::RenderTarget&, const int&);
 	int m_hp;
 	Weapons m_type;
@@ -26,7 +26,7 @@ private:
 	sf::RectangleShape m_statusBar;
 
 	sf::Sprite m_hpSprite;
-	sf::Sprite m_equipped; //for what weapond is now on
+	sf::Sprite m_equipped; //for what weapon is now on
 	sf::Sprite m_weapon; //for the sprite to draw
 	sf::Sprite m_shield;
 };
