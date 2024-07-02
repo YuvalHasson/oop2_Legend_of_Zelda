@@ -59,6 +59,8 @@ namespace
 
 	void SwordWall(GameObject& sword, GameObject& wall) {}
 
+	void SwordLock(GameObject& sword, GameObject& wall) {}
+
 	void ProjectileOctorok(GameObject& Projectile, GameObject& octorok) {}
 
 	void LinkSword(GameObject& link, GameObject& sword)	{}
@@ -76,7 +78,6 @@ namespace
 	void PigWarriorEnemySword(GameObject& pigWarrior, GameObject& enemySword) {}
 
 	void EnemySwordWall(GameObject& enemySword, GameObject& wall) {}
-
 
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
@@ -191,6 +192,11 @@ namespace
 		SwordWall(sword, wall);
 	}
 
+	void LockSword(GameObject& lock, GameObject& sword)
+	{
+		SwordLock(sword, lock);
+	}
+
 	void ProjectileWall(GameObject& project, GameObject& wall)
 	{
 		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&project);
@@ -277,6 +283,20 @@ namespace
 	void WallBoulder(GameObject& wall, GameObject& boulder)
 	{
 		BoulderWall(boulder, wall);
+	}
+
+	void BoulderLock(GameObject& boulder, GameObject& lock)
+	{
+		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
+		if (boulderPtr)
+		{
+			boulderPtr->undoMove();
+		}
+	}
+
+	void LockBoulder(GameObject& lock, GameObject& boulder)
+	{
+		BoulderLock(boulder, lock);
 	}
 
 	void OctorockBoulder(GameObject& octorok, GameObject& boulder)
@@ -539,6 +559,7 @@ namespace
 		if(bowItemPtr && linkPtr){
 			linkPtr->takeBow();
 			bowItemPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::LinkGetSword);
 		}
 	}
 
@@ -914,7 +935,58 @@ namespace
 				seaUrchinPtr->undoMove();
 			}
 		}
+	}
 
+	void BoulderKeyTile(GameObject& boulder, GameObject& keyTile)
+	{
+		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
+		KeyTile* keyPtr = dynamic_cast<KeyTile*>(&keyTile);
+		if (boulderPtr && keyPtr)
+		{
+			keyPtr->updateIsCovered();
+		}
+	}
+
+	void KeyTileBoulder(GameObject& keyTile, GameObject& boulder)
+	{
+		BoulderKeyTile(boulder, keyTile);
+	}
+
+	void LinkKeyTile(GameObject& link, GameObject& keyTile) {}
+
+	void KeyTileLink(GameObject& keyTile, GameObject& link)
+	{
+		LinkKeyTile(link, keyTile);
+	}
+
+	void LinkLock(GameObject& link, GameObject& lock)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			linkPtr->undoMove();
+			linkPtr->setPush(true);
+			linkPtr->resetTimeSinceLastPushed();
+		}
+	}
+
+	void LockLink(GameObject& link, GameObject& lock)
+	{
+		LinkLock(link, lock);
+	}
+
+	void LinkArrowLock(GameObject& arrow, GameObject& lock)
+	{
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		if (arrowPtr)
+		{
+			arrowPtr->destroy();
+		}
+	}
+
+	void LockLinkArrow(GameObject& lock, GameObject& arrow)
+	{
+		LinkArrowLock(arrow, lock);
 	}
 
 	//...
@@ -946,13 +1018,14 @@ namespace
 		phm[Key(typeid(Link),		typeid(Sign))] =			&LinkSign;
 		phm[Key(typeid(Link),		typeid(Hole))] =			&LinkHole;
 		phm[Key(typeid(Link),		typeid(Shrub))] =			&LinkShrub;
+		phm[Key(typeid(Link),		typeid(KeyTile))] =			&LinkKeyTile;
+		phm[Key(typeid(Link),		typeid(Lock))] =			&LinkLock;
 		phm[Key(typeid(Wall),		typeid(Link))] =			&WallLink;
 		phm[Key(typeid(Wall),		typeid(Octorok))] =			&WallOctorok;
 		phm[Key(typeid(Wall),		typeid(Projectile))] =		&WallProjectile;
 		phm[Key(typeid(Wall),		typeid(Sword))] =			&WallSword;
 		phm[Key(typeid(Wall),		typeid(Boulder))] =			&WallBoulder;
 		phm[Key(typeid(Wall),		typeid(PigWarrior))] =		&WallPigWarrior;
-		phm[Key(typeid(Wall),		typeid(LinkArrow))] =		&WallLinkArrow;
 		phm[Key(typeid(Wall),		typeid(LinkArrow))] =		&WallLinkArrow;
 		phm[Key(typeid(Wall),		typeid(EnemySword))] =		&WallEnemySword;
 		phm[Key(typeid(Wall),		typeid(SeaUrchin))] =		&WallSeaUrchin; 
@@ -994,6 +1067,7 @@ namespace
 		phm[Key(typeid(Sword),		typeid(Sign))] =			&SwordSign;
 		phm[Key(typeid(Sword),		typeid(WaterTile))] =		&SwordWater;
 		phm[Key(typeid(Sword),		typeid(EnemySword))] =		&SwordEnemySword;
+		phm[Key(typeid(Sword),		typeid(Lock))] =			&SwordLock;
 		phm[Key(typeid(Shield),		typeid(Octorok))] =			&ShieldOctorok;
 		phm[Key(typeid(Shield),		typeid(Projectile))] =		&ShieldProjectile;
 		phm[Key(typeid(Shield),		typeid(PigWarrior))] =		&ShieldPigWarrior;
@@ -1017,6 +1091,8 @@ namespace
 		phm[Key(typeid(Boulder),	typeid(Boulder))] =			&BoulderBoulder;
 		phm[Key(typeid(Boulder),	typeid(Pot))] =				&BoulderPot;
 		phm[Key(typeid(Boulder),	typeid(Shield))] =			&BoulderShield;
+		phm[Key(typeid(Boulder),	typeid(KeyTile))] =			&BoulderKeyTile;
+		phm[Key(typeid(Boulder),	typeid(Lock))] =			&BoulderLock;
 		phm[Key(typeid(PigWarrior), typeid(Link))] =			&PigWarriorLink;
 		phm[Key(typeid(PigWarrior), typeid(Wall))] =			&PigWarriorWall;
 		phm[Key(typeid(PigWarrior), typeid(WaterTile))] =		&PigWarriorWater;
@@ -1032,6 +1108,7 @@ namespace
 		phm[Key(typeid(LinkArrow),	typeid(PigWarrior))] =		&LinkArrowPigWarrior;
 		phm[Key(typeid(LinkArrow),	typeid(Link))] =			&LinkArrowLink;
 		phm[Key(typeid(LinkArrow),	typeid(Wall))] =			&LinkArrowWall;
+		phm[Key(typeid(LinkArrow),	typeid(Lock))] =			&LinkArrowLock;
 		phm[Key(typeid(EnemySword), typeid(Link))] =			&EnemySwordLink;
 		phm[Key(typeid(EnemySword), typeid(Wall))] =			&EnemySwordWall;
 		phm[Key(typeid(EnemySword), typeid(PigWarrior))] =		&EnemySwordPigWarrior;
@@ -1060,6 +1137,14 @@ namespace
 		phm[Key(typeid(Door),		typeid(Link))] =			&DoorLink;
 		phm[Key(typeid(Heart),		typeid(Link))] =			&HeartLink;
 		phm[Key(typeid(Hole),		typeid(Link))] =			&HoleLink;
+		phm[Key(typeid(KeyTile),	typeid(Link))] =			&KeyTileLink;
+		phm[Key(typeid(KeyTile),	typeid(Boulder))] =			&KeyTileBoulder;
+		phm[Key(typeid(Lock),		typeid(Link))] =			&LockLink;
+		phm[Key(typeid(Lock),		typeid(LinkArrow))] =		&LockLinkArrow;
+		phm[Key(typeid(Lock),		typeid(Sword))] =			&LockSword;
+		phm[Key(typeid(Lock),		typeid(Boulder))] =			&LockBoulder;
+
+
 
 
 		//...

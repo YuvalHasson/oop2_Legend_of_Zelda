@@ -27,6 +27,8 @@
 #include "Sign.h"
 #include "Hole.h"
 #include "Shrub.h"
+#include "KeyTile.h"
+#include "Lock.h"
 
 
 struct UnknownCollision : public std::runtime_error

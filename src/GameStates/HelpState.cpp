@@ -7,7 +7,6 @@ HelpState::HelpState(sf::RenderWindow* window)
 	m_helpScreen.setTexture(Resources::getResource().getTexture(TEXTURE::Help));
 
 	add("Menu", std::make_unique<BackToMenuButton>(this));
-	std::cout << "hereeeeeeeeeeeeee\n";
 }
 
 void HelpState::update(const sf::Time& deltaTime)

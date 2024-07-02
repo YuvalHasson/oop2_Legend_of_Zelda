@@ -298,7 +298,6 @@ void Link::NotifyObserversLinkOut() const
 {
     for (const auto& observer : m_observers) {
         observer->removeLink();
-        std::cout << "cut out\n";
     }
 }
 

@@ -11,7 +11,8 @@ private:
 		"LinkandSword.png", "Mapobject.png", "Enemies.png",
 		"Zelda_status_bar.png", "Zelda_Game_Over.png", "Dungeon.png",
 		"Weapons-items-hud.png", "Dungeon01.png",
-		"Home.png", "Help.png", "Controls.png", "NPCs.png"
+		"Home.png", "Help.png", "Controls.png", "NPCs.png", 
+		"Dungeon03.png"
 	};
 	sf::Texture m_texture[OBJ_AMOUNT];
 	sf::Image m_icon;

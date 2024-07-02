@@ -90,9 +90,9 @@ void LoadGameState::updateLevel()
 		{
 			p->registerAsLinkObserver(m_link.get());
 		}
-
 	}
 	m_inanimateObjects = std::move(m_boardLevels[m_level].editInanimateObjects());
+	m_staticObjects = std::move(m_boardLevels[m_level].editStaticObjects());
 
 	int index = 0;
 	for (auto& inanimateObject : m_inanimateObjects)
@@ -101,12 +101,45 @@ void LoadGameState::updateLevel()
 		{
 			inanimateObject->getSprite().setPosition(m_boulderPositions[index]);
 			inanimateObject->setPosition(m_boulderPositions[index]);
+			index++;
 		}
-		index++;
 	}
 	
+	int indexInpots = 0;
+	int indexInShrub = 0;
+	for (auto& destructibleObject : m_staticObjects)
+	{
+		if (const auto& p = dynamic_cast<Pot*>(destructibleObject.get()))
+		{
+			if (indexInpots >= m_potsPositions.size())
+			{
+				p->destroy();
+			}
+			else
+			{
+				destructibleObject->getSprite().setPosition(m_potsPositions[indexInpots]);
+				destructibleObject->setPosition(m_potsPositions[indexInpots]);
+				indexInpots++;
+			}
+		}
+		else if (const auto& p = dynamic_cast<Shrub*>(destructibleObject.get()))
+		{
+			if (indexInShrub >= m_shrubPositions.size())
+			{
+				p->destroy();
+			}
+			else
+			{
+				destructibleObject->getSprite().setPosition(m_shrubPositions[indexInShrub]);
+				destructibleObject->setPosition(m_shrubPositions[indexInShrub]);
+				indexInShrub++;
+			}
+		}
+
+	}
+
 	m_boardLevels[m_level].setLink(std::move(m_link));
-	m_boardLevels[m_level].setLoadedMap(m_enemyObjects, m_inanimateObjects);
+	m_boardLevels[m_level].setLoadedMap(m_enemyObjects, m_inanimateObjects, m_staticObjects);
 }
 
 void LoadGameState::setMap()
@@ -140,6 +173,12 @@ void LoadGameState::setMap()
 	dungeon2.setMap();
 	m_boardLevels.emplace_back(std::move(dungeon2));
 
+	Board dungeon4;
+	dungeon4.setLink(std::move(m_boardLevels.back().extractLink()));
+	dungeon4.initializeLevel(Level::THIERD_DUNGEON);
+	dungeon4.setMap();
+	m_boardLevels.emplace_back(std::move(dungeon4));
+
 	m_link = std::move(m_boardLevels.back().extractLink());
 }
 
@@ -160,39 +199,31 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 				//---read link information---\\
 				// Link position
 				saveFile >> m_linkPosition.x >> m_linkPosition.y;
-				std::cout << m_linkPosition.x << " " << m_linkPosition.y << std::endl;
 				// life
 				saveFile >> m_linkLife;
-				std::cout << m_linkLife << std::endl;
 
 				// Link weapons
 				saveFile >> numOfWeapons;
-				std::cout << numOfWeapons << std::endl;
 				for (int index = 0; index < numOfWeapons; index++)
 				{
 					saveFile >> m_weaponIds.emplace_back();
-					std::cout << m_weaponIds[index] << " ";
 				}
-				std::cout << "\n" << "all good with link data\n";
 
 				// score - currently not in use
 
 				//---load level---\\
 				// curr level
 				saveFile >> m_level;
-				std::cout << "m_level " << m_level << std::endl;
 				// enemies positions
 				saveFile >> numOfEnemies;
-				std::cout << "numOfEnemies " << numOfEnemies << std::endl;
 				for (int index = 0; index < numOfEnemies; index++)
 				{
 					int id, x, y;
 					saveFile >> id >> x >> y;
 					m_enemiesPositions.emplace_back(sf::Vector2f(x, y), EnemyType(id));
-					std::cout << m_enemiesPositions[index].second << " " << m_enemiesPositions[index].first.x << " " << m_enemiesPositions[index].first.y << "\n";
 				}
-				int x = 0;
-				int y = 0;
+				// read boulders positions
+				int x = 0, y = 0;
 				while (x != -1)
 				{
 					saveFile >> x;
@@ -203,8 +234,30 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 					saveFile >> y;
 					m_boulderPositions.emplace_back(sf::Vector2f(x, y));
 				} 
-				std::cout << "num of boulders: " << m_boulderPositions.size();
-				std::cout << "\n" << "all good with level data\n";
+				// read static objects positions
+				x = 0, y = 0;
+				while (x != -2)
+				{
+					saveFile >> x;
+					if (x == -2)
+					{
+						break;
+					}
+					saveFile >> y;
+					m_potsPositions.emplace_back(sf::Vector2f(x, y));
+				}
+
+				x = 0, y = 0;
+				while (x != -3)
+				{
+					saveFile >> x;
+					if (x == -3)
+					{
+						break;
+					}
+					saveFile >> y;
+					m_shrubPositions.emplace_back(sf::Vector2f(x, y));
+				}
 
 				//handaling bad time insertions
 				//if (m_loadGameTime < 0 || m_loadGameTime >(m_amntStickGenerated * 1.25))
@@ -281,6 +334,5 @@ void LoadGameState::errorFileMsg(sf::RenderWindow* window, std::string msg)
 	window->display();
 
 	sf::sleep(sf::seconds(1));
-	std::cout << "byeeee\n";
 	updateState(GAME_STATE::MAIN_MENU);
 }

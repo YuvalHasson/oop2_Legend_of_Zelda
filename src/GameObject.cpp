@@ -20,7 +20,7 @@ void GameObject::draw(sf::RenderTarget& target)
     rect.setOutlineColor(sf::Color::Blue);
     rect.setOutlineThickness(1);
     target.draw(m_sprite);
-    // target.draw(rect);
+    //target.draw(rect);
 }
 
 void GameObject::destroy()

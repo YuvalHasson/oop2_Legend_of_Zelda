@@ -32,6 +32,7 @@ private:
 	sf::View m_view;
 	std::vector<std::unique_ptr<Enemy>> m_enemyObjects;
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
+	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 
 	// about Link
 	std::unique_ptr<Link> m_link;
@@ -40,9 +41,11 @@ private:
 	std::vector<int> m_weaponIds;
 
 	// about the level
-	int m_level;
 	std::vector<std::pair<sf::Vector2f, EnemyType>> m_enemiesPositions;
 	std::vector<sf::Vector2f> m_boulderPositions;
+	std::vector<sf::Vector2f> m_shrubPositions;
+	std::vector<sf::Vector2f> m_potsPositions;
+	int m_level;
 
 	// for exeptions
 	bool m_isGameLoad = false;

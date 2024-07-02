@@ -47,7 +47,6 @@ void PigWarrior::update(const sf::Time& deltaTime)
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
     {
-        std::cout << "pig patrol\n";
         setMoveStrategy(std::make_unique<PatrolMovement>());
         int randomMovment = rand() % 4;
 
