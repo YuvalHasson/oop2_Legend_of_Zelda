@@ -4,7 +4,6 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <iostream> // debug
 
 #include <SFML/Graphics.hpp>
 

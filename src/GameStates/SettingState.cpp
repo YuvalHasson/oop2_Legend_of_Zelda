@@ -11,7 +11,7 @@ SettingState::SettingState(sf::RenderWindow* window)
 
 void SettingState::update(const sf::Time& deltaTime)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->overButton(*getWindow());
 	}
@@ -25,7 +25,7 @@ void SettingState::render(sf::RenderTarget* target)
 		target = getWindow();
 	}
 	target->draw(m_menuBackground);
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->draw(*target);
 	}
@@ -43,7 +43,7 @@ std::unique_ptr<State> SettingState::handleInput(const GAME_STATE& gameState)
 
 void SettingState::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		if (option.second->isButtonPressed(window, event.mouseButton))
 		{

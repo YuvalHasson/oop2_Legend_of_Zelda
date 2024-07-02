@@ -115,7 +115,6 @@ namespace SOUNDS
 
 namespace ANIMATIONS_POSITIONS
 {
-
 	const sf::Vector2u LinkUp(35,42);
 	const sf::Vector2u LinkDown(1,42);
 	const sf::Vector2u LinkLeft(35,11);
@@ -155,6 +154,20 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u EnemySwordLeft(124, 262);
 	const sf::Vector2u EnemySwordRight(141, 262);
 
+	const sf::Vector2u SeaUrchin(1, 301);
+
+	const sf::Vector2u None(160, 160);
+}
+
+namespace SPRITE_POSITIONS
+{
+	const sf::Vector2i Shrub(103, 173);
+	const sf::Vector2i Pot(156, 208);
+	const sf::Vector2i SwordItem(166, 1);
+	const sf::Vector2i BowItem(291, 1);
+	const sf::Vector2i HeartItem(166, 31);
+	const sf::Vector2u Projectile(265, 143);
+	const sf::Vector2u Boulder(190, 170);
 }
 
 //might be useless

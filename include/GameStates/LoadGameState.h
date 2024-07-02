@@ -48,7 +48,7 @@ private:
 	std::vector<std::pair<sf::Vector2f, EnemyType>> m_enemiesPositions;
 	std::vector<sf::Vector2f> m_boulderPositions;
 
-	// for exeptions
+	// for exceptions
 	bool m_isGameLoad = false;
 	bool m_isLoadFail = false;
 };

@@ -1,5 +1,4 @@
 #include "Shield.h"
-#include <iostream>
 
 bool Shield::m_registerit = Factory<Shield>::instance()->registerit("Shield",
     [](const sf::Vector2f& position) -> std::unique_ptr<Shield>
@@ -8,18 +7,18 @@ bool Shield::m_registerit = Factory<Shield>::instance()->registerit("Shield",
     });
 
 Shield::Shield(const sf::Texture& texture, const sf::Vector2f& position)
-    :InDestructible(texture, position, sf::Vector2f(9,2), sf::Vector2f(9/2, 2/2)), m_collided(false){
-    
+    :InDestructible(texture, position, sf::Vector2f(9,2), sf::Vector2f(9/2, 2/2)), m_collided(false)
+{
     getSprite().setColor(sf::Color::Transparent);
-    getSprite().setScale(0.8f, 0.8f);
 }
 
 
-void Shield::activate(const sf::Vector2f& linkPosition, const sf::Vector2i& linkDirection){
-    m_active = true;
+void Shield::activate(const sf::Vector2f& linkPosition, const sf::Vector2i& linkDirection)
+{
 	m_linkDirection = linkDirection;
-    float width = getHitBox().GetRect().width;
-    float height = getHitBox().GetRect().height;
+    m_active        = true;
+    float width     = getHitBox().GetRect().width;
+    float height    = getHitBox().GetRect().height;
 
     sf::Vector2f position;
     sf::Vector2f size;
@@ -55,12 +54,11 @@ void Shield::activate(const sf::Vector2f& linkPosition, const sf::Vector2i& link
             size.x = 9;
             size.y = 2;
             position.x = linkPosition.x;
-            position.y = linkPosition.y+ 9;
+            position.y = linkPosition.y + 9;
         }
     }
     setHitBox(size, offset);
     setPosition(position);
-
 }
 
 void Shield::deActivate(){
@@ -96,6 +94,6 @@ sf::Vector2i Shield::getLinkDirection() const
 }
 
 void Shield::pushBack(const sf::Vector2i& direction){
-    m_collided = true;
-    m_collisionDirection = direction;
+    m_collided              = true;
+    m_collisionDirection    = direction;
 }

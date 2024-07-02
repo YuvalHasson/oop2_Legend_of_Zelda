@@ -1,9 +1,4 @@
 #include "Board.h"
-#include "Sword.h"
-#include "Shield.h"
-#include "Boulder.h"
-
-#include <iostream> // debug
 
 std::vector<sf::FloatRect> Board::m_staticRects;
 
@@ -40,7 +35,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 
 	for (const auto& gameObject : m_enemiesObjects)
 	{
-		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		if (gameObject->isInView(viewBound))
 		{
 			gameObject->draw(target);
 		}
@@ -48,7 +43,7 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 
 	for (const auto& gameObject : m_inanimateObjects)
 	{
-		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		if (gameObject->isInView(viewBound))
 		{
 			gameObject->draw(target);
 		}
@@ -56,21 +51,10 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 
 	for (const auto& gameObject : m_staticObjects)
 	{
-		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		if (gameObject->isInView(viewBound))
 		{
 			gameObject->draw(target);
 		}
-	}
-
-	sf::RectangleShape rect;
-	rect.setSize(sf::Vector2f(16,16));
-	rect.setFillColor(sf::Color::Transparent);
-	rect.setOutlineColor(sf::Color::Blue);
-	rect.setOutlineThickness(1);
-	for (const auto& gameObject : m_staticRects)
-	{
-		rect.setPosition(gameObject.left, gameObject.top);
-		//target.draw(rect);
 	}
 
 	if (m_zelda)
@@ -102,11 +86,6 @@ void Board::makeLink()
 	if (auto p = Factory<Link>::instance()->create("Link", { 86.f, 35.f }))
 	{
 		m_link = std::move(p);
-	}
-
-	if (auto p = Factory<Zelda>::instance()->create("Zelda", { 120.f, 35.f }))
-	{
-		m_zelda = std::move(p);
 	}
 }
 
@@ -272,7 +251,7 @@ void Board::setMap()
 	m_staticObjects		= std::move(m_map.getStaticObjects(m_link.get()));
 	m_inanimateObjects	= std::move(m_map.getInanimateObjects());
 	m_doors				= std::move(m_map.getDoors());
-
+	m_zelda				= std::move(m_map.getZelda());
 }
 
 void Board::setLoadedMap(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Inanimate>>& inanimateObjects)
@@ -321,11 +300,26 @@ void Board::initializeLevel(const Level& level)
 
 void Board::resetEnemiesAndInanimated()
 {
-	m_enemiesObjects = std::move(m_map.getEnemyObjects(m_link.get()));
-	m_inanimateObjects = std::move(m_map.getInanimateObjects());
+	m_enemiesObjects	= std::move(m_map.getEnemyObjects(m_link.get()));
+	m_inanimateObjects	= std::move(m_map.getInanimateObjects());
 }
 
-std::vector<std::pair<sf::Vector2f, EnemyType>> Board::getEnemiesPositions() const
+const Link& Board::getLink() const
+{
+	return *m_link;
+}
+
+void Board::setLinkPosition(const sf::Vector2f& position)
+{
+	m_link->setPosition(position);
+}
+
+const std::vector<std::unique_ptr<Door>>& Board::getDoors() const
+{
+	return m_doors;
+}
+
+const std::vector<std::pair<sf::Vector2f, EnemyType>> Board::getEnemiesPositions() const
 {
 	return m_enemiesPositions;
 }
@@ -335,14 +329,24 @@ const std::vector<std::unique_ptr<Inanimate>>& Board::getInanimateObjects() cons
 	return m_inanimateObjects;
 }
 
+const std::vector<sf::FloatRect> Board::getStaticRectsOfCurLevel() const
+{
+	return m_staticRectsOfCurLevel;
+}
+
 std::vector<std::unique_ptr<Inanimate>>& Board::editInanimateObjects()
 {
 	return m_inanimateObjects;
 }
 
-std::vector<sf::FloatRect> Board::getStaticRectsOfCurLevel() const
+std::unique_ptr<Link> Board::extractLink()
 {
-	return m_staticRectsOfCurLevel;
+	return std::move(m_link); // Transfer ownership;
+}
+
+void Board::setLink(std::unique_ptr<Link> link)
+{
+	m_link = std::move(link); // Transfer ownership
 }
 
 bool Board::isAttacking() const
@@ -363,6 +367,12 @@ const sf::Sprite& Board::getBackground() const
 	return m_background;
 }
 
-std::vector<sf::FloatRect> Board::getStaticRects(){
+std::vector<sf::FloatRect> Board::getStaticRects()
+{
 	return m_staticRects;
+}
+
+bool Board::colide(GameObject& a, GameObject& b)
+{
+	return a.checkCollision(b);
 }

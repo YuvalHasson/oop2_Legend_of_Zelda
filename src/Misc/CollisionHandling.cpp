@@ -1,8 +1,5 @@
 #include "CollisionHandling.h"
 
-#include <iostream> //debugging
-
-
 namespace
 {
 	void ProjectileProjectile(GameObject&, GameObject&) {}
@@ -86,6 +83,8 @@ namespace
 	void LinkArrowShrub(GameObject&, GameObject&) {}
 
 	void LinkArrowWater(GameObject&, GameObject&) {}
+
+	void ProjectileEnemySword(GameObject&, GameObject&) {}
 
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
@@ -519,7 +518,6 @@ namespace
 			if (linkPtr)
 			{
 				linkPtr->setPosition(pos);
-				linkPtr->getSprite().setPosition(pos);
 			}
 		}
 	}
@@ -980,6 +978,19 @@ namespace
 		}
 	}
 
+	void SwordProjectile(GameObject& swrod, GameObject& projectile)
+	{
+		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&projectile);
+		Sword* swordPtr = dynamic_cast<Sword*>(&swrod);
+		if (ProjectilePtr && swordPtr)
+		{
+			if (swordPtr->getActive()) {
+				ProjectilePtr->destroy();
+			}
+		}
+	
+	}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -1058,6 +1069,7 @@ namespace
 		phm[Key(typeid(Sword),		typeid(Sign))] =			&SwordSign;
 		phm[Key(typeid(Sword),		typeid(WaterTile))] =		&SwordWater;
 		phm[Key(typeid(Sword),		typeid(EnemySword))] =		&SwordEnemySword;
+		phm[Key(typeid(Sword),		typeid(Projectile))] =		&SwordProjectile;
 		phm[Key(typeid(Shield),		typeid(Octorok))] =			&ShieldOctorok;
 		phm[Key(typeid(Shield),		typeid(Projectile))] =		&ShieldProjectile;
 		phm[Key(typeid(Shield),		typeid(PigWarrior))] =		&ShieldPigWarrior;
@@ -1074,6 +1086,7 @@ namespace
 		phm[Key(typeid(Projectile), typeid(WaterTile))] =		&ProjectileWater;
 		phm[Key(typeid(Projectile), typeid(SeaUrchin))] =		&ProjectileSeaUrchin;
 		phm[Key(typeid(Projectile), typeid(Shrub))] =			&ProjectileShrub;
+		phm[Key(typeid(Projectile), typeid(EnemySword))] =		&ProjectileEnemySword;
 		phm[Key(typeid(Boulder),	typeid(Link))] =			&BoulderLink;
 		phm[Key(typeid(Boulder),	typeid(Wall))] =			&BoulderWall;
 		phm[Key(typeid(Boulder),	typeid(Octorok))] =			&BoulderOctorok;

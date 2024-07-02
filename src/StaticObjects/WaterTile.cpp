@@ -10,5 +10,4 @@ WaterTile::WaterTile(const sf::Texture& texture, const sf::Vector2f& position)
 	: InDestructible(texture, position, sf::Vector2f(tileSize, tileSize), sf::Vector2f(0.f, 0.f))
 {
 	getSprite().setColor(sf::Color::Transparent);
-	getSprite().scale(0.7f, 0.7f);
 }

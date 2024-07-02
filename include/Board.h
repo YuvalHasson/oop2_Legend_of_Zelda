@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream> // debug
 
 #include <SFML/Graphics.hpp>
 #include "MovingObjects/MovingObjects.h"
@@ -15,7 +14,9 @@
 #include "Misc/CollisionHandling.h"
 #include "Misc/Map.h"
 #include "Misc/Factory.h"
-
+#include "Sword.h"
+#include "Shield.h"
+#include "Boulder.h"
 
 class Board
 {
@@ -36,23 +37,19 @@ public:
 	void initializeLevel(const Level&);
 	void resetEnemiesAndInanimated();
 
-	const Link& getLink() const { return *m_link; }
-	void setLinkPosition(const sf::Vector2f& pos) { m_link->setPosition(pos); }
-	const std::vector<std::unique_ptr<Door>>& getDoors() const { return m_doors; }
+	const Link& getLink() const;
+	void setLinkPosition(const sf::Vector2f&);
+	const std::vector<std::unique_ptr<Door>>& getDoors() const;
 
-	std::vector <std::pair<sf::Vector2f, EnemyType>> getEnemiesPositions() const;
+	const std::vector <std::pair<sf::Vector2f, EnemyType>> getEnemiesPositions() const;
 	const std::vector<std::unique_ptr<Inanimate>>& getInanimateObjects() const;
+	const std::vector<sf::FloatRect> getStaticRectsOfCurLevel() const;
 	std::vector<std::unique_ptr<Inanimate>>& editInanimateObjects();
-	std::vector<sf::FloatRect> getStaticRectsOfCurLevel() const;
+	
 	// Method to extract Link object
-	std::unique_ptr<Link> extractLink() {
-		return std::move(m_link); // Transfer ownership
-	}
-
+	std::unique_ptr<Link> extractLink();
 	// Method to set Link object
-	void setLink(std::unique_ptr<Link> link) {
-		m_link = std::move(link); // Transfer ownership
-	}	
+	void setLink(std::unique_ptr<Link>);
 
 	bool isAttacking() const;
 	const sf::Sprite& getBackground() const;
@@ -95,8 +92,5 @@ private:
 				fn(*begin1, *second);
 	}
 
-	bool colide(GameObject& a, GameObject& b)
-	{
-		return a.checkCollision(b);
-	}
+	bool colide(GameObject&, GameObject&);
 };

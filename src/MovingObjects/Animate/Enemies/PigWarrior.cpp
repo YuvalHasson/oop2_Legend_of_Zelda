@@ -1,7 +1,5 @@
 #include "PigWarrior.h"
 
-#include <iostream> // Debug
-
 bool PigWarrior::m_registerit = Factory<Enemy>::instance()->registerit("PigWarrior",
     [](const sf::Vector2f& position) -> std::unique_ptr<Enemy>
     {
@@ -47,7 +45,6 @@ void PigWarrior::update(const sf::Time& deltaTime)
     }
     else if (m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
     {
-        std::cout << "pig patrol\n";
         setMoveStrategy(std::make_unique<PatrolMovement>());
         int randomMovment = rand() % 4;
 

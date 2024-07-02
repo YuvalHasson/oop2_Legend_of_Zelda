@@ -7,7 +7,7 @@ bool Zelda::m_registerit = Factory<Zelda>::instance()->registerit("Zelda",
 	});
 
 Zelda::Zelda(const sf::Texture& texture, const sf::Vector2f& position)
-	:Animate(texture, position, sf::Vector2f(7.f + 1, 7.5f + 5), sf::Vector2f(tileSize / 4.5f, tileSize / 9.f)),
+	:Animate(texture, position, sf::Vector2f(7.f + 4, 7.5f), sf::Vector2f(tileSize / 4.5f, tileSize / 9.f)),
 	m_hitBox(position, sf::Vector2f(tileSize / 4.5f, tileSize / 9.f), sf::Vector2f(0, 0)), m_active(false)
 {
 	m_text.setFont(*Resources::getResource().getFont());
@@ -17,7 +17,7 @@ Zelda::Zelda(const sf::Texture& texture, const sf::Vector2f& position)
 	m_text.setFillColor(sf::Color::White);
 	m_text.setString("Go  kill  the  wizard");
 
-	getSprite().setOrigin(tileSize / 2, tileSize / 2);
+	getSprite().setOrigin(tileSize, tileSize);
 	setGraphics({1, 11}, 1);
 	updateSprite();
 }

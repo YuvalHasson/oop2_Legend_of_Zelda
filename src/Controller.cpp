@@ -1,5 +1,4 @@
 #include "Controller.h"
-#include <iostream> //for debugging
 
 Controller::Controller()
 	: m_window(sf::VideoMode(windowHeight, WindowWidth), "Zelda", sf::Style::Close | sf::Style::Titlebar) ,

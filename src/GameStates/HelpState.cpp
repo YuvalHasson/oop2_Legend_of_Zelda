@@ -7,12 +7,11 @@ HelpState::HelpState(sf::RenderWindow* window)
 	m_helpScreen.setTexture(Resources::getResource().getTexture(TEXTURE::Help));
 
 	add("Menu", std::make_unique<BackToMenuButton>(this));
-	std::cout << "hereeeeeeeeeeeeee\n";
 }
 
 void HelpState::update(const sf::Time& deltaTime)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->overButton(*getWindow());
 	}
@@ -24,8 +23,9 @@ void HelpState::render(sf::RenderTarget* target)
 	{
 		target = getWindow();
 	}
+
 	target->draw(m_helpScreen);
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->draw(*target);
 	}
@@ -42,7 +42,7 @@ std::unique_ptr<State> HelpState::handleInput(const GAME_STATE& gameState)
 
 void HelpState::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		if (option.second->isButtonPressed(window, event.mouseButton))
 		{
@@ -54,5 +54,4 @@ void HelpState::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 void HelpState::add(const std::string& str, std::unique_ptr<Button> c)
 {
 	m_options.emplace_back(std::make_pair(str, std::move(c)));
-
 }

@@ -4,7 +4,7 @@
 #include "Utilities.h"
 
 
-//animation class is based on image of animation being in same row and seperated by 1 pixel
+//animation class is based on image of animation being in same row and separated by 1 pixel
 //start position is the true top left of the the first image
 //image count is unsigned for how many images are in the animation
 class Animation{

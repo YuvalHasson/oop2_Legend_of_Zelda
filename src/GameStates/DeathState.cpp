@@ -1,7 +1,5 @@
 #include "DeathState.h"
 
-#include <iostream> //debugging
-
 DeathState::DeathState(sf::RenderWindow* window, sf::Vector2f position, sf::View view)
 	:State(window),  m_whiteBackground(sf::Vector2f(window->getSize().x, window->getSize().y)), m_linkDeathSprite(),
 	m_amountOfSpins(0)

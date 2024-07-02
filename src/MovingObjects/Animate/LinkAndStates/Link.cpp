@@ -1,7 +1,5 @@
 #include "Link.h"
 
-#include <iostream> //debugging
-
 bool m_registerit = Factory<Link>::instance()->registerit("Link",
     [](const sf::Vector2f& position) -> std::unique_ptr<Link>
 	{
@@ -12,7 +10,7 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
 	: Animate(texture, position, sf::Vector2f(7.f, 7.5f),
     sf::Vector2f(tileSize/4.5f, tileSize / 9.f)),
     m_state(std::make_unique<LinkStandingState>()),
-    m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })),m_arrow(nullptr),
+    m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })), m_arrow(nullptr),
     m_shield(Factory<Shield>::instance()->create("Shield", { 0,0 })),
     m_isPushing(false), m_isShooting(false), m_wasTabPressed(false),
     m_isShielding(false), m_invincible(false),
@@ -22,7 +20,6 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     setGraphics(ANIMATIONS_POSITIONS::LinkDown, 2);
     updateSprite();
     setHp(MAX_HEALTH);
-    //hitanimation color
     addHitColor(sf::Color(255,93,0));
     addHitColor(sf::Color(255,255,255,0));
 }
@@ -244,7 +241,6 @@ std::unique_ptr<Inanimate> Link::getAttack()
         if(auto p = Factory<LinkArrow>::instance()->create("LinkArrow", getPosition())){
             m_arrow = std::move(p);
             m_arrow->setPosition(sf::Vector2f(getPosition().x, getPosition().y + 3));
-            m_arrow->getSprite().setPosition(sf::Vector2f(getPosition().x, getPosition().y + 3));
             m_arrow->initArrow(getDirection());
             SoundResource::getSound().playSound(SOUNDS::LinkArrow);
         }

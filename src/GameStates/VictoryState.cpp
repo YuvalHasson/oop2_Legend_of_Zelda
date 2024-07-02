@@ -11,7 +11,7 @@ VictoryState::VictoryState(sf::RenderWindow* window)
 	m_sprite.setPosition(window->getSize().x / 2.f, window->getSize().y / 2.f);
 
 	m_text.setFont(*Resources::getResource().getFont());
-	m_text.setString("Congragulation\nYou  Have  Won");
+	m_text.setString("Congratulation\nYou  Have  Won");
 	m_text.setCharacterSize(50);
 	m_text.setLetterSpacing(4);
 	m_text.setFillColor(sf::Color::Black);

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "LinkShieldMovingState.h"
 
 LinkShieldMovingState::LinkShieldMovingState(Input direction): m_direction(direction){}

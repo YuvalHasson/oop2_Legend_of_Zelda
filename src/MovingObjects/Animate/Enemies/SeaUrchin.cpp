@@ -9,7 +9,7 @@ bool SeaUrchin::m_registerit = Factory<Enemy>::instance()->registerit("SeaUrchin
 SeaUrchin::SeaUrchin(const sf::Texture& texture, const sf::Vector2f& position)
 	: Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f), sf::Vector2f(-2, -2))
 {
-	setGraphics({ 1, 301 }, 2);
+	setGraphics(ANIMATIONS_POSITIONS::SeaUrchin, 2);
 	updateSprite();
 	setHp(1);
 }

@@ -49,7 +49,6 @@ void LoadGameState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 
 void LoadGameState::updateLink()
 {
-	m_link->getSprite().setPosition(m_linkPosition);
 	m_link->setPosition(m_linkPosition);
 	m_link->setHp(m_linkLife);
 
@@ -110,7 +109,6 @@ void LoadGameState::updateLevel()
 	{
 		if (const auto& p = dynamic_cast<Boulder*>(inanimateObject.get()))
 		{
-			inanimateObject->getSprite().setPosition(m_boulderPositions[index]);
 			inanimateObject->setPosition(m_boulderPositions[index]);
 		}
 		index++;

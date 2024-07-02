@@ -84,7 +84,7 @@ void SaveState::saveGame() const
 		{
 			if (const auto& p = dynamic_cast<Boulder*>(inanimateObject.get()))
 			{
-				saveFile << inanimateObject->getSprite().getPosition().x << " " << inanimateObject->getSprite().getPosition().y << std::endl;
+				saveFile << inanimateObject->getPosition().x << " " << inanimateObject->getPosition().y << std::endl;
 			}
 		}
 		saveFile << "-1" << std::endl;

@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include <iostream>
 
 Animation::Animation(): m_singleImgFlip(false), m_timePassed(0),
      m_switchTime(0.1f), m_singleTime(false){

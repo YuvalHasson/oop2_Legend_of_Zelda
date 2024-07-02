@@ -1,7 +1,5 @@
 #include "Projectile.h"
 
-#include <iostream> //debugging
-
 bool Projectile::m_registerit = Factory<Projectile>::instance()->registerit("Projectile",
     [](const sf::Vector2f& position) -> std::unique_ptr<Projectile>
     {
@@ -9,11 +7,13 @@ bool Projectile::m_registerit = Factory<Projectile>::instance()->registerit("Pro
     });
 
 Projectile::Projectile(const sf::Texture& Texture, const sf::Vector2f& position)
-	: Projectiles(Texture, position, sf::Vector2f(8, 8), sf::Vector2f(8 / 2, 8 / 2))
+	: Projectiles(Texture, position,
+        sf::Vector2f(tileSize / 2.f * 0.6f, tileSize / 2.f * 0.6f),
+        sf::Vector2f(tileSize / 4.f * 0.6f, tileSize / 4.f * 0.6f))
 {
 	m_timer.restart();
     setSpeed(2);
-    setGraphics({ 265, 143 }, 1);
+    setGraphics(SPRITE_POSITIONS::Projectile, 1);
 	updateSprite();
     setDirection(DIRECTIONS::Down);
 }

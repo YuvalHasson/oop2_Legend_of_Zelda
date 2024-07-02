@@ -2,15 +2,13 @@
 
 #include "MovementStrategy.h"
 #include "Enemy.h"
-#include <iostream>
 
 class PatrolMovement : public MovementStrategy
 {
 public:
-	virtual void move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock) override;
+	virtual void move(Input&, Enemy&, sf::Clock*) override;
 
 private:
-	//Input m_direction;
 	sf::Clock* m_directionChangeClock;
 	Input m_direction;
 };
