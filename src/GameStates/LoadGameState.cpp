@@ -99,6 +99,13 @@ void LoadGameState::updateLevel()
 				m_enemyObjects.emplace_back(std::move(p));
 			}
 		}
+		else if (m_enemiesPositions[index].second == WIZARDBOSS)
+		{
+			if (auto p = Factory<Enemy>::instance()->create("WizardBoss", m_enemiesPositions[index].first))
+			{
+				m_enemyObjects.emplace_back(std::move(p));
+			}
+		}
 	}
 	for (const auto& enemy : m_enemyObjects)
 	{
@@ -106,6 +113,11 @@ void LoadGameState::updateLevel()
 		{
 			p->registerAsLinkObserver(m_link.get());
 		}
+		if (const auto& p = dynamic_cast<WizardBoss*>(enemy.get()))
+		{
+			p->registerAsLinkObserver(m_link.get());
+		}
+
 	}
 	m_inanimateObjects = std::move(m_boardLevels[m_level].editInanimateObjects());
 	m_staticObjects = std::move(m_boardLevels[m_level].editStaticObjects());

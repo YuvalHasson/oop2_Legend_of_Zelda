@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 18;
+const int OBJ_AMOUNT = 19;
 const int SOUND_AMOUNT = 17;
 const int BACK_SOUND_AMNT = 5;
 
@@ -50,7 +50,8 @@ enum Input {
 enum EnemyType {
 	PIG_WARRIOR,
 	OCTOROK,
-	SEA_URCHIN
+	SEA_URCHIN,
+	WIZARDBOSS
 };
 
 enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
@@ -82,7 +83,8 @@ namespace TEXTURE
 	constexpr int End = 14;
 	constexpr int BossDungeon = 15;
 	constexpr int EndingSpriteSheet = 16;
-	constexpr int Dungeon3 = 17;
+	constexpr int Boss = 17;
+	constexpr int Dungeon3 = 18;
 }
 
 namespace BACKGROUND_SOUND
@@ -156,6 +158,12 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u EnemySwordLeft(124, 262);
 	const sf::Vector2u EnemySwordRight(141, 262);
 
+	const sf::Vector2u BossDown(1, 1);
+	const sf::Vector2u BossUp(35, 1);
+	const sf::Vector2u BossLeft(69, 1);
+	const sf::Vector2u BossRight(103, 1);
+	const sf::Vector2u BossDead(1, 18);
+
 	const sf::Vector2u SeaUrchin(1, 301);
 
 	const sf::Vector2u None(160, 160);
@@ -179,14 +187,14 @@ namespace SPRITE_POSITIONS
 //might be useless
 namespace DIRECTIONS
 {
-	const sf::Vector2i Up(0, -1);
-	const sf::Vector2i Down(0, 1);
-	const sf::Vector2i Left(-1, 0);
-	const sf::Vector2i Right(1, 0);
-	const sf::Vector2i UpLeft(-1, -1);
-	const sf::Vector2i UpRight(1, -1);
-	const sf::Vector2i DownLeft(-1, 1);
-	const sf::Vector2i DownRight(1, 1);
+	const sf::Vector2f Up(0, -1);
+	const sf::Vector2f Down(0, 1);
+	const sf::Vector2f Left(-1, 0);
+	const sf::Vector2f Right(1, 0);
+	const sf::Vector2f UpLeft(-1, -1);
+	const sf::Vector2f UpRight(1, -1);
+	const sf::Vector2f DownLeft(-1, 1);
+	const sf::Vector2f DownRight(1, 1);
 }
 
 struct Cell

@@ -12,7 +12,7 @@ private:
 		"Zelda_status_bar.png", "Zelda_Game_Over.png", "Dungeon.png",
 		"Weapons-items-hud.png", "Dungeon01.png",
 		"Home.png", "Help.png", "Controls.png", "NPCs.png",
-		"End.png", "BossDungeon.png", "EndingSpriteSheet.png",
+		"End.png", "BossDungeon.png", "EndingSpriteSheet.png", "Boss.png",
 		"Dungeon03.png"
 	};
 	sf::Texture m_texture[OBJ_AMOUNT];

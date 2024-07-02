@@ -48,7 +48,7 @@ public:
 	const std::vector<sf::FloatRect> getStaticRectsOfCurLevel() const;
 	std::vector<std::unique_ptr<StaticObjects>>& editStaticObjects();
 	std::vector<std::unique_ptr<Inanimate>>& editInanimateObjects();
-	
+	const std::vector<std::unique_ptr<Enemy>>& getEnemies() const;
 	// Method to extract Link object
 	std::unique_ptr<Link> extractLink();
 	// Method to set Link object

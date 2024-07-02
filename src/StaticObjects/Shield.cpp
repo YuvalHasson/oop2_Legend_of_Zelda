@@ -14,8 +14,8 @@ Shield::Shield(const sf::Texture& texture, const sf::Vector2f& position)
 }
 
 
-void Shield::activate(const sf::Vector2f& linkPosition, const sf::Vector2i& linkDirection)
-{
+void Shield::activate(const sf::Vector2f& linkPosition, const sf::Vector2f& linkDirection){
+    m_active = true;
 	m_linkDirection = linkDirection;
     m_active        = true;
 
@@ -82,17 +82,17 @@ bool Shield::getCollided(){
     return m_collided;
 }
 
-sf::Vector2i Shield::getCollisionDirection() const
+sf::Vector2f Shield::getCollisionDirection() const
 {
     return m_collisionDirection;
 }
 
-sf::Vector2i Shield::getLinkDirection() const
+sf::Vector2f Shield::getLinkDirection() const
 {
     return m_linkDirection;
 }
 
-void Shield::pushBack(const sf::Vector2i& direction){
-    m_collided              = true;
-    m_collisionDirection    = direction;
+void Shield::pushBack(const sf::Vector2f& direction){
+    m_collided = true;
+    m_collisionDirection = direction;
 }

@@ -19,6 +19,7 @@
 #include "SwordItem.h"
 #include "Link.h"
 #include "Heart.h"
+#include "WizardBoss.h"
 #include "Zelda.h"
 
 #include "BadFileName.h"

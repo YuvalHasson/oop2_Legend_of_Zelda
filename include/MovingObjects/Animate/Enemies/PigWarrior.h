@@ -36,8 +36,8 @@ public:
 
 	virtual void updateLinkPosition(const sf::Vector2f&) override;
 	virtual void removeLink() override;
-
 	void registerAsLinkObserver(Link*);
+	
 private:
 	sf::Clock m_directionChangeClock;
 	Input m_currInput;
@@ -51,5 +51,7 @@ private:
 	std::unique_ptr <AttackStrategy> m_attackStrategy;
 	std::unique_ptr<Weapon> m_sword;
 	static bool m_registerit;
+
+	//sf::Clock m_invincibleTimer;
 };
 

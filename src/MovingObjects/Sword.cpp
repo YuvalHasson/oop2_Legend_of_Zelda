@@ -14,7 +14,7 @@ Sword::Sword(const sf::Texture& texture, const sf::Vector2f& position)
     updateSprite();
 }
     
-void Sword::activate(const sf::Vector2f& position, const sf::Vector2i& direction){
+void Sword::activate(const sf::Vector2f& position, const sf::Vector2f& direction){
     m_active = true;
     //set sword position
     getSprite().setPosition(position);

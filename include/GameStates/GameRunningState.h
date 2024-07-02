@@ -26,7 +26,9 @@ private:
 	Level m_level, m_nextLevel;
 
 	StatusBar m_statusBar;
-	//Board m_board;
 	std::vector<Board> m_boardLevels;
 	sf::View m_view;
+
+	sf::RectangleShape m_fadingRectangle;
+	bool m_won;
 };
