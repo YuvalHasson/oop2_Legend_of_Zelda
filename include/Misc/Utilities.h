@@ -13,7 +13,8 @@ enum Level
 	MAIN,
 	FIRST_DUNGEON,
 	SECOND_DUNGEON,
-	BOSS_DUNGEON
+	BOSS_DUNGEON,
+	THIERD_DUNGEON
 };
 
 enum GAME_STATE {
@@ -83,6 +84,7 @@ namespace TEXTURE
 	constexpr int BossDungeon = 15;
 	constexpr int EndingSpriteSheet = 16;
 	constexpr int Boss = 17;
+	constexpr int Dungeon3 = 18;
 }
 
 namespace BACKGROUND_SOUND

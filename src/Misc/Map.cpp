@@ -25,6 +25,8 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(13, "Hole");
 	dict.emplace(14, "Shrub" );
 	dict.emplace(15, "WizardBoss" );
+	dict.emplace(15, "KeyTile" );
+	dict.emplace(16, "Lock" );
 
 	dict.emplace(50, "Door");
 	dict.emplace(51, "Door");
@@ -32,12 +34,14 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(53, "Door");
 	dict.emplace(54, "Door");
 	dict.emplace(55, "Door");
-	dict.emplace(56, "Door"); // not in use
+	dict.emplace(56, "Door"); 
 	dict.emplace(57, "Door");
 	dict.emplace(58, "Door"); // fin Dungeon entrance
+	dict.emplace(59, "Door");// not in use
 
 	dict.emplace(100, "Sign");
 	dict.emplace(101, "Sign");
+	dict.emplace(102, "Sign");
 
 }
 
@@ -135,6 +139,18 @@ void Map::initVector(Cell cell)
 					p->setLinkOutPosition({ 263, 196 });
 					m_doors.emplace_back(std::move(p));
 				}
+				if (cell.value == 56)
+				{
+					p->setLevelToDoor(Level::THIERD_DUNGEON);
+					p->setLinkOutPosition({ 184, 375 });
+					m_doors.emplace_back(std::move(p));
+				}
+				if (cell.value == 57)
+				{
+					p->setLevelToDoor(Level::MAIN);
+					p->setLinkOutPosition({ 760, 68 });
+					m_doors.emplace_back(std::move(p));
+				}
 				if (cell.value == 58)
 				{
 					p->setLevelToDoor(Level::BOSS_DUNGEON);
@@ -157,6 +173,11 @@ void Map::initVector(Cell cell)
 				if (cell.value == 101)
 				{
 					p->setText("Sharp  suprise  is  at  the  end  of  the  Dungeon");
+					m_staticObjects.emplace_back(std::move(p));
+				}
+				if (cell.value == 102)
+				{
+					p->setText("Go get the Bow Hero");
 					m_staticObjects.emplace_back(std::move(p));
 				}
 			}

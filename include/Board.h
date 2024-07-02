@@ -32,7 +32,7 @@ public:
 	void update(const sf::Time&);
 	void handleCollision();
 	void setMap();
-	void setLoadedMap(std::vector<std::unique_ptr<Enemy>>&, std::vector<std::unique_ptr<Inanimate>>&);
+	void setLoadedMap(std::vector<std::unique_ptr<Enemy>>&, std::vector<std::unique_ptr<Inanimate>>&, std::vector<std::unique_ptr<StaticObjects>>&);
 	void initializeLevel(const Level&);
 	void resetEnemiesAndInanimated();
 
@@ -41,7 +41,9 @@ public:
 	const std::vector<std::unique_ptr<Door>>& getDoors() const { return m_doors; }
 
 	std::vector <std::pair<sf::Vector2f, EnemyType>> getEnemiesPositions() const;
+	const std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects() const;
 	const std::vector<std::unique_ptr<Inanimate>>& getInanimateObjects() const;
+	std::vector<std::unique_ptr<StaticObjects>>& editStaticObjects();
 	std::vector<std::unique_ptr<Inanimate>>& editInanimateObjects();
 	std::vector<sf::FloatRect> getStaticRectsOfCurLevel() const;
 	// Method to extract Link object

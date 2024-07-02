@@ -88,6 +88,26 @@ void SaveState::saveGame() const
 			}
 		}
 		saveFile << "-1" << std::endl;
+		
+		for (const auto& destructible : m_boardLevels[m_level].getStaticObjects())
+		{
+			if (const auto& p = dynamic_cast<Pot*>(destructible.get()))
+			{
+				saveFile << destructible->getSprite().getPosition().x <<
+					 " " << destructible->getSprite().getPosition().y << std::endl;
+			}
+		}
+		saveFile << "-2" << std::endl;
+		
+		for (const auto& destructible : m_boardLevels[m_level].getStaticObjects())
+		{
+			if (const auto& p = dynamic_cast<Shrub*>(destructible.get()))
+			{
+				saveFile << destructible->getSprite().getPosition().x <<
+					" " << destructible->getSprite().getPosition().y << std::endl;
+			}
+		}
+		saveFile << "-3" << std::endl;
 	}
 
 }

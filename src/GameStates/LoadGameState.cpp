@@ -115,6 +115,7 @@ void LoadGameState::updateLevel()
 
 	}
 	m_inanimateObjects = std::move(m_boardLevels[m_level].editInanimateObjects());
+	m_staticObjects = std::move(m_boardLevels[m_level].editStaticObjects());
 
 	int index = 0;
 	for (auto& inanimateObject : m_inanimateObjects)
@@ -123,12 +124,45 @@ void LoadGameState::updateLevel()
 		{
 			inanimateObject->getSprite().setPosition(m_boulderPositions[index]);
 			inanimateObject->setPosition(m_boulderPositions[index]);
+			index++;
 		}
-		index++;
 	}
 	
+	int indexInpots = 0;
+	int indexInShrub = 0;
+	for (auto& destructibleObject : m_staticObjects)
+	{
+		if (const auto& p = dynamic_cast<Pot*>(destructibleObject.get()))
+		{
+			if (indexInpots >= m_potsPositions.size())
+			{
+				p->destroy();
+			}
+			else
+			{
+				destructibleObject->getSprite().setPosition(m_potsPositions[indexInpots]);
+				destructibleObject->setPosition(m_potsPositions[indexInpots]);
+				indexInpots++;
+			}
+		}
+		else if (const auto& p = dynamic_cast<Shrub*>(destructibleObject.get()))
+		{
+			if (indexInShrub >= m_shrubPositions.size())
+			{
+				p->destroy();
+			}
+			else
+			{
+				destructibleObject->getSprite().setPosition(m_shrubPositions[indexInShrub]);
+				destructibleObject->setPosition(m_shrubPositions[indexInShrub]);
+				indexInShrub++;
+			}
+		}
+
+	}
+
 	m_boardLevels[m_level].setLink(std::move(m_link));
-	m_boardLevels[m_level].setLoadedMap(m_enemyObjects, m_inanimateObjects);
+	m_boardLevels[m_level].setLoadedMap(m_enemyObjects, m_inanimateObjects, m_staticObjects);
 }
 
 void LoadGameState::setMap()
@@ -167,6 +201,12 @@ void LoadGameState::setMap()
 	dungeon3.initializeLevel(Level::BOSS_DUNGEON);
 	dungeon3.setMap();
 	m_boardLevels.emplace_back(std::move(dungeon3));
+
+	Board dungeon4;
+	dungeon4.setLink(std::move(m_boardLevels.back().extractLink()));
+	dungeon4.initializeLevel(Level::THIERD_DUNGEON);
+	dungeon4.setMap();
+	m_boardLevels.emplace_back(std::move(dungeon4));
 
 	m_link = std::move(m_boardLevels.back().extractLink());
 }
@@ -211,8 +251,8 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 					saveFile >> id >> x >> y;
 					m_enemiesPositions.emplace_back(sf::Vector2f(x, y), EnemyType(id));
 				}
-				int x = 0;
-				int y = 0;
+				// read boulders positions
+				int x = 0, y = 0;
 				while (x != -1)
 				{
 					saveFile >> x;
@@ -223,6 +263,31 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 					saveFile >> y;
 					m_boulderPositions.emplace_back(sf::Vector2f(x, y));
 				} 
+				// read static objects positions
+				x = 0, y = 0;
+				while (x != -2)
+				{
+					saveFile >> x;
+					if (x == -2)
+					{
+						break;
+					}
+					saveFile >> y;
+					m_potsPositions.emplace_back(sf::Vector2f(x, y));
+				}
+
+				x = 0, y = 0;
+				while (x != -3)
+				{
+					saveFile >> x;
+					if (x == -3)
+					{
+						break;
+					}
+					saveFile >> y;
+					m_shrubPositions.emplace_back(sf::Vector2f(x, y));
+				}
+
 
 				//handale fail
 				if (saveFile.fail())

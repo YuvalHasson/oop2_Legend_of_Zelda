@@ -275,13 +275,13 @@ void Board::setMap()
 
 }
 
-void Board::setLoadedMap(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Inanimate>>& inanimateObjects)
+void Board::setLoadedMap(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Inanimate>>& inanimateObjects, std::vector<std::unique_ptr<StaticObjects>>& staticObjects)
 {
 	m_staticRects		= m_staticRectsOfCurLevel;
 	m_enemiesObjects.clear();
-
 	m_enemiesObjects	= std::move(enemies);
-	m_inanimateObjects	= std::move(inanimateObjects);
+	m_inanimateObjects  = std::move(inanimateObjects);
+	m_staticObjects		= std::move(staticObjects);
 }
 
 void Board::initializeLevel(const Level& level)
@@ -308,6 +308,11 @@ void Board::initializeLevel(const Level& level)
 		m_map.setMap("Dungeon01.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon2));
 		// SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
+		break;
+	case Level::THIERD_DUNGEON:
+		m_map.setMap("Dungeon03.csv");
+		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon3));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	case Level::BOSS_DUNGEON:
 		m_map.setMap("BossDungeon.csv");
@@ -338,6 +343,16 @@ const std::vector<std::unique_ptr<Inanimate>>& Board::getInanimateObjects() cons
 std::vector<std::unique_ptr<Inanimate>>& Board::editInanimateObjects()
 {
 	return m_inanimateObjects;
+}
+
+const std::vector<std::unique_ptr<StaticObjects>>& Board::getStaticObjects() const
+{
+	return m_staticObjects;
+}
+
+std::vector<std::unique_ptr<StaticObjects>>& Board::editStaticObjects()
+{
+	return m_staticObjects;
 }
 
 std::vector<sf::FloatRect> Board::getStaticRectsOfCurLevel() const
