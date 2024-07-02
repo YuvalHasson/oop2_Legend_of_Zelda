@@ -34,6 +34,29 @@ void GameRunningState::update(const sf::Time& deltaTime)
 			door->setChangeLevel(false);
 		}
 	}
+
+	int numOfKeyTiles = 0, numOfCovered = 0;
+	for (const auto& inanimateObject : m_boardLevels[m_level].getInanimateObjects())
+	{
+		if (const auto& p = dynamic_cast<KeyTile*>(inanimateObject.get()))
+		{
+			if (p->isCovered())
+			{
+				numOfCovered++;
+			}
+			numOfKeyTiles++;
+		}
+	}
+	if (numOfKeyTiles == numOfCovered && numOfCovered != 0)
+	{
+		for (const auto& staticObject : m_boardLevels[m_level].getStaticObjects())
+		{
+			if (const auto& p = dynamic_cast<Lock*>(staticObject.get()))
+			{
+				p->destroy();
+			}
+		}
+	}
 }
 
 void GameRunningState::render(sf::RenderTarget* target)

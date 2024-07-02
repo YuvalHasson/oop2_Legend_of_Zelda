@@ -28,6 +28,8 @@
 #include "Hole.h"
 #include "Shrub.h"
 #include "Zelda.h"
+#include "KeyTile.h"
+#include "Lock.h"
 
 
 struct UnknownCollision : public std::runtime_error

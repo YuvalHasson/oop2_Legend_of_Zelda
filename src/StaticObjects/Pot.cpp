@@ -13,3 +13,4 @@ Pot::Pot(const sf::Texture& texture, const sf::Vector2f& position)
 	getSprite().setTextureRect(sf::IntRect(SPRITE_POSITIONS::Pot, { tileSize, tileSize }));
 	getSprite().setScale(0.8f, 0.8f);
 }
+
