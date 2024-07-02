@@ -86,6 +86,14 @@ void PauseMenu::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 			option.second->execute();
 		}
 	}
+
+	if (event.type == sf::Event::KeyPressed)
+	{
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			updateState(GAME_STATE::GAME_RUNNING);
+		}
+	}
 }
 
 void PauseMenu::setCenterView()

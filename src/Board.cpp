@@ -78,7 +78,6 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		m_zelda->draw(target);
 	}
 	m_link->draw(target);
-
 }
 
 void Board::addProjectileToMoving()
@@ -205,6 +204,14 @@ void Board::handleCollision()
 			}
 		}
 
+		if (m_zelda)
+		{
+			if (colide(*m_link, *m_zelda))
+			{
+				processCollision(*m_link, *m_zelda);
+			}
+		}
+
 		//link and doors
 		for (const auto& door : m_doors)
 		{
@@ -301,6 +308,11 @@ void Board::initializeLevel(const Level& level)
 		m_map.setMap("Dungeon01.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon2));
 		// SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
+		break;
+	case Level::BOSS_DUNGEON:
+		m_map.setMap("BossDungeon.csv");
+		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::BossDungeon));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	}
 	m_staticRects = m_map.getStaticObjectsRects();

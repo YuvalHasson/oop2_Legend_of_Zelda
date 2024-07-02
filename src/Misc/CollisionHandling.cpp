@@ -83,6 +83,10 @@ namespace
 
 	void LinkArrowSeaUrchin(GameObject&, GameObject&) {}
 
+	void LinkArrowShrub(GameObject&, GameObject&) {}
+
+	void LinkArrowWater(GameObject&, GameObject&) {}
+
 	void LinkWall(GameObject& link, GameObject& wall)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
@@ -957,6 +961,25 @@ namespace
 		}
 	}
 
+	void LinkZelda(GameObject& link, GameObject& zelda)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		Zelda* zeldaPtr = dynamic_cast<Zelda*>(&zelda);
+		if (linkPtr && zeldaPtr)
+		{
+			if (zeldaPtr->getInnerBox(linkPtr->getHitBox())) {
+				linkPtr->undoMove();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+			{
+				zeldaPtr->setActive(true);
+			}
+			else {
+				zeldaPtr->setActive(false);
+			}
+		}
+	}
+
 	void SwordWizardBoss(GameObject& sword, GameObject& wizardBoss) {
 		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
 		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
@@ -1002,6 +1025,7 @@ namespace
 		phm[Key(typeid(Link),		typeid(Sign))] =			&LinkSign;
 		phm[Key(typeid(Link),		typeid(Hole))] =			&LinkHole;
 		phm[Key(typeid(Link),		typeid(Shrub))] =			&LinkShrub;
+		phm[Key(typeid(Link),		typeid(Zelda))] =			&LinkZelda;
 		phm[Key(typeid(Wall),		typeid(Link))] =			&WallLink;
 		phm[Key(typeid(Wall),		typeid(Octorok))] =			&WallOctorok;
 		phm[Key(typeid(Wall),		typeid(Projectile))] =		&WallProjectile;
@@ -1094,6 +1118,8 @@ namespace
 		phm[Key(typeid(LinkArrow),	typeid(Sign))] =			&LinkArrowSign;
 		phm[Key(typeid(LinkArrow),	typeid(Hole))] =			&LinkArrowHole;
 		phm[Key(typeid(LinkArrow),	typeid(SwordItem))] =		&LinkArrowSwordItem;
+		phm[Key(typeid(LinkArrow),	typeid(Shrub))] =			&LinkArrowShrub;
+		phm[Key(typeid(LinkArrow),	typeid(WaterTile))] =		&LinkArrowWater;
 		phm[Key(typeid(EnemySword), typeid(Link))] =			&EnemySwordLink;
 		phm[Key(typeid(EnemySword), typeid(Wall))] =			&EnemySwordWall;
 		phm[Key(typeid(EnemySword), typeid(PigWarrior))] =		&EnemySwordPigWarrior;

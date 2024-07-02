@@ -27,6 +27,7 @@
 #include "Sign.h"
 #include "Hole.h"
 #include "Shrub.h"
+#include "Zelda.h"
 #include "WizardBoss.h"
 
 

@@ -17,6 +17,9 @@ configure_file ("Help.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Controls.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("NPCs.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Zelda_Game_Over.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("End.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("EndingSpriteSheet.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("BossDungeon.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("ZeldaFont.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 
@@ -24,6 +27,7 @@ configure_file ("Map.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Home.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Dungeon.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Dungeon01.csv" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("BossDungeon.csv" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("MainTheme.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("House.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
