@@ -12,7 +12,7 @@ class Animate : public MovingObjects
 public:
 	Animate(const sf::Texture&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&);
 
-	virtual const sf::Vector2u& getAnimationTexturePosition(Input) = 0;
+	virtual const sf::Vector2u getAnimationTexturePosition(Input) = 0;
 	virtual std::unique_ptr<Inanimate> getAttack() = 0;
 
 	void move() override;

@@ -9,7 +9,7 @@ SwitchLevelState::SwitchLevelState(sf::RenderWindow* window, std::vector<Board>&
 	m_boardLevels[m_level].resetEnemiesAndInanimated();
 }
 
-void SwitchLevelState::update(const sf::Time& deltaTime)
+void SwitchLevelState::update(const sf::Time&)
 {
 	updateState(GAME_STATE::GAME_RUNNING);
 }

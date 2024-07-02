@@ -66,7 +66,7 @@ sf::Vector2f Octorok::getLinkPos()
     return sf::Vector2f();
 }
 
-const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
+const sf::Vector2u Octorok::getAnimationTexturePosition(Input side)
 {
     switch (side)
     {
@@ -78,6 +78,8 @@ const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
         return ANIMATIONS_POSITIONS::OctorokLeft;
     case PRESS_RIGHT:
         return ANIMATIONS_POSITIONS::OctorokRight;
+    default: 
+     	return ANIMATIONS_POSITIONS::OctorokDown; // will not happen
     }
 }
 

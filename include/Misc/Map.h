@@ -4,6 +4,7 @@
 #include "Utilities.h"
 #include "Resources.h"
 #include "Factory.h"
+#include <iostream>
 #include <memory>
 #include <fstream>
 #include <sstream>

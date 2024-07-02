@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "MovingObjects/MovingObjects.h"
 #include "StaticObjects/StaticObjects.h"
 #include "Misc/Utilities.h"

@@ -18,7 +18,7 @@ public:
 	virtual void update(const sf::Time&) override;
 	virtual void attack();
 	virtual sf::Vector2f getLinkPos() override;
-	virtual const sf::Vector2u& getAnimationTexturePosition(Input) override;
+	virtual const sf::Vector2u getAnimationTexturePosition(Input) override;
 	virtual EnemyType getType() const override;
 
 	void setMoveStrategy(std::unique_ptr<MovementStrategy>);

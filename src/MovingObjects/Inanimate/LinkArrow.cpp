@@ -10,7 +10,7 @@ bool LinkArrow::m_registerit = Factory<LinkArrow>::instance()->registerit("LinkA
 LinkArrow::LinkArrow(const sf::Texture& Texture, const sf::Vector2f& position)
     : Projectiles(Texture, position, sf::Vector2f(6, 6), sf::Vector2f(6 / 2, 6 / 2)) {}
 
-void LinkArrow::update(const sf::Time& deltaTime)
+void LinkArrow::update(const sf::Time&)
 {
     move();
 }

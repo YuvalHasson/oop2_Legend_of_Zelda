@@ -37,9 +37,9 @@ void SeaUrchin::update(const sf::Time& deltaTime)
 	}
 }
 
-const sf::Vector2u& SeaUrchin::getAnimationTexturePosition(Input)
+const sf::Vector2u SeaUrchin::getAnimationTexturePosition(Input)
 {
-	return sf::Vector2u();
+	return sf::Vector2u(0,0);
 }
 
 EnemyType SeaUrchin::getType() const

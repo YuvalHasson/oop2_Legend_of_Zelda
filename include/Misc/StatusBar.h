@@ -18,7 +18,7 @@ public:
 	void update(const int&, Weapons);
 
 private:
-	void drawHearts(sf::RenderTarget&, const sf::Vector2f&, const int&);
+	void drawHearts(sf::RenderTarget&, const sf::Vector2i&, const int&);
 	void drawEquipped(sf::RenderTarget&, const int&);
 	int m_hp;
 	Weapons m_type;

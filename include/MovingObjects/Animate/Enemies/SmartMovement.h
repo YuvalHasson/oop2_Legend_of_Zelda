@@ -17,6 +17,7 @@ struct Vector2fComparator{
 class SmartMovement : public MovementStrategy
 {
 public:
+	SmartMovement() = default;
 	virtual void move(Input&, Enemy&, sf::Clock*) override;
 
 	void initializeBFS(sf::Vector2f);

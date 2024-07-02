@@ -9,7 +9,7 @@ HelpState::HelpState(sf::RenderWindow* window)
 	add("Menu", std::make_unique<BackToMenuButton>(this));
 }
 
-void HelpState::update(const sf::Time& deltaTime)
+void HelpState::update(const sf::Time&)
 {
 	for (const auto& option : m_options)
 	{

@@ -8,7 +8,7 @@ SaveState::SaveState(sf::RenderWindow* window, std::vector<Board>&& board, sf::V
 	m_boardLevels[m_level].setLink(std::move(m_link));
 }
 
-void SaveState::update(const sf::Time& deltaTime)
+void SaveState::update(const sf::Time&)
 {
 	updateState(GAME_STATE::GAME_RUNNING);
 }

@@ -1,6 +1,6 @@
 #include "Shoot.h"
 
-void Shoot::attack(sf::Time& attackDuration, sf::Clock& attackTimer, std::unique_ptr<Weapon>& projectile, Enemy& enemy)
+void Shoot::attack(sf::Time&, sf::Clock&, std::unique_ptr<Weapon>& projectile, Enemy& enemy)
  {
     if (m_attackDuration.asSeconds() - m_attackTimer.getElapsedTime().asSeconds() <= 0)
     {

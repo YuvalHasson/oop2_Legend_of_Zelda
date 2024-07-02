@@ -11,7 +11,7 @@ PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
     m_currInput(PRESS_RIGHT),
     m_moveStrategy(std::make_unique<PatrolMovement>()),
     m_attackStrategy(std::make_unique<Stab>()),
-    m_sword(nullptr)
+    m_sword(nullptr), m_link(nullptr), m_linkPos(0, 0)
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::PigWarriorDown, 1, false, true);
@@ -79,7 +79,7 @@ void PigWarrior::attack()
     setAttacking(true);
 }
 
-const sf::Vector2u& PigWarrior::getAnimationTexturePosition(Input side)
+const sf::Vector2u PigWarrior::getAnimationTexturePosition(Input side)
 {
     switch (side)
     {

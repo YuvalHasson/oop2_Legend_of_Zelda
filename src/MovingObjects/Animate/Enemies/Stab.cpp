@@ -1,6 +1,6 @@
 #include "Stab.h"
 
-void Stab::attack(sf::Time& attackDuration, sf::Clock& attackTimer, std::unique_ptr<Weapon>& sword, Enemy& enemy)
+void Stab::attack(sf::Time&, sf::Clock&, std::unique_ptr<Weapon>& sword, Enemy& enemy)
 {
     if (m_attackDuration.asSeconds() - m_attackTimer.getElapsedTime().asSeconds() <= 0)
     {

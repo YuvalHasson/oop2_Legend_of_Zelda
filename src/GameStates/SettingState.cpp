@@ -9,7 +9,7 @@ SettingState::SettingState(sf::RenderWindow* window)
 	add("Back", std::make_unique<BackToMenuButton>(this));
 }
 
-void SettingState::update(const sf::Time& deltaTime)
+void SettingState::update(const sf::Time&)
 {
 	for (const auto& option : m_options)
 	{

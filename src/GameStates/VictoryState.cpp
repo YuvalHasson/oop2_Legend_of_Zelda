@@ -4,7 +4,7 @@ VictoryState::VictoryState(sf::RenderWindow* window)
 	: State(window), m_elapsedTime(sf::Time::Zero), m_direction(1)
 {
 	m_background.setTexture(Resources::getResource().getTexture(TEXTURE::End));
-	m_background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+	m_background.setSize(sf::Vector2f(static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
 	m_sprite.setTexture(*Resources::getResource().getTexture(TEXTURE::EndingSpriteSheet));
 	m_sprite.setTextureRect(sf::IntRect(9, 146, 40, 63));
 	m_sprite.setScale(3.5f, 3.5f);

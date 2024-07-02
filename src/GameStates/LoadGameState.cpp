@@ -196,7 +196,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 				{
 					int id, x, y;
 					saveFile >> id >> x >> y;
-					m_enemiesPositions.emplace_back(sf::Vector2f(x, y), EnemyType(id));
+					m_enemiesPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)), EnemyType(id));
 				}
 				int x = 0;
 				int y = 0;
@@ -208,10 +208,10 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 						break;
 					}
 					saveFile >> y;
-					m_boulderPositions.emplace_back(sf::Vector2f(x, y));
+					m_boulderPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
 				} 
 
-				//handale fail
+				//handle fail
 				if (saveFile.fail())
 				{
 					throw BadFileFormat();

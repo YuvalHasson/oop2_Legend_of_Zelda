@@ -18,7 +18,7 @@ Projectile::Projectile(const sf::Texture& Texture, const sf::Vector2f& position)
     setDirection(DIRECTIONS::Down);
 }
 
-void Projectile::update(const sf::Time& deltaTime)
+void Projectile::update(const sf::Time&)
 {
     move();
 	if (m_timer.getElapsedTime().asSeconds() > 5)

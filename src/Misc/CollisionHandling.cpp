@@ -86,7 +86,7 @@ namespace
 
 	void ProjectileEnemySword(GameObject&, GameObject&) {}
 
-	void LinkWall(GameObject& link, GameObject& wall)
+	void LinkWall(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
@@ -98,7 +98,7 @@ namespace
 
 	}
 
-	void LinkWater(GameObject& link, GameObject& water)
+	void LinkWater(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
@@ -112,7 +112,7 @@ namespace
 		LinkWater(link, water);
 	}
 
-	void LinkPot(GameObject& link, GameObject& pot)
+	void LinkPot(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
@@ -151,7 +151,7 @@ namespace
 		LinkOctorok(link, octorok);
 	}
 
-	void OctorokWall(GameObject& octorok, GameObject& wall)
+	void OctorokWall(GameObject& octorok, GameObject&)
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (octorokPtr)
@@ -165,7 +165,7 @@ namespace
 		OctorokWall(octorok, wall);
 	}
 
-	void OctorokWater(GameObject& octorok, GameObject& water)
+	void OctorokWater(GameObject& octorok, GameObject&)
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (octorokPtr)
@@ -199,7 +199,7 @@ namespace
 		SwordWall(sword, wall);
 	}
 
-	void ProjectileWall(GameObject& project, GameObject& wall)
+	void ProjectileWall(GameObject& project, GameObject&)
 	{
 		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&project);
 		if (ProjectilePtr)
@@ -273,7 +273,7 @@ namespace
 		LinkBoulder(link, boulder);
 	}
 
-	void BoulderWall(GameObject& boulder, GameObject& wall)
+	void BoulderWall(GameObject& boulder, GameObject&)
 	{
 		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
 		if (boulderPtr)
@@ -342,7 +342,7 @@ namespace
 		SwordPot(sword, pot);
 	}
 
-	void OctorokPot(GameObject& octorok, GameObject& pot)
+	void OctorokPot(GameObject& octorok, GameObject&)
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (octorokPtr)
@@ -378,7 +378,7 @@ namespace
 		LinkPigWarrior(link, pigWarrior);
 	}
 
-	void PigWarriorWall(GameObject& pigWarrior, GameObject& wall)
+	void PigWarriorWall(GameObject& pigWarrior, GameObject&)
 	{
 		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
 		if (pigWarriorPtr)
@@ -392,7 +392,7 @@ namespace
 		PigWarriorWall(pigWarrior, wall);
 	}
 
-	void PigWarriorWater(GameObject& pigWarrior, GameObject& water)
+	void PigWarriorWater(GameObject& pigWarrior, GameObject&)
 	{
 		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
 		if (pigWarriorPtr)
@@ -459,7 +459,7 @@ namespace
 		LinkArrowPigWarrior(arrow, pigWarrior);
 	}
 
-	void LinkArrowWall(GameObject& arrow, GameObject& wall)
+	void LinkArrowWall(GameObject& arrow, GameObject&)
 	{
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
 		if (arrowPtr)
@@ -713,7 +713,7 @@ namespace
 		SeaUrchinLink(seaUrchin, link);
 	}
 
-	void SeaUrchinWall(GameObject& seaUrchin, GameObject& wall)
+	void SeaUrchinWall(GameObject& seaUrchin, GameObject&)
 	{
 		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
 		if (seaUrchinPtr)
@@ -727,7 +727,7 @@ namespace
 		SeaUrchinWall(seaUrchin, wall);
 	}
 
-	void SeaUrchinWater(GameObject& seaUrchin, GameObject& water)
+	void SeaUrchinWater(GameObject& seaUrchin, GameObject&)
 	{
 		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
 		if (seaUrchinPtr)

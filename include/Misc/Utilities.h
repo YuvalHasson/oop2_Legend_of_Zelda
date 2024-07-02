@@ -168,6 +168,10 @@ namespace SPRITE_POSITIONS
 	const sf::Vector2i HeartItem(166, 31);
 	const sf::Vector2u Projectile(265, 143);
 	const sf::Vector2u Boulder(190, 170);
+	const sf::Vector2i Equipped(120, 210);
+	const sf::Vector2i Shield(48, 41);
+	const sf::Vector2i FullHeart(48, 61);
+	const sf::Vector2i HalfHeart(68, 61);
 }
 
 //might be useless
