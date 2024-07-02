@@ -17,7 +17,13 @@ LoadGameState::LoadGameState(sf::RenderWindow* window, GAME_STATE state, std::ve
 
 void LoadGameState::update(const sf::Time&)
 {
-	updateState(GAME_STATE::GAME_RUNNING);
+	if (!m_isLoadFail)
+	{
+		updateState(GAME_STATE::GAME_RUNNING);
+	}
+	else {
+		updateState(m_cameFromState);
+	}
 }
 
 void LoadGameState::render(sf::RenderTarget* target)
@@ -287,7 +293,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 		}
 		else
 		{
-			//cannot open file or BadFileName exeption.
+			//cannot open file or BadFileName exception.
 			throw BadFileName();
 		}
 	}
