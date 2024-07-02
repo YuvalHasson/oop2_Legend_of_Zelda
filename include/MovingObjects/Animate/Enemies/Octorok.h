@@ -37,7 +37,6 @@ private:
 	std::unique_ptr <MovementStrategy> m_moveStrategy;
 	std::unique_ptr <AttackStrategy> m_attackStrategy;
 
-	//std::unique_ptr<Projectile> m_projectile;
 	std::unique_ptr<Weapon> m_projectile;
 
 	static bool m_registerit;

@@ -36,8 +36,6 @@ void PigWarrior::update(const sf::Time& deltaTime)
     
     sf::Vector2f currentPosition = getSprite().getPosition();
     // If Link is close, change movement strategy
-    std::cout<<castRay(getPosition(), m_linkPos)<<std::endl;
-    std::cout<<m_directionChangeClock.getElapsedTime().asSeconds()<<std::endl;
 
     if (distance(currentPosition, m_linkPos) < 100.0f && castRay(getPosition(), m_linkPos)) {
         setMoveStrategy(std::make_unique<SmartMovement>());

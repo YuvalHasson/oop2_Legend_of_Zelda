@@ -71,9 +71,11 @@ void WizardBoss::update(const sf::Time& deltaTime)
             m_shootIntervalTimer.restart();
         }
         if(m_shootingPhaseTimer.getElapsedTime() >= shootingPhaseDuration){
-            m_shootingPhase = true;
+            m_shootingPhase = false;
             m_invincible = false;
             setHp(getHp() - 1);
+            setDirection({0,0});
+
         }
         
     }
@@ -82,6 +84,11 @@ void WizardBoss::update(const sf::Time& deltaTime)
         m_weapon->setBool();
         m_shootIntervalTimer.restart();
 
+        sf::Vector2f startDirection = getDirection();
+        sf::Vector2f newDirection;
+        newDirection.x = startDirection.x * std::cos(M_PI/8) - startDirection.y * std::sin(M_PI/8);
+        newDirection.y = startDirection.x * std::sin(M_PI/8) + startDirection.y * std::cos(M_PI/8);
+        setDirection(newDirection);
     }
 
     PerformMove();

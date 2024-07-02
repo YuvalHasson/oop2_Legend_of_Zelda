@@ -10,14 +10,14 @@ bool Octorok::m_registerit = Factory<Enemy>::instance()->registerit("Octorok",
 
 Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
 	:Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f), sf::Vector2f(-2, -2)), 
-     m_projectile(nullptr), m_currInput(PRESS_DOWN),
+     m_currInput(PRESS_DOWN),
      m_moveStrategy(std::make_unique<PatrolMovement>()),
-     m_attackStrategy(std::make_unique<Shoot>())
+     m_attackStrategy(std::make_unique<Shoot>()), m_projectile(nullptr)
 {
     setDirection(DIRECTIONS::Down);
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();
-    setHp(2);
+    setHp(10);
     addHitColor(sf::Color::Black);
 }
 
@@ -30,20 +30,21 @@ void Octorok::update(const sf::Time& deltaTime)
     if (directionChange >= 1.0f) // Change direction every 1 seconds
     {
         setMoveStrategy(std::make_unique<PatrolMovement>());
-        setAttackStrategy(std::make_unique<Shoot>());
-        
+
         int randomMovment = rand() % 4;
 
         switch (randomMovment)
         {
         case 3:
             setMoveStrategy(std::make_unique<Standing>());
-            PerformMove();
             PerformAttack();
-			break;            
+            break;            
         default:
             break;
         }
+    }
+    else if(isPushedBack()){
+        setMoveStrategy(std::make_unique<PatrolMovement>());
     }
 
     PerformMove();

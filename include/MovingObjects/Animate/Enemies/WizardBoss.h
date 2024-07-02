@@ -10,7 +10,7 @@
 #include "Shoot.h"
 
 const sf::Time shootingPhaseDuration(sf::seconds(10));
-const sf::Time shootInterval(sf::seconds(1.f));
+const sf::Time shootInterval(sf::seconds(0.1f));
 
 class WizardBoss : public Enemy, public LinkObserver{
 public:
