@@ -1,11 +1,18 @@
 #include "LoadGameState.h"
 
-LoadGameState::LoadGameState(sf::RenderWindow* window)
-	: State(window), m_boardLevels(), m_view(sf::FloatRect(sf::Vector2f(80.f, 140.f), sf::Vector2f(250.f, 165.f)))
+LoadGameState::LoadGameState(sf::RenderWindow* window, GAME_STATE state)
+	: State(window), m_boardLevels(),
+	m_view(sf::FloatRect(sf::Vector2f(80.f, 140.f), sf::Vector2f(250.f, 165.f))),
+	m_cameFromState(state)
 {
-	loadGame(window);
-	setMap();
-	updateLevel();
+	initialize(window);
+}
+
+LoadGameState::LoadGameState(sf::RenderWindow* window, GAME_STATE state, std::vector<Board>&& board, sf::View&& view, Level level)
+	: State(window), m_boardLevelsIfNoSave(std::move(board)), m_levelIfNoSave(level), m_cameFromState(state),
+	m_view(view)
+{
+	initialize(window);
 }
 
 void LoadGameState::update(const sf::Time&)
@@ -24,16 +31,20 @@ void LoadGameState::render(sf::RenderTarget* target)
 
 std::unique_ptr<State> LoadGameState::handleInput(const GAME_STATE& gameState)
 {
-	if (gameState == GAME_STATE::GAME_RUNNING)
+	switch (gameState)
 	{
-		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), Level(m_level));
-	}
-	else if (gameState == GAME_STATE::EXIT)
-	{
-		getWindow()->close();
+	case GAME_STATE::MAIN_MENU:
+		return std::make_unique<MainMenu>(getWindow());
+	case GAME_STATE::PAUSE_MENU:
+		return std::make_unique<PauseMenu>(getWindow(), std::move(m_boardLevelsIfNoSave), std::move(m_view), m_levelIfNoSave);
+	case GAME_STATE::GAME_OVER:
+		return std::make_unique<GameOverState>(getWindow());
+	case GAME_STATE::GAME_RUNNING:
+		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), (Level)m_level);
 	}
 	return nullptr;
 }
+
 void LoadGameState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 
 void LoadGameState::updateLink()
@@ -173,6 +184,12 @@ void LoadGameState::setMap()
 	dungeon2.setMap();
 	m_boardLevels.emplace_back(std::move(dungeon2));
 
+	Board dungeon3;
+	dungeon3.setLink(std::move(m_boardLevels.back().extractLink()));
+	dungeon3.initializeLevel(Level::BOSS_DUNGEON);
+	dungeon3.setMap();
+	m_boardLevels.emplace_back(std::move(dungeon3));
+
 	Board dungeon4;
 	dungeon4.setLink(std::move(m_boardLevels.back().extractLink()));
 	dungeon4.initializeLevel(Level::THIERD_DUNGEON);
@@ -259,33 +276,6 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 					m_shrubPositions.emplace_back(sf::Vector2f(x, y));
 				}
 
-				//handaling bad time insertions
-				//if (m_loadGameTime < 0 || m_loadGameTime >(m_amntStickGenerated * 1.25))
-				//{
-				//	throw BadFileFormat();
-				//}
-				////handaling negative sticks
-				//if (stickLeftToPick < 0 || m_amntStickGenerated < 0)
-				//{
-				//	throw BadFileFormat();
-				//}
-
-				//hadaling score
-				//if (m_stickPoint < 0 || m_stickPoint > 5 * (m_amntStickGenerated - stickLeftToPick))
-				//{
-				//	throw BadFileFormat();
-				//}
-
-					////handle bad location
-					//if (x < 300 || x > 650 || y < 250 || y > 700)
-					//{
-					//	throw BadFileFormat();
-					//}
-					////handle bad color
-					//if (color < 1 || color > 5)
-					//{
-					//	throw BadFileFormat();
-					//}
 
 				//handale fail
 				if (saveFile.fail())
@@ -312,15 +302,18 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 	}
 }
 
+void LoadGameState::initialize(sf::RenderWindow* window)
+{
+	loadGame(window);
+	if (!m_isLoadFail)
+	{
+		setMap();
+		updateLevel();
+	}
+}
+
 void LoadGameState::errorFileMsg(sf::RenderWindow* window, std::string msg)
 {
-	sf::RectangleShape boxMsg;
-	boxMsg.setSize(sf::Vector2f(440.f, 60.f));
-	boxMsg.setFillColor(sf::Color::White);
-	boxMsg.setOutlineThickness(5);
-	boxMsg.setOutlineColor(sf::Color::Black);
-	boxMsg.setPosition(sf::Vector2f(250.f, 280.f));
-
 	sf::Text errorTxt;
 	errorTxt.setFont(*Resources::getResource().getFont());
 	errorTxt.setString(msg);
@@ -329,10 +322,17 @@ void LoadGameState::errorFileMsg(sf::RenderWindow* window, std::string msg)
 	errorTxt.setFillColor(sf::Color::Red);
 	errorTxt.setPosition(sf::Vector2f(250.f, 280.f));
 
+	sf::RectangleShape boxMsg;
+	boxMsg.setFillColor(sf::Color::White);
+	boxMsg.setSize(errorTxt.getGlobalBounds().getSize());
+	boxMsg.setOutlineThickness(5);
+	boxMsg.setOutlineColor(sf::Color::Black);
+	boxMsg.setPosition(sf::Vector2f(250.f, 280.f));
+
 	window->draw(boxMsg);
 	window->draw(errorTxt);
 	window->display();
 
 	sf::sleep(sf::seconds(1));
-	updateState(GAME_STATE::MAIN_MENU);
+	updateState(m_cameFromState);
 }

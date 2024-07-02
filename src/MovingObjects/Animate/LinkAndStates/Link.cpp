@@ -9,8 +9,8 @@ bool m_registerit = Factory<Link>::instance()->registerit("Link",
 	});
 
 Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
-	: Animate(texture, position, sf::Vector2f(7,7.5f),
-    sf::Vector2f(tileSize/4.5f, tileSize / 9)),
+	: Animate(texture, position, sf::Vector2f(7.f, 7.5f),
+    sf::Vector2f(tileSize/4.5f, tileSize / 9.f)),
     m_state(std::make_unique<LinkStandingState>()),
     m_sword(Factory<Sword>::instance()->create("Sword", { 0,0 })),m_arrow(nullptr),
     m_shield(Factory<Shield>::instance()->create("Shield", { 0,0 })),

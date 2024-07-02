@@ -71,7 +71,7 @@ std::unique_ptr<State> PauseMenu::handleInput(const GAME_STATE& gameState)
 	case GAME_STATE::SAVE:
 		return std::make_unique<SaveState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
 	case GAME_STATE::LOAD_GAME:
-		return std::make_unique<LoadGameState>(getWindow());
+		return std::make_unique<LoadGameState>(getWindow(), GAME_STATE::PAUSE_MENU, std::move(m_boardLevels), std::move(m_view), m_level);
 
 	}
 	return nullptr;
@@ -84,6 +84,14 @@ void PauseMenu::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 		if (option.second->isButtonPressed(window, event.mouseButton))
 		{
 			option.second->execute();
+		}
+	}
+
+	if (event.type == sf::Event::KeyPressed)
+	{
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			updateState(GAME_STATE::GAME_RUNNING);
 		}
 	}
 }

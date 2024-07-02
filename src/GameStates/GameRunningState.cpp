@@ -15,10 +15,6 @@ void GameRunningState::update(const sf::Time& deltaTime)
 	m_boardLevels[m_level].handleCollision();
 	m_boardLevels[m_level].update(deltaTime);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	{
-		updateState(GAME_STATE::PAUSE_MENU);
-	}
 	m_statusBar.update(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getCurrentWeapon());
 
 	if (m_boardLevels[m_level].getLink().getHp() <= MIN_HEALTH)
@@ -36,6 +32,12 @@ void GameRunningState::update(const sf::Time& deltaTime)
 			m_nextLevel = door->getLevel();
 			updateState(GAME_STATE::SWITCH_LEVEL);
 			door->setChangeLevel(false);
+
+			//tmp???
+			if (door->getVictoryDoor())
+			{
+				updateState(GAME_STATE::VICTORY);
+			}
 		}
 	}
 
@@ -102,11 +104,24 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 		return std::make_unique<DeathState>(getWindow(), m_boardLevels[m_level].getLink().getPosition(), std::move(m_view));
 	case GAME_STATE::SWITCH_LEVEL:
 		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level, m_nextLevel);
+	case GAME_STATE::VICTORY:
+		//SoundResource::getSound().playBackground(BACKGROUND_SOUND::Victory);
+		return std::make_unique<VictoryState>(getWindow());
+
 	}
 	return nullptr;
 }
 
-void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
+void GameRunningState::buttonPressed(sf::RenderWindow&, const sf::Event& event)
+{
+	if (event.type == sf::Event::KeyPressed)
+	{
+		if (event.key.code == sf::Keyboard::Escape)
+		{
+			updateState(GAME_STATE::PAUSE_MENU);
+		}
+	}
+}
 
 void GameRunningState::setCenterView()
 {

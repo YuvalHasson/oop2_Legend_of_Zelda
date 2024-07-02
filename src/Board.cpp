@@ -38,14 +38,6 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 {
 	target.draw(m_background);
 
-	for (const auto& gameObject : m_inanimateObjects)
-	{
-		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
-		{
-			gameObject->draw(target);
-		}
-	}
-
 	for (const auto& gameObject : m_enemiesObjects)
 	{
 		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
@@ -53,6 +45,14 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 			gameObject->draw(target);
 		}
   	}
+
+	for (const auto& gameObject : m_inanimateObjects)
+	{
+		if (gameObject->getSprite().getGlobalBounds().intersects(viewBound))
+		{
+			gameObject->draw(target);
+		}
+	}
 
 	for (const auto& gameObject : m_staticObjects)
 	{
@@ -62,23 +62,22 @@ void Board::draw(sf::RenderTarget& target, sf::FloatRect& viewBound)
 		}
 	}
 
-	//sf::RectangleShape rect;
-	//rect.setSize(sf::Vector2f(16,16));
-	//rect.setFillColor(sf::Color::Transparent);
-	//rect.setOutlineColor(sf::Color::Blue);
-	//rect.setOutlineThickness(1);
-	//for (const auto& gameObject : m_staticRects)
-	//{
-	//	rect.setPosition(gameObject.left, gameObject.top);
-	//	target.draw(rect);
-	//}
+	sf::RectangleShape rect;
+	rect.setSize(sf::Vector2f(16,16));
+	rect.setFillColor(sf::Color::Transparent);
+	rect.setOutlineColor(sf::Color::Blue);
+	rect.setOutlineThickness(1);
+	for (const auto& gameObject : m_staticRects)
+	{
+		rect.setPosition(gameObject.left, gameObject.top);
+		//target.draw(rect);
+	}
 
 	if (m_zelda)
 	{
 		m_zelda->draw(target);
 	}
 	m_link->draw(target);
-
 }
 
 void Board::addProjectileToMoving()
@@ -140,8 +139,8 @@ void Board::handleCollision()
 	try
 	{
 		//if link is attacking get the sword from link and check its collision with enemies
-		Sword* sword = m_link->getSword();
-		Shield* shield = m_link->getShield();
+		Sword* sword	= m_link->getSword();
+		Shield* shield	= m_link->getShield();
 
 
 		//link and static objects
@@ -202,6 +201,14 @@ void Board::handleCollision()
 			if (colide(*m_link, *object))
 			{
 				processCollision(*m_link, *object);
+			}
+		}
+
+		if (m_zelda)
+		{
+			if (colide(*m_link, *m_zelda))
+			{
+				processCollision(*m_link, *m_zelda);
 			}
 		}
 
@@ -270,11 +277,11 @@ void Board::setMap()
 
 void Board::setLoadedMap(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Inanimate>>& inanimateObjects, std::vector<std::unique_ptr<StaticObjects>>& staticObjects)
 {
-	m_staticRects = m_staticRectsOfCurLevel;
+	m_staticRects		= m_staticRectsOfCurLevel;
 	m_enemiesObjects.clear();
-	m_enemiesObjects = std::move(enemies);
-	m_inanimateObjects = std::move(inanimateObjects);
-	m_staticObjects = std::move(staticObjects);
+	m_enemiesObjects	= std::move(enemies);
+	m_inanimateObjects  = std::move(inanimateObjects);
+	m_staticObjects		= std::move(staticObjects);
 }
 
 void Board::initializeLevel(const Level& level)
@@ -305,6 +312,11 @@ void Board::initializeLevel(const Level& level)
 	case Level::THIERD_DUNGEON:
 		m_map.setMap("Dungeon03.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon3));
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
+		break;
+	case Level::BOSS_DUNGEON:
+		m_map.setMap("BossDungeon.csv");
+		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::BossDungeon));
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	}

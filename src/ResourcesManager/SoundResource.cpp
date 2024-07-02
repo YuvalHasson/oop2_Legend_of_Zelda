@@ -50,6 +50,10 @@ void SoundResource::setBackgroundVolume(float amount)
 	{
 		backgroundMusic.setVolume(amount);
 	}
+	for (auto& sound : m_sounds)
+	{
+		sound.setVolume(amount);
+	}
 }
 
 float SoundResource::getVolume() const

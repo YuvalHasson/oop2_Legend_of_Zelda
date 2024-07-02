@@ -6,6 +6,6 @@ class BadFileName : public std::exception
 {
 public:
 	const char* what() const noexcept {
-		return "Failed to open File.\n";
+		return "Failed to open File\n";
 	}
 };

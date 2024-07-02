@@ -24,6 +24,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(12, "SeaUrchin");
 	dict.emplace(13, "Hole");
 	dict.emplace(14, "Shrub" );
+	dict.emplace(15, "WizardBoss" );
 	dict.emplace(15, "KeyTile" );
 	dict.emplace(16, "Lock" );
 
@@ -35,8 +36,8 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(55, "Door");
 	dict.emplace(56, "Door"); 
 	dict.emplace(57, "Door");
-	dict.emplace(58, "Door"); // not in use
-	dict.emplace(59, "Door");
+	dict.emplace(58, "Door"); // fin Dungeon entrance
+	dict.emplace(59, "Door");// not in use
 
 	dict.emplace(100, "Sign");
 	dict.emplace(101, "Sign");
@@ -148,6 +149,13 @@ void Map::initVector(Cell cell)
 				{
 					p->setLevelToDoor(Level::MAIN);
 					p->setLinkOutPosition({ 760, 68 });
+					m_doors.emplace_back(std::move(p));
+				}
+				if (cell.value == 58)
+				{
+					p->setLevelToDoor(Level::BOSS_DUNGEON);
+					p->setLinkOutPosition({ 40, 150 });
+					// p->setVictoryDoor(true); // remember to change
 					m_doors.emplace_back(std::move(p));
 				}
 			}

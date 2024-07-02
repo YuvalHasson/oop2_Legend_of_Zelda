@@ -43,7 +43,7 @@ std::unique_ptr<State> GameOverState::handleInput(const GAME_STATE& gameState)
 		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 		return std::make_unique<MainMenu>(getWindow());
 	case GAME_STATE::LOAD_GAME:
-		return std::make_unique<LoadGameState>(getWindow());
+		return std::make_unique<LoadGameState>(getWindow(), GAME_STATE::GAME_OVER);
 	}
 	return nullptr;
 }
