@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include "SmartMovement.h"
 #include "PositionMovement.h"
 #include "EnemySword.h"
@@ -14,31 +15,31 @@ const sf::Time shootInterval(sf::seconds(0.1f));
 
 class WizardBoss : public Enemy, public LinkObserver{
 public:
-    WizardBoss(const sf::Texture& texture, const sf::Vector2f& position);
+    WizardBoss(const sf::Texture&, const sf::Vector2f&);
 	~WizardBoss();
 
-    virtual void update(const sf::Time& deltaTime) override;
+    virtual void update(const sf::Time&) override;
 	virtual sf::Vector2f getLinkPos() override;
 	virtual void attack();
-	virtual const sf::Vector2u getAnimationTexturePosition(Input)override;
+	virtual const sf::Vector2u getAnimationTexturePosition(Input) override;
 	void setMoveStrategy(std::unique_ptr<MovementStrategy>);
 	void PerformMove();
 	void setAttackStrategy(std::unique_ptr<AttackStrategy>);
 	void PerformAttack();
-	float distance(const sf::Vector2f& p1, const sf::Vector2f& p2);
+	float distance(const sf::Vector2f&, const sf::Vector2f&);
 
 	virtual std::unique_ptr<Inanimate> getAttack() override;
 
-    bool isShootingPhase()const;
-    bool getInvincible()const;
+    bool isShootingPhase() const;
+    bool getInvincible() const;
 	void setDead();
-	bool getDead()const;
+	bool getDead() const;
 
     //observer functions
-    virtual void updateLinkPosition(const sf::Vector2f& position)override;
+    virtual void updateLinkPosition(const sf::Vector2f&) override;
 	virtual void removeLink() override;
 	void registerAsLinkObserver(Link*);
-	EnemyType getType()const override;
+	EnemyType getType() const override;
 private:
     sf::Clock m_directionChangeClock;
 	Input m_currInput;

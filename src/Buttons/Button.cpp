@@ -31,7 +31,7 @@ void Button::setText(std::string text, sf::Vector2f position)
 void Button::overButton(sf::RenderWindow& window)
 {
 	sf::Vector2i mouseLoc = sf::Mouse::getPosition(window);
-	if (m_text.getGlobalBounds().contains(mouseLoc.x, mouseLoc.y))
+	if (m_text.getGlobalBounds().contains(static_cast<float>(mouseLoc.x), static_cast<float>(mouseLoc.y)))
 	{
 		m_text.setOutlineColor(sf::Color::White);
 		m_text.setOutlineThickness(2);

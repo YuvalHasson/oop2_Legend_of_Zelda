@@ -1,7 +1,4 @@
 #include "WizardBoss.h"
-#include <cmath>
-
-#include <iostream> // Debug
 
 bool WizardBoss::m_registerit = Factory<Enemy>::instance()->registerit("WizardBoss",
     [](const sf::Vector2f& position) -> std::unique_ptr<Enemy>
@@ -91,8 +88,8 @@ void WizardBoss::update(const sf::Time& deltaTime)
 
         sf::Vector2f startDirection = getDirection();
         sf::Vector2f newDirection;
-        newDirection.x = static_cast<float>(startDirection.x * std::cos(M_PI/8) - startDirection.y * std::sin(M_PI/8));
-        newDirection.y = static_cast<float>(startDirection.x * std::sin(M_PI/8) + startDirection.y * std::cos(M_PI/8));
+        newDirection.x = static_cast<float>(startDirection.x * std::cos(M_PI / 8) - startDirection.y * std::sin(M_PI / 8));
+        newDirection.y = static_cast<float>(startDirection.x * std::sin(M_PI / 8) + startDirection.y * std::cos(M_PI / 8));
         setDirection(newDirection);
     }
 

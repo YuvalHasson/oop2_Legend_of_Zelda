@@ -21,7 +21,9 @@ void GameRunningState::update(const sf::Time& deltaTime)
 			newAlpha.a += 1;
 			m_fadingRectangle.setFillColor(newAlpha);
 		}
-		else{
+		else
+		{
+			SoundResource::getSound().StopBackground();
 			updateState(GAME_STATE::VICTORY);
 		}
 	}
@@ -124,7 +126,7 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 	case GAME_STATE::SWITCH_LEVEL:
 		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level, m_nextLevel);
 	case GAME_STATE::VICTORY:
-		//SoundResource::getSound().playBackground(BACKGROUND_SOUND::Victory);
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Ending);
 		return std::make_unique<VictoryState>(getWindow());
 
 	}

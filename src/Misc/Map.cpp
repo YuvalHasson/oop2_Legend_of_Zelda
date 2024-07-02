@@ -106,55 +106,55 @@ void Map::initVector(Cell cell)
 				if (cell.value == 50)
 				{
 					p->setLevelToDoor(Level::MAIN);
-					p->setLinkOutPosition({ 87, 72 });
+					p->setLinkOutPosition(LOCATIONS::HomeExit);
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 51)
 				{
 					p->setLevelToDoor(Level::Home);
-					p->setLinkOutPosition({ 120, 137 });
+					p->setLinkOutPosition(LOCATIONS::HomeEntrance);
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 52)
 				{
 					p->setLevelToDoor(Level::SECOND_DUNGEON);
-					p->setLinkOutPosition({ 72, 138 });
+					p->setLinkOutPosition(LOCATIONS::Dungeon2Entrance);
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 53)
 				{
 					p->setLevelToDoor(Level::MAIN);
-					p->setLinkOutPosition({ 279, 52 });
+					p->setLinkOutPosition(LOCATIONS::Dungeon2Exit);
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 54)
 				{
 					p->setLevelToDoor(Level::FIRST_DUNGEON);
-					p->setLinkOutPosition({ 22, 103 });
+					p->setLinkOutPosition(LOCATIONS::Dungeon1Entrance);
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 55)
 				{
 					p->setLevelToDoor(Level::MAIN);
-					p->setLinkOutPosition({ 263, 196 });
+					p->setLinkOutPosition(LOCATIONS::Dungeon1Exit);
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 56)
 				{
 					p->setLevelToDoor(Level::THIERD_DUNGEON);
-					p->setLinkOutPosition({ 184, 375 });
+					p->setLinkOutPosition(LOCATIONS::Dungeon3Entrance);
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 57)
 				{
 					p->setLevelToDoor(Level::MAIN);
-					p->setLinkOutPosition({ 760, 68 });
+					p->setLinkOutPosition(LOCATIONS::Dungeon3Exit);
 					m_doors.emplace_back(std::move(p));
 				}
 				if (cell.value == 58)
 				{
 					p->setLevelToDoor(Level::BOSS_DUNGEON);
-					p->setLinkOutPosition({ 40, 150 });
+					p->setLinkOutPosition(LOCATIONS::BossDungeonEntrance);
 					m_doors.emplace_back(std::move(p));
 				}
 			}
@@ -176,7 +176,7 @@ void Map::initVector(Cell cell)
 				}
 				if (cell.value == 102)
 				{
-					p->setText("Go get the Bow Hero");
+					p->setText("Go  get  the  Bow  Hero");
 					m_staticObjects.emplace_back(std::move(p));
 				}
 			}

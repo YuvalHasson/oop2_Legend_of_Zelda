@@ -5,7 +5,7 @@
 
 const int OBJ_AMOUNT = 19;
 const int SOUND_AMOUNT = 17;
-const int BACK_SOUND_AMNT = 5;
+const int BACK_SOUND_AMNT = 9;
 
 enum Level
 {
@@ -59,10 +59,12 @@ enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
-#define VOLUME 0.f
+#define VOLUME 15.f
 
 #define MAX_HEALTH 6
 #define MIN_HEALTH 0
+
+#define M_PI 3.14159265358979323846
 
 namespace TEXTURE
 {
@@ -94,6 +96,10 @@ namespace BACKGROUND_SOUND
 	constexpr int OverWorld = 2;
 	constexpr int Death = 3;
 	constexpr int Dungeon01 = 4;
+	constexpr int KeyDungeon = 5;
+	constexpr int DontGoDungeon = 6;
+	constexpr int BossDungeon = 7;
+	constexpr int Ending = 8;
 }
 
 namespace SOUNDS
@@ -195,6 +201,19 @@ namespace DIRECTIONS
 	const sf::Vector2f UpRight(1, -1);
 	const sf::Vector2f DownLeft(-1, 1);
 	const sf::Vector2f DownRight(1, 1);
+}
+
+namespace LOCATIONS
+{
+	const sf::Vector2f HomeEntrance(120, 137);
+	const sf::Vector2f HomeExit(87, 72);
+	const sf::Vector2f Dungeon1Entrance(22, 103);
+	const sf::Vector2f Dungeon1Exit(263, 196);
+	const sf::Vector2f Dungeon2Entrance(72, 138);
+	const sf::Vector2f Dungeon2Exit(279, 52);
+	const sf::Vector2f Dungeon3Entrance(184, 375);
+	const sf::Vector2f Dungeon3Exit(760, 68);
+	const sf::Vector2f BossDungeonEntrance(40, 150);
 }
 
 struct Cell

@@ -148,11 +148,11 @@ void LoadGameState::updateLevel()
 				indexInpots++;
 			}
 		}
-		else if (const auto& p = dynamic_cast<Shrub*>(destructibleObject.get()))
+		else if (const auto& p1 = dynamic_cast<Shrub*>(destructibleObject.get()))
 		{
 			if (indexInShrub >= m_shrubPositions.size())
 			{
-				p->destroy();
+				p1->destroy();
 			}
 			else
 			{
@@ -275,7 +275,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 						break;
 					}
 					saveFile >> y;
-					m_potsPositions.emplace_back(sf::Vector2f(x, y));
+					m_potsPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
 				}
 
 				x = 0, y = 0;
@@ -287,7 +287,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 						break;
 					}
 					saveFile >> y;
-					m_shrubPositions.emplace_back(sf::Vector2f(x, y));
+					m_shrubPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
 				}
 
 

@@ -20,4 +20,5 @@ private:
 	sf::Time m_elapsedTime;
 	sf::RectangleShape m_fadingRectangle;
 	int m_direction;
+	bool m_buttonPressed;
 };

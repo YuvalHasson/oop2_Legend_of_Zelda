@@ -2,7 +2,7 @@
 #include <iostream>
 
 VictoryState::VictoryState(sf::RenderWindow* window)
-	: State(window), m_elapsedTime(sf::Time::Zero), m_direction(1)
+	: State(window), m_elapsedTime(sf::Time::Zero), m_direction(1), m_buttonPressed(false)
 {
 	m_background.setTexture(Resources::getResource().getTexture(TEXTURE::End));
 	m_background.setSize(sf::Vector2f(static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
@@ -33,7 +33,7 @@ void VictoryState::update(const sf::Time& deltaTime)
 
 	m_elapsedTime += deltaTime;
 
-	if (m_elapsedTime.asSeconds() < 8)
+	if (!m_buttonPressed)
 	{
 		float moveSpeed = 50.0f;
 		float moveDistance = moveSpeed * deltaTime.asSeconds();
@@ -66,6 +66,8 @@ std::unique_ptr<State> VictoryState::handleInput(const GAME_STATE& gameState)
 {
 	if (gameState == GAME_STATE::MAIN_MENU)
 	{
+		SoundResource::getSound().StopBackground();
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Menu);
 		return std::make_unique<MainMenu>(getWindow());
 	}
 	else if (gameState == GAME_STATE::EXIT)
@@ -75,4 +77,10 @@ std::unique_ptr<State> VictoryState::handleInput(const GAME_STATE& gameState)
 	return nullptr;
 }
 
-void VictoryState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
+void VictoryState::buttonPressed(sf::RenderWindow&, const sf::Event& event)
+{
+	if (event.type == sf::Event::KeyPressed || event.type == sf::Event::MouseButtonPressed)
+	{
+		m_buttonPressed = true;
+	}
+}
