@@ -354,11 +354,6 @@ std::vector<std::unique_ptr<StaticObjects>>& Board::editStaticObjects()
 	return m_staticObjects;
 }
 
-std::vector<sf::FloatRect> Board::getStaticRectsOfCurLevel() const
-{
-	return m_staticRectsOfCurLevel;
-}
-
 std::unique_ptr<Link> Board::extractLink()
 {
 	return std::move(m_link); // Transfer ownership;

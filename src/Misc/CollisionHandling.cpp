@@ -57,7 +57,10 @@ namespace
 	void SwordWall(GameObject&, GameObject&) {}
 
 	void ProjectileOctorok(GameObject&, GameObject&) {}
-	void SwordLock(GameObject& sword, GameObject& wall) {}
+
+	void LinkKeyTile(GameObject&, GameObject&) {}
+
+	void SwordLock(GameObject&, GameObject&) {}
 
 	void LinkSword(GameObject&, GameObject&)	{}
 
@@ -293,7 +296,7 @@ namespace
 		BoulderWall(boulder, wall);
 	}
 
-	void BoulderLock(GameObject& boulder, GameObject& lock)
+	void BoulderLock(GameObject& boulder, GameObject&)
 	{
 		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
 		if (boulderPtr)
@@ -959,8 +962,6 @@ namespace
 		BoulderKeyTile(boulder, keyTile);
 	}
 
-	}
-
 	void LinkArrowPot(GameObject& arrow, GameObject& pot)
 	{
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
@@ -1013,7 +1014,7 @@ namespace
 				zeldaPtr->setActive(false);
 			}
 		}
-	void LinkKeyTile(GameObject& link, GameObject& keyTile) {}
+	}
 
 	void KeyTileLink(GameObject& keyTile, GameObject& link)
 	{
@@ -1033,7 +1034,7 @@ namespace
 	
 	}
 
-	void LinkLock(GameObject& link, GameObject& lock)
+	void LinkLock(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
@@ -1049,7 +1050,7 @@ namespace
 		LinkLock(link, lock);
 	}
 
-	void LinkArrowLock(GameObject& arrow, GameObject& lock)
+	void LinkArrowLock(GameObject& arrow, GameObject&)
 	{
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
 		if (arrowPtr)

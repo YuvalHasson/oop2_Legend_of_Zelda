@@ -45,6 +45,7 @@ public:
 	const std::vector <std::pair<sf::Vector2f, EnemyType>> getEnemiesPositions() const;
 	const std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects() const;
 	const std::vector<std::unique_ptr<Inanimate>>& getInanimateObjects() const;
+	const std::vector<sf::FloatRect> getStaticRectsOfCurLevel() const;
 	std::vector<std::unique_ptr<StaticObjects>>& editStaticObjects();
 	std::vector<std::unique_ptr<Inanimate>>& editInanimateObjects();
 	

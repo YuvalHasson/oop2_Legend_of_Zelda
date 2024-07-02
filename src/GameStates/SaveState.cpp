@@ -93,8 +93,8 @@ void SaveState::saveGame() const
 		{
 			if (const auto& p = dynamic_cast<Pot*>(destructible.get()))
 			{
-				saveFile << destructible->getSprite().getPosition().x <<
-					 " " << destructible->getSprite().getPosition().y << std::endl;
+				saveFile << destructible->getPosition().x <<
+					 " " << destructible->getPosition().y << std::endl;
 			}
 		}
 		saveFile << "-2" << std::endl;
@@ -103,8 +103,8 @@ void SaveState::saveGame() const
 		{
 			if (const auto& p = dynamic_cast<Shrub*>(destructible.get()))
 			{
-				saveFile << destructible->getSprite().getPosition().x <<
-					" " << destructible->getSprite().getPosition().y << std::endl;
+				saveFile << destructible->getPosition().x <<
+					" " << destructible->getPosition().y << std::endl;
 			}
 		}
 		saveFile << "-3" << std::endl;

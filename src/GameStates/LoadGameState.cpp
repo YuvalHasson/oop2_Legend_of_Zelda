@@ -126,7 +126,6 @@ void LoadGameState::updateLevel()
 			}
 			else
 			{
-				destructibleObject->getSprite().setPosition(m_potsPositions[indexInpots]);
 				destructibleObject->setPosition(m_potsPositions[indexInpots]);
 				indexInpots++;
 			}
@@ -139,7 +138,6 @@ void LoadGameState::updateLevel()
 			}
 			else
 			{
-				destructibleObject->getSprite().setPosition(m_shrubPositions[indexInShrub]);
 				destructibleObject->setPosition(m_shrubPositions[indexInShrub]);
 				indexInShrub++;
 			}
