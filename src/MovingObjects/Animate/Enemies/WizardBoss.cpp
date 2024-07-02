@@ -79,7 +79,9 @@ void WizardBoss::update(const sf::Time& deltaTime)
         }
         
     }
-    if(m_shootingPhase && m_shootIntervalTimer.getElapsedTime() >= shootInterval){//add condition to shoot only after a specific time interval
+    if(m_shootingPhase && m_shootIntervalTimer.getElapsedTime() >= shootInterval){
+        //function to shoot in a circle based on specific time interval
+
         PerformAttack();
         m_weapon->setBool();
         m_shootIntervalTimer.restart();

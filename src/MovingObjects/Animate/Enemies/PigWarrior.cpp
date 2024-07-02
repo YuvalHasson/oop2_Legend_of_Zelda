@@ -9,7 +9,7 @@ bool PigWarrior::m_registerit = Factory<Enemy>::instance()->registerit("PigWarri
     });
 
 PigWarrior::PigWarrior(const sf::Texture& texture, const sf::Vector2f& position)
-    :Enemy(texture, position, sf::Vector2f(12.f * 0.8f, 12.f * 0.8f), sf::Vector2f(-2, -2)),
+    :Enemy(texture, position, sf::Vector2f(14.f * 0.8f, 14.f * 0.8f), sf::Vector2f(-2, -2)),
     m_currInput(PRESS_RIGHT),
     m_moveStrategy(std::make_unique<PatrolMovement>()),
     m_attackStrategy(std::make_unique<Stab>()),
@@ -37,7 +37,7 @@ void PigWarrior::update(const sf::Time& deltaTime)
     sf::Vector2f currentPosition = getSprite().getPosition();
     // If Link is close, change movement strategy
 
-    if (distance(currentPosition, m_linkPos) < 100.0f && castRay(getPosition(), m_linkPos)) {
+    if (distance(currentPosition, m_linkPos) < 125.0f && castRay({getPosition().x + 6, getPosition().y + 6}, m_linkPos)) {
         setMoveStrategy(std::make_unique<SmartMovement>());
         if (distance(currentPosition, m_linkPos) < 28.0f) {
             // If the distance to Link is small enough, change strategy to attack Link
@@ -45,23 +45,25 @@ void PigWarrior::update(const sf::Time& deltaTime)
             m_sword->setBool();
         }
     }
-    else if(m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f)
+    else
     {
         auto pm = dynamic_cast<PatrolMovement*>(m_moveStrategy.get());
         if(!pm){
             setMoveStrategy(std::make_unique<PatrolMovement>());
         }
-        int randomMovment = rand() % 4;
+        if(m_directionChangeClock.getElapsedTime().asSeconds() >= 1.0f){
 
-        switch (randomMovment)
-        {
-        case 3:
-            setMoveStrategy(std::make_unique<Standing>());
-            PerformAttack();
-            break;
-        default:
-            break;
-        }        
+            int randomMovment = rand() % 4;
+
+            switch (randomMovment)
+            {
+            case 3:
+                setMoveStrategy(std::make_unique<Standing>());
+                break;
+            default:
+                break;
+            }        
+        }
     }
     PerformMove();
     updateGraphics(deltaTime);

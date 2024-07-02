@@ -17,7 +17,7 @@ Octorok::Octorok(const sf::Texture& texture, const sf::Vector2f& position)
     setDirection(DIRECTIONS::Down);
 	setGraphics(ANIMATIONS_POSITIONS::OctorokDown, 2);
 	updateSprite();
-    setHp(10);
+    setHp(2);
     addHitColor(sf::Color::Black);
 }
 
