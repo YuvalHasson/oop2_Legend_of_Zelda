@@ -115,11 +115,14 @@ void LoadGameState::updateLevel()
 	{
 		if (const auto& p = dynamic_cast<Boulder*>(inanimateObject.get()))
 		{
-			inanimateObject->setPosition(m_boulderPositions[index]);
-			index++;
+			if (m_boulderPositions.size() > 0)
+			{
+				inanimateObject->setPosition(m_boulderPositions[index]);
+				index++;
+			}
 		}
 	}
-	
+
 	int indexInpots = 0;
 	int indexInShrub = 0;
 	for (auto& destructibleObject : m_staticObjects)
@@ -132,8 +135,11 @@ void LoadGameState::updateLevel()
 			}
 			else
 			{
-				destructibleObject->setPosition(m_potsPositions[indexInpots]);
-				indexInpots++;
+				if (m_potsPositions.size() > 0)
+				{
+					destructibleObject->setPosition(m_potsPositions[indexInpots]);
+					indexInpots++;
+				}
 			}
 		}
 		else if (const auto& p = dynamic_cast<Shrub*>(destructibleObject.get()))
@@ -144,8 +150,11 @@ void LoadGameState::updateLevel()
 			}
 			else
 			{
-				destructibleObject->setPosition(m_shrubPositions[indexInShrub]);
-				indexInShrub++;
+				if (m_shrubPositions.size() > 0)
+				{
+					destructibleObject->setPosition(m_shrubPositions[indexInShrub]);
+					indexInShrub++;
+				}
 			}
 		}
 
@@ -215,30 +224,61 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 				int numOfWeapons;
 				int numOfEnemies;
 				
-				//---read link information---\\
+					//------read link information------\\
+				
 				// Link position
 				saveFile >> m_linkPosition.x >> m_linkPosition.y;
-				// life
+				//handling bad Link position
+				if (m_linkPosition.x < 16 || m_linkPosition.y < 16 || m_linkPosition.x > 790 || m_linkPosition.y > 500)
+				{
+					throw BadFileFormat();
+				}
+				// Link's lives
 				saveFile >> m_linkLife;
-
 				// Link weapons
 				saveFile >> numOfWeapons;
+
+				//handling bad numOfWeapons or bad life insertions
+				if (numOfWeapons < 0 || numOfWeapons > 2 || m_linkLife < 1 || m_linkLife > MAX_HEALTH)
+				{
+					throw BadFileFormat();
+				}
 				for (int index = 0; index < numOfWeapons; index++)
 				{
-					saveFile >> m_weaponIds.emplace_back();
+					int weaponId;
+					saveFile >> weaponId;
+					if (weaponId < 0 || weaponId > 2)
+					{
+						throw BadFileFormat();
+					}
+					m_weaponIds.emplace_back(weaponId);
 				}
 
-				// score - currently not in use
-
-				//---load level---\\
-				// curr level
+					//------load level------\\
+				// level number
 				saveFile >> m_level;
+				//handling bad level insertions
+				if (m_level < 0 || m_level > 5)
+				{
+					throw BadFileFormat();
+				}
+
 				// enemies positions
 				saveFile >> numOfEnemies;
+				//handling bad numOfEnemies insertions
+				if (numOfEnemies < 0)
+				{
+					throw BadFileFormat();
+				}
 				for (int index = 0; index < numOfEnemies; index++)
 				{
 					int id, x, y;
 					saveFile >> id >> x >> y;
+					// handling bad enemies id or x or y insertions
+					if (id < 0 || id > 4 || x < 0 || y < 0)
+					{
+						throw BadFileFormat();
+					}
 					m_enemiesPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)), EnemyType(id));
 				}
 				// read boulders positions
@@ -251,9 +291,14 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 						break;
 					}
 					saveFile >> y;
+					// handling bad boulders x or y insertions
+					if (x < 0 || y < 0)
+					{
+						throw BadFileFormat();
+					}
 					m_boulderPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
 				} 
-				// read static objects positions
+				// read pots positions
 				x = 0, y = 0;
 				while (x != -2)
 				{
@@ -263,9 +308,15 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 						break;
 					}
 					saveFile >> y;
+					// handling bad pots x or y insertions
+					if (x < 0 || y < 0)
+					{
+						throw BadFileFormat();
+					}
 					m_potsPositions.emplace_back(sf::Vector2f(x, y));
 				}
 
+				// read shrub positions
 				x = 0, y = 0;
 				while (x != -3)
 				{
@@ -275,9 +326,13 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 						break;
 					}
 					saveFile >> y;
+					// handling shrub x or y insertions
+					if (x < 0 || y < 0)
+					{
+						throw BadFileFormat();
+					}
 					m_shrubPositions.emplace_back(sf::Vector2f(x, y));
 				}
-
 
 				//handle fail
 				if (saveFile.fail())

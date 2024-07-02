@@ -417,6 +417,20 @@ namespace
 		PigWarriorWall(pigWarrior, wall);
 	}
 
+	void PigWarriorSign(GameObject& pigWarrior, GameObject&)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+	}
+
+	void SignPigWarrior(GameObject& wall, GameObject& pigWarrior)
+	{
+		PigWarriorSign(pigWarrior, wall);
+	}
+
 	void PigWarriorWater(GameObject& pigWarrior, GameObject&)
 	{
 		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
@@ -1022,7 +1036,6 @@ namespace
 		}
 	}
 
-	void LinkKeyTile(GameObject& link, GameObject& keyTile) {}
 
 	void KeyTileLink(GameObject& keyTile, GameObject& link)
 	{

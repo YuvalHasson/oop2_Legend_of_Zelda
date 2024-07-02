@@ -64,9 +64,7 @@ void SaveState::saveGame() const
 			}
 		}
 		saveFile << std::endl;
-		
-		// score - currently not in use
-		
+				
 		//---save level---\\
 		// curr level
 		saveFile << m_level << std::endl;
