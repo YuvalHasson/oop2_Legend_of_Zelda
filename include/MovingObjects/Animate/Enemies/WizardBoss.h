@@ -30,13 +30,13 @@ public:
 	virtual std::unique_ptr<Inanimate> getAttack() override;
 
     bool isShootingPhase()const;
-    bool m_getInvincible()const;
+    bool getInvincible()const;
 
     //observer functions
     virtual void updateLinkPosition(const sf::Vector2f& position)override;
 	virtual void removeLink() override;
 	void registerAsLinkObserver(Link*);
-	EnemyType getType()const;
+	EnemyType getType()const override;
 private:
     sf::Clock m_directionChangeClock;
 	Input m_currInput;

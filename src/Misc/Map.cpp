@@ -187,7 +187,7 @@ std::vector<std::unique_ptr<Enemy>>& Map::getEnemyObjects(Link* link)
 		{
 			p->registerAsLinkObserver(link);
 		}
-		else if(const auto& p = dynamic_cast<WizardBoss*>(enemy.get())){
+		if(const auto& p = dynamic_cast<WizardBoss*>(enemy.get())){
 			p->registerAsLinkObserver(link);
 		}
 

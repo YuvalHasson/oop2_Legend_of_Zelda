@@ -985,7 +985,7 @@ namespace
 		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
 		if (wizardBossPtr && swordPtr)
 		{
-			if (swordPtr->getActive()) {
+			if (swordPtr->getActive() && !wizardBossPtr->getInvincible()) {
 				wizardBossPtr->pushBack(-getCollisionDirection(sword, wizardBoss));
 				wizardBossPtr->setHp(wizardBossPtr->getHp() - 1);
 				wizardBossPtr->hit();
@@ -996,6 +996,76 @@ namespace
 
 	void WizardBossSword(GameObject& wizardBoss, GameObject& sword){}
 
+	void WizardBossWall(GameObject& wizardBoss, GameObject& wall)
+	{
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
+		if (wizardBossPtr)
+		{
+			wizardBossPtr->undoMove();
+		}
+
+	}
+	void WallWizardBoss(GameObject& wall, GameObject& wizardBoss){}
+
+	void WizardBossLink(GameObject& wizardBoss, GameObject& link)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		if (linkPtr)
+		{
+			if(!linkPtr->getInvincible()){
+				linkPtr->pushBack(getCollisionDirection(link, wizardBoss));
+				linkPtr->initializeInvincible();
+				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
+			}
+		}
+
+	}
+
+	void LinkWizardBoss(GameObject& link, GameObject& wizardBoss)
+	{
+		WizardBossLink(wizardBoss,link);
+	}
+
+	void ShieldWizardBoss(GameObject& shield, GameObject& wizardBoss)
+	{
+		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
+		if (shieldPtr && wizardBossPtr)
+		{
+			shieldPtr->pushBack(getCollisionDirection(shield, wizardBoss));
+			wizardBossPtr->pushBack(-getCollisionDirection(shield, wizardBoss));
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
+		}
+	}
+
+	void WizardBossShield(GameObject& wizardBoss, GameObject& shield)
+	{
+		ShieldWizardBoss(shield,wizardBoss);
+	}
+
+	void LinkArrowWizardBoss(GameObject& arrow, GameObject& wizardBoss)
+	{
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		if (wizardBossPtr && arrowPtr)
+		{
+			if(!wizardBossPtr->getInvincible()){
+				std::cout<<"boss invincible!!!\n";
+				wizardBossPtr->pushBack(-getCollisionDirection(arrow, wizardBoss));
+				wizardBossPtr->setHp(wizardBossPtr->getHp() - 1);
+				wizardBossPtr->hit();
+			}
+
+			arrowPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::EnemyHit);
+		}
+	}
+
+	void WizardBossLinkArrow(GameObject& wizardBoss, GameObject& arrow)
+	{
+		LinkArrowWizardBoss(arrow,wizardBoss);
+	}
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -1026,6 +1096,7 @@ namespace
 		phm[Key(typeid(Link),		typeid(Hole))] =			&LinkHole;
 		phm[Key(typeid(Link),		typeid(Shrub))] =			&LinkShrub;
 		phm[Key(typeid(Link),		typeid(Zelda))] =			&LinkZelda;
+		phm[Key(typeid(Link),		typeid(WizardBoss))] =		&LinkWizardBoss;
 		phm[Key(typeid(Wall),		typeid(Link))] =			&WallLink;
 		phm[Key(typeid(Wall),		typeid(Octorok))] =			&WallOctorok;
 		phm[Key(typeid(Wall),		typeid(Projectile))] =		&WallProjectile;
@@ -1036,6 +1107,7 @@ namespace
 		phm[Key(typeid(Wall),		typeid(LinkArrow))] =		&WallLinkArrow;
 		phm[Key(typeid(Wall),		typeid(EnemySword))] =		&WallEnemySword;
 		phm[Key(typeid(Wall),		typeid(SeaUrchin))] =		&WallSeaUrchin; 
+		phm[Key(typeid(Wall),		typeid(WizardBoss))] =		&WallWizardBoss; 
 		phm[Key(typeid(Pot),		typeid(Link))] =			&PotLink;
 		phm[Key(typeid(Pot),		typeid(Sword))] =			&PotSword;
 		phm[Key(typeid(Pot),		typeid(Octorok))] =			&PotOctorok;
@@ -1080,6 +1152,7 @@ namespace
 		phm[Key(typeid(Shield),		typeid(EnemySword))] =		&ShieldEnemySword;
 		phm[Key(typeid(Shield),		typeid(SeaUrchin))] =		&ShieldSeaUrchin;
 		phm[Key(typeid(Shield),		typeid(Boulder))] =			&ShieldBoulder;
+		phm[Key(typeid(Shield),		typeid(WizardBoss))] =		&ShieldWizardBoss;
 		phm[Key(typeid(Projectile), typeid(Wall))] =			&ProjectileWall;
 		phm[Key(typeid(Projectile), typeid(Link))] =			&ProjectileLink;
 		phm[Key(typeid(Projectile), typeid(Octorok))] =			&ProjectileOctorok;
@@ -1150,6 +1223,10 @@ namespace
 		phm[Key(typeid(Heart),		typeid(Link))] =			&HeartLink;
 		phm[Key(typeid(Hole),		typeid(Link))] =			&HoleLink;
 		phm[Key(typeid(WizardBoss), typeid(Sword))] =			&WizardBossSword;
+		phm[Key(typeid(WizardBoss), typeid(Wall))] =			&WizardBossWall;
+		phm[Key(typeid(WizardBoss), typeid(Link))] =			&WizardBossLink;
+		phm[Key(typeid(WizardBoss), typeid(Shield))] =			&WizardBossShield;
+		phm[Key(typeid(WizardBoss), typeid(LinkArrow))] =		&WizardBossLinkArrow;
 		phm[Key(typeid(Sword), typeid(WizardBoss))] =			&SwordWizardBoss;
 
 		//...

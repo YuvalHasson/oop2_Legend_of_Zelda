@@ -155,4 +155,5 @@ void PigWarrior::removeLink()
 void PigWarrior::registerAsLinkObserver(Link* link){
     m_link = link;
     m_link->RegisterObserver(this);
+    m_linkPos = link->getPosition();
 }

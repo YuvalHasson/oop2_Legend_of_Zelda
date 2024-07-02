@@ -56,7 +56,7 @@ void WizardBoss::update(const sf::Time& deltaTime)
 
         if(!p && !s){
             auto posmove = std::make_unique<PositionMovement>();
-            posmove->setDestination(sf::Vector2f(251,124)); //NEED TO CHANGE THE DESTINATION WHEN WE HAVE A LEVEL
+            posmove->setDestination(sf::Vector2f(160,160)); //NEED TO CHANGE THE DESTINATION WHEN WE HAVE A LEVEL
             setMoveStrategy(std::move(posmove));
             m_invincible = true;
             m_shootingPhase = true;
@@ -64,7 +64,7 @@ void WizardBoss::update(const sf::Time& deltaTime)
         }
         //5x5 pixels threshold from the desired position
         auto sh = dynamic_cast<Shoot*>(m_attackStrategy.get());
-        if((getPosition().x< 256 && getPosition().x > 245) && (getPosition().y< 129 && getPosition().y > 119) && !sh){
+        if((getPosition().x< 165 && getPosition().x > 155) && (getPosition().y< 165 && getPosition().y > 155) && !sh){
             setAttackStrategy(std::make_unique<Shoot>());
             setMoveStrategy(std::make_unique<Standing>());
             setGraphics(ANIMATIONS_POSITIONS::BossDown,2);
@@ -88,8 +88,8 @@ void WizardBoss::update(const sf::Time& deltaTime)
 
         sf::Vector2f startDirection = getDirection();
         sf::Vector2f newDirection;
-        newDirection.x = startDirection.x * std::cos(M_PI/8) - startDirection.y * std::sin(M_PI/8);
-        newDirection.y = startDirection.x * std::sin(M_PI/8) + startDirection.y * std::cos(M_PI/8);
+        newDirection.x = static_cast<float>(startDirection.x * std::cos(M_PI/8) - startDirection.y * std::sin(M_PI/8));
+        newDirection.y = static_cast<float>(startDirection.x * std::sin(M_PI/8) + startDirection.y * std::cos(M_PI/8));
         setDirection(newDirection);
     }
 
@@ -159,7 +159,7 @@ std::unique_ptr<Inanimate> WizardBoss::getAttack()
     }
 }
 
-bool WizardBoss::m_getInvincible()const{
+bool WizardBoss::getInvincible()const{
     return m_invincible;
 }
 
@@ -196,4 +196,5 @@ void WizardBoss::removeLink()
 void WizardBoss::registerAsLinkObserver(Link* link){
     m_link = link;
     m_link->RegisterObserver(this);
+    m_linkPos = link->getPosition();
 }
