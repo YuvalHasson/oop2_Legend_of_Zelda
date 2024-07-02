@@ -108,7 +108,7 @@ void WizardBoss::update(const sf::Time& deltaTime)
 }
 
 
-const sf::Vector2u& WizardBoss::getAnimationTexturePosition(Input side)
+const sf::Vector2u WizardBoss::getAnimationTexturePosition(Input side)
 {
     switch (side)
     {

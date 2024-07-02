@@ -239,6 +239,7 @@ namespace
 			linkPtr->pushBack(-getCollisionDirection(project, link));
 			linkPtr->initializeInvincible();
 			linkPtr->setHp(linkPtr->getHp() - 1);
+			SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 
 		}
 	}
@@ -1164,20 +1165,6 @@ namespace
 	{
 		LinkArrowWizardBoss(arrow,wizardBoss);
 	}
-
-	void PigWarriorSign(GameObject& pigWarrior, GameObject& sign)
-	{
-		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
-		if (pigWarriorPtr)
-		{
-			pigWarriorPtr->undoMove();
-		}
-	}
-
-	void SignPigWarrior(GameObject& sign, GameObject& pigWarrior)
-	{
-		PigWarriorSign(pigWarrior, sign);
-	}
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -1336,7 +1323,6 @@ namespace
 		phm[Key(typeid(SeaUrchin),	typeid(LinkArrow))] =		&SeaUrchinLinkArrow;
 		phm[Key(typeid(Sign),		typeid(Link))] =			&SignLink;
 		phm[Key(typeid(Sign),		typeid(Octorok))] =			&SignOctorok;
-		phm[Key(typeid(Sign),		typeid(PigWarrior))] =		&SignPigWarrior;
 		phm[Key(typeid(Shrub),		typeid(Link))] =			&ShrubLink;
 		phm[Key(typeid(Shrub),		typeid(Sword))] =			&ShrubSword;
 		phm[Key(typeid(Shrub),		typeid(Octorok))] =			&ShrubOctorok;
@@ -1352,8 +1338,6 @@ namespace
 		phm[Key(typeid(Lock),		typeid(LinkArrow))] =		&LockLinkArrow;
 		phm[Key(typeid(Lock),		typeid(Sword))] =			&LockSword;
 		phm[Key(typeid(Lock),		typeid(Boulder))] =			&LockBoulder;
-
-
 		phm[Key(typeid(WizardBoss), typeid(Sword))] =			&WizardBossSword;
 		phm[Key(typeid(WizardBoss), typeid(Wall))] =			&WizardBossWall;
 		phm[Key(typeid(WizardBoss), typeid(Link))] =			&WizardBossLink;
@@ -1376,7 +1360,7 @@ namespace
 		return mapEntry->second;
 	}
 
-
+}
 void processCollision(GameObject& object1, GameObject& object2)
 {
 	auto phf = lookup(typeid(object1), typeid(object2));
@@ -1390,18 +1374,19 @@ void processCollision(GameObject& object1, GameObject& object2)
 }
 
 sf::Vector2f getCollisionDirection(GameObject& a, GameObject& b){
-    sf::Vector2f pos1 = a.getPosition();
-    sf::Vector2f pos2 = b.getPosition();
+	sf::Vector2f pos1 = a.getPosition();
+	sf::Vector2f pos2 = b.getPosition();
 
-    // Calculate the vector from object1 to object2
-    sf::Vector2f direction = pos2 - pos1;
+	// Calculate the vector from object1 to object2
+	sf::Vector2f direction = pos2 - pos1;
 
-    // Normalize the direction vector
-    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    if (length != 0) {
-        direction.x /= length;
-        direction.y /= length;
-    }
+	// Normalize the direction vector
+	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+	if (length != 0) {
+		direction.x /= length;
+		direction.y /= length;
+	}
 
-    return direction;
+	return direction;
 }
+
