@@ -46,6 +46,7 @@ public:
 	std::vector<std::unique_ptr<StaticObjects>>& editStaticObjects();
 	std::vector<std::unique_ptr<Inanimate>>& editInanimateObjects();
 	std::vector<sf::FloatRect> getStaticRectsOfCurLevel() const;
+	const std::vector<std::unique_ptr<Enemy>>& getEnemies() const;
 	// Method to extract Link object
 	std::unique_ptr<Link> extractLink() {
 		return std::move(m_link); // Transfer ownership

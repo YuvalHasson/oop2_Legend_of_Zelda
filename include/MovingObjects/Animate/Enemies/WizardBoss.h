@@ -31,6 +31,8 @@ public:
 
     bool isShootingPhase()const;
     bool getInvincible()const;
+	void setDead();
+	bool getDead()const;
 
     //observer functions
     virtual void updateLinkPosition(const sf::Vector2f& position)override;
@@ -56,6 +58,8 @@ private:
     sf::Clock m_shootingPhaseTimer;
 	sf::Clock m_shootIntervalTimer;
     bool m_shootingPhase;
+
+	bool m_isDead;
 
     static bool m_registerit;
 };

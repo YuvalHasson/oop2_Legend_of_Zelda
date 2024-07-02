@@ -1,4 +1,5 @@
 #include "VictoryState.h"
+#include <iostream>
 
 VictoryState::VictoryState(sf::RenderWindow* window)
 	: State(window), m_elapsedTime(sf::Time::Zero), m_direction(1)
@@ -16,10 +17,20 @@ VictoryState::VictoryState(sf::RenderWindow* window)
 	m_text.setLetterSpacing(4);
 	m_text.setFillColor(sf::Color::Black);
 	m_text.setPosition(window->getSize().x / 2.f - 325, window->getSize().y / 2.f - 300);
+
+	m_fadingRectangle.setPosition(0,0);
+	m_fadingRectangle.setSize({1000.f,1000.f});
+	m_fadingRectangle.setFillColor(sf::Color(0,0,0,255));
 }
 
 void VictoryState::update(const sf::Time& deltaTime)
 {
+	if(m_fadingRectangle.getFillColor().a != 0){
+		sf::Color newAlpha = m_fadingRectangle.getFillColor();
+		newAlpha.a -= 1;
+		m_fadingRectangle.setFillColor(newAlpha);
+	}
+
 	m_elapsedTime += deltaTime;
 
 	if (m_elapsedTime.asSeconds() < 8)
@@ -48,6 +59,7 @@ void VictoryState::render(sf::RenderTarget* target)
 	target->draw(m_background);
 	target->draw(m_sprite);
 	target->draw(m_text);
+	target->draw(m_fadingRectangle);
 }
 
 std::unique_ptr<State> VictoryState::handleInput(const GAME_STATE& gameState)

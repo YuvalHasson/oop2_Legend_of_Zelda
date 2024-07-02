@@ -72,6 +72,7 @@ private:
 	bool m_wasTabPressed;
 	bool m_isShielding;
 	bool m_invincible;
+	bool m_won;
 
 	sf::Clock m_timeSinceLastPush;
 

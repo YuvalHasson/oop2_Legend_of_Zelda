@@ -17,7 +17,7 @@ object to int
 12 - Sea Urchin
 13 - Hole
 14 - Shrub
-15 - WizardBoss
+17 - WizardBoss
 
 15 - WizardBoss
 

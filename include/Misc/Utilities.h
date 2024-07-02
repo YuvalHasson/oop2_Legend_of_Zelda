@@ -163,6 +163,7 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u BossUp(35, 1);
 	const sf::Vector2u BossLeft(69, 1);
 	const sf::Vector2u BossRight(103, 1);
+	const sf::Vector2u BossDead(1, 18);
 
 }
 

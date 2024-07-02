@@ -14,7 +14,7 @@ WizardBoss::WizardBoss(const sf::Texture& texture, const sf::Vector2f& position)
      m_currInput(PRESS_RIGHT),
      m_moveStrategy(std::make_unique<SmartMovement>()), 
      m_attackStrategy(std::make_unique<Stab>()),
-     m_weapon(nullptr), m_invincible(false)
+     m_weapon(nullptr), m_invincible(false), m_isDead(false)
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::BossDown, 2, true);
@@ -33,14 +33,17 @@ WizardBoss::~WizardBoss()
 
 void WizardBoss::update(const sf::Time& deltaTime)
 {
+
+    if(m_isDead){
+        return;
+    }
     Enemy::updateHitAnimation(deltaTime);
     Enemy::update(deltaTime);
     
     sf::Vector2f currentPosition = getSprite().getPosition();
 
     //setPhase
-    if (!(getHp() % 4 == 0)) {
-
+    if (!isShootingPhase()) {
 
         setMoveStrategy(std::make_unique<SmartMovement>());
         setAttackStrategy(std::make_unique<Stab>());
@@ -98,7 +101,8 @@ void WizardBoss::update(const sf::Time& deltaTime)
     updateSprite();
     if (getHp() <= MIN_HEALTH)
     {
-        destroy();
+        setDead();
+        // destroy();
     }
 	setSpeed(1.f);
 }
@@ -181,6 +185,16 @@ float WizardBoss::distance(const sf::Vector2f& p1, const sf::Vector2f& p2)
 
 EnemyType WizardBoss::getType()const{
     return WIZARDBOSS;
+}
+
+void WizardBoss::setDead(){
+    m_isDead = true;
+    setGraphics(ANIMATIONS_POSITIONS::BossDead,1);
+    updateSprite();
+}
+
+bool WizardBoss::getDead()const{
+    return m_isDead;
 }
 
 //----------observer functions----------

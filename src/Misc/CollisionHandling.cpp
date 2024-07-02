@@ -1015,6 +1015,8 @@ namespace
 				zeldaPtr->setActive(false);
 			}
 		}
+	}
+
 	void LinkKeyTile(GameObject& link, GameObject& keyTile) {}
 
 	void KeyTileLink(GameObject& keyTile, GameObject& link)
@@ -1082,9 +1084,10 @@ namespace
 	void WizardBossLink(GameObject& wizardBoss, GameObject& link)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss); 
 		if (linkPtr)
 		{
-			if(!linkPtr->getInvincible()){
+			if(!linkPtr->getInvincible() && !wizardBossPtr->getDead()){
 				linkPtr->pushBack(getCollisionDirection(link, wizardBoss));
 				linkPtr->initializeInvincible();
 				linkPtr->setHp(linkPtr->getHp() - 1);
@@ -1137,6 +1140,20 @@ namespace
 	void WizardBossLinkArrow(GameObject& wizardBoss, GameObject& arrow)
 	{
 		LinkArrowWizardBoss(arrow,wizardBoss);
+	}
+
+	void PigWarriorSign(GameObject& pigWarrior, GameObject& sign)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+	}
+
+	void SignPigWarrior(GameObject& sign, GameObject& pigWarrior)
+	{
+		PigWarriorSign(pigWarrior, sign);
 	}
 	//...
 
@@ -1258,6 +1275,7 @@ namespace
 		phm[Key(typeid(PigWarrior), typeid(Projectile))] =		&PigWarriorProjectile;
 		phm[Key(typeid(PigWarrior), typeid(Shrub))] =			&PigWarriorShrub;
 		phm[Key(typeid(PigWarrior), typeid(PigWarrior))] =		&PigWarriorPigWarrior;
+		phm[Key(typeid(PigWarrior),	typeid(Sign))] =			&PigWarriorSign;
 		phm[Key(typeid(LinkArrow),	typeid(Octorok))] =			&LinkArrowOctorok;
 		phm[Key(typeid(LinkArrow),	typeid(PigWarrior))] =		&LinkArrowPigWarrior;
 		phm[Key(typeid(LinkArrow),	typeid(Link))] =			&LinkArrowLink;
@@ -1290,6 +1308,7 @@ namespace
 		phm[Key(typeid(SeaUrchin),	typeid(LinkArrow))] =		&SeaUrchinLinkArrow;
 		phm[Key(typeid(Sign),		typeid(Link))] =			&SignLink;
 		phm[Key(typeid(Sign),		typeid(Octorok))] =			&SignOctorok;
+		phm[Key(typeid(Sign),		typeid(PigWarrior))] =		&SignPigWarrior;
 		phm[Key(typeid(Shrub),		typeid(Link))] =			&ShrubLink;
 		phm[Key(typeid(Shrub),		typeid(Sword))] =			&ShrubSword;
 		phm[Key(typeid(Shrub),		typeid(Octorok))] =			&ShrubOctorok;
@@ -1328,7 +1347,7 @@ namespace
 		}
 		return mapEntry->second;
 	}
-}
+
 
 void processCollision(GameObject& object1, GameObject& object2)
 {

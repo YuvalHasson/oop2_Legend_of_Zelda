@@ -312,7 +312,7 @@ void Board::initializeLevel(const Level& level)
 	case Level::THIERD_DUNGEON:
 		m_map.setMap("Dungeon03.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon3));
-		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
+		// SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
 		break;
 	case Level::BOSS_DUNGEON:
 		m_map.setMap("BossDungeon.csv");
@@ -358,6 +358,10 @@ std::vector<std::unique_ptr<StaticObjects>>& Board::editStaticObjects()
 std::vector<sf::FloatRect> Board::getStaticRectsOfCurLevel() const
 {
 	return m_staticRectsOfCurLevel;
+}
+
+const std::vector<std::unique_ptr<Enemy>>& Board::getEnemies() const{
+	return m_enemiesObjects;
 }
 
 //I think I removed it many times

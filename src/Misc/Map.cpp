@@ -24,9 +24,9 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(12, "SeaUrchin");
 	dict.emplace(13, "Hole");
 	dict.emplace(14, "Shrub" );
-	dict.emplace(15, "WizardBoss" );
 	dict.emplace(15, "KeyTile" );
 	dict.emplace(16, "Lock" );
+	dict.emplace(17, "WizardBoss" );
 
 	dict.emplace(50, "Door");
 	dict.emplace(51, "Door");
