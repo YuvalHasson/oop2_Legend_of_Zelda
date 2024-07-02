@@ -25,7 +25,7 @@ void Enemy::updateHitAnimation(const sf::Time& deltaTime){
 	}
 }
 
-//raycasting
+//ray-casting
 bool Enemy::castRay(const sf::Vector2f& enemyPos ,const sf::Vector2f& linkPos)const{
 	//find direction vector
 	sf::Vector2f direction = linkPos - enemyPos;

@@ -5,7 +5,7 @@
 class WaterTile : public InDestructible
 {
 public:
-	WaterTile(const sf::Texture& texture, const sf::Vector2f& position);
+	WaterTile(const sf::Texture&, const sf::Vector2f&);
 
 private:
 	static bool m_registerit;

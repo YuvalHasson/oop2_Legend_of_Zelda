@@ -1,6 +1,6 @@
 #include "Stab.h"
 
-void Stab::attack(sf::Time& attackDuration, sf::Clock& attackTimer, std::unique_ptr<Weapon>& sword, Enemy& enemy)
+void Stab::attack(sf::Time&, sf::Clock&, std::unique_ptr<Weapon>& sword, Enemy& enemy)
 {
     if (m_attackDuration.asSeconds() - m_attackTimer.getElapsedTime().asSeconds() <= 0)
     {
@@ -8,7 +8,7 @@ void Stab::attack(sf::Time& attackDuration, sf::Clock& attackTimer, std::unique_
         {
             sword = std::move(p);
             sword->setDirection(enemy.getDirection());
-            sf::Vector2f position = enemy.getSprite().getPosition();
+            sf::Vector2f position = enemy.getPosition();
             sf::Vector2f attackPos;
             if (enemy.getDirection().x == 1) {
                 sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordRight, 2, true, 0.10f);//true for singleTime
@@ -30,7 +30,6 @@ void Stab::attack(sf::Time& attackDuration, sf::Clock& attackTimer, std::unique_
                 attackPos.x = position.x - 0.1f;
                 attackPos.y = position.y + tileSize * 0.65f;
             }
-            sword->getSprite().setPosition(attackPos);
             sword->setPosition(attackPos);
             sword->updateSprite();
         

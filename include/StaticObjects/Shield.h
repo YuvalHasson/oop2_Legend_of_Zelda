@@ -6,10 +6,10 @@ class Shield: public InDestructible{
 public:
     Shield(const sf::Texture&, const sf::Vector2f&);
 
-    void activate(const sf::Vector2f&, const sf::Vector2i& direction);
+    void activate(const sf::Vector2f&, const sf::Vector2i&);
     void deActivate();
-    bool getActive()const;
-    void setActive(bool active);
+    bool getActive() const;
+    void setActive(bool);
     bool getCollided();
     sf::Vector2i getCollisionDirection() const;
 	sf::Vector2i getLinkDirection() const;

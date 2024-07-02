@@ -3,8 +3,6 @@
 #include "Utilities.h"
 #include "Weapon.h"
 #include "Enemy.h"
-//#include "MovementStrategy.h"
-
 
 class AttackStrategy
 {

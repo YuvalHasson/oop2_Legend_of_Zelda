@@ -4,14 +4,14 @@ VictoryState::VictoryState(sf::RenderWindow* window)
 	: State(window), m_elapsedTime(sf::Time::Zero), m_direction(1)
 {
 	m_background.setTexture(Resources::getResource().getTexture(TEXTURE::End));
-	m_background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+	m_background.setSize(sf::Vector2f(static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
 	m_sprite.setTexture(*Resources::getResource().getTexture(TEXTURE::EndingSpriteSheet));
 	m_sprite.setTextureRect(sf::IntRect(9, 146, 40, 63));
 	m_sprite.setScale(3.5f, 3.5f);
 	m_sprite.setPosition(window->getSize().x / 2.f, window->getSize().y / 2.f);
 
 	m_text.setFont(*Resources::getResource().getFont());
-	m_text.setString("Congragulation\nYou  Have  Won");
+	m_text.setString("Congratulation\nYou  Have  Won");
 	m_text.setCharacterSize(50);
 	m_text.setLetterSpacing(4);
 	m_text.setFillColor(sf::Color::Black);

@@ -37,5 +37,5 @@ public:
 
 	void setBackgroundVolume(float);
 	
-	float getVolume() const;
+	const float getVolume() const;
 };

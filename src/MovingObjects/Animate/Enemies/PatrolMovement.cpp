@@ -1,5 +1,4 @@
 #include "PatrolMovement.h"
-#include "PigWarrior.h"
 
 void PatrolMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock)
 {

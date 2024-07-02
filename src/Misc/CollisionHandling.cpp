@@ -1,8 +1,5 @@
 #include "CollisionHandling.h"
 
-#include <iostream> //debugging
-
-
 namespace
 {
 	void ProjectileProjectile(GameObject&, GameObject&) {}
@@ -60,7 +57,10 @@ namespace
 	void SwordWall(GameObject&, GameObject&) {}
 
 	void ProjectileOctorok(GameObject&, GameObject&) {}
-	void SwordLock(GameObject& sword, GameObject& wall) {}
+
+	void LinkKeyTile(GameObject&, GameObject&) {}
+
+	void SwordLock(GameObject&, GameObject&) {}
 
 	void LinkSword(GameObject&, GameObject&)	{}
 
@@ -90,7 +90,9 @@ namespace
 
 	void LinkArrowWater(GameObject&, GameObject&) {}
 
-	void LinkWall(GameObject& link, GameObject& wall)
+	void ProjectileEnemySword(GameObject&, GameObject&) {}
+
+	void LinkWall(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
@@ -102,7 +104,7 @@ namespace
 
 	}
 
-	void LinkWater(GameObject& link, GameObject& water)
+	void LinkWater(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
@@ -116,7 +118,7 @@ namespace
 		LinkWater(link, water);
 	}
 
-	void LinkPot(GameObject& link, GameObject& pot)
+	void LinkPot(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
@@ -155,7 +157,7 @@ namespace
 		LinkOctorok(link, octorok);
 	}
 
-	void OctorokWall(GameObject& octorok, GameObject& wall)
+	void OctorokWall(GameObject& octorok, GameObject&)
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (octorokPtr)
@@ -169,7 +171,7 @@ namespace
 		OctorokWall(octorok, wall);
 	}
 
-	void OctorokWater(GameObject& octorok, GameObject& water)
+	void OctorokWater(GameObject& octorok, GameObject&)
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (octorokPtr)
@@ -208,7 +210,7 @@ namespace
 		SwordLock(sword, lock);
 	}
 
-	void ProjectileWall(GameObject& project, GameObject& wall)
+	void ProjectileWall(GameObject& project, GameObject&)
 	{
 		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&project);
 		if (ProjectilePtr)
@@ -282,7 +284,7 @@ namespace
 		LinkBoulder(link, boulder);
 	}
 
-	void BoulderWall(GameObject& boulder, GameObject& wall)
+	void BoulderWall(GameObject& boulder, GameObject&)
 	{
 		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
 		if (boulderPtr)
@@ -296,7 +298,7 @@ namespace
 		BoulderWall(boulder, wall);
 	}
 
-	void BoulderLock(GameObject& boulder, GameObject& lock)
+	void BoulderLock(GameObject& boulder, GameObject&)
 	{
 		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
 		if (boulderPtr)
@@ -365,7 +367,7 @@ namespace
 		SwordPot(sword, pot);
 	}
 
-	void OctorokPot(GameObject& octorok, GameObject& pot)
+	void OctorokPot(GameObject& octorok, GameObject&)
 	{
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (octorokPtr)
@@ -401,7 +403,7 @@ namespace
 		LinkPigWarrior(link, pigWarrior);
 	}
 
-	void PigWarriorWall(GameObject& pigWarrior, GameObject& wall)
+	void PigWarriorWall(GameObject& pigWarrior, GameObject&)
 	{
 		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
 		if (pigWarriorPtr)
@@ -415,22 +417,7 @@ namespace
 		PigWarriorWall(pigWarrior, wall);
 	}
 
-	void PigWarriorSign(GameObject& pigWarrior, GameObject& sign)
-	{
-		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
-		if (pigWarriorPtr)
-		{
-			pigWarriorPtr->undoMove();
-		}
-	}
-
-	void SignPigWarrior(GameObject& sign, GameObject& pigWarrior)
-	{
-		PigWarriorSign(pigWarrior, sign);
-	}
-	 
-
-	void PigWarriorWater(GameObject& pigWarrior, GameObject& water)
+	void PigWarriorWater(GameObject& pigWarrior, GameObject&)
 	{
 		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
 		if (pigWarriorPtr)
@@ -497,7 +484,7 @@ namespace
 		LinkArrowPigWarrior(arrow, pigWarrior);
 	}
 
-	void LinkArrowWall(GameObject& arrow, GameObject& wall)
+	void LinkArrowWall(GameObject& arrow, GameObject&)
 	{
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
 		if (arrowPtr)
@@ -556,7 +543,6 @@ namespace
 			if (linkPtr)
 			{
 				linkPtr->setPosition(pos);
-				linkPtr->getSprite().setPosition(pos);
 			}
 		}
 	}
@@ -758,7 +744,7 @@ namespace
 		SeaUrchinLink(seaUrchin, link);
 	}
 
-	void SeaUrchinWall(GameObject& seaUrchin, GameObject& wall)
+	void SeaUrchinWall(GameObject& seaUrchin, GameObject&)
 	{
 		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
 		if (seaUrchinPtr)
@@ -772,7 +758,7 @@ namespace
 		SeaUrchinWall(seaUrchin, wall);
 	}
 
-	void SeaUrchinWater(GameObject& seaUrchin, GameObject& water)
+	void SeaUrchinWater(GameObject& seaUrchin, GameObject&)
 	{
 		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
 		if (seaUrchinPtr)
@@ -1043,7 +1029,20 @@ namespace
 		LinkKeyTile(link, keyTile);
 	}
 
-	void LinkLock(GameObject& link, GameObject& lock)
+	void SwordProjectile(GameObject& swrod, GameObject& projectile)
+	{
+		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&projectile);
+		Sword* swordPtr = dynamic_cast<Sword*>(&swrod);
+		if (ProjectilePtr && swordPtr)
+		{
+			if (swordPtr->getActive()) {
+				ProjectilePtr->destroy();
+			}
+		}
+	
+	}
+
+	void LinkLock(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
 		if (linkPtr)
@@ -1059,7 +1058,7 @@ namespace
 		LinkLock(link, lock);
 	}
 
-	void LinkArrowLock(GameObject& arrow, GameObject& lock)
+	void LinkArrowLock(GameObject& arrow, GameObject&)
 	{
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
 		if (arrowPtr)
@@ -1153,6 +1152,7 @@ namespace
 		phm[Key(typeid(Sword),		typeid(WaterTile))] =		&SwordWater;
 		phm[Key(typeid(Sword),		typeid(EnemySword))] =		&SwordEnemySword;
 		phm[Key(typeid(Sword),		typeid(Lock))] =			&SwordLock;
+		phm[Key(typeid(Sword),		typeid(Projectile))] =		&SwordProjectile;
 		phm[Key(typeid(Shield),		typeid(Octorok))] =			&ShieldOctorok;
 		phm[Key(typeid(Shield),		typeid(Projectile))] =		&ShieldProjectile;
 		phm[Key(typeid(Shield),		typeid(PigWarrior))] =		&ShieldPigWarrior;
@@ -1169,6 +1169,7 @@ namespace
 		phm[Key(typeid(Projectile), typeid(WaterTile))] =		&ProjectileWater;
 		phm[Key(typeid(Projectile), typeid(SeaUrchin))] =		&ProjectileSeaUrchin;
 		phm[Key(typeid(Projectile), typeid(Shrub))] =			&ProjectileShrub;
+		phm[Key(typeid(Projectile), typeid(EnemySword))] =		&ProjectileEnemySword;
 		phm[Key(typeid(Boulder),	typeid(Link))] =			&BoulderLink;
 		phm[Key(typeid(Boulder),	typeid(Wall))] =			&BoulderWall;
 		phm[Key(typeid(Boulder),	typeid(Octorok))] =			&BoulderOctorok;

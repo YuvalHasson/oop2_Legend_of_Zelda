@@ -1,7 +1,5 @@
 #include "EnemySword.h"
 
-#include <iostream> //debugging
-
 bool EnemySword::m_registerit = Factory<EnemySword>::instance()->registerit("EnemySword",
     [](const sf::Vector2f& position) -> std::unique_ptr<EnemySword>
     {
@@ -9,7 +7,7 @@ bool EnemySword::m_registerit = Factory<EnemySword>::instance()->registerit("Ene
     });
 
 EnemySword::EnemySword(const sf::Texture& Texture, const sf::Vector2f& position)
-    :Weapon(Texture, position, sf::Vector2f(8, 8), sf::Vector2f(8 / 2, 8 / 2))
+    :Weapon(Texture, position, sf::Vector2f(tileSize / 2.f, tileSize / 2.f), sf::Vector2f(tileSize / 4.f, tileSize / 4.f))
 {
     setGraphics(ANIMATIONS_POSITIONS::EnemySwordDown, 1);
     updateSprite();

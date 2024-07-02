@@ -1,8 +1,8 @@
 #include "Animation.h"
-#include <iostream>
 
 Animation::Animation(): m_singleImgFlip(false), m_timePassed(0),
-     m_switchTime(0.1f), m_singleTime(false){
+     m_switchTime(0.1f), m_singleTime(false), m_currentImage(0), m_imageCount(1)
+{
     m_uvRect.width = tileSize;
     m_uvRect.height = tileSize;
 }

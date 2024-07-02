@@ -1,7 +1,5 @@
 #include "MainMenu.h"
 
-#include <iostream> // std::cout
-
 MainMenu::MainMenu(sf::RenderWindow* window)
 	:State(window)
 {
@@ -17,7 +15,7 @@ MainMenu::MainMenu(sf::RenderWindow* window)
 
 void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		if (option.second->isButtonPressed(window, event.mouseButton))
 		{
@@ -28,7 +26,7 @@ void MainMenu::buttonPressed(sf::RenderWindow& window, const sf::Event& event)
 
 void MainMenu::overButton(sf::RenderWindow& window)
 {
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->overButton(window);
 	}
@@ -47,7 +45,7 @@ void MainMenu::render(sf::RenderTarget* target)
 		target = getWindow();
 	}
 	target->draw(m_menuBackground);
-	for (auto& option : m_options)
+	for (const auto& option : m_options)
 	{
 		option.second->draw(*target);
 	}

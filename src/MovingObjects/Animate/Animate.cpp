@@ -2,8 +2,7 @@
 
 Animate::Animate(const sf::Texture& texture, const sf::Vector2f& position, const sf::Vector2f& size, const sf::Vector2f& originOffset)
 	: MovingObjects(texture, position, size, originOffset), m_attacking(false), 
-	  m_hp(1), m_isPushedback(false), m_hitAnimation(getSprite().getColor())
-	  {}
+	  m_hp(1), m_isPushedback(false), m_hitAnimation(getSprite().getColor()) {}
 
 void Animate::updateHitAnimation(const sf::Time& deltaTime){
 	m_hitAnimation.update(deltaTime);

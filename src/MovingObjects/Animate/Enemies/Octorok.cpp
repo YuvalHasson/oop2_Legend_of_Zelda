@@ -1,7 +1,5 @@
 #include "Octorok.h"
 
-#include <iostream> //debug
-
 bool Octorok::m_registerit = Factory<Enemy>::instance()->registerit("Octorok",
     [](const sf::Vector2f& position) -> std::unique_ptr<Enemy>
     {
@@ -68,7 +66,7 @@ sf::Vector2f Octorok::getLinkPos()
     return sf::Vector2f();
 }
 
-const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
+const sf::Vector2u Octorok::getAnimationTexturePosition(Input side)
 {
     switch (side)
     {
@@ -80,6 +78,8 @@ const sf::Vector2u& Octorok::getAnimationTexturePosition(Input side)
         return ANIMATIONS_POSITIONS::OctorokLeft;
     case PRESS_RIGHT:
         return ANIMATIONS_POSITIONS::OctorokRight;
+    default: 
+     	return ANIMATIONS_POSITIONS::OctorokDown; // will not happen
     }
 }
 

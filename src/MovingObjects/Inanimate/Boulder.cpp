@@ -9,12 +9,12 @@ bool Boulder::m_registerit = Factory<Inanimate>::instance()->registerit("Boulder
 Boulder::Boulder(const sf::Texture& texture, const sf::Vector2f& pos)
 	: Inanimate(texture, pos, sf::Vector2f(tileSize / 1.3f, tileSize / 1.3f), sf::Vector2f(0, 0))
 {
-	setGraphics({190, 170}, 1);
+	setGraphics(SPRITE_POSITIONS::Boulder, 1);
 	getSprite().setTextureRect(getAnimation().getuvRect());
 	updateSprite();
 }
 
-void Boulder::update(const sf::Time& deltaTime)
+void Boulder::update(const sf::Time&)
 {
 	setSpeed(1.f);
 }

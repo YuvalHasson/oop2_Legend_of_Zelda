@@ -20,14 +20,11 @@ public:
     sf::Vector2f getPreviousPosition() const;
 	sf::Vector2f getPosition() const;
 
-    bool checkCollision(const GameObject& other)const;
+    bool checkCollision(const GameObject& other) const;
+    bool isInView(const sf::FloatRect&) const;
 
-    HitBox getHitBox()const; // for debugging
+    HitBox getHitBox() const;
     void setHitBox(const sf::Vector2f&, const sf::Vector2f&);
-
-	//temp get?
-	sf::Sprite& getSprite() { return m_sprite; }
-
 
 private:
     sf::Sprite m_sprite;
@@ -36,4 +33,8 @@ private:
 
     bool m_destroyed = false;
     HitBox m_hitBox;
+
+protected:
+    sf::Sprite& getSprite() { return m_sprite; }
+
 };

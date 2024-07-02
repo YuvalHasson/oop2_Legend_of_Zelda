@@ -1,10 +1,10 @@
 #pragma once
-#include <iostream> // debug
 
 #include <SFML/Graphics.hpp>
 #include "Utilities.h"
 #include "Resources.h"
 #include "Factory.h"
+#include <iostream>
 #include <memory>
 #include <fstream>
 #include <sstream>
@@ -40,6 +40,7 @@ public:
 	std::vector<std::unique_ptr<StaticObjects>>& getStaticObjects(Link*);
 
 	std::vector<std::unique_ptr<Door>>& getDoors();
+	std::unique_ptr<Zelda>& getZelda();
 
 	std::map<int, std::string> getDict() const;
 	std::vector<sf::FloatRect> getStaticObjectsRects()const;
@@ -50,6 +51,7 @@ private:
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 	std::vector<std::unique_ptr<Door>> m_doors;
+	std::unique_ptr<Zelda> m_zelda;
 	std::vector<sf::FloatRect> m_staticObjectsRects;
 	std::vector<std::pair<std::string,Cell>> m_map;
 };

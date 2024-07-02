@@ -1,11 +1,7 @@
 #include "MovingObjects.h"
 
-#include <iostream> //debugging
-
 MovingObjects::MovingObjects(const sf::Texture& texture, const sf::Vector2f& position, const sf::Vector2f& size, const sf::Vector2f& originOffset)
-	: GameObject(texture, position, size, originOffset), m_direction(0, 0), m_speed(1), m_animation()
-{
-}
+	: GameObject(texture, position, size, originOffset), m_direction(0, 0), m_speed(1), m_animation() {}
 
 sf::Vector2i MovingObjects::getDirection()const
 {

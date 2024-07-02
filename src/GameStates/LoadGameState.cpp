@@ -17,7 +17,13 @@ LoadGameState::LoadGameState(sf::RenderWindow* window, GAME_STATE state, std::ve
 
 void LoadGameState::update(const sf::Time&)
 {
-	updateState(GAME_STATE::GAME_RUNNING);
+	if (!m_isLoadFail)
+	{
+		updateState(GAME_STATE::GAME_RUNNING);
+	}
+	else {
+		updateState(m_cameFromState);
+	}
 }
 
 void LoadGameState::render(sf::RenderTarget* target)
@@ -49,7 +55,6 @@ void LoadGameState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 
 void LoadGameState::updateLink()
 {
-	m_link->getSprite().setPosition(m_linkPosition);
 	m_link->setPosition(m_linkPosition);
 	m_link->setHp(m_linkLife);
 
@@ -110,7 +115,6 @@ void LoadGameState::updateLevel()
 	{
 		if (const auto& p = dynamic_cast<Boulder*>(inanimateObject.get()))
 		{
-			inanimateObject->getSprite().setPosition(m_boulderPositions[index]);
 			inanimateObject->setPosition(m_boulderPositions[index]);
 			index++;
 		}
@@ -128,7 +132,6 @@ void LoadGameState::updateLevel()
 			}
 			else
 			{
-				destructibleObject->getSprite().setPosition(m_potsPositions[indexInpots]);
 				destructibleObject->setPosition(m_potsPositions[indexInpots]);
 				indexInpots++;
 			}
@@ -141,7 +144,6 @@ void LoadGameState::updateLevel()
 			}
 			else
 			{
-				destructibleObject->getSprite().setPosition(m_shrubPositions[indexInShrub]);
 				destructibleObject->setPosition(m_shrubPositions[indexInShrub]);
 				indexInShrub++;
 			}
@@ -237,7 +239,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 				{
 					int id, x, y;
 					saveFile >> id >> x >> y;
-					m_enemiesPositions.emplace_back(sf::Vector2f(x, y), EnemyType(id));
+					m_enemiesPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)), EnemyType(id));
 				}
 				// read boulders positions
 				int x = 0, y = 0;
@@ -249,7 +251,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 						break;
 					}
 					saveFile >> y;
-					m_boulderPositions.emplace_back(sf::Vector2f(x, y));
+					m_boulderPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
 				} 
 				// read static objects positions
 				x = 0, y = 0;
@@ -277,7 +279,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 				}
 
 
-				//handale fail
+				//handle fail
 				if (saveFile.fail())
 				{
 					throw BadFileFormat();
@@ -291,7 +293,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 		}
 		else
 		{
-			//cannot open file or BadFileName exeption.
+			//cannot open file or BadFileName exception.
 			throw BadFileName();
 		}
 	}

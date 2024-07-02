@@ -8,7 +8,7 @@ SaveState::SaveState(sf::RenderWindow* window, std::vector<Board>&& board, sf::V
 	m_boardLevels[m_level].setLink(std::move(m_link));
 }
 
-void SaveState::update(const sf::Time& deltaTime)
+void SaveState::update(const sf::Time&)
 {
 	updateState(GAME_STATE::GAME_RUNNING);
 }
@@ -84,7 +84,7 @@ void SaveState::saveGame() const
 		{
 			if (const auto& p = dynamic_cast<Boulder*>(inanimateObject.get()))
 			{
-				saveFile << inanimateObject->getSprite().getPosition().x << " " << inanimateObject->getSprite().getPosition().y << std::endl;
+				saveFile << inanimateObject->getPosition().x << " " << inanimateObject->getPosition().y << std::endl;
 			}
 		}
 		saveFile << "-1" << std::endl;
@@ -93,8 +93,8 @@ void SaveState::saveGame() const
 		{
 			if (const auto& p = dynamic_cast<Pot*>(destructible.get()))
 			{
-				saveFile << destructible->getSprite().getPosition().x <<
-					 " " << destructible->getSprite().getPosition().y << std::endl;
+				saveFile << destructible->getPosition().x <<
+					 " " << destructible->getPosition().y << std::endl;
 			}
 		}
 		saveFile << "-2" << std::endl;
@@ -103,8 +103,8 @@ void SaveState::saveGame() const
 		{
 			if (const auto& p = dynamic_cast<Shrub*>(destructible.get()))
 			{
-				saveFile << destructible->getSprite().getPosition().x <<
-					" " << destructible->getSprite().getPosition().y << std::endl;
+				saveFile << destructible->getPosition().x <<
+					" " << destructible->getPosition().y << std::endl;
 			}
 		}
 		saveFile << "-3" << std::endl;

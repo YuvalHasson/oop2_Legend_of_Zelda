@@ -12,16 +12,16 @@ class Animate : public MovingObjects
 public:
 	Animate(const sf::Texture&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&);
 
-	virtual const sf::Vector2u& getAnimationTexturePosition(Input) = 0;
+	virtual const sf::Vector2u getAnimationTexturePosition(Input) = 0;
 	virtual std::unique_ptr<Inanimate> getAttack() = 0;
 
 	void move() override;
-	void updateGraphics(const sf::Time& deltaTime);
+	void updateGraphics(const sf::Time&);
 	virtual void updateHitAnimation(const sf::Time&);
 	void pushBack(const sf::Vector2i&);
 	void addHitColor(sf::Color color);
-	sf::Color getCurrentColor()const;
-	sf::Color getBaseColor()const;
+	sf::Color getCurrentColor() const;
+	sf::Color getBaseColor() const;
 	void setAttacking(const bool& = false);
 
 	bool isAttacking() const;

@@ -2,12 +2,12 @@
 
 LinkAttackState::LinkAttackState(): m_attackDuration(sf::seconds(0.3f)), m_isAnimationSet(false){}
 
-std::unique_ptr<LinkState> LinkAttackState::handleInput(Input input, bool shielding, bool)
+std::unique_ptr<LinkState> LinkAttackState::handleInput(Input input, bool, bool)
 {
 
     if(m_attackDuration.asSeconds() - m_attackTimer.getElapsedTime().asSeconds()  <= 0)
     {
-        if(input == PRESS_DOWN_LEFT || input == PRESS_DOWN_RIGHT || input == PRESS_UP_LEFT||
+        if(input == PRESS_DOWN_LEFT  || input == PRESS_DOWN_RIGHT || input == PRESS_UP_LEFT||
             input == PRESS_UP_RIGHT  || input == PRESS_LEFT       || input == PRESS_RIGHT  ||
             input == PRESS_DOWN      || input == PRESS_UP){
                 return std::make_unique<LinkMoveState>(input);        
