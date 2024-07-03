@@ -9,7 +9,7 @@ public:
 	
 	void setActive(bool);
 	void draw(sf::RenderTarget&) override;
-	bool getInnerBox(const HitBox&) const;
+	bool checkInnerCollision(const HitBox&) const;
 	void setText(const std::string&);
 private:
 	static bool m_registerit;

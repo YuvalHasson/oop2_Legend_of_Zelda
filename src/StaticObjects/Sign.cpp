@@ -48,7 +48,7 @@ void Sign::draw(sf::RenderTarget& target)
 	target.setView(curr);
 }
 
-bool Sign::getInnerBox(const HitBox& box) const
+bool Sign::checkInnerCollision(const HitBox& box) const
 {
 	return m_hitBox.checkCollision(box);
 }

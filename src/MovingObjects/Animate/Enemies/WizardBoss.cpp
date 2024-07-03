@@ -56,7 +56,7 @@ void WizardBoss::update(const sf::Time& deltaTime)
 
         if(!p && !s){
             auto posmove = std::make_unique<PositionMovement>();
-            posmove->setDestination(sf::Vector2f(160,160)); //NEED TO CHANGE THE DESTINATION WHEN WE HAVE A LEVEL
+            posmove->setDestination(sf::Vector2f(160,160));
             setMoveStrategy(std::move(posmove));
             m_invincible = true;
             m_shootingPhase = true;

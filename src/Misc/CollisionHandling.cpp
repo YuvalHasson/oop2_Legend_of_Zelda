@@ -887,7 +887,7 @@ namespace
 		Sign* signPtr = dynamic_cast<Sign*>(&sign);
 		if (linkPtr && signPtr)
 		{
-			if (signPtr->getInnerBox(linkPtr->getHitBox())) {
+			if (signPtr->checkInnerCollision(linkPtr->getHitBox())) {
 				linkPtr->undoMove();
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
@@ -911,7 +911,7 @@ namespace
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		if (signPtr && octorokPtr)
 		{
-			if (signPtr->getInnerBox(octorokPtr->getHitBox())) {
+			if (signPtr->checkInnerCollision(octorokPtr->getHitBox())) {
 				octorokPtr->undoMove();
 			}
 		}
@@ -1020,7 +1020,7 @@ namespace
 		Sign* signPtr = dynamic_cast<Sign*>(&sign);
 		if (seaUrchinPtr && signPtr)
 		{
-			if (signPtr->getInnerBox(seaUrchinPtr->getHitBox())) {
+			if (signPtr->checkInnerCollision(seaUrchinPtr->getHitBox())) {
 				seaUrchinPtr->undoMove();
 			}
 		}
@@ -1082,7 +1082,7 @@ namespace
 		Zelda* zeldaPtr = dynamic_cast<Zelda*>(&zelda);
 		if (linkPtr && zeldaPtr)
 		{
-			if (zeldaPtr->getInnerBox(linkPtr->getHitBox())) {
+			if (zeldaPtr->checkInnerCollision(linkPtr->getHitBox())) {
 				linkPtr->undoMove();
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))

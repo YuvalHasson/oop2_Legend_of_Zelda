@@ -51,7 +51,8 @@ enum EnemyType {
 	PIG_WARRIOR,
 	OCTOROK,
 	SEA_URCHIN,
-	WIZARDBOSS
+	WIZARDBOSS,
+	ZELDA
 };
 
 enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
@@ -171,6 +172,8 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u BossDead(1, 18);
 
 	const sf::Vector2u SeaUrchin(1, 301);
+
+	const sf::Vector2u Zelda(1, 11);
 
 	const sf::Vector2u None(160, 160);
 }

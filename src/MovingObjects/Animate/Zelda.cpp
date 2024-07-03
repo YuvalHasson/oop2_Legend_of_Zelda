@@ -7,8 +7,10 @@ bool Zelda::m_registerit = Factory<Zelda>::instance()->registerit("Zelda",
 	});
 
 Zelda::Zelda(const sf::Texture& texture, const sf::Vector2f& position)
-	:Animate(texture, position, sf::Vector2f(7.f + 4, 7.5f), sf::Vector2f(tileSize / 4.5f, tileSize / 9.f)),
-	m_hitBox(position, sf::Vector2f(tileSize / 4.5f, tileSize / 9.f), sf::Vector2f(0, 0)), m_active(false)
+	:Enemy(texture, position, sf::Vector2f(tileSize * 1.1f, tileSize * 1.1f), sf::Vector2f(tileSize, tileSize)),
+	m_hitBox(position, sf::Vector2f(tileSize * 0.8f, tileSize * 0.8f), sf::Vector2f(tileSize - 3.f, tileSize - 3.f)), m_active(false),
+	m_currInput(PRESS_RIGHT), 
+	m_moveStrategy(nullptr)
 {
 	m_text.setFont(*Resources::getResource().getFont());
 	m_text.scale(0.9f, 0.9f);
@@ -17,14 +19,44 @@ Zelda::Zelda(const sf::Texture& texture, const sf::Vector2f& position)
 	m_text.setFillColor(sf::Color::White);
 	m_text.setString("Go  kill  the  wizard");
 
+	setSpeed(0.5f);
 	getSprite().setOrigin(tileSize, tileSize);
-	setGraphics({1, 11}, 1);
+	setGraphics(ANIMATIONS_POSITIONS::Zelda, 2);
 	updateSprite();
+
+	auto posmove = std::make_unique<PositionMovement>();
+	posmove->setDestination(sf::Vector2f(120, 75));
+	setMoveStrategy(std::move(posmove));
+	
 }
 
 std::unique_ptr<Inanimate> Zelda::getAttack()
 {
 	return nullptr;
+}
+
+void Zelda::update(const sf::Time& deltaTime)
+{
+	//5x5 pixels threshold from the desired position
+	if ((getPosition().x < 125 && getPosition().x > 115) && (getPosition().y < 80 && getPosition().y > 70)) {
+		setMoveStrategy(std::make_unique<Standing>());
+		return;
+	}
+	m_hitBox.setPosition(getSprite().getPosition());
+	updateGraphics(deltaTime);
+	updateSprite();
+	PerformMove();
+}
+
+void Zelda::setMoveStrategy(std::unique_ptr<MovementStrategy> move)
+{
+	m_moveStrategy = std::move(move);
+}
+
+void Zelda::PerformMove()
+{
+	m_moveStrategy->move(m_currInput, *this, &m_directionChangeClock);
+
 }
 
 void Zelda::setActive(bool active)
@@ -50,12 +82,13 @@ void Zelda::draw(sf::RenderTarget& target)
 
 		m_text.setPosition(20.f, rect.getPosition().y - 5.f);
 		target.draw(m_text);
+		
 	}
 	m_active = false;
 	target.setView(curr);
 }
 
-bool Zelda::getInnerBox(const HitBox& box) const
+bool Zelda::checkInnerCollision(const HitBox& box) const
 {
 	return m_hitBox.checkCollision(box);
 }

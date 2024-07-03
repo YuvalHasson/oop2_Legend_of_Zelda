@@ -101,10 +101,14 @@ void Board::update(const sf::Time& deltaTime)
 	}
 
 	m_link->update(deltaTime);
+	if (m_zelda)
+	{
+		m_zelda->update(deltaTime);
+	}
 
-	std::erase_if(m_staticObjects, [](const auto& StaticObejects) { return StaticObejects->isDestroyed(); });
-	std::erase_if(m_enemiesObjects, [](const auto& MovingObejects) { return MovingObejects->isDestroyed(); });
-	std::erase_if(m_inanimateObjects, [](const auto& InanimateObejects) { return InanimateObejects->isDestroyed(); });
+	std::erase_if(m_staticObjects, [](const auto& StaticObjects) { return StaticObjects->isDestroyed(); });
+	std::erase_if(m_enemiesObjects, [](const auto& MovingObjects) { return MovingObjects->isDestroyed(); });
+	std::erase_if(m_inanimateObjects, [](const auto& InanimateObjects) { return InanimateObjects->isDestroyed(); });
 	
 	m_enemiesPositions.clear();
 	for (const auto& enemy : m_enemiesObjects)
