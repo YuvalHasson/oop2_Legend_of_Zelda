@@ -9,7 +9,7 @@ include (cmake/CompilerSettings.cmake)
 if(APPLE)
     add_executable (${CMAKE_PROJECT_NAME})
 elseif(WIN32)
-    add_executable (${CMAKE_PROJECT_NAME}WIN32)
+    add_executable (${CMAKE_PROJECT_NAME} WIN32)
 endif()
 
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE $<$<CONFIG:DEBUG>:-fsanitize=address>)
