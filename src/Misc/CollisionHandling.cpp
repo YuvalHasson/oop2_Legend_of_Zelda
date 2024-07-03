@@ -78,7 +78,6 @@ namespace
 
 	void EnemySwordWall(GameObject&, GameObject&) {}
 
-	void EnemySwordSign(GameObject&, GameObject&) {}
 
 	void LinkArrowHole(GameObject&, GameObject&) {}
 
@@ -354,6 +353,16 @@ namespace
 			boulderPtr->undoMove();
 		}
 	}
+
+	void BoulderHole(GameObject& boulder, GameObject&)
+	{
+		Boulder* boulderPtr = dynamic_cast<Boulder*>(&boulder);
+		if (boulderPtr)
+		{
+			boulderPtr->destroy();
+		}
+	}
+
 
 	void LockBoulder(GameObject& lock, GameObject& boulder)
 	{
@@ -1133,16 +1142,7 @@ namespace
 		LinkArrowLock(arrow, lock);
 	}
 
-	void PigWarriorSign(GameObject& pigWarrior, GameObject&)
-	{
-		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
-		if (pigWarriorPtr)
-		{
-			pigWarriorPtr->undoMove();
-		}
-	}
-
-		void SwordWizardBoss(GameObject& sword, GameObject& wizardBoss) {
+	void SwordWizardBoss(GameObject& sword, GameObject& wizardBoss) {
 		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
 		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
 		if (wizardBossPtr && swordPtr)
@@ -1379,6 +1379,7 @@ namespace
 		phm[Key(typeid(Boulder),	typeid(LinkArrow))] =		&BoulderLinkArrow;
 		phm[Key(typeid(Boulder),	typeid(KeyTile))] =			&BoulderKeyTile;
 		phm[Key(typeid(Boulder),	typeid(Lock))] =			&BoulderLock;
+		phm[Key(typeid(Boulder),	typeid(Hole))] =			&BoulderHole;
 		phm[Key(typeid(PigWarrior), typeid(Link))] =			&PigWarriorLink;
 		phm[Key(typeid(PigWarrior), typeid(Wall))] =			&PigWarriorWall;
 		phm[Key(typeid(PigWarrior), typeid(WaterTile))] =		&PigWarriorWater;

@@ -283,7 +283,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 				}
 				for (int index = 0; index < numOfEnemies; index++)
 				{
-					int id, x, y;
+					float id, x, y;
 					saveFile >> id >> x >> y;
 					// handling bad enemies id or x or y insertions
 					if (id < 0 || id > 4 || x < 0 || y < 0)
@@ -293,7 +293,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 					m_enemiesPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)), EnemyType(id));
 				}
 				// read boulders positions
-				int x = 0, y = 0;
+				float x = 0, y = 0;
 				while (x != -1)
 				{
 					saveFile >> x;
