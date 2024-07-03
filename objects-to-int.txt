@@ -19,7 +19,5 @@ object to int
 14 - Shrub
 17 - WizardBoss
 
-15 - WizardBoss
-
 //dungeons
 51 - Door out of first dungeon
