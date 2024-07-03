@@ -99,6 +99,13 @@ void LoadGameState::updateLevel()
 				m_enemyObjects.emplace_back(std::move(p));
 			}
 		}
+		else if (m_enemiesPositions[index].second == WIZARDBOSS)
+		{
+			if (auto p = Factory<Enemy>::instance()->create("WizardBoss", m_enemiesPositions[index].first))
+			{
+				m_enemyObjects.emplace_back(std::move(p));
+			}
+		}
 	}
 	for (const auto& enemy : m_enemyObjects)
 	{
@@ -106,6 +113,11 @@ void LoadGameState::updateLevel()
 		{
 			p->registerAsLinkObserver(m_link.get());
 		}
+		if (const auto& p = dynamic_cast<WizardBoss*>(enemy.get()))
+		{
+			p->registerAsLinkObserver(m_link.get());
+		}
+
 	}
 	m_inanimateObjects = std::move(m_boardLevels[m_level].editInanimateObjects());
 	m_staticObjects = std::move(m_boardLevels[m_level].editStaticObjects());
@@ -142,11 +154,11 @@ void LoadGameState::updateLevel()
 				}
 			}
 		}
-		else if (const auto& p = dynamic_cast<Shrub*>(destructibleObject.get()))
+		else if (const auto& p1 = dynamic_cast<Shrub*>(destructibleObject.get()))
 		{
 			if (indexInShrub >= m_shrubPositions.size())
 			{
-				p->destroy();
+				p1->destroy();
 			}
 			else
 			{
@@ -157,7 +169,6 @@ void LoadGameState::updateLevel()
 				}
 			}
 		}
-
 	}
 
 	m_boardLevels[m_level].setLink(std::move(m_link));
@@ -313,7 +324,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 					{
 						throw BadFileFormat();
 					}
-					m_potsPositions.emplace_back(sf::Vector2f(x, y));
+					m_potsPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
 				}
 
 				// read shrub positions
@@ -331,7 +342,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 					{
 						throw BadFileFormat();
 					}
-					m_shrubPositions.emplace_back(sf::Vector2f(x, y));
+					m_shrubPositions.emplace_back(sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
 				}
 
 				//handle fail

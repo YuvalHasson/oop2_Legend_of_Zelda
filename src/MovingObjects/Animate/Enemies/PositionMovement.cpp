@@ -1,38 +1,46 @@
-#include "PatrolMovement.h"
+#include "PositionMovement.h"
+#include <iostream>
 
-void PatrolMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock)
+void PositionMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock)
 {
+    //direction before normalizing
+    sf::Vector2f directionVec = m_destination - enemy.getPosition();
     
-    if (directionChangeClock->getElapsedTime().asSeconds() >= 1.0f) // Change direction every 1 seconds
-    {
-        int randomMovment = rand() % 4;
+    //normalizing the direction vector
+    float length = std::sqrt(directionVec.x * directionVec.x + directionVec.y * directionVec.y);
+    if (length != 0) {
+        directionVec.x /= length;
+        directionVec.y /= length;
+    }
 
-        switch (randomMovment)
-        {
-        case 0:
-            m_direction = PRESS_UP;
-            break;
-        case 1:
-            m_direction = PRESS_DOWN;
-            break;
-        case 2:
+    sf::Vector2i headedDirection(static_cast<int>(std::round(directionVec.x)), static_cast<int>(std::round(directionVec.y)));
+    
+    if (directionChangeClock->getElapsedTime().asSeconds() >= 0.1f)
+    {
+        if(headedDirection.x == 1){
             m_direction = PRESS_RIGHT;
-            break;
-        case 3:
+        }
+        else if(headedDirection.x == -1){
             m_direction = PRESS_LEFT;
-            break;
-        default:
+        }
+        else if(headedDirection.y == 1){
+            m_direction = PRESS_DOWN;
+        }
+        else if(headedDirection.y == -1){
+            m_direction = PRESS_UP;
+        }
+        else if(headedDirection.x == 0 && headedDirection.y == 0){
             m_direction = STANDING;
-            break;
         }
         directionChangeClock->restart();
         direction = m_direction;
     }
 
+
+
     sf::Vector2f currentDirection = enemy.getDirection();
     if (m_direction == PRESS_RIGHT) {
         if (currentDirection != DIRECTIONS::Right) {
-
             enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_RIGHT), 2);
             enemy.setDirection(DIRECTIONS::Right);
         }
@@ -56,4 +64,8 @@ void PatrolMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCh
         }
     }
     enemy.move();
+}
+
+void PositionMovement::setDestination(const sf::Vector2f& destination){
+    m_destination = destination;
 }

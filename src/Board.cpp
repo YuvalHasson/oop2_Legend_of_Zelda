@@ -281,7 +281,7 @@ void Board::initializeLevel(const Level& level)
 	case Level::FIRST_DUNGEON:
 		m_map.setMap("Dungeon.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon1));
-		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::DontGoDungeon);
 		break;
 	case Level::SECOND_DUNGEON:
 		m_map.setMap("Dungeon01.csv");
@@ -291,12 +291,12 @@ void Board::initializeLevel(const Level& level)
 	case Level::THIERD_DUNGEON:
 		m_map.setMap("Dungeon03.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::Dungeon3));
-		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::KeyDungeon);
 		break;
 	case Level::BOSS_DUNGEON:
 		m_map.setMap("BossDungeon.csv");
 		m_background.setTexture(*Resources::getResource().getTexture(TEXTURE::BossDungeon));
-		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Dungeon01);
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::BossDungeon);
 		break;
 	}
 	m_staticRects = m_map.getStaticObjectsRects();
@@ -362,6 +362,10 @@ std::unique_ptr<Link> Board::extractLink()
 void Board::setLink(std::unique_ptr<Link> link)
 {
 	m_link = std::move(link); // Transfer ownership
+}
+
+const std::vector<std::unique_ptr<Enemy>>& Board::getEnemies() const{
+	return m_enemiesObjects;
 }
 
 bool Board::isAttacking() const

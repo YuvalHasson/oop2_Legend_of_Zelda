@@ -2,16 +2,31 @@
 
 GameRunningState::GameRunningState(sf::RenderWindow* window, std::vector<Board>&& board, sf::View&& view, Level level)
 	:State(window), m_boardLevels(std::move(board)), m_view(std::move(view)),
-	m_level(level), m_statusBar()
+	m_level(level), m_statusBar(), m_won(false)
 {
 	StatusBar status(m_boardLevels[m_level].getLink().getHp(), m_boardLevels[m_level].getLink().getCurrentWeapon());
 	m_statusBar = status;
 
 	setCenterView();
+	m_fadingRectangle.setPosition(0,0);
+	m_fadingRectangle.setSize({1000.f,1000.f});
+	m_fadingRectangle.setFillColor(sf::Color(0,0,0,0));
 }
 
 void GameRunningState::update(const sf::Time& deltaTime)
 {
+	if(m_won){
+		sf::Color newAlpha = m_fadingRectangle.getFillColor();
+		if(newAlpha.a < 255){
+			newAlpha.a += 1;
+			m_fadingRectangle.setFillColor(newAlpha);
+		}
+		else
+		{
+			SoundResource::getSound().StopBackground();
+			updateState(GAME_STATE::VICTORY);
+		}
+	}
 	m_boardLevels[m_level].handleCollision();
 	m_boardLevels[m_level].update(deltaTime);
 
@@ -35,6 +50,7 @@ void GameRunningState::update(const sf::Time& deltaTime)
 		}
 	}
 
+	//check if door is to be opened
 	int numOfKeyTiles = 0, numOfCovered = 0;
 	for (const auto& inanimateObject : m_boardLevels[m_level].getInanimateObjects())
 	{
@@ -57,6 +73,16 @@ void GameRunningState::update(const sf::Time& deltaTime)
 			}
 		}
 	}
+
+	for(const auto& enemy : m_boardLevels[m_level].getEnemies()){
+		if(auto e = dynamic_cast<WizardBoss*>(enemy.get()))
+		{
+			if(e->getDead()){
+				m_won = true;
+			}
+
+		}
+	}
 }
 
 void GameRunningState::render(sf::RenderTarget* target)
@@ -76,6 +102,7 @@ void GameRunningState::render(sf::RenderTarget* target)
 	m_statusBar.setBottomView(*target);
 
 	m_statusBar.draw(*target);
+	target->draw(m_fadingRectangle);
 }
 
 std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState)
@@ -99,7 +126,7 @@ std::unique_ptr<State> GameRunningState::handleInput(const GAME_STATE& gameState
 	case GAME_STATE::SWITCH_LEVEL:
 		return std::make_unique<SwitchLevelState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level, m_nextLevel);
 	case GAME_STATE::VICTORY:
-		//SoundResource::getSound().playBackground(BACKGROUND_SOUND::Victory);
+		SoundResource::getSound().playBackground(BACKGROUND_SOUND::Ending);
 		return std::make_unique<VictoryState>(getWindow());
 
 	}

@@ -15,6 +15,9 @@ object to int
 10 - Sign
 11 - Heart
 12 - Sea Urchin
+13 - Hole
+14 - Shrub
+17 - WizardBoss
 
 15 - WizardBoss
 

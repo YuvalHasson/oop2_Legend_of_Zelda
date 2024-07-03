@@ -28,6 +28,7 @@
 #include "Hole.h"
 #include "Shrub.h"
 #include "Zelda.h"
+#include "WizardBoss.h"
 #include "KeyTile.h"
 #include "Lock.h"
 
@@ -42,4 +43,4 @@ struct UnknownCollision : public std::runtime_error
 
 void processCollision(GameObject&, GameObject&);
 
-sf::Vector2i getCollisionDirection(GameObject&, GameObject&);
+sf::Vector2f getCollisionDirection(GameObject&, GameObject&);

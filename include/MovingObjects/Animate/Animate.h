@@ -18,7 +18,7 @@ public:
 	void move() override;
 	void updateGraphics(const sf::Time&);
 	virtual void updateHitAnimation(const sf::Time&);
-	void pushBack(const sf::Vector2i&);
+	void pushBack(const sf::Vector2f&);
 	void addHitColor(sf::Color color);
 	sf::Color getCurrentColor() const;
 	sf::Color getBaseColor() const;
@@ -37,7 +37,7 @@ private:
 	int m_hp;
 	sf::Clock m_pushbackTimer;
 	bool m_isPushedback;
-	sf::Vector2i m_collisionDirection;
+	sf::Vector2f m_collisionDirection;
 	ColorAnimation m_hitAnimation;
 
 };

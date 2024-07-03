@@ -9,7 +9,7 @@ class Enemy : public Animate
 public:
 	Enemy(const sf::Texture&, const sf::Vector2f&, const sf::Vector2f&, const sf::Vector2f&);
 	virtual sf::Vector2f getLinkPos() = 0;
-	virtual std::unique_ptr<Inanimate> getAttack() = 0;
+	virtual std::unique_ptr<Inanimate> getAttack() override = 0;
 	virtual void update(const sf::Time& )override;
 	virtual void updateHitAnimation(const sf::Time& )override;
 	bool isHittingObjects(const sf::Vector2f&)const;

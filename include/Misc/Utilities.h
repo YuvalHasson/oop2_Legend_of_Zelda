@@ -3,9 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-const int OBJ_AMOUNT = 18;
+const int OBJ_AMOUNT = 19;
 const int SOUND_AMOUNT = 17;
-const int BACK_SOUND_AMNT = 5;
+const int BACK_SOUND_AMNT = 9;
 
 enum Level
 {
@@ -50,7 +50,8 @@ enum Input {
 enum EnemyType {
 	PIG_WARRIOR,
 	OCTOROK,
-	SEA_URCHIN
+	SEA_URCHIN,
+	WIZARDBOSS
 };
 
 enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
@@ -58,10 +59,12 @@ enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
 #define windowHeight 1000
 #define WindowWidth 800
 #define tileSize 16
-#define VOLUME 0.f
+#define VOLUME 15.f
 
 #define MAX_HEALTH 6
 #define MIN_HEALTH 0
+
+#define M_PI 3.14159265358979323846
 
 namespace TEXTURE
 {
@@ -82,7 +85,8 @@ namespace TEXTURE
 	constexpr int End = 14;
 	constexpr int BossDungeon = 15;
 	constexpr int EndingSpriteSheet = 16;
-	constexpr int Dungeon3 = 17;
+	constexpr int Boss = 17;
+	constexpr int Dungeon3 = 18;
 }
 
 namespace BACKGROUND_SOUND
@@ -92,6 +96,10 @@ namespace BACKGROUND_SOUND
 	constexpr int OverWorld = 2;
 	constexpr int Death = 3;
 	constexpr int Dungeon01 = 4;
+	constexpr int KeyDungeon = 5;
+	constexpr int DontGoDungeon = 6;
+	constexpr int BossDungeon = 7;
+	constexpr int Ending = 8;
 }
 
 namespace SOUNDS
@@ -156,6 +164,12 @@ namespace ANIMATIONS_POSITIONS
 	const sf::Vector2u EnemySwordLeft(124, 262);
 	const sf::Vector2u EnemySwordRight(141, 262);
 
+	const sf::Vector2u BossDown(1, 1);
+	const sf::Vector2u BossUp(35, 1);
+	const sf::Vector2u BossLeft(69, 1);
+	const sf::Vector2u BossRight(103, 1);
+	const sf::Vector2u BossDead(1, 18);
+
 	const sf::Vector2u SeaUrchin(1, 301);
 
 	const sf::Vector2u None(160, 160);
@@ -179,14 +193,27 @@ namespace SPRITE_POSITIONS
 //might be useless
 namespace DIRECTIONS
 {
-	const sf::Vector2i Up(0, -1);
-	const sf::Vector2i Down(0, 1);
-	const sf::Vector2i Left(-1, 0);
-	const sf::Vector2i Right(1, 0);
-	const sf::Vector2i UpLeft(-1, -1);
-	const sf::Vector2i UpRight(1, -1);
-	const sf::Vector2i DownLeft(-1, 1);
-	const sf::Vector2i DownRight(1, 1);
+	const sf::Vector2f Up(0, -1);
+	const sf::Vector2f Down(0, 1);
+	const sf::Vector2f Left(-1, 0);
+	const sf::Vector2f Right(1, 0);
+	const sf::Vector2f UpLeft(-1, -1);
+	const sf::Vector2f UpRight(1, -1);
+	const sf::Vector2f DownLeft(-1, 1);
+	const sf::Vector2f DownRight(1, 1);
+}
+
+namespace LOCATIONS
+{
+	const sf::Vector2f HomeEntrance(120, 137);
+	const sf::Vector2f HomeExit(87, 72);
+	const sf::Vector2f Dungeon1Entrance(22, 103);
+	const sf::Vector2f Dungeon1Exit(263, 196);
+	const sf::Vector2f Dungeon2Entrance(72, 138);
+	const sf::Vector2f Dungeon2Exit(279, 52);
+	const sf::Vector2f Dungeon3Entrance(184, 375);
+	const sf::Vector2f Dungeon3Exit(760, 68);
+	const sf::Vector2f BossDungeonEntrance(40, 150);
 }
 
 struct Cell

@@ -16,7 +16,8 @@ private:
 	};
 
 	std::string m_backgroundNames[BACK_SOUND_AMNT] = {
-		"MainTheme.ogg", "House.ogg", "Overworld.ogg", "GameOver.ogg", "Dungeon01.ogg"
+		"MainTheme.ogg", "House.ogg", "Overworld.ogg", "GameOver.ogg", "Dungeon01.ogg",
+		"KeyDungeon.ogg", "DontGoDungeon.ogg", "BossDungeon.ogg", "Ending.ogg"
 	};
 
 	sf::Music m_backgroundMusic[BACK_SOUND_AMNT];

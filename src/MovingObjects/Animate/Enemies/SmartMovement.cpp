@@ -9,11 +9,6 @@ void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCha
         sf::Vector2f nextPosition = m_bfsQueue.front();
         m_bfsQueue.pop();
 
-        if (isLinkAtPosition(nextPosition, enemy.getLinkPos()))
-        {
-            // Handle reaching the Link
-            // You may want to stop the PigWarrior or trigger a specific action
-        }
         moveTowards(enemy, enemy.getLinkPos());
 
         // If BFS queue is empty, reinitialize it to find a new path to the Link
@@ -21,7 +16,7 @@ void SmartMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionCha
     }
 
     if(directionChangeClock->getElapsedTime().asSeconds() > 0.3f){
-        sf::Vector2i currentDirection = enemy.getDirection();
+        sf::Vector2f currentDirection = enemy.getDirection();
         if (m_direction == PRESS_RIGHT) {
             if (currentDirection != DIRECTIONS::Right) {
                 enemy.setGraphics(enemy.getAnimationTexturePosition(PRESS_RIGHT), 2);

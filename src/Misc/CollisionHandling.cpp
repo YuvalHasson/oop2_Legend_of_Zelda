@@ -92,6 +92,53 @@ namespace
 
 	void ProjectileEnemySword(GameObject&, GameObject&) {}
 
+	void EnemySwordSign(GameObject&, GameObject&) {}
+
+	void EnemySwordLinkArrow(GameObject&, GameObject&) {}
+
+	void SeaUrchinPigWarrior(GameObject&, GameObject&) {}
+
+	void SeaUrchinEnemySword(GameObject&, GameObject&) {}
+
+	void SeaUrchinShrub(GameObject&, GameObject&) {}
+
+	void SeaUrchinHole(GameObject&, GameObject&) {}
+
+	void SwordHeart(GameObject&, GameObject&) {}
+
+	void SwordBowItem(GameObject&, GameObject&) {}
+
+	void KeyTileLinkArrow(GameObject&, GameObject&) {}
+
+	void SwordKeyTile(GameObject&, GameObject&) {}
+
+	void LinkArrowHeart(GameObject&, GameObject&) {}
+
+	void WizardBossEnemySword(GameObject&, GameObject&) {}
+
+	void WizardBossProjectile(GameObject&, GameObject&) {}
+
+	void ProjectileHeart(GameObject&, GameObject&) {}
+
+	void WizardBossSword(GameObject&, GameObject&) {}
+
+	void WallWizardBoss(GameObject&, GameObject&) {}
+
+	void LinkArrowEnemySword(GameObject&, GameObject&) {}
+
+	void LinkArrowProjectile(GameObject&, GameObject&) {}
+
+	void ProjectileLinkArrow(GameObject&, GameObject&) {}
+
+	void SeaUrchinDoor(GameObject& seaUrchin, GameObject&)
+	{
+		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
+		if (seaUrchinPtr)
+		{
+			seaUrchinPtr->undoMove();
+		}
+	}
+
 	void LinkWall(GameObject& link, GameObject&)
 	{
 		Link* linkPtr = dynamic_cast<Link*>(&link);
@@ -237,6 +284,7 @@ namespace
 			linkPtr->pushBack(-getCollisionDirection(project, link));
 			linkPtr->initializeInvincible();
 			linkPtr->setHp(linkPtr->getHp() - 1);
+			SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
 
 		}
 	}
@@ -510,7 +558,7 @@ namespace
 	void ShieldOctorok(GameObject& shield, GameObject& octorok){
 		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
 		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
-		sf::Vector2i direction = getCollisionDirection(shield, octorok);
+		sf::Vector2f direction = getCollisionDirection(shield, octorok);
 		if (octorokPtr && shieldPtr)
 		{
 			octorokPtr->pushBack(-direction);
@@ -527,7 +575,7 @@ namespace
 	void ShieldProjectile(GameObject& shield, GameObject& projectile){
 		Projectile* ProjectilePtr = dynamic_cast<Projectile*>(&projectile);
 		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
-		sf::Vector2i direction = getCollisionDirection(shield, projectile);
+		sf::Vector2f direction = getCollisionDirection(shield, projectile);
 		if (ProjectilePtr && shieldPtr)
 		{
 			ProjectilePtr->setDirection(direction);
@@ -1085,6 +1133,133 @@ namespace
 		LinkArrowLock(arrow, lock);
 	}
 
+	void PigWarriorSign(GameObject& pigWarrior, GameObject&)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+	}
+
+		void SwordWizardBoss(GameObject& sword, GameObject& wizardBoss) {
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
+		Sword* swordPtr = dynamic_cast<Sword*>(&sword);
+		if (wizardBossPtr && swordPtr)
+		{
+			if (swordPtr->getActive() && !wizardBossPtr->getInvincible()) {
+				wizardBossPtr->pushBack(-getCollisionDirection(sword, wizardBoss));
+				wizardBossPtr->setHp(wizardBossPtr->getHp() - 1);
+				wizardBossPtr->hit();
+				swordPtr->setActive(false);
+			}
+		}
+	}
+
+	void WizardBossWall(GameObject& wizardBoss, GameObject&)
+	{
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
+		if (wizardBossPtr)
+		{
+			wizardBossPtr->undoMove();
+		}
+
+	}
+
+	void WizardBossLink(GameObject& wizardBoss, GameObject& link)
+	{
+		Link* linkPtr = dynamic_cast<Link*>(&link);
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss); 
+		if (linkPtr)
+		{
+			if(!linkPtr->getInvincible() && !wizardBossPtr->getDead()){
+				linkPtr->pushBack(getCollisionDirection(link, wizardBoss));
+				linkPtr->initializeInvincible();
+				linkPtr->setHp(linkPtr->getHp() - 1);
+				SoundResource::getSound().playSound(SOUNDS::LinkDamaged);
+			}
+		}
+
+	}
+
+	void LinkWizardBoss(GameObject& link, GameObject& wizardBoss)
+	{
+		WizardBossLink(wizardBoss,link);
+	}
+
+	void ShieldWizardBoss(GameObject& shield, GameObject& wizardBoss)
+	{
+		Shield* shieldPtr = dynamic_cast<Shield*>(&shield);
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
+		if (shieldPtr && wizardBossPtr)
+		{
+			shieldPtr->pushBack(getCollisionDirection(shield, wizardBoss));
+			wizardBossPtr->pushBack(-getCollisionDirection(shield, wizardBoss));
+			SoundResource::getSound().playSound(SOUNDS::ShieldDeflect);
+		}
+	}
+
+	void WizardBossShield(GameObject& wizardBoss, GameObject& shield)
+	{
+		ShieldWizardBoss(shield,wizardBoss);
+	}
+
+	void LinkArrowWizardBoss(GameObject& arrow, GameObject& wizardBoss)
+	{
+		WizardBoss* wizardBossPtr = dynamic_cast<WizardBoss*>(&wizardBoss);
+		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
+		if (wizardBossPtr && arrowPtr)
+		{
+			if(!wizardBossPtr->getInvincible()){
+				std::cout<<"boss invincible!!!\n";
+				wizardBossPtr->pushBack(-getCollisionDirection(arrow, wizardBoss));
+				wizardBossPtr->setHp(wizardBossPtr->getHp() - 1);
+				wizardBossPtr->hit();
+			}
+
+			arrowPtr->destroy();
+			SoundResource::getSound().playSound(SOUNDS::EnemyHit);
+		}
+	}
+
+	void WizardBossLinkArrow(GameObject& wizardBoss, GameObject& arrow)
+	{
+		LinkArrowWizardBoss(arrow,wizardBoss);
+	}
+
+	void PigWarriorDoor(GameObject& pigWarrior, GameObject&)
+	{
+		PigWarrior* pigWarriorPtr = dynamic_cast<PigWarrior*>(&pigWarrior);
+		if (pigWarriorPtr)
+		{
+			pigWarriorPtr->undoMove();
+		}
+	}
+
+	void DoorPigWarrior(GameObject& door, GameObject& pigWarrior)
+	{
+		PigWarriorDoor(pigWarrior, door);
+	}
+
+	void ProjectileSign(GameObject& projectile, GameObject& sign)
+	{
+		Projectile* projectilePtr = dynamic_cast<Projectile*>(&projectile);
+		Sign* signPtr = dynamic_cast<Sign*>(&sign);
+		if (projectilePtr && signPtr)
+		{
+			projectilePtr->destroy();
+		}
+	}
+
+	void OctorokDoor(GameObject& octorok, GameObject&)
+	{
+		Octorok* octorokPtr = dynamic_cast<Octorok*>(&octorok);
+		if (octorokPtr)
+		{
+			octorokPtr->undoMove();
+		}
+	}
+
 	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
@@ -1117,6 +1292,7 @@ namespace
 		phm[Key(typeid(Link),		typeid(Zelda))] =			&LinkZelda;
 		phm[Key(typeid(Link),		typeid(KeyTile))] =			&LinkKeyTile;
 		phm[Key(typeid(Link),		typeid(Lock))] =			&LinkLock;
+		phm[Key(typeid(Link),		typeid(WizardBoss))] =		&LinkWizardBoss;
 		phm[Key(typeid(Wall),		typeid(Link))] =			&WallLink;
 		phm[Key(typeid(Wall),		typeid(Octorok))] =			&WallOctorok;
 		phm[Key(typeid(Wall),		typeid(Projectile))] =		&WallProjectile;
@@ -1126,6 +1302,7 @@ namespace
 		phm[Key(typeid(Wall),		typeid(LinkArrow))] =		&WallLinkArrow;
 		phm[Key(typeid(Wall),		typeid(EnemySword))] =		&WallEnemySword;
 		phm[Key(typeid(Wall),		typeid(SeaUrchin))] =		&WallSeaUrchin; 
+		phm[Key(typeid(Wall),		typeid(WizardBoss))] =		&WallWizardBoss; 
 		phm[Key(typeid(Pot),		typeid(Link))] =			&PotLink;
 		phm[Key(typeid(Pot),		typeid(Sword))] =			&PotSword;
 		phm[Key(typeid(Pot),		typeid(Octorok))] =			&PotOctorok;
@@ -1150,6 +1327,7 @@ namespace
 		phm[Key(typeid(Octorok),	typeid(SeaUrchin))] =		&OctorokSeaUrchin;
 		phm[Key(typeid(Octorok),	typeid(Sign))] =			&OctorokSign;
 		phm[Key(typeid(Octorok),	typeid(Shrub))] =			&octorokShrub;
+		phm[Key(typeid(Octorok),	typeid(Door))] =			&OctorokDoor;
 		phm[Key(typeid(Octorok),	typeid(Octorok))] =			&OctorokOctorok;
 		phm[Key(typeid(Sword),		typeid(Octorok))] =			&SwordOctorok;
 		phm[Key(typeid(Sword),		typeid(Wall))] =			&SwordWall;
@@ -1165,13 +1343,18 @@ namespace
 		phm[Key(typeid(Sword),		typeid(WaterTile))] =		&SwordWater;
 		phm[Key(typeid(Sword),		typeid(EnemySword))] =		&SwordEnemySword;
 		phm[Key(typeid(Sword),		typeid(Lock))] =			&SwordLock;
+		phm[Key(typeid(Sword),		typeid(WizardBoss))] =		&SwordWizardBoss;
 		phm[Key(typeid(Sword),		typeid(Projectile))] =		&SwordProjectile;
+		phm[Key(typeid(Sword),		typeid(Heart))] =			&SwordHeart;
+		phm[Key(typeid(Sword),		typeid(BowItem))] =			&SwordBowItem;
+		phm[Key(typeid(Sword),		typeid(KeyTile))] =			&SwordKeyTile;
 		phm[Key(typeid(Shield),		typeid(Octorok))] =			&ShieldOctorok;
 		phm[Key(typeid(Shield),		typeid(Projectile))] =		&ShieldProjectile;
 		phm[Key(typeid(Shield),		typeid(PigWarrior))] =		&ShieldPigWarrior;
 		phm[Key(typeid(Shield),		typeid(EnemySword))] =		&ShieldEnemySword;
 		phm[Key(typeid(Shield),		typeid(SeaUrchin))] =		&ShieldSeaUrchin;
 		phm[Key(typeid(Shield),		typeid(Boulder))] =			&ShieldBoulder;
+		phm[Key(typeid(Shield),		typeid(WizardBoss))] =		&ShieldWizardBoss;
 		phm[Key(typeid(Projectile), typeid(Wall))] =			&ProjectileWall;
 		phm[Key(typeid(Projectile), typeid(Link))] =			&ProjectileLink;
 		phm[Key(typeid(Projectile), typeid(Octorok))] =			&ProjectileOctorok;
@@ -1183,6 +1366,9 @@ namespace
 		phm[Key(typeid(Projectile), typeid(SeaUrchin))] =		&ProjectileSeaUrchin;
 		phm[Key(typeid(Projectile), typeid(Shrub))] =			&ProjectileShrub;
 		phm[Key(typeid(Projectile), typeid(EnemySword))] =		&ProjectileEnemySword;
+		phm[Key(typeid(Projectile), typeid(Heart))] =			&ProjectileHeart;
+		phm[Key(typeid(Projectile), typeid(Sign))] =			&ProjectileSign;
+		phm[Key(typeid(Projectile), typeid(LinkArrow))] =		&ProjectileLinkArrow;
 		phm[Key(typeid(Boulder),	typeid(Link))] =			&BoulderLink;
 		phm[Key(typeid(Boulder),	typeid(Wall))] =			&BoulderWall;
 		phm[Key(typeid(Boulder),	typeid(Octorok))] =			&BoulderOctorok;
@@ -1204,7 +1390,8 @@ namespace
 		phm[Key(typeid(PigWarrior), typeid(Projectile))] =		&PigWarriorProjectile;
 		phm[Key(typeid(PigWarrior), typeid(Shrub))] =			&PigWarriorShrub;
 		phm[Key(typeid(PigWarrior), typeid(PigWarrior))] =		&PigWarriorPigWarrior;
-		phm[Key(typeid(PigWarrior), typeid(Sign))] =			&PigWarriorSign;
+		phm[Key(typeid(PigWarrior),	typeid(Sign))] =			&PigWarriorSign;
+		phm[Key(typeid(PigWarrior),	typeid(Door))] =			&PigWarriorDoor;
 		phm[Key(typeid(LinkArrow),	typeid(Octorok))] =			&LinkArrowOctorok;
 		phm[Key(typeid(LinkArrow),	typeid(PigWarrior))] =		&LinkArrowPigWarrior;
 		phm[Key(typeid(LinkArrow),	typeid(Link))] =			&LinkArrowLink;
@@ -1217,6 +1404,9 @@ namespace
 		phm[Key(typeid(LinkArrow),	typeid(Shrub))] =			&LinkArrowShrub;
 		phm[Key(typeid(LinkArrow),	typeid(WaterTile))] =		&LinkArrowWater;
 		phm[Key(typeid(LinkArrow),	typeid(Lock))] =			&LinkArrowLock;
+		phm[Key(typeid(LinkArrow),	typeid(Heart))] =			&LinkArrowHeart;
+		phm[Key(typeid(LinkArrow),	typeid(EnemySword))] =		&LinkArrowEnemySword;
+		phm[Key(typeid(LinkArrow),	typeid(Projectile))] =		&LinkArrowProjectile;
 		phm[Key(typeid(EnemySword), typeid(Link))] =			&EnemySwordLink;
 		phm[Key(typeid(EnemySword), typeid(Wall))] =			&EnemySwordWall;
 		phm[Key(typeid(EnemySword), typeid(PigWarrior))] =		&EnemySwordPigWarrior;
@@ -1226,6 +1416,7 @@ namespace
 		phm[Key(typeid(EnemySword), typeid(Shrub))] =			&EnemySwordShrub;
 		phm[Key(typeid(EnemySword), typeid(Sword))] =			&EnemySwordSword;
 		phm[Key(typeid(EnemySword), typeid(Sign))] =			&EnemySwordSign;
+		phm[Key(typeid(EnemySword), typeid(LinkArrow))] =		&EnemySwordLinkArrow;
 		phm[Key(typeid(SeaUrchin),	typeid(Shield))] =			&SeaUrchinShield;
 		phm[Key(typeid(SeaUrchin),	typeid(Link))] =			&SeaUrchinLink;
 		phm[Key(typeid(SeaUrchin),	typeid(Wall))] =			&SeaUrchinWall;
@@ -1236,6 +1427,11 @@ namespace
 		phm[Key(typeid(SeaUrchin),	typeid(Octorok))] =			&SeaUrchinOctorok;
 		phm[Key(typeid(SeaUrchin),	typeid(Sign))] =			&SeaUrchinSign;
 		phm[Key(typeid(SeaUrchin),	typeid(LinkArrow))] =		&SeaUrchinLinkArrow;
+		phm[Key(typeid(SeaUrchin),	typeid(PigWarrior))] =		&SeaUrchinPigWarrior;
+		phm[Key(typeid(SeaUrchin),	typeid(EnemySword))] =		&SeaUrchinEnemySword;
+		phm[Key(typeid(SeaUrchin),	typeid(Shrub))] =			&SeaUrchinShrub;
+		phm[Key(typeid(SeaUrchin),	typeid(Hole))] =			&SeaUrchinHole;
+		phm[Key(typeid(SeaUrchin),	typeid(Door))] =			&SeaUrchinDoor;
 		phm[Key(typeid(Sign),		typeid(Link))] =			&SignLink;
 		phm[Key(typeid(Sign),		typeid(Octorok))] =			&SignOctorok;
 		phm[Key(typeid(Sign),		typeid(PigWarrior))] =		&SignPigWarrior;
@@ -1247,16 +1443,23 @@ namespace
 		phm[Key(typeid(Shrub),		typeid(EnemySword))] =		&ShrubEnemySword;
 		phm[Key(typeid(Shrub),		typeid(Projectile))] =		&ShrubProjectile;
 		phm[Key(typeid(Door),		typeid(Link))] =			&DoorLink;
+		phm[Key(typeid(Door),		typeid(PigWarrior))] =		&DoorPigWarrior;
 		phm[Key(typeid(Heart),		typeid(Link))] =			&HeartLink;
 		phm[Key(typeid(Hole),		typeid(Link))] =			&HoleLink;
 		phm[Key(typeid(KeyTile),	typeid(Link))] =			&KeyTileLink;
 		phm[Key(typeid(KeyTile),	typeid(Boulder))] =			&KeyTileBoulder;
+		phm[Key(typeid(KeyTile),	typeid(LinkArrow))] =		&KeyTileLinkArrow;
 		phm[Key(typeid(Lock),		typeid(Link))] =			&LockLink;
 		phm[Key(typeid(Lock),		typeid(LinkArrow))] =		&LockLinkArrow;
 		phm[Key(typeid(Lock),		typeid(Sword))] =			&LockSword;
 		phm[Key(typeid(Lock),		typeid(Boulder))] =			&LockBoulder;
-
-
+		phm[Key(typeid(WizardBoss), typeid(Sword))] =			&WizardBossSword;
+		phm[Key(typeid(WizardBoss), typeid(Wall))] =			&WizardBossWall;
+		phm[Key(typeid(WizardBoss), typeid(Link))] =			&WizardBossLink;
+		phm[Key(typeid(WizardBoss), typeid(Shield))] =			&WizardBossShield;
+		phm[Key(typeid(WizardBoss), typeid(LinkArrow))] =		&WizardBossLinkArrow;
+		phm[Key(typeid(WizardBoss), typeid(EnemySword))] =		&WizardBossEnemySword;
+		phm[Key(typeid(WizardBoss), typeid(Projectile))] =		&WizardBossProjectile;
 
 		//...
 		return phm;
@@ -1272,8 +1475,8 @@ namespace
 		}
 		return mapEntry->second;
 	}
-}
 
+}
 void processCollision(GameObject& object1, GameObject& object2)
 {
 	auto phf = lookup(typeid(object1), typeid(object2));
@@ -1286,22 +1489,20 @@ void processCollision(GameObject& object1, GameObject& object2)
 
 }
 
-sf::Vector2i getCollisionDirection(GameObject& a, GameObject& b){
-    sf::Vector2f pos1 = a.getPosition();
-    sf::Vector2f pos2 = b.getPosition();
+sf::Vector2f getCollisionDirection(GameObject& a, GameObject& b){
+	sf::Vector2f pos1 = a.getPosition();
+	sf::Vector2f pos2 = b.getPosition();
 
-    // Calculate the vector from object1 to object2
-    sf::Vector2f direction = pos2 - pos1;
+	// Calculate the vector from object1 to object2
+	sf::Vector2f direction = pos2 - pos1;
 
-    // Normalize the direction vector
-    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    if (length != 0) {
-        direction.x /= length;
-        direction.y /= length;
-    }
+	// Normalize the direction vector
+	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+	if (length != 0) {
+		direction.x /= length;
+		direction.y /= length;
+	}
 
-    // Convert to sf::Vector2i with values -1, 0, or 1
-    sf::Vector2i intDirection(static_cast<int>(std::round(direction.x)), static_cast<int>(std::round(direction.y)));
-
-    return intDirection;
+	return direction;
 }
+

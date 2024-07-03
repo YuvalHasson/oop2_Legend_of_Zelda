@@ -22,7 +22,7 @@ std::unique_ptr<LinkState> LinkAttackState::handleInput(Input input, bool, bool)
 void LinkAttackState::enter(Link& link)
 {
     m_attackTimer.restart();
-    sf::Vector2i currentDirection = link.getDirection();
+    sf::Vector2f currentDirection = link.getDirection();
     if(!m_isAnimationSet)
     {
         if(currentDirection == DIRECTIONS::Right || currentDirection == DIRECTIONS::UpRight || currentDirection == DIRECTIONS::DownRight)

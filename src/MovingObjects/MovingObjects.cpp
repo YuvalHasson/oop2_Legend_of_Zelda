@@ -1,9 +1,9 @@
 #include "MovingObjects.h"
 
 MovingObjects::MovingObjects(const sf::Texture& texture, const sf::Vector2f& position, const sf::Vector2f& size, const sf::Vector2f& originOffset)
-	: GameObject(texture, position, size, originOffset), m_direction(0, 0), m_speed(1), m_animation() {}
+	: GameObject(texture, position, size, originOffset), m_animation() , m_direction(0, 0), m_speed(1){}
 
-sf::Vector2i MovingObjects::getDirection()const
+sf::Vector2f MovingObjects::getDirection()const
 {
 	return m_direction;
 }
@@ -18,9 +18,10 @@ float MovingObjects::getSpeed() const
 	return m_speed;
 }
 
-void MovingObjects::setDirection(const sf::Vector2i& direction)
+void MovingObjects::setDirection(const sf::Vector2f& direction)
 {
-	m_direction = direction;
+	m_direction.x = direction.x;
+	m_direction.y = direction.y;
 }
 
 void MovingObjects::move()
