@@ -26,9 +26,12 @@ private:
 
 	float m_backgroundVolume;
 
-public:
 	SoundResource();
+	SoundResource(const SoundResource&) = delete;
+	SoundResource& operator=(const SoundResource&) = delete;
 	~SoundResource() = default;
+
+public:
 
 	static SoundResource& getSound();
 

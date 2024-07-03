@@ -19,9 +19,12 @@ private:
 	sf::Image m_icon;
 	sf::Font m_font;
 
-public:
 	Resources();
+	Resources(const Resources&) = delete;
+	Resources& operator=(const Resources&) = delete;
 	~Resources() = default;
+
+public:
 	static Resources& getResource();
 
 	//get
