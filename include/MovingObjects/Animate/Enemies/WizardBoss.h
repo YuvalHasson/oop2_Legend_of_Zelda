@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cmath>
 #include "SmartMovement.h"
 #include "PositionMovement.h"
 #include "EnemySword.h"
@@ -9,6 +8,7 @@
 #include "Stab.h"
 #include "Standing.h"
 #include "Shoot.h"
+#include <cmath>
 
 const sf::Time shootingPhaseDuration(sf::seconds(10));
 const sf::Time shootInterval(sf::seconds(0.1f));

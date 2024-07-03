@@ -6,6 +6,8 @@ class Wall : public InDestructible
 {
 public:
 	Wall(const sf::Texture&, const sf::Vector2f&);
+
+	virtual void draw(sf::RenderTarget& target)override {};
 	
 private:
 	static bool m_registerit;
