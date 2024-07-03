@@ -46,6 +46,7 @@ std::unique_ptr<State> LoadGameState::handleInput(const GAME_STATE& gameState)
 	case GAME_STATE::GAME_OVER:
 		return std::make_unique<GameOverState>(getWindow());
 	case GAME_STATE::GAME_RUNNING:
+		m_boardLevels[m_level].initializeLevel((Level)m_level);
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), (Level)m_level);
 	}
 	return nullptr;
