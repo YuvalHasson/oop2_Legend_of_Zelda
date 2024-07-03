@@ -56,7 +56,7 @@ void SoundResource::setBackgroundVolume(float amount)
 	}
 }
 
-const float SoundResource::getVolume() const
+float SoundResource::getVolume() const
 {
 	return m_backgroundVolume;
 }

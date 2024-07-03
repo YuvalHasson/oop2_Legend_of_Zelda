@@ -54,7 +54,6 @@ public:
 	// Method to set Link object
 	void setLink(std::unique_ptr<Link>);
 
-	bool isAttacking() const;
 	const sf::Sprite& getBackground() const;
 
 	static std::vector<sf::FloatRect> getStaticRects();

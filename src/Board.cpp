@@ -360,7 +360,7 @@ std::vector<std::unique_ptr<StaticObjects>>& Board::editStaticObjects()
 
 std::unique_ptr<Link> Board::extractLink()
 {
-	return std::move(m_link); // Transfer ownership;
+	return std::move(m_link); // Transfer ownership
 }
 
 void Board::setLink(std::unique_ptr<Link> link)
@@ -370,19 +370,6 @@ void Board::setLink(std::unique_ptr<Link> link)
 
 const std::vector<std::unique_ptr<Enemy>>& Board::getEnemies() const{
 	return m_enemiesObjects;
-}
-
-bool Board::isAttacking() const
-{
-	for (const auto& moving : m_enemiesObjects)
-	{
-		if (moving->isAttacking())
-		{
-			moving->setAttacking(false);
-			return true;
-		}
-	}
-	return false;
 }
 
 const sf::Sprite& Board::getBackground() const

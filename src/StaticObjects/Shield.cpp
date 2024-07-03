@@ -8,7 +8,7 @@ bool Shield::m_registerit = Factory<Shield>::instance()->registerit("Shield",
 
 Shield::Shield(const sf::Texture& texture, const sf::Vector2f& position)
     :InDestructible(texture, position, sf::Vector2f(9,2), sf::Vector2f(9/2, 2/2)),
-    m_collided(false), m_active(false)
+     m_active(false), m_collided(false)
 {
     getSprite().setColor(sf::Color::Transparent);
 }

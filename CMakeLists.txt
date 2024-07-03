@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 3.26)
 
 
-project (Zelda)
-set (MY_AUTHORS "")
+project (oop2_project)
+set (MY_AUTHORS "Yuval_Hasson-Or_Shain-Yehu_Raccah")
 
 include (cmake/CompilerSettings.cmake)
 

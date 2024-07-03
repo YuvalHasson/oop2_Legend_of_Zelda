@@ -7,8 +7,9 @@ bool Sign::m_registerit = Factory<Sign>::instance()->registerit("Sign",
 	});
 
 Sign::Sign(const sf::Texture& Texture, const sf::Vector2f& position)
-	: InDestructible(Texture, position, sf::Vector2f(tileSize + 1, tileSize + 5), sf::Vector2f(0, 0)), m_active(false),
-	m_hitBox(position ,sf::Vector2f(tileSize, tileSize), sf::Vector2f(0,0))
+	: InDestructible(Texture, position, sf::Vector2f(tileSize + 1, tileSize + 5), sf::Vector2f(0, 0)),
+	m_hitBox(position ,sf::Vector2f(tileSize, tileSize), sf::Vector2f(0,0)),
+	m_active(false)
 {
 	m_text.setFont(*Resources::getResource().getFont());
 	m_text.scale(0.9f, 0.9f);

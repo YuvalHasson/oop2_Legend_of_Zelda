@@ -1,5 +1,4 @@
 #pragma once
-
 #define _USE_MATH_DEFINES
 
 #include <SFML/Graphics.hpp>
@@ -67,7 +66,7 @@ enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
 #define MAX_HEALTH 6
 #define MIN_HEALTH 0
 
-//#define M_PI 3.14159265358979323846
+
 
 namespace TEXTURE
 {
