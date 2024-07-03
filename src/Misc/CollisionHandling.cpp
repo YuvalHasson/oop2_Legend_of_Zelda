@@ -129,6 +129,8 @@ namespace
 
 	void ProjectileLinkArrow(GameObject&, GameObject&) {}
 
+	void ShieldLinkArrow(GameObject&, GameObject&) {}
+
 	void SeaUrchinDoor(GameObject& seaUrchin, GameObject&)
 	{
 		SeaUrchin* seaUrchinPtr = dynamic_cast<SeaUrchin*>(&seaUrchin);
@@ -1355,6 +1357,7 @@ namespace
 		phm[Key(typeid(Shield),		typeid(SeaUrchin))] =		&ShieldSeaUrchin;
 		phm[Key(typeid(Shield),		typeid(Boulder))] =			&ShieldBoulder;
 		phm[Key(typeid(Shield),		typeid(WizardBoss))] =		&ShieldWizardBoss;
+		phm[Key(typeid(Shield),		typeid(LinkArrow))] =		&ShieldLinkArrow;
 		phm[Key(typeid(Projectile), typeid(Wall))] =			&ProjectileWall;
 		phm[Key(typeid(Projectile), typeid(Link))] =			&ProjectileLink;
 		phm[Key(typeid(Projectile), typeid(Octorok))] =			&ProjectileOctorok;
