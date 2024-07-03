@@ -22,6 +22,7 @@ Link::Link(const sf::Texture& texture, const sf::Vector2f& position)
     setHp(MAX_HEALTH);
     addHitColor(sf::Color(255,93,0));
     addHitColor(sf::Color(255,255,255,0));
+    setDirection(DIRECTIONS::Down);
 }
 
 Link::~Link()
