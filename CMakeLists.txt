@@ -6,7 +6,11 @@ set (MY_AUTHORS "Yuval_Hasson-Or_Shain-Yehu_Raccah")
 
 include (cmake/CompilerSettings.cmake)
 
-add_executable (${CMAKE_PROJECT_NAME})
+if(APPLE)
+    add_executable (${CMAKE_PROJECT_NAME})
+elseif(WIN32)
+    add_executable (${CMAKE_PROJECT_NAME}WIN32)
+endif()
 
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE $<$<CONFIG:DEBUG>:-fsanitize=address>)
 target_link_options(${CMAKE_PROJECT_NAME} PRIVATE $<$<CONFIG:DEBUG>:-fsanitize=address>)
