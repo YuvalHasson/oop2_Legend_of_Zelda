@@ -138,6 +138,11 @@ void Link::update(const sf::Time& deltaTime){
 	setSpeed(1.f);
 }
 
+const sf::Vector2u Link::getAnimationTexturePosition(Input)
+{
+    return sf::Vector2u(0, 0);
+}
+
 void Link::move()
 {
     Animate::move();

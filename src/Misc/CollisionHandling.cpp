@@ -719,7 +719,6 @@ namespace
 		}
 	}
 
-
 	void EnemySwordPigWarrior(GameObject& enemySword, GameObject& pigWarrior)
 	{
 		PigWarriorEnemySword(pigWarrior, enemySword);
@@ -1212,8 +1211,8 @@ namespace
 		LinkArrow* arrowPtr = dynamic_cast<LinkArrow*>(&arrow);
 		if (wizardBossPtr && arrowPtr)
 		{
-			if(!wizardBossPtr->getInvincible()){
-				std::cout<<"boss invincible!!!\n";
+			if(!wizardBossPtr->getInvincible())
+			{
 				wizardBossPtr->pushBack(-getCollisionDirection(arrow, wizardBoss));
 				wizardBossPtr->setHp(wizardBossPtr->getHp() - 1);
 				wizardBossPtr->hit();
@@ -1261,8 +1260,6 @@ namespace
 			octorokPtr->undoMove();
 		}
 	}
-
-	//...
 
 	using HitFunctionPtr = void (*)(GameObject&, GameObject&);
 	// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
@@ -1465,7 +1462,6 @@ namespace
 		phm[Key(typeid(WizardBoss), typeid(EnemySword))] =		&WizardBossEnemySword;
 		phm[Key(typeid(WizardBoss), typeid(Projectile))] =		&WizardBossProjectile;
 
-		//...
 		return phm;
 	}
 

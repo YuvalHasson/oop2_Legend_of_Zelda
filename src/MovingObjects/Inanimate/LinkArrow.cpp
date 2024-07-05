@@ -5,8 +5,6 @@ bool LinkArrow::m_registerit = Factory<LinkArrow>::instance()->registerit("LinkA
         return std::make_unique<LinkArrow>(*Resources::getResource().getTexture(TEXTURE::Link), position);
     });
 
-
-//might need to add direction to constructor so arrow initializes to right direction at creation
 LinkArrow::LinkArrow(const sf::Texture& Texture, const sf::Vector2f& position)
     : Projectiles(Texture, position, sf::Vector2f(6, 6), sf::Vector2f(6 / 2, 6 / 2)) {}
 
@@ -15,7 +13,8 @@ void LinkArrow::update(const sf::Time&)
     move();
 }
 
-void LinkArrow::initArrow(const sf::Vector2f& direction){
+void LinkArrow::initArrow(const sf::Vector2f& direction)
+{
     setSpeed(2);
     sf::Vector2f arrowDirection;
     if(direction == DIRECTIONS::Down){

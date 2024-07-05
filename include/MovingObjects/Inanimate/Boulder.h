@@ -1,8 +1,6 @@
 #pragma once
 
-//pushable object
-
-#include "Inanimate/Inanimate.h"
+#include "Inanimate.h"
 
 class Boulder : public Inanimate
 {

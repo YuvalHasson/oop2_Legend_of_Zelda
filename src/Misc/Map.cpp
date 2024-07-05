@@ -37,7 +37,7 @@ void Map::setDict(std::map<int ,std::string>& dict)
 	dict.emplace(55, "Door");
 	dict.emplace(56, "Door");
 	dict.emplace(57, "Door");
-	dict.emplace(58, "Door"); // fin Dungeon entrance
+	dict.emplace(58, "Door");
 
 	dict.emplace(100, "Sign");
 	dict.emplace(101, "Sign");

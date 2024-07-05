@@ -8,6 +8,14 @@ const int OBJ_AMOUNT = 19;
 const int SOUND_AMOUNT = 17;
 const int BACK_SOUND_AMNT = 9;
 
+#define windowHeight 1000
+#define WindowWidth 800
+#define tileSize 16
+#define VOLUME 15.f
+
+#define MAX_HEALTH 6
+#define MIN_HEALTH 0
+
 enum Level
 {
 	Home,
@@ -18,7 +26,8 @@ enum Level
 	THIERD_DUNGEON
 };
 
-enum GAME_STATE {
+enum GAME_STATE
+{
 	MAIN_MENU,
 	NEW_GAME,
 	EXIT,
@@ -34,7 +43,8 @@ enum GAME_STATE {
 	VICTORY
 };
 
-enum Input {
+enum Input
+{
 	PRESS_UP,
 	PRESS_DOWN,
 	PRESS_LEFT,
@@ -48,7 +58,8 @@ enum Input {
 	NONE
 };
 
-enum EnemyType {
+enum EnemyType
+{
 	PIG_WARRIOR,
 	OCTOROK,
 	SEA_URCHIN,
@@ -56,17 +67,12 @@ enum EnemyType {
 	ZELDA
 };
 
-enum Weapons{NoWeapon, SwordWeapon, BowWeapon};
-
-#define windowHeight 1000
-#define WindowWidth 800
-#define tileSize 16
-#define VOLUME 15.f
-
-#define MAX_HEALTH 6
-#define MIN_HEALTH 0
-
-
+enum Weapons
+{
+	NoWeapon,
+	SwordWeapon,
+	BowWeapon
+};
 
 namespace TEXTURE
 {
@@ -192,9 +198,9 @@ namespace SPRITE_POSITIONS
 	const sf::Vector2i Shield(48, 41);
 	const sf::Vector2i FullHeart(48, 61);
 	const sf::Vector2i HalfHeart(68, 61);
+	const sf::Vector2i Lock(243, 170);
 }
 
-//might be useless
 namespace DIRECTIONS
 {
 	const sf::Vector2f Up(0, -1);

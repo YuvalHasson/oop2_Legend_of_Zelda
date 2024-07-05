@@ -40,6 +40,7 @@ public:
 	virtual void removeLink() override;
 	void registerAsLinkObserver(Link*);
 	EnemyType getType() const override;
+
 private:
     sf::Clock m_directionChangeClock;
 	Input m_currInput;

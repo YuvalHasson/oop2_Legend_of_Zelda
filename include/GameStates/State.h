@@ -29,7 +29,6 @@ public:
 	sf::RenderWindow* getWindow() const;
 	static GAME_STATE getGameState();
 
-
 private:
 	sf::RenderWindow* m_window;
 

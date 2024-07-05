@@ -1,5 +1,4 @@
 #include "PositionMovement.h"
-#include <iostream>
 
 void PositionMovement::move(Input& direction, Enemy& enemy, sf::Clock* directionChangeClock)
 {
@@ -35,8 +34,6 @@ void PositionMovement::move(Input& direction, Enemy& enemy, sf::Clock* direction
         directionChangeClock->restart();
         direction = m_direction;
     }
-
-
 
     sf::Vector2f currentDirection = enemy.getDirection();
     if (m_direction == PRESS_RIGHT) {

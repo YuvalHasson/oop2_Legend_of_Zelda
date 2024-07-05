@@ -11,13 +11,13 @@ WizardBoss::WizardBoss(const sf::Texture& texture, const sf::Vector2f& position)
      m_currInput(PRESS_RIGHT),
      m_moveStrategy(std::make_unique<SmartMovement>()), 
      m_attackStrategy(std::make_unique<Stab>()),
-     m_weapon(nullptr), m_invincible(false), m_isDead(false)
+     m_weapon(nullptr), m_invincible(false), m_isDead(false), m_shootingPhase(false),
+     m_link(nullptr)
 {
     setDirection(DIRECTIONS::Down);
     setGraphics(ANIMATIONS_POSITIONS::BossDown, 2, true);
     updateSprite();
     setHp(10);
-    
 }
 
 WizardBoss::~WizardBoss()
@@ -99,7 +99,6 @@ void WizardBoss::update(const sf::Time& deltaTime)
     if (getHp() <= MIN_HEALTH)
     {
         setDead();
-        // destroy();
     }
 	setSpeed(1.f);
 }

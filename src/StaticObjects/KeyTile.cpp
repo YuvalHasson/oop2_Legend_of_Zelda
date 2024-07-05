@@ -1,7 +1,5 @@
 #include "KeyTile.h"
 
-#include <iostream> //debugging
-
 bool KeyTile::m_registerit = Factory<Inanimate>::instance()->registerit("KeyTile",
 	[](const sf::Vector2f& position) -> std::unique_ptr<Inanimate>
 	{

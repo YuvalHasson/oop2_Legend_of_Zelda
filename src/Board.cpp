@@ -106,9 +106,9 @@ void Board::update(const sf::Time& deltaTime)
 		m_zelda->update(deltaTime);
 	}
 
-	std::erase_if(m_staticObjects, [](const auto& StaticObjects) { return StaticObjects->isDestroyed(); });
-	std::erase_if(m_enemiesObjects, [](const auto& MovingObjects) { return MovingObjects->isDestroyed(); });
-	std::erase_if(m_inanimateObjects, [](const auto& InanimateObjects) { return InanimateObjects->isDestroyed(); });
+	std::erase_if(m_staticObjects,		[](const auto& StaticObjects)		{ return StaticObjects->isDestroyed();		});
+	std::erase_if(m_enemiesObjects,		[](const auto& MovingObjects)		{ return MovingObjects->isDestroyed();		});
+	std::erase_if(m_inanimateObjects,	[](const auto& InanimateObjects)	{ return InanimateObjects->isDestroyed();	});
 	
 	m_enemiesPositions.clear();
 	for (const auto& enemy : m_enemiesObjects)
@@ -360,15 +360,16 @@ std::vector<std::unique_ptr<StaticObjects>>& Board::editStaticObjects()
 
 std::unique_ptr<Link> Board::extractLink()
 {
-	return std::move(m_link); // Transfer ownership
+	return std::move(m_link);
 }
 
 void Board::setLink(std::unique_ptr<Link> link)
 {
-	m_link = std::move(link); // Transfer ownership
+	m_link = std::move(link);
 }
 
-const std::vector<std::unique_ptr<Enemy>>& Board::getEnemies() const{
+const std::vector<std::unique_ptr<Enemy>>& Board::getEnemies() const
+{
 	return m_enemiesObjects;
 }
 

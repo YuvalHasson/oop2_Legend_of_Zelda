@@ -2,7 +2,7 @@
 
 void Standing::move(Input& direction, Enemy&, sf::Clock* directionChangeClock)
 {
-	if (directionChangeClock->getElapsedTime().asSeconds() >= 1.0f) // Change direction every 1 seconds
+	if (directionChangeClock->getElapsedTime().asSeconds() >= 1.0f)
 	{
 		direction = STANDING;
 		directionChangeClock->restart();

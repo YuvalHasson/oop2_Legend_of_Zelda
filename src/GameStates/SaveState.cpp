@@ -24,16 +24,17 @@ void SaveState::render(sf::RenderTarget* target)
 
 std::unique_ptr<State> SaveState::handleInput(const GAME_STATE& gameState)
 {
-	if (gameState == GAME_STATE::GAME_RUNNING)
+	switch (gameState)
 	{
+	case GAME_STATE::GAME_RUNNING:
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
-	}
-	else if (gameState == GAME_STATE::EXIT)
-	{
+	case GAME_STATE::EXIT:
 		getWindow()->close();
+		break;
 	}
 	return nullptr;
 }
+
 void SaveState::buttonPressed(sf::RenderWindow&, const sf::Event&) {}
 
 void SaveState::saveGame() const
@@ -80,7 +81,7 @@ void SaveState::saveGame() const
 		// positions of boulders
 		for (const auto& inanimateObject : m_boardLevels[m_level].getInanimateObjects())
 		{
-			if (const auto& p = dynamic_cast<Boulder*>(inanimateObject.get()))
+			if (auto p = dynamic_cast<Boulder*>(inanimateObject.get()))
 			{
 				saveFile << inanimateObject->getPosition().x << " " << inanimateObject->getPosition().y << std::endl;
 			}
@@ -89,7 +90,7 @@ void SaveState::saveGame() const
 		
 		for (const auto& destructible : m_boardLevels[m_level].getStaticObjects())
 		{
-			if (const auto& p = dynamic_cast<Pot*>(destructible.get()))
+			if (auto p = dynamic_cast<Pot*>(destructible.get()))
 			{
 				saveFile << destructible->getPosition().x <<
 					 " " << destructible->getPosition().y << std::endl;

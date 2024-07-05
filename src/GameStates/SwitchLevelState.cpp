@@ -25,13 +25,13 @@ void SwitchLevelState::render(sf::RenderTarget* target)
 
 std::unique_ptr<State> SwitchLevelState::handleInput(const GAME_STATE& gameState)
 {
-	if (gameState == GAME_STATE::GAME_RUNNING)
+	switch (gameState)
 	{
+	case GAME_STATE::GAME_RUNNING:
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), m_level);
-	}
-	else if (gameState == GAME_STATE::EXIT)
-	{
+	case GAME_STATE::EXIT:
 		getWindow()->close();
+		break;
 	}
 	return nullptr;
 }

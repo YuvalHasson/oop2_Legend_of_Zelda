@@ -64,12 +64,10 @@ void LoadGameState::updateLink()
 		if (m_weaponIds[index] == BowWeapon)
 		{
 			m_link->takeBow();
-			// need to understand how to destroy bowItem
 		}
 		else if (m_weaponIds[index] == SwordWeapon)
 		{
 			m_link->takeSword();
-			// need to understand how to destroy swordItem
 		}
 	}
 }
@@ -110,23 +108,23 @@ void LoadGameState::updateLevel()
 	}
 	for (const auto& enemy : m_enemyObjects)
 	{
-		if (const auto& p = dynamic_cast<PigWarrior*>(enemy.get()))
+		if (auto p = dynamic_cast<PigWarrior*>(enemy.get()))
 		{
 			p->registerAsLinkObserver(m_link.get());
 		}
-		if (const auto& p = dynamic_cast<WizardBoss*>(enemy.get()))
+		if (auto p = dynamic_cast<WizardBoss*>(enemy.get()))
 		{
 			p->registerAsLinkObserver(m_link.get());
 		}
 
 	}
-	m_inanimateObjects = std::move(m_boardLevels[m_level].editInanimateObjects());
-	m_staticObjects = std::move(m_boardLevels[m_level].editStaticObjects());
+	m_inanimateObjects	= std::move(m_boardLevels[m_level].editInanimateObjects());
+	m_staticObjects		= std::move(m_boardLevels[m_level].editStaticObjects());
 
 	int index = 0;
-	for (auto& inanimateObject : m_inanimateObjects)
+	for (const auto& inanimateObject : m_inanimateObjects)
 	{
-		if (const auto& p = dynamic_cast<Boulder*>(inanimateObject.get()))
+		if (auto p = dynamic_cast<Boulder*>(inanimateObject.get()))
 		{
 			if (m_boulderPositions.size() > 0)
 			{
@@ -138,9 +136,9 @@ void LoadGameState::updateLevel()
 
 	int indexInpots = 0;
 	int indexInShrub = 0;
-	for (auto& destructibleObject : m_staticObjects)
+	for (const auto& destructibleObject : m_staticObjects)
 	{
-		if (const auto& p = dynamic_cast<Pot*>(destructibleObject.get()))
+		if (auto p = dynamic_cast<Pot*>(destructibleObject.get()))
 		{
 			if (indexInpots >= m_potsPositions.size())
 			{
@@ -155,7 +153,7 @@ void LoadGameState::updateLevel()
 				}
 			}
 		}
-		else if (const auto& p1 = dynamic_cast<Shrub*>(destructibleObject.get()))
+		else if (auto p1 = dynamic_cast<Shrub*>(destructibleObject.get()))
 		{
 			if (indexInShrub >= m_shrubPositions.size())
 			{
@@ -236,7 +234,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 				int numOfWeapons;
 				int numOfEnemies;
 				
-					//------read link information------\\
+				//------read link information------\\
 				
 				// Link position
 				saveFile >> m_linkPosition.x >> m_linkPosition.y;
@@ -266,7 +264,7 @@ void LoadGameState::loadGame(sf::RenderWindow* window)
 					m_weaponIds.emplace_back(weaponId);
 				}
 
-					//------load level------\\
+				//------load level------\\
 				// level number
 				saveFile >> m_level;
 				//handling bad level insertions

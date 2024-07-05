@@ -11,8 +11,8 @@ public:
 
     void update(const sf::Time&);
     void addColorToAnimation(const sf::Color&);
-    sf::Color getCurrentColor()const;
-    sf::Color getBaseColor()const;
+    sf::Color getCurrentColor() const;
+    sf::Color getBaseColor() const;
 
 private:
     sf::Color m_baseColor;

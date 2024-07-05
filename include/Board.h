@@ -2,19 +2,18 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "MovingObjects/MovingObjects.h"
-#include "StaticObjects/StaticObjects.h"
-#include "Misc/Utilities.h"
-#include "ResourcesManager/Resources.h"
-#include "ResourcesManager/SoundResource.h"
 #include <vector>
 #include <memory>
-#include <fstream>
-#include <sstream>
 
-#include "Misc/CollisionHandling.h"
-#include "Misc/Map.h"
-#include "Misc/Factory.h"
+#include "MovingObjects.h"
+#include "StaticObjects.h"
+#include "Utilities.h"
+#include "Resources.h"
+#include "SoundResource.h"
+
+#include "CollisionHandling.h"
+#include "Map.h"
+#include "Factory.h"
 #include "Sword.h"
 #include "Shield.h"
 #include "Boulder.h"

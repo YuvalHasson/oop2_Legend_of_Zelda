@@ -28,17 +28,15 @@ void NewGameState::render(sf::RenderTarget* target)
 
 std::unique_ptr<State> NewGameState::handleInput(const GAME_STATE& gameState)
 {
-	if(gameState == GAME_STATE::MAIN_MENU)
+	switch (gameState)
 	{
+	case GAME_STATE::MAIN_MENU:
 		return std::make_unique<MainMenu>(getWindow());
-	}
-	else if (gameState == GAME_STATE::GAME_RUNNING)
-	{
+	case GAME_STATE::GAME_RUNNING:
 		return std::make_unique<GameRunningState>(getWindow(), std::move(m_boardLevels), std::move(m_view), Level::Home);
-	}
-	else if(gameState == GAME_STATE::EXIT)
-	{
+	case GAME_STATE::EXIT:
 		getWindow()->close();
+		break;
 	}
 	return nullptr;
 }

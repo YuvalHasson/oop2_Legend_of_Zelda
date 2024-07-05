@@ -20,9 +20,9 @@ public:
 	~Link();
 
 	virtual void update(const sf::Time&) override;
-	virtual void draw(sf::RenderTarget& ) override;
+	virtual void draw(sf::RenderTarget&) override;
 
-	virtual const sf::Vector2u getAnimationTexturePosition(Input) override { return sf::Vector2u(0, 0); };
+	virtual const sf::Vector2u getAnimationTexturePosition(Input) override;
 	virtual void move() override;
 
 	//observer list functions
@@ -66,7 +66,7 @@ private:
 	//invincibility
 	sf::Clock m_invincibleTimer;
 	
-	//acticity variables
+	//activity variables
 	bool m_isPushing;
 	bool m_isShooting;
 	bool m_wasTabPressed;

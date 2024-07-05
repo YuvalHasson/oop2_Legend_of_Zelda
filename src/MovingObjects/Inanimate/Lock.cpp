@@ -9,5 +9,5 @@ bool Lock::m_registerit = Factory<StaticObjects>::instance()->registerit("Lock",
 Lock::Lock(const sf::Texture& texture, const sf::Vector2f& pos)
 	: Destructible(texture, pos, sf::Vector2f(tileSize, tileSize), sf::Vector2f(0, 0))
 {
-	getSprite().setTextureRect(sf::IntRect(243, 170, tileSize, tileSize));
+	getSprite().setTextureRect(sf::IntRect(SPRITE_POSITIONS::Lock, { tileSize, tileSize }));
 }

@@ -33,7 +33,6 @@ public:
 
 	virtual std::unique_ptr<Inanimate> getAttack() override;
 	
-
 	virtual void updateLinkPosition(const sf::Vector2f&) override;
 	virtual void removeLink() override;
 	void registerAsLinkObserver(Link*);
@@ -51,7 +50,5 @@ private:
 	std::unique_ptr <AttackStrategy> m_attackStrategy;
 	std::unique_ptr<Weapon> m_sword;
 	static bool m_registerit;
-
-	//sf::Clock m_invincibleTimer;
 };
 

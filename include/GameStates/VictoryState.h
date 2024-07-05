@@ -12,6 +12,7 @@ public:
 	virtual void render(sf::RenderTarget* = nullptr) override;
 	virtual std::unique_ptr<State> handleInput(const GAME_STATE&) override;
 	virtual void buttonPressed(sf::RenderWindow&, const sf::Event&) override;
+
 private:
 	sf::RectangleShape m_background;
 	sf::Sprite m_sprite;

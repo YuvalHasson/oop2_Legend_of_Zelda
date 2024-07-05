@@ -11,22 +11,22 @@ void Stab::attack(sf::Time&, sf::Clock&, std::unique_ptr<Weapon>& sword, Enemy& 
             sf::Vector2f position = enemy.getPosition();
             sf::Vector2f attackPos;
             if (enemy.getDirection().x == 1) {
-                sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordRight, 2, true, 0.10f);//true for singleTime
+                sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordRight, 2, true, 0.10f);
                 attackPos.x = position.x + tileSize * 0.71f;
                 attackPos.y = position.y;
             }
             else if (enemy.getDirection().x == -1) {
-                sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordLeft, 1);//true for singleTime
+                sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordLeft, 1);
                 attackPos.x = position.x - tileSize * 0.71f;
                 attackPos.y = position.y;
             }
             else if (enemy.getDirection() == DIRECTIONS::Up) {
-                sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordUp, 1);//true for singleTime
+                sword.get()->setGraphics(ANIMATIONS_POSITIONS::EnemySwordUp, 1);
                 attackPos.x = position.x;
                 attackPos.y = position.y - tileSize * 0.71f;
             }
             else if (enemy.getDirection() == DIRECTIONS::Down) {
-                sword->setGraphics(ANIMATIONS_POSITIONS::EnemySwordDown, 1);//true for singleTime
+                sword->setGraphics(ANIMATIONS_POSITIONS::EnemySwordDown, 1);
                 attackPos.x = position.x - 0.1f;
                 attackPos.y = position.y + tileSize * 0.65f;
             }

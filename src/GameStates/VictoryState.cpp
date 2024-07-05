@@ -1,5 +1,4 @@
 #include "VictoryState.h"
-#include <iostream>
 
 VictoryState::VictoryState(sf::RenderWindow* window)
 	: State(window), m_elapsedTime(sf::Time::Zero), m_direction(1), m_buttonPressed(false)

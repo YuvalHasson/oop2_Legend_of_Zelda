@@ -91,9 +91,9 @@ void SmartMovement::moveTowards(Enemy& enemy, const sf::Vector2f& targetPosition
         direction /= length;
     }
 
-    // Check if the PigWarrior is already close to the target position
+    // Check if the Enemy is already close to the target position
     if (length <= 1.0f) {
-        // If the PigWarrior is close enough, directly set its position to the target position
+        // If the Enemy is close enough, directly set its position to the target position
         enemy.setPosition(targetPosition);
         return;
     }

@@ -26,14 +26,14 @@ public:
 
 
 private:
-    sf::Vector2u m_animationStartPosition;//(x,y) in pixels for start position for specific animation
-    int m_imageCount; //(x,y) x- how many rows of images, y- how many images in a row
+    sf::Vector2u m_animationStartPosition; //(x,y) in pixels for start position for specific animation
+    int m_imageCount;
     int m_currentImage;
 
     sf::IntRect m_uvRect;
     bool m_singleImgFlip;
 
-    float m_timePassed;//time passed from last image change
+    float m_timePassed; //time passed from last image change
     float m_switchTime; //switch interval between each picture
 
     bool m_singleTime;

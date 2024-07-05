@@ -13,14 +13,15 @@ GameObject::~GameObject(){};
 
 void GameObject::draw(sf::RenderTarget& target)
 {   
-    sf::RectangleShape rect;
-    rect.setPosition(m_hitBox.GetRect().left, m_hitBox.GetRect().top);
-    rect.setSize(sf::Vector2f(m_hitBox.GetRect().width, m_hitBox.GetRect().height));
-    rect.setFillColor(sf::Color::Transparent);
-    rect.setOutlineColor(sf::Color::Blue);
-    rect.setOutlineThickness(1);
-    target.draw(m_sprite);
+    //debugging hit-box
+    //sf::RectangleShape rect;
+    //rect.setPosition(m_hitBox.GetRect().left, m_hitBox.GetRect().top);
+    //rect.setSize(sf::Vector2f(m_hitBox.GetRect().width, m_hitBox.GetRect().height));
+    //rect.setFillColor(sf::Color::Transparent);
+    //rect.setOutlineColor(sf::Color::Blue);
+    //rect.setOutlineThickness(1);
     //target.draw(rect);
+    target.draw(m_sprite);
 }
 
 void GameObject::destroy()

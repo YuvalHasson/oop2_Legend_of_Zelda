@@ -32,12 +32,11 @@ private:
 	sf::View m_view;
 	std::vector<std::unique_ptr<Enemy>> m_enemyObjects;
 	std::vector<std::unique_ptr<Inanimate>> m_inanimateObjects;
+	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 	
 	GAME_STATE m_cameFromState;
 	std::vector<Board> m_boardLevelsIfNoSave;
 	Level m_levelIfNoSave;
-
-	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
 
 	// about Link
 	std::unique_ptr<Link> m_link;

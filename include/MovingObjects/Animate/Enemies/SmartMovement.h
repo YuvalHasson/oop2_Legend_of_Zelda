@@ -25,7 +25,6 @@ public:
 	void addNeighborsToQueue(const sf::Vector2f&);
 	void moveTowards(Enemy&, const sf::Vector2f&);
 
-	//void UpdateLinkPos(const sf::Vector2f& position);
 	float distance(const sf::Vector2f&, const sf::Vector2f&);
 
 private:

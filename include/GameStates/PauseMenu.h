@@ -12,7 +12,6 @@
 
 using Option = std::pair<std::string, std::unique_ptr<Button>>;
 
-
 class PauseMenu : public State
 {
 public:
