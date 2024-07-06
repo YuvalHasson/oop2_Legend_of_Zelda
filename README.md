@@ -7,14 +7,14 @@ Our rendition of the classic game made using C++ and SFML as graphics library.<b
 ## Game Rules and Objectives:
 In the game there are 3 types of enemies:
 
-•	PigWarriors – Smart enemies that attacks from a short distance and uses a sword to stab the player.
-•	Octoroks – Random enemies that roam around the map and randomly shoot projectiles.
+•	PigWarriors – Smart enemies that attacks from a short distance and uses a sword to stab the player.<br />
+•	Octoroks – Random enemies that roam around the map and randomly shoot projectiles.<br />
 •	Wizard(end boss) – The wizard has two phases, in phase one the wizard will get close to stab the enemy, in phase two the wizard will become invincible and will shoot many projectiles in a circle pattern. It will switch between those two phases until it is defeated.
 
 Besides battling enemies, players will face puzzles that involve pushing boulders to clear paths or position them correctly.
 
-The player can earn two types of weapons:
-•	Sword – Used for close combat.
+The player can earn two types of weapons:<br />
+•	Sword – Used for close combat.<br />
 •	Bow – After earning the bow the player can use it to shoot arrows at enemies.
 
 Additionally the player is equipped with a shield right from the start,
