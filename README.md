@@ -62,9 +62,9 @@ make
 ./oop2_project
 ```
 
-#Made by:
-[Yuval Hasson](https://github.com/YuvalHasson)
-[Or Shain](https://github.com/orshain)
+# Made by:
+[Yuval Hasson](https://github.com/YuvalHasson)  
+[Or Shain](https://github.com/orshain)  
 [Yehu Raccah](https://github.com/Yehuhub)
 
 ## Credits:
