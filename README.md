@@ -1,5 +1,5 @@
 # The Legend Of Zelda Clone
-Our rendition of the classic game made using C++ and SFML as graphics library.  The player's goal is to navigate through dungeons filled with puzzles and enemies. The first, is a mandatory dungeon and rewards the player with a sword, essential for progressing to the optional next dungeon, where a powerful bow awaits. Ultimately, the game concludes with a battle against the evil wizard, whose defeat marks the end of game.
+Our rendition of the classic game made using C++ and SFML as graphics library.<br />The player's goal is to navigate through dungeons filled with puzzles and enemies. The first, is a mandatory dungeon and rewards the player with a sword, essential for progressing to the optional next dungeon, where a powerful bow awaits. Ultimately, the game concludes with a battle against the evil wizard, whose defeat marks the end of game.
 
 ## Video Overview:
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/jM9-a42St-8/0.jpg)](https://www.youtube.com/watch?v=jM9-a42St-8)
@@ -38,7 +38,7 @@ ESC – Pause menu
 •	CMakeLists.txt: Build configuration
 
 ## Notable Algorithms used:
-•	BFS – as smart movement strategy for enemies.
+•	BFS – as smart movement strategy for enemies.  
 •	Ray-Casting – casting a ray between the enemy and the player and checks if the ray reaches the player to check for line of sight between them.
 
 ## Installation
