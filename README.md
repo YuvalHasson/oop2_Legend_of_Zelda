@@ -30,7 +30,7 @@ TAB – Switch weapon
 SPACE – Attack  
 ESC – Pause menu
 
-#Development
+# Development
 ## Project Structure
 •	src/: Source code  
 •	include/: Header files  
