@@ -1,6 +1,9 @@
 # The Legend Of Zelda Clone
 our rendition of the classic game. the player's goal is to navigate through dungeons filled with puzzles and enemies. The first, is a mandatory dungeon and rewards the player with a sword, essential for progressing to the optional next dungeon, where a powerful bow awaits. Ultimately, the game concludes with a battle against the evil wizard, whose defeat marks the end of game.
 
+## Video Overview:
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=jM9-a42St-8)
+
 ## Game Rules and Objectives:
 In the game there are 3 types of enemies:
 
