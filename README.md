@@ -48,11 +48,11 @@ The game features an open-world design with no specific level structure, allowin
 •	Run the batch script(Game will be installed in documents folder)
 
 ### Building the project
-•	SFML 2.6.0
-•	CMake 3.26 or higher
+•	SFML 2.6.0  
+•	CMake 3.26 or higher  
 •	A C++17 compatible compiler
 
-#### Building the Project
+#### 
 ```sh
 git clone https://github.com/YuvalHasson/oop2_Legend_of_Zelda.git
 cd oop2_Legend_of_Zelda
