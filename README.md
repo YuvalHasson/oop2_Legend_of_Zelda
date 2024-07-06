@@ -42,9 +42,9 @@ The game features an open-world design with no specific level structure, allowin
 •	**Ray-Casting** – casting a ray between the enemy and the player and checks if the ray reaches the player to check for line of sight between them.
 
 ## Installation
-### Via the installation script
-•	Download the InstallGame.bat
-•	Download the InstallGame.ps1
+### Via the installation script(Windows only)
+•	Download the InstallGame.bat  
+•	Download the InstallGame.ps1  
 •	Run the batch script(Game will be installed in documents folder)
 
 ### Building the project
