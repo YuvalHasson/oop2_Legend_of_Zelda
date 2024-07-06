@@ -20,8 +20,8 @@ Which is used to block stabs and deflect projectiles, making it crucial for prog
 The game features an open-world design with no specific level structure, allowing the players to walk around the map and progress in the way they choose to, only after defeating the wizard the game will end.
 
 ## Controls:
-Arrow keys or WASD – Player movement.
-E – Hold for interacting with the signs around the map.
+Arrow keys or WASD – Player movement
+E – Hold for interacting with the signs around the map
 B – Hold B to shield your current direction
 TAB – Switch weapon
 SPACE – Attack
