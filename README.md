@@ -42,19 +42,19 @@ ESC – Pause menu
 •	Ray-Casting – casting a ray between the enemy and the player and checks if the ray reaches the player to check for line of sight between them.
 
 ## Installation
-### via installation script
+### Via the installation script
 •	Download the InstallGame.bat
 •	Download the InstallGame.ps1
 •	Run the batch script(Game will be installed in documents folder)
 
-### Cloning and building the project
+### Building the project
 •	SFML 2.6.0
-•	CMake 3.10 or higher
+•	CMake 3.26 or higher
 •	A C++17 compatible compiler
 
 #### Building the Project
 ```sh
-git clone https://github.com/yYuvalHasson/oop2_Legend_of_Zelda.git
+git clone https://github.com/YuvalHasson/oop2_Legend_of_Zelda.git
 cd oop2_Legend_of_Zelda
 mkdir build && cd build
 cmake ..
