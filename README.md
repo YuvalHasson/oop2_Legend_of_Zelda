@@ -1,5 +1,5 @@
 # The Legend Of Zelda Clone
-Our rendition of the classic game using C++ and SFML as graphics library.   The player's goal is to navigate through dungeons filled with puzzles and enemies. The first, is a mandatory dungeon and rewards the player with a sword, essential for progressing to the optional next dungeon, where a powerful bow awaits. Ultimately, the game concludes with a battle against the evil wizard, whose defeat marks the end of game.
+Our rendition of the classic game made using C++ and SFML as graphics library.  The player's goal is to navigate through dungeons filled with puzzles and enemies. The first, is a mandatory dungeon and rewards the player with a sword, essential for progressing to the optional next dungeon, where a powerful bow awaits. Ultimately, the game concludes with a battle against the evil wizard, whose defeat marks the end of game.
 
 ## Video Overview:
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/jM9-a42St-8/0.jpg)](https://www.youtube.com/watch?v=jM9-a42St-8)
@@ -30,6 +30,33 @@ TAB – Switch weapon
 SPACE – Attack  
 ESC – Pause menu
 
+#Development
+## Project Structure
+•	src/: Source code
+•	include/: Header files
+•	Resources/: Game assets (images, sounds, etc.)
+•	CMakeLists.txt: Build configuration
+
 ## Notable Algorithms used:
 •	BFS – as smart movement strategy for enemies.
 •	Ray-Casting – casting a ray between the enemy and the player and checks if the ray reaches the player to check for line of sight between them.
+
+## Installation
+### via installation script
+•	Download the InstallGame.bat
+•	Download the InstallGame.ps1
+•	Run the batch script(Game will be installed in documents folder)
+
+### Cloning and building the project
+•	SFML 2.6.0
+•	CMake 3.10 or higher
+•	A C++17 compatible compiler
+
+#### Building the Project
+```sh
+git clone https://github.com/yYuvalHasson/oop2_Legend_of_Zelda.git
+cd oop2_Legend_of_Zelda
+mkdir build && cd build
+cmake ..
+make
+./oop2_project
