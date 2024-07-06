@@ -65,7 +65,7 @@ make
 # Made by:
 [Yuval Hasson](https://github.com/YuvalHasson)  
 [Or Shain](https://github.com/orshain)  
-[Yehu Raccah](https://github.com/Yehuhub)
+[Yehu Raccah](https://www.linkedin.com/in/yehu-raccah-8530b92b9/)
 
 ## Credits:
 - SFML
