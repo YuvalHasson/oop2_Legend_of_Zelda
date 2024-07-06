@@ -23,23 +23,23 @@ Which is used to block stabs and deflect projectiles, making it crucial for prog
 The game features an open-world design with no specific level structure, allowing the players to walk around the map and progress in the way they choose to, only after defeating the wizard the game will end.
 
 ## Controls:
-Arrow keys/WASD – Player movement  
-E – Hold to interact with the signs around the map  
-B – Hold B to use defend with your shield in your current direction  
-TAB – Switch weapon  
-SPACE – Attack  
-ESC – Pause menu
+**Arrow keys/WASD** – Player movement  
+**E** – Hold to interact with the signs around the map  
+**B** – Hold B to use defend with your shield in your current direction  
+**TAB** – Switch weapon  
+**SPACE** – Attack  
+**ESC** – Pause menu
 
 # Development
 ## Project Structure
-•	src/: Source code  
-•	include/: Header files  
-•	Resources/: Game assets (images, sounds, etc.)  
-•	CMakeLists.txt: Build configuration
+•	**src/**: Source code  
+•	**include/**: Header files  
+•	**Resources/**: Game assets (images, sounds, etc.)  
+•	**CMakeLists.txt**: Build configuration
 
 ## Notable Algorithms used:
-•	BFS – as smart movement strategy for enemies.  
-•	Ray-Casting – casting a ray between the enemy and the player and checks if the ray reaches the player to check for line of sight between them.
+•	**BFS** – as smart movement strategy for enemies.  
+•	**Ray-Casting** – casting a ray between the enemy and the player and checks if the ray reaches the player to check for line of sight between them.
 
 ## Installation
 ### Via the installation script
