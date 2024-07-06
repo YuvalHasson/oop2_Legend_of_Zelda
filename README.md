@@ -4,7 +4,7 @@ Our rendition of the classic game made using C++ and SFML as graphics library.<b
 The player's goal is to navigate through dungeons filled with puzzles and enemies.<br />The first, is a mandatory dungeon and rewards the player with a sword, essential for progressing to the optional next dungeon, where a powerful bow awaits.<br />Ultimately, the game concludes with a battle against the evil wizard, whose defeat marks the end of game.
 
 ## Video Overview:
-<a href="https://www.youtube.com/watch?v=jM9-a42St-8" target="_blank"><img src="https://img.youtube.com/vi/jM9-a42St-8/0.jpg" alt="IMAGE ALT TEXT HERE"></a>
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/jM9-a42St-8/0.jpg)](https://www.youtube.com/watch?v=jM9-a42St-8)
 
 ## Game Rules and Objectives:
