@@ -32,9 +32,9 @@ ESC – Pause menu
 
 #Development
 ## Project Structure
-•	src/: Source code
-•	include/: Header files
-•	Resources/: Game assets (images, sounds, etc.)
+•	src/: Source code  
+•	include/: Header files  
+•	Resources/: Game assets (images, sounds, etc.)  
 •	CMakeLists.txt: Build configuration
 
 ## Notable Algorithms used:
