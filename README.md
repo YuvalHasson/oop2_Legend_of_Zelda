@@ -60,3 +60,14 @@ mkdir build && cd build
 cmake ..
 make
 ./oop2_project
+```
+
+#Made by:
+[Yuval Hasson](https://github.com/YuvalHasson)
+[Or Shain](https://github.com/orshain)
+[Yehu Raccah](https://github.com/Yehuhub)
+
+## Credits:
+- SFML
+- Noam Debel for making the overview video
+- Hadassah Academic College
